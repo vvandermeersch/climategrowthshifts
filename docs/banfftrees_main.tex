@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[top=1.00in, bottom=1.0in, left=1in, right=1in]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{parskip}
+
+\def\labelitemi{--}
+\parindent=0pt
+
+\begin{document}
+\renewcommand{\refname}{\CHead{}}
+
+% \setlength{\parindent}{0cm}
+% \setlength{\parskip}{5pt}
+
+%% Please remember! %%
+% If you want to add text, please cut or suggest where to cut text, as we are probably a little over already %%
+% We need to be both exciting and sound mathematically interesting. 
+% Please tell me weeks you can meet within the when2meet and *impossible* weeks 
+% Thank you! %%
+
+% Fixes that I think I made....
+% "The organizing committee has been carefully chosen to represent diversity within multiple categories, such as: career stage, backgrounds/minoritized groups, geography, subject area." and we made the organizing committee the same as the participants to avoid hierarchy, get everyone working equally etc.
+% We expect impact on others through our training ... and plan to build a short course for this online. We'll include a survey link from that site to ask others who use it to tell us that they did, when, where and how etc.
+% Justify the case for using BIRS
+
+{\Large Title: How do trees grow in a non-stationary climate?} 
+\vspace{3ex}
+
+{\bf Box 1: Overview:} \emph{Please provide a short overview of the subject area of your Research in Teams.}
+
+What determines how much trees grow and when? This is a surprisingly difficult question to answer because tree growth is influenced by a complex interplay of  external events and size-dependent developmental stages that are mediated by environmental factors \citep{Chapin:2002nh,larcher2003}. Tiny young tree seedlings, generally emerge into the dark understory of forests, and spend the first part of their lives in a race to the top. They thus prioritize upward growth, with external events (e.g., death of a nearby adult tree) that cause increased sunlight triggering a rapid phase shift in growth rates as they punch up to canopy. Once at the canopy level, trees prioritize growing outward---in diameter---in a process that is non-additive due to the natural size and shape of trees. Both upward (juvenile) and outward (adult) growth rates depends strongly on climate—especially temperature and drought. 
+
+For over a century, foresters and ecologists have modeled tree growth using proxies---repeated measurements of the external diameter---to estimate how quickly trees add biomass. These data, often collected every 5 years for some period on every tree in small plots have added up to data now almost global in its reach, and led to insights critical to forest management \citep{condit1993identifying,stoll1994growth}. Current models using these data partition growth variation across populations, sites and species, meeting the needs of many foresters and ecologists \citep[e.g.,][]{zhang2017effect}. Yet, given the coarse temporal resolution of the data and generally limited time-series (usually 10-30 years), these models simplify critical aspects of how tree grow, especially the major role of climate through temperature and drought. 
+
+This gap has been partially filled by dendrochronology, a subfield of climatology that uses a different proxy of tree growth---ring width extracted from internal tree cores---to build extensive time-series (centuries to millennia) to estimate relationships between annual tree growth and climate---especially temperature and drought \citep{cook2013methods}. Historically, dendrochronology focused on reconstructing past climate through annual ring widths, tending to collect smaller non-random samples that would hopefully maximize the climate signal \citep[e.g., sampling has focused on larger trees in more extreme environmental conditions;][]{manzanedo2019towards}. Given their aims, models from dendrochronology generally smoothed, detrended or otherwise tried to standardize away the complexities of phase shifts and size-based growth \citep{schofield2016model}. 
+
+Today, anthropogenic climate change has layered on complex non-stationarity in climate, and pressured the fields of dendrochronology and ecology to accurately forecast future tree growth. Recent forecasting attempts have uncovered gaps and major problems in the current approaches \citep[e.g., the `divergence problem' in dendrochonology,][]{d2008divergence}. This has highlighted that, while previous methods may have worked well enough for previous aims, they no longer do. Both fields are therefore increasingly recognizing the need for new models that handle shifting temperature and drought regimes. To date, however, few have attempted to merge these disciplines' complementary data-streams. 
+
+The opportunity to bridge these disciplinary gaps and build better tree growth models has never been higher. Both fields have rapidly expanded and improved their data streams in recent years, resulting in new massive databases that could be fused to build better models, leveraging the benefits of each data type. But building these models requires improved mathematical and computational tools, which ecologists and dendrochronologists lack. Merging these datasets will require new models that recognize each data stream as a different proxy in a latent model of tree growth, and thus can build from first principles to more directly include the impacts of phase shifts and changing climate.  % Neither field alone can do this ... 
+% Also from Victor: To summarise, tree ring data have a better temporal resolution, time series are longer... Are these data also less prone to error? (lab measurement, vs field measurement of DBH?)
+% But since there are fewer samples and a lower coverage, we need to use tree diameter data to calibrate growth curves -- because theoretically we could estimated tree diameter from the sum of ring-widths, no? (though this approach might be biased? https://doi.org/10.1016/j.dendro.2021.125844)
+
+{\bf Box 2:} \emph{Will you be receiving travel support from one of BIRS's partner organizations?}\\
+Maybe. I think that I [Lizzie] can apply for this. See notes in extras. (Everyone else can ignore this question.)\\
+
+{\bf Box 3:} \emph{Is this proposed activity a follow-on from a previous BIRS event that you organized or attended?}\\
+No. \\
+
+{\bf Box 4: Objectives:} \emph{Please provide a statement of the objectives of your Research in Teams and an indication of its relevance, importance, and timeliness.} \emph{The intended objectives of RITs is for participants, who are experts, to come together to exchange the latest developments and ideas in their areas, to foster new collaborations and new interdisciplinary interactions, and to provide a forum for vigorous research-oriented discussions.}
+
+\emph{Problem statement:} Global forecasts increasingly need accurate models of not only how trees grow, but also how that growth varies within and across ecosystems and their climates. Current models, however, are limited by disciplinary divides that obstruct this larger scope. In order to learn how tree growth interacts with a changing climate we need to leverage ecological and dendrochronological domain expertise and state-of-the-art statistical methodology to develop principled mathematical models and fit them. BIRS provides a unique opportunity to bring together scientists with the biological, mathematical, and computational expertise needed to tackle this challenging modeling problem.
+
+Objectives: 
+\begin{enumerate}
+\item We will first develop a new time and size dependent mathematical model of tree growth that accommodates phase shifts (important events that fundamentally change growth). We will develop this from first principles, verifying our approach by testing its performance on species- and size-specific growth curves from plot-scale data of tree diameters, one of the two most extensive data sources of tree growth.
+\item We will next develop an annual growth model for individual trees that accommodates two key mathematical features of a non-stationary environment: annual variability and long-term changes to drivers of tree performance. A second extensive source of data on tree growth, tree ring data (ring widths produced annually by trees), will be merged with climate models to verify that models capture how climatic variables influence tree growth at the individual and population-level, while identifying species- and location-specific differences. 
+\item Finally, we will integrate our stationary models of size-specific growth (developed in 1) with non-stationary models describing climate-growth dependencies (developed in 2), allowing us to estimate key growth parameters (size at which phase shifts occur, impacts of climate) and how they vary among individual trees, while propagating measurement and model error.  
+\end{enumerate}
+
+Our objectives are designed to challenge current models of how trees grow by bridging across disciplines using new joint modeling approaches. To meet our objectives we have developed a small  but diversified interdisciplinary team spanning four countries and several career stages. We propose to bring together biologists that span perspectives on tree growth from forestry, ecology and dendrochronology  with more computationally focused scientists: a computational statistician who has expertise in joint models that include latent complex-time processes, multiple scales of heterogeneity, and has previously worked with tree growth data, and a newly graduated PhD trained in computational engineering but focusing recently on tree distribution models. All members have extensive experience in fusing diverse, large complex data-streams. 
+
+To make the most of our time at BIRS we plan a minimum of three virtual (e.g. Zoom) meetings in advance to refine approaches and prepare data. This will help us maximize our time at BIRS and increase the impact of our work relative to its carbon footprint (it will also help us develop a working dynamic virtually that we can leverage if our in-person meeting were disrupted). Thus, we will arrive with data in hand, including cleaned and merged data from a suite of sites in Western North America that we will use as a case-study. From there, we will work up to major data streams from Canada (National Forest Inventory) and the United States \citep[Forest Inventory and Analysis,][]{tinkham2018applications} and the International Tree-Ring Data Bank \citep{zhao2019international}. Together, our team has expertise to build new models that could reshape our understanding how trees grow under a shifting climate and have major implications for forest management, ecosystem functioning and climate change itself---and we have designed a team spanning career stages and perspectives to maximize opportunities for major breakthroughs. We plan several virtual meetings after to wrap up work and develop a online documents explaining our approach with complete code and examples, with an example that can be used as short course to teach Bayesian approaches (two of the participants have experience in building such a short course already and a template to build off; we can provide more details on this if requested).  
+
+% Section 7 proposal guidelines says: 
+% Submissions should be in plain text, with UTF-8 encoding (for the Unicode character set). You may use LaTeX2e syntax for mathematical expressions or formatting. Formatting may include itemized lists, sections (\section*{section name}), subsections (\subsection*{subsection name}), citations, and bibliographies (add “\begin {thebibliography}{99} ...” to the end of "Objectives"). 
+\bibliography{banfftrees}
+\bibliographystyle{agsm}
+
+
+{\bf Box 5: Press release:} \emph{Please provide 1–2 paragraphs for a press release for your event. It should be understandable by the general public.}
+% How trees grow is a fundamental challenge across biology, climatology and conservation because it is critical to our understanding of past climate, carbon sequestration, forest composition, and ecosystem function. Because of its important role in ecosystems forecasting tree growth has become increasing important at the same time models are not improving. Part of the problem is the time-and size-dependent nature of tree growth that is confounded by phase shifts due to events. This is made more challenging by the two major data streams for understanding landscape-scale tree growth: tree diameter and tree ring data. Most research today addresses these challenges using smoothing and standardizing methods developed almost a century ago, with no mechanistic basis. Yet, as anthropogenic climate change has increased the need for robust models of tree growth that are accurate as climate shifts, the inherent error in these models has become more problematic. Our Research in Small Teams proposal brings together mathematical modelers, statisticians and tree biologists to ....
+
+Trees are complex organisms whose woody structures play key roles in regulating the planet's climate, host a significant fraction of the world's biodiversity, and provide humans with a critical renewable resource. Understanding and predicting how trees will grow on a rapidly warming planet is thus of paramount importance. Despite extensive continental-scale data on internal (tree cores) and external (tree diameter) proxies of tree growth, and decades of analyses of these data, we still lack models that accurately capture the key features of tree growth and its response to climate change. The advent of open data, which has provided unparalleled new access to global information on tree growth, development of new sophisticated statistical tools, and increasing computing power---together with rapidly accelerating climate change make this the time to address this challenge. 
+
+Bringing together tree biologists and computational statisticians from different countries and career stages, our Research in Teams proposes to develop mechanistic models of tree growth that can accommodate these newly available extensive and complex data streams with full uncertainty to provide robust forecasts of tree growth. These in turn can improve our forecasts of forest regeneration, fire cycles and carbon sequestration, and thus climate change itself. Together, these improved forecasts can help us better prepare and adapt to climate change. % Something about forecasts for forest managers, conservation biologists ... etc. 
+
+
+{\bf Box 6-11...} 
+\begin{itemize}
+\item 6. Number of participants
+\item 7. To the best of your knowledge, what percentage of your participants are from underrepresented groups?
+\item 8. Please provide at least two preferred date ranges (of one week or two weeks), in the order of most preferred to least preferred. (Req) % 14 April 2025; 30 June 2025 % https://www.when2meet.com/?25440611-4A6us and see notposting/schedulingbanff2025.xlsx
+\item 9. Please provide any impossible date ranges. % Any dates before the week of 24 February 2025; weeks of 28 April and 5 May and week of 7 July. 
+\item 10. What is your contingency plan in case an in-person meeting is not possible? (Req)
+\item 11. Additional comments
+\end{itemize}
+
+
+{\bf Box 7} 
+
+To the best our knowledge, 75\% of our group come from under-represented groups, including two women and one person of Mexican origin. In addition, two of our proposed group members were the first in their families to attend university (all proposed members are now PhDs). As outlined in our Objectives, we designed our group to span career stages (from someone just finishing their PhD to a senior faculty member), countries, disciplines and skill sets. We believe this diversity of perspectives will be critical for building innovative new models of tree growth and we have further planned our meeting and our virtual pre-meetings to develop a working dynamic where everyone feels they can contribute equally and speak freely about new ideas, concerns, and approaches. As part of this we have co-organized the proposal development and consider all of the members co-organizers in the team. 
+
+{\bf Box 10:}  We would expand our existing plan of virtual meetings if an in-person meeting is not possible. Our current plan involves establishing a schedule for several virtual meetings in advance of our in-person meeting to discuss approaches and prepare data as a full team. The goals of these meetings are also to establish a good working dynamic in the group, including equity in tasks and openly sharing ideas and suggestions. We plan for these to be 90-120 minutes with a minimum of three meetings (but up to six) before the in-person meeting. If an in-person meeting is not possible we would already have a good virtual meeting dynamic that we would work to adapt. We plan to use the same scheduled week of the in-person meeting to work together remotely, with two hours meetings most days (spanning our timezones, these would likely be late afternoon in Europe, mid-day in New York and mornings in west coast Canada) to discuss in-depth followed by all members working several additional hours each day independently for up to four days in the week. This would be followed by additional virtual meetings every other week for up to two months to complete the proposed work. 
+
+\end{document}
+
