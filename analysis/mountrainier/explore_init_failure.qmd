@@ -1,6 +1,6 @@
 ---
 title: "Explore gradient issues"
-format: html
+format: pdf
 editor: visual
 editor_options: 
   chunk_output_type: console
@@ -9,7 +9,7 @@ editor_options:
 ```{r}
 suppressPackageStartupMessages(library(doFuture))
 library(ggplot2)
-library(rstan)
+suppressPackageStartupMessages(library(rstan))
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
@@ -19,11 +19,9 @@ wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
 mdl.data <- readRDS(file.path(wd, 'output', 'saved_mdldata_initfailure.rds'))
 ```
 
-
 ## Brute-force approach
 
-We define a function to set initial values for sampling. We draw uniformly from the interval (-2,2), the default strategy in Stan (on the unconstrained scale).
-For parameters that are bounded below at 0 (all except `delta_t_half`), we apply the exponential.
+We define a function to set initial values for sampling. We draw uniformly from the interval (-2,2), the default strategy in Stan (on the unconstrained scale). For parameters that are bounded below at 0 (all except `delta_t_half`), we apply the exponential.
 
 ```{r}
 initfun <- function() {
@@ -70,7 +68,7 @@ plan(sequential)
 perc_fail <- nrow(init_fail[init_fail$failure == "Failure",])/nrow(init_fail)*100
 ```
 
-Sampling fails in `{r} perc_fail`% of cases.  
+Sampling fails in `{r} perc_fail`% of cases.\
 The only parameter where there is an obvious difference between "Failure" and "Success" is delta_d (the difference between minimum and maximum DBH).
 
 ```{r}
@@ -104,24 +102,19 @@ ggplot(data = init_fail_long[init_fail_long$var %in% c("sigma"),]) +
 
 ### Looking at delta_d
 
-Taking the Gompertz function (reparameterized):
-$$
+Taking the Gompertz function (reparameterized): $$
 G(t)=d_{max}*exp(-log(2)*exp(-\frac{2}{log(2)}*\frac{\beta}{d_{max}}*(t-\tau)) 
-$$
-If we write:
-$$
+$$ If we write: $$
 D = log(2) * exp(-\frac{2}{log(2)}*\frac{\beta}{d_{max}}*(t-\tau))
-$$
-We have:
-$$
+$$ We have: $$
 G(t) = d_{max}*exp(-D)
-$$
-Then, the partial derivative with respect to dmax (`delta_d`) should be something like:
-$$
+$$ Then, the partial derivative with respect to dmax (`delta_d`) should be something like: $$
 \frac{\partial G}{\partial d_{max}} = exp(-D) (1-\frac{2}{log(2)} \frac{\beta}{{d_{max}}} (t-\tau)D)
 $$
+
 ```{r}
-f = expression(d_max * exp(-log(2) * exp( -   (2 / log(2)) * (beta / d_max) * (t - (2000 + delta_t_half)))))
+f = expression(d_max * exp(-log(2) * exp( -   (2 / log(2)) * (beta / d_max) * 
+                                            (t - (2000 + delta_t_half)))))
 df_ddmax <- D(f,'d_max')
 
 d0 <- 3
@@ -140,16 +133,28 @@ d_max <- seq(7,10, 0.0001)
 y <- eval(df_ddmax)
 plot(y ~ d_max)
 
-f = expression(log(2) * exp(-(2 / log(2)) * (beta / x) * (t - (2000 + delta_t_half)))) # D
+```
+
+Looking at $D = log(2) * exp(-\frac{2}{log(2)}*\frac{\beta}{d_{max}}*(t-\tau))$:
+
+```{r}
+f = expression(log(2) * exp(-(2 / log(2)) * (beta / x) * 
+                              (t - (2000 + delta_t_half)))) 
 x <- seq(0,0.1,0.00001)
 y <- eval(f)
 plot(y ~ x)
 
 beta <- 5
-f = expression(log(2) * exp(-(2 / log(2)) * (beta / x) * (t - (2000 + delta_t_half)))) # D
+f = expression(log(2) * exp(-(2 / log(2)) * (beta / x) * 
+                              (t - (2000 + delta_t_half)))) 
 x <- seq(0,0.5,0.00001)
 y <- eval(f)
 plot(y ~ x)
 
-
 ```
+
+$D$ quickly become very high for some values of $d_{max}$, at least when $(t - \tau) < 0$.
+In my example, $\tau = 2000-10$, we then get $-(2 / log(2)) * (t - \tau) \simeq 28.85$, which quickly drive the exponential towards infinity. 
+
+
+
