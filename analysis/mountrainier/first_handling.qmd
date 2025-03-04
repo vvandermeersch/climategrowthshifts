@@ -1,0 +1,244 @@
+---
+title: "Modeling tree diameter growth: application on more data!"
+format: 
+  html:
+    code-overflow: wrap
+    fig-width: 5.5
+    fig-height: 5.5
+editor: visual
+editor_options: 
+  chunk_output_type: console
+crossref:
+  lst-title: "Stan Program"
+filters:
+   - include-code-files
+---
+
+## Environment setup
+
+```{r}
+
+rm(list=ls())
+options(stringsAsFactors = FALSE)
+set.seed(83052021)
+
+suppressPackageStartupMessages(library(rstan))
+options(mc.cores = parallel::detectCores())
+rstan_options(auto_write = TRUE)
+
+
+util <- new.env()
+mikerepo <- 'https://github.com/betanalpha/mcmc_visualization_tools/blob/main/r'
+source(file.path(mikerepo , 'mcmc_analysis_tools_rstan.R?raw=true'), local=util)
+source(file.path(mikerepo , 'mcmc_visualization_tools.R?raw=true'), local=util)
+
+wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
+
+```
+
+## Read data
+
+```{r}
+
+# read and prepare data
+tv01002 <- read.csv(file.path(wd, "data/pnw_psp/TV01002_v17.csv"))
+mtr_data <- tv01002[tv01002$PSP_STUDYID == "MRRS",]
+
+mtr_data <- na.omit(mtr_data[c("STANDID", "TREEID", "DBH", "YEAR")]) # remove NA (death)
+mtr_data <- mtr_data[ave(seq_len(nrow(mtr_data)), mtr_data$TREEID, FUN = length) >= 4, ] # keep only if at least 4 obs.
+
+```
+
+## Same model and trees as in the workshop
+
+
+```{.stan include="stan/heterogeneous_gompertz.stan" filename="heterogeneous\_gompertz.stan"}
+```
+
+```{r}
+
+workshop_ids<- c(paste0("AV0600010000", as.character(1:9)), paste0("AV060001000", as.character(10:22)))
+
+mtr_data_workshop <- mtr_data[mtr_data$TREEID %in% workshop_ids,]
+
+mtr_data_workshop$NUMID <- as.integer(factor(mtr_data_workshop$TREEID))
+mtr_data_workshop$NUMOBS <- ave(seq_along(mtr_data_workshop$TREEID), mtr_data_workshop$TREEID, FUN = seq_along)
+Ntrees <- max(mtr_data_workshop$NUMID)
+Nobs_pertree <- aggregate(NUMOBS ~ NUMID, mtr_data_workshop, max)$NUMOBS
+Sobs <- c(0,cumsum(Nobs_pertree))
+
+gompertz <- stan_model(file.path(wd, "stan/heterogeneous_gompertz.stan"))
+mdl.data <- list(N = nrow(mtr_data_workshop),
+                 N_trees =  max(mtr_data_workshop$NUMID),
+                 Sobs = Sobs,
+                 years = mtr_data_workshop$YEAR,
+                 dbhs = mtr_data_workshop$DBH)
+
+mdl.data$year_grid <- seq(1975, 2020, 1)
+mdl.data$N_year_grid <- length(mdl.data$year_grid )
+
+run_model <- FALSE
+
+if(run_model){
+  fit <- sampling(gompertz, mdl.data, 
+                chains = 4, 
+                iter = 4000, warmup = 3000,
+                seed = 83052021,
+                verbose = FALSE, refresh=0)
+  saveRDS(fit, file.path("output", "fit", "workshoptrees.rds"))
+}else{
+  fit <- readRDS(file.path("output", "fit", "workshoptrees.rds"))
+}
+
+```
+
+```{r}
+
+t <- 11
+idxs <- (Sobs[t]+1):Sobs[t+1]
+years <- mdl.data$years[idxs]
+dbhs <- mdl.data$dbhs[idxs]
+
+
+f_names <- sapply(1:mdl.data$N_year_grid,
+                  function(n) paste0('dbh_grid[', t, ',', n, ']'))
+
+samples <- util$extract_expectand_vals(fit)
+
+util$plot_realizations(samples, f_names, mdl.data$year_grid, 25,
+                       xlab="Year", ylab="DBH (cm)")
+points(years, dbhs, col="white", pch=16, cex=1.2)
+points(years, dbhs, col="black", pch=16, cex=0.8)
+
+```
+
+## Same model, different trees
+
+Let's take a random subset of 50 trees in the dataset.
+
+```{r}
+
+mtr_data_samp <- mtr_data[mtr_data$TREEID %in% sample(unique(mtr_data$TREEID), 50),]
+
+mtr_data_samp$NUMID <- as.integer(factor(mtr_data_samp$TREEID))
+mtr_data_samp$NUMOBS <- ave(seq_along(mtr_data_samp$TREEID), mtr_data_samp$TREEID, FUN = seq_along)
+Ntrees <- max(mtr_data_samp$NUMID)
+Nobs_pertree <- aggregate(NUMOBS ~ NUMID, mtr_data_samp, max)$NUMOBS
+Sobs <- c(0,cumsum(Nobs_pertree))
+
+mdl.data <- list(N = nrow(mtr_data_samp),
+                 N_trees =  max(mtr_data_samp$NUMID),
+                 Sobs = Sobs,
+                 years = mtr_data_samp$YEAR,
+                 dbhs = mtr_data_samp$DBH)
+
+mdl.data$year_grid <- seq(1975, 2020, 1)
+mdl.data$N_year_grid <- length(mdl.data$year_grid)
+
+# fit <- sampling(gompertz, mdl.data, 
+#                 chains = 1, cores = 1,
+#                 iter = 4000,
+#                 verbose = TRUE)
+
+```
+
+Here, we have many gradient issues with the previous Stan implementation (see `explore_init_failure.qmd`).
+We need to tweak the model (slightly) to avoid these failure. 
+
+## Tweaked model, different trees!
+
+The baseline now changes between trees, to avoid gradient failure.
+
+```{.stan include="stan/heterogeneous_gompertz_baselineyear.stan" filename="heterogeneous\_gompertz\_baselineyear.stan"}
+```
+
+
+```{r}
+
+run_model <- FALSE
+
+gompertz_tweaked <- stan_model(file.path(wd, "stan/heterogeneous_gompertz_baselineyear.stan"))
+
+if(run_model){
+  fit <- sampling(gompertz_tweaked, mdl.data, 
+                chains = 4, 
+                iter = 4000, warmup = 3000,
+                seed = 83052021,
+                verbose = FALSE, refresh = 0)
+  saveRDS(fit, file.path("output", "fit", "random50trees.rds"))
+}else{
+  fit <- readRDS(file.path("output", "fit", "random50trees.rds"))
+}
+
+diagnostics <- util$extract_hmc_diagnostics(fit)
+util$check_all_hmc_diagnostics(diagnostics)
+
+# samples <- util$extract_expectand_vals(fit)
+# base_samples <- util$filter_expectands(samples,
+#                                        c('d0', 'delta_d', 'beta',
+#                                          'delta_t_half', 'sigma'),
+#                                        check_arrays=TRUE)
+# util$check_all_expectand_diagnostics(base_samples)
+
+```
+
+Let's look at the 25 trees with some diagnostic warnings.
+
+```{r}
+#| fig-height: 12
+#| fig-width: 12
+
+samples <- util$extract_expectand_vals(fit)
+
+par(mfrow=c(5, 5), mar = c(5, 4, 2, 1))
+
+diags <- c(2,3,4,6,7,9,10,11,12,18,24,25,26,29,35,38,39,41,43,44,45,47,48,49,50)
+
+for (t in diags){
+  idxs <- (Sobs[t]+1):Sobs[t+1]
+  years <- mdl.data$years[idxs]
+  dbhs <- mdl.data$dbhs[idxs]
+
+  pred_names <- sapply(1:mdl.data$N_year_grid,
+                       function(n) paste0('dbh_grid_pred[',
+                                          t, ',', n, ']'))
+  util$plot_conn_pushforward_quantiles(samples, pred_names,
+                                       mdl.data$year_grid,
+                                       xlab="Year", ylab="DBH (cm)")
+  
+  points(years, dbhs, col="white", pch=16, cex=1.2)
+  points(years, dbhs, col="black", pch=16, cex=0.8)
+}
+
+```
+
+And the other 25 trees (without diagnostic warnings).
+
+```{r}
+#| fig-height: 12
+#| fig-width: 12
+
+samples <- util$extract_expectand_vals(fit)
+
+par(mfrow=c(5, 5), mar = c(5, 4, 2, 1))
+
+nodiags <- 1:Ntrees
+nodiags <- nodiags[!(nodiags %in% diags)]
+
+for (t in nodiags){
+  idxs <- (Sobs[t]+1):Sobs[t+1]
+  years <- mdl.data$years[idxs]
+  dbhs <- mdl.data$dbhs[idxs]
+
+  pred_names <- sapply(1:mdl.data$N_year_grid,
+                       function(n) paste0('dbh_grid_pred[',
+                                          t, ',', n, ']'))
+  util$plot_conn_pushforward_quantiles(samples, pred_names,
+                                       mdl.data$year_grid,
+                                       xlab="Year", ylab="DBH (cm)")
+  
+  points(years, dbhs, col="white", pch=16, cex=1.2)
+  points(years, dbhs, col="black", pch=16, cex=0.8)
+}
+
+```
