@@ -1,0 +1,31 @@
+*.Rdata
+*.RData
+*.Rda
+*.rds
+*.rda
+*.Rds
+*.Rhistory
+*.docx
+*.DS_Store
+*.xlsx
+*.pptx
+*.Rapp.history
+
+*.log
+*.aux
+*.blg
+*.synctex.gz
+*.out 
+*.lua
+*.yml
+
+\archive
+\analysis\mountrainier\archive
+
+# Quarto Detritus
+*_files
+*_cache
+
+# Mac Detritus
+*.DS_Store
+
