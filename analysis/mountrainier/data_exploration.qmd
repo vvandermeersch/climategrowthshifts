@@ -46,7 +46,7 @@ unique(treerings$Stand)
 
 tv01002 <- read.csv(file.path(wd, "data", "pnw_psp", "TV01002_v17.csv"))
 mtr_data <- tv01002[tv01002$PSP_STUDYID == "MRRS",];rm(tv01002)
-mtr_data <- na.omit(mtr_data[c("STANDID", "TREEID", "SPECIES", "DBH", "YEAR")]) # remove NA (death)
+mtr_data <- na.omit(mtr_data[c("STANDID", "TREEID", "SPECIES", "TREE_STATUS", "DBH", "YEAR")]) # remove NA (death)
 unique(mtr_data$STANDID)
 unique(mtr_data$STANDID)[unique(mtr_data$STANDID) %in% unique(treerings$Stand)] # PARA?
 
@@ -137,14 +137,73 @@ Let's look at those.
 
 ```{r}
 
+mtr_2024_dup <- mtr_2024_sub[mtr_2024_sub$TreeID %in% dup_ids, ]
+
 for(i in dup_ids){
   
-  
-  
+  cat(paste0(nrow(mtr_2024_dup[mtr_2024_dup$TreeID %in% i, ]), " "))
+
 }
 
 ```
 
+There is never more than two duplicated trees (yeah!).
+
+Some duplicated trees are just duplicata (i.e. exactly the same data, including DBH).\
+It's quite straighforward to remove them, without any risk
+
+```{r}
+
+mtr_2024_dup <- unique(mtr_2024_dup)
+dup_ids <- mtr_2024_dup[duplicated(mtr_2024_dup$TreeID), "TreeID"]
+
+```
+
+Then, we have only `{r} length(dup_ids)` trees with duplicated IDs and different data.
+
+```{r}
+
+mtr_2024_dup <- mtr_2024_sub[mtr_2024_sub$TreeID %in% dup_ids, ]
+save <- data.frame(diff = NA)
+
+n <- 1
+for(i in dup_ids){
+  
+  d <- mtr_2024_dup[mtr_2024_dup$TreeID %in% i, ]
+  cat(paste0(round(d[1,"Dbh"] - d[2,"Dbh"],3), " "))
+
+}
+
+```
+
+Some DBHs are really similar, some are reaaaally different.\
+Example, this striking example: `{r} dup_ids[15]`.
+
+```{r}
+
+i <-  dup_ids[15]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))]
+
+```
+
+Based on PSP data, the DBH of 43.1 seems more likely.
+
+```{r}
+
+mtr_data[mtr_data$TREEID %in% i,]
+
+```
+
+Let's now look at `{r} dup_ids[14]`
+
+```{r}
+
+i <-  dup_ids[14]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))]
+
+```
+
+Tree is both recorded as missing or not found (`Status = 9`), and also as living (and measured, `Status = 1`).
 
 ### Unidentified trees
 
@@ -214,7 +273,6 @@ bigtrees_noid_noshare <- bigtrees_noid[!grepl("Fused|Shares", paste(bigtrees_noi
 wheretolook <- paste0(bigtrees_noid_noshare$Stand, ifelse(bigtrees_noid_noshare$Plot < 10, paste0("000", bigtrees_noid_noshare$Plot), paste0("00", bigtrees_noid_noshare$Plot)))
 
 for(i in 1:length(wheretolook)){
-  print(i)
   dbh_threshold <- bigtrees_noid_noshare[i, "Dbh"]-2  # -2, not to be too restrictive
   sp <- bigtrees_noid_noshare[i, "Species"]
   potential_trees <- unique(mtr_data[grepl(wheretolook[i], mtr_data$TREEID) & 

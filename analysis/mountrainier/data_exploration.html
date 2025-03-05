@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tv01002 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(wd, <span class="st">"data"</span>, <span class="st">"pnw_psp"</span>, <span class="st">"TV01002_v17.csv"</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mtr_data <span class="ot">&lt;-</span> tv01002[tv01002<span class="sc">$</span>PSP_STUDYID <span class="sc">==</span> <span class="st">"MRRS"</span>,];<span class="fu">rm</span>(tv01002)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mtr_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mtr_data[<span class="fu">c</span>(<span class="st">"STANDID"</span>, <span class="st">"TREEID"</span>, <span class="st">"SPECIES"</span>, <span class="st">"DBH"</span>, <span class="st">"YEAR"</span>)]) <span class="co"># remove NA (death)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mtr_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(mtr_data[<span class="fu">c</span>(<span class="st">"STANDID"</span>, <span class="st">"TREEID"</span>, <span class="st">"SPECIES"</span>, <span class="st">"TREE_STATUS"</span>, <span class="st">"DBH"</span>, <span class="st">"YEAR"</span>)]) <span class="co"># remove NA (death)</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(mtr_data<span class="sc">$</span>STANDID)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "AB08" "AE10" "AG05" "AM16" "AO03" "AR07" "AR19" "AV02" "AV06" "AV14"
@@ -218,20 +218,92 @@ Some tree IDs are duplicated in 2024 dataset.</p>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dup_ids <span class="ot">&lt;-</span> mtr_2024_sub[<span class="fu">duplicated</span>(mtr_2024_sub<span class="sc">$</span>TreeID) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID), <span class="st">"TreeID"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>So, 491 trees are missing. There are 467 trees without IDs in the 2024 dataset, and 25 with duplicated IDs. Let’s look at those.</p>
+<section id="duplicated-trees" class="level3">
+<h3 class="anchored" data-anchor-id="duplicated-trees">Duplicated trees</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>mtr_2024_dup <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> dup_ids, ]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> dup_ids){</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">nrow</span>(mtr_2024_dup[mtr_2024_dup<span class="sc">$</span>TreeID <span class="sc">%in%</span> i, ]), <span class="st">" "</span>))</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 </code></pre>
+</div>
+</div>
+<p>There is never more than two duplicated trees (yeah!).</p>
+<p>Some duplicated trees are just duplicata (i.e.&nbsp;exactly the same data, including DBH).<br>
+It’s quite straighforward to remove them, without any risk</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>mtr_2024_dup <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtr_2024_dup)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>dup_ids <span class="ot">&lt;-</span> mtr_2024_dup[<span class="fu">duplicated</span>(mtr_2024_dup<span class="sc">$</span>TreeID), <span class="st">"TreeID"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we have only 16 trees with duplicated IDs and different data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>mtr_2024_dup <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> dup_ids, ]</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>save <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">diff =</span> <span class="cn">NA</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> dup_ids){</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  d <span class="ot">&lt;-</span> mtr_2024_dup[mtr_2024_dup<span class="sc">$</span>TreeID <span class="sc">%in%</span> i, ]</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">round</span>(d[<span class="dv">1</span>,<span class="st">"Dbh"</span>] <span class="sc">-</span> d[<span class="dv">2</span>,<span class="st">"Dbh"</span>],<span class="dv">3</span>), <span class="st">" "</span>))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1.3 -0.1 0 -0.3 0.1 0 15.3 0 NA -0.2 1.6 0 0.3 NA 25.8 -0.1 </code></pre>
+</div>
+</div>
+<p>Some DBHs are really similar, some are reaaaally different.<br>
+Example, this striking example: AV14001600018.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span>  dup_ids[<span class="dv">15</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>mtr_2024_dup[mtr_2024_dup<span class="sc">$</span>TreeID <span class="sc">%in%</span> i,<span class="fu">c</span>(<span class="st">"TreeID"</span>, <span class="st">"Status"</span>, <span class="st">"Dbh"</span>, <span class="fu">paste0</span>(<span class="st">"Comment_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            TreeID Status  Dbh       Comment_1 Comment_2 Comment_3 Comment_4
+5443 AV14001600018      1 68.9           T_NBH       DDC       NNT       GNA
+5444 AV14001600018      1 43.1 One sided crown      &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Based on PSP data, the DBH of 43.1 seems more likely.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mtr_data[mtr_data<span class="sc">$</span>TREEID <span class="sc">%in%</span> i,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      STANDID        TREEID SPECIES TREE_STATUS  DBH YEAR
+49609    AV14 AV14001600018    TSHE           1 35.8 1978
+49610    AV14 AV14001600018    TSHE           1 36.4 1984
+49611    AV14 AV14001600018    TSHE           1 37.5 1990
+49612    AV14 AV14001600018    TSHE           1 38.1 1995
+49613    AV14 AV14001600018    TSHE           1 38.6 2000
+49614    AV14 AV14001600018    TSHE           1 40.0 2008
+49615    AV14 AV14001600018    TSHE           1 40.8 2013
+49616    AV14 AV14001600018    TSHE           1 41.6 2017</code></pre>
+</div>
+</div>
+<p>Let’s now look at AV14000300023</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>i <span class="ot">&lt;-</span>  dup_ids[<span class="dv">14</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>mtr_2024_dup[mtr_2024_dup<span class="sc">$</span>TreeID <span class="sc">%in%</span> i,<span class="fu">c</span>(<span class="st">"TreeID"</span>, <span class="st">"Status"</span>, <span class="st">"Dbh"</span>, <span class="fu">paste0</span>(<span class="st">"Comment_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            TreeID Status Dbh Comment_1       Comment_2 Comment_3 Comment_4
+5076 AV14000300023      1  18   StemSwp One sided crown      &lt;NA&gt;      &lt;NA&gt;
+5077 AV14000300023      9  NA      &lt;NA&gt;            &lt;NA&gt;      &lt;NA&gt;      &lt;NA&gt;</code></pre>
+</div>
+</div>
+<p>Tree is both recorded as missing or not found (<code>Status = 9</code>), and also as living (and measured, <code>Status = 1</code>).</p>
+</section>
 <section id="unidentified-trees" class="level3">
 <h3 class="anchored" data-anchor-id="unidentified-trees">Unidentified trees</h3>
-</section>
-<section id="unidentified-trees-1" class="level3">
-<h3 class="anchored" data-anchor-id="unidentified-trees-1">Unidentified trees</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>dbhs_noid <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID), <span class="st">"Dbh"</span>])</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dbhs_noid, <span class="at">main =</span> <span class="st">"DBHs of trees with missing IDs"</span>, <span class="at">xlab =</span> <span class="st">"DBH"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fu">min</span>(dbhs_noid), <span class="fu">max</span>(dbhs_noid), <span class="at">l =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>dbhs_noid <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID), <span class="st">"Dbh"</span>])</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(dbhs_noid, <span class="at">main =</span> <span class="st">"DBHs of trees with missing IDs"</span>, <span class="at">xlab =</span> <span class="st">"DBH"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="fu">min</span>(dbhs_noid), <span class="fu">max</span>(dbhs_noid), <span class="at">l =</span> <span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="data_exploration_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="data_exploration_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -241,9 +313,9 @@ Coincidentally, trees with missing IDs are the only ones where columns related t
 </p>
 <p>Let’s do a quick check on unidentified trees with DBH &gt; 20cm, just to start (21 trees).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid <span class="ot">&lt;-</span> mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID) <span class="sc">&amp;</span> mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&gt;</span> <span class="dv">20</span>, ]</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid <span class="ot">&lt;-</span> mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID) <span class="sc">&amp;</span> mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&gt;</span> <span class="dv">20</span>, ]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
 [13] FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
@@ -252,171 +324,53 @@ Coincidentally, trees with missing IDs are the only ones where columns related t
 <p>Some of these trees are fused, or shared a common base, with another tree—which could explain why they don’t have an ID?<br>
 Let’s look at the others.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid_noshare <span class="ot">&lt;-</span> bigtrees_noid[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4)),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid_noshare <span class="ot">&lt;-</span> bigtrees_noid[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4)),]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code>TREEID</code> variable is made with <code>STANDID</code> and <code>PLOTNUMBER</code>.<br>
 For example, a tree on stand <code>AR19</code> and plot <code>5</code> would have an ID beginning by <code>AR190005</code>.<br>
 It might help us to find some missing trees?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>wheretolook <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bigtrees_noid_noshare<span class="sc">$</span>Stand, <span class="fu">ifelse</span>(bigtrees_noid_noshare<span class="sc">$</span>Plot <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">paste0</span>(<span class="st">"000"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot), <span class="fu">paste0</span>(<span class="st">"00"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot)))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(wheretolook)){</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  dbh_threshold <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Dbh"</span>]<span class="sc">-</span><span class="dv">2</span>  <span class="co"># -2, not to be too restrictive</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  sp <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Species"</span>]</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  potential_trees <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtr_data[<span class="fu">grepl</span>(wheretolook[i], mtr_data<span class="sc">$</span>TREEID) <span class="sc">&amp;</span> </span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>YEAR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>) <span class="sc">&amp;</span> </span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>DBH <span class="sc">&lt;</span> dbh_threshold <span class="sc">&amp;</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>SPECIES <span class="sc">%in%</span> sp, ])</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  already_present <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> <span class="fu">na.omit</span>(potential_trees<span class="sc">$</span>TREEID), ]</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">nrow</span>(potential_trees)<span class="sc">-</span><span class="fu">nrow</span>(already_present), <span class="st">" "</span>))</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>wheretolook <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bigtrees_noid_noshare<span class="sc">$</span>Stand, <span class="fu">ifelse</span>(bigtrees_noid_noshare<span class="sc">$</span>Plot <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">paste0</span>(<span class="st">"000"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot), <span class="fu">paste0</span>(<span class="st">"00"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot)))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(wheretolook)){</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  dbh_threshold <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Dbh"</span>]<span class="sc">-</span><span class="dv">2</span>  <span class="co"># -2, not to be too restrictive</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  sp <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Species"</span>]</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  potential_trees <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtr_data[<span class="fu">grepl</span>(wheretolook[i], mtr_data<span class="sc">$</span>TREEID) <span class="sc">&amp;</span> </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>YEAR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2017</span>) <span class="sc">&amp;</span> </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>DBH <span class="sc">&lt;</span> dbh_threshold <span class="sc">&amp;</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>SPECIES <span class="sc">%in%</span> sp, ])</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  already_present <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> <span class="fu">na.omit</span>(potential_trees<span class="sc">$</span>TREEID), ]</span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">nrow</span>(potential_trees)<span class="sc">-</span><span class="fu">nrow</span>(already_present), <span class="st">" "</span>))</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>0 0 0 0 0 0 0 0 0 </code></pre>
 </div>
 </div>
 <p>We get only zeros, meaning that all potential trees in the PSP dataset (before 2024) that could correspond to trees with missing IDs are already in the 2024 dataset! We could try to do the same thing, with trees with DBH between 10 and 20 cm.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid <span class="ot">&lt;-</span> mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID) <span class="sc">&amp;</span> mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&lt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span>  mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&gt;=</span> <span class="dv">10</span>, ]</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bigtrees_noid_noshare <span class="ot">&lt;-</span> bigtrees_noid[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4)),]</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>wheretolook <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bigtrees_noid_noshare<span class="sc">$</span>Stand, <span class="fu">ifelse</span>(bigtrees_noid_noshare<span class="sc">$</span>Plot <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">paste0</span>(<span class="st">"000"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot), <span class="fu">paste0</span>(<span class="st">"00"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot)))</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(wheretolook)){</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(i)</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  dbh_threshold <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Dbh"</span>]<span class="sc">-</span><span class="dv">2</span>  <span class="co"># -2, not to be too restrictive</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  sp <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Species"</span>]</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  potential_trees <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtr_data[<span class="fu">grepl</span>(wheretolook[i], mtr_data<span class="sc">$</span>TREEID) <span class="sc">&amp;</span> </span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>YEAR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span>,<span class="dv">2017</span>) <span class="sc">&amp;</span> </span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>DBH <span class="sc">&lt;</span> dbh_threshold <span class="sc">&amp;</span></span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>SPECIES <span class="sc">%in%</span> sp, ])</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>  already_present <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> <span class="fu">na.omit</span>(potential_trees<span class="sc">$</span>TREEID), <span class="fu">c</span>(<span class="st">"Stand"</span>, <span class="st">"TreeID"</span>, <span class="st">'Dbh'</span>)]</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">nrow</span>(potential_trees)<span class="sc">-</span><span class="fu">nrow</span>(already_present), <span class="st">" "</span>))</span>
-<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>bigtrees_noid <span class="ot">&lt;-</span> mtr_2024_sub[<span class="fu">is.na</span>(mtr_2024_sub<span class="sc">$</span>TreeID) <span class="sc">&amp;</span> mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&lt;=</span> <span class="dv">20</span> <span class="sc">&amp;</span>  mtr_2024_sub<span class="sc">$</span>Dbh <span class="sc">&gt;=</span> <span class="dv">10</span>, ]</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>bigtrees_noid_noshare <span class="ot">&lt;-</span> bigtrees_noid[<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">"Fused|Shares"</span>, <span class="fu">paste</span>(bigtrees_noid<span class="sc">$</span>Comment_1, bigtrees_noid<span class="sc">$</span>Comment_2, bigtrees_noid<span class="sc">$</span>Comment_3, bigtrees_noid<span class="sc">$</span>Comment_4)),]</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>wheretolook <span class="ot">&lt;-</span> <span class="fu">paste0</span>(bigtrees_noid_noshare<span class="sc">$</span>Stand, <span class="fu">ifelse</span>(bigtrees_noid_noshare<span class="sc">$</span>Plot <span class="sc">&lt;</span> <span class="dv">10</span>, <span class="fu">paste0</span>(<span class="st">"000"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot), <span class="fu">paste0</span>(<span class="st">"00"</span>, bigtrees_noid_noshare<span class="sc">$</span>Plot)))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(wheretolook)){</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  dbh_threshold <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Dbh"</span>]<span class="sc">-</span><span class="dv">2</span>  <span class="co"># -2, not to be too restrictive</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  sp <span class="ot">&lt;-</span> bigtrees_noid_noshare[i, <span class="st">"Species"</span>]</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  potential_trees <span class="ot">&lt;-</span> <span class="fu">unique</span>(mtr_data[<span class="fu">grepl</span>(wheretolook[i], mtr_data<span class="sc">$</span>TREEID) <span class="sc">&amp;</span> </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>YEAR <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2013</span>,<span class="dv">2017</span>) <span class="sc">&amp;</span> </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>DBH <span class="sc">&lt;</span> dbh_threshold <span class="sc">&amp;</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                                       mtr_data<span class="sc">$</span>SPECIES <span class="sc">%in%</span> sp, ])</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>  already_present <span class="ot">&lt;-</span> mtr_2024_sub[mtr_2024_sub<span class="sc">$</span>TreeID <span class="sc">%in%</span> <span class="fu">na.omit</span>(potential_trees<span class="sc">$</span>TREEID), <span class="fu">c</span>(<span class="st">"Stand"</span>, <span class="st">"TreeID"</span>, <span class="st">'Dbh'</span>)]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="fu">paste0</span>(<span class="fu">nrow</span>(potential_trees)<span class="sc">-</span><span class="fu">nrow</span>(already_present), <span class="st">" "</span>))</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1
-0 [1] 2
-0 [1] 3
-0 [1] 4
-0 [1] 5
-0 [1] 6
-0 [1] 7
-0 [1] 8
-0 [1] 9
-0 [1] 10
-0 [1] 11
-0 [1] 12
-0 [1] 13
-0 [1] 14
-0 [1] 15
-0 [1] 16
-0 [1] 17
-0 [1] 18
-0 [1] 19
-0 [1] 20
-0 [1] 21
-1 [1] 22
-0 [1] 23
-0 [1] 24
-0 [1] 25
-0 [1] 26
-0 [1] 27
-0 [1] 28
-0 [1] 29
-0 [1] 30
-0 [1] 31
-0 [1] 32
-0 [1] 33
-0 [1] 34
-0 [1] 35
-0 [1] 36
-0 [1] 37
-0 [1] 38
-0 [1] 39
-0 [1] 40
-0 [1] 41
-0 [1] 42
-0 [1] 43
-0 [1] 44
-0 [1] 45
-1 [1] 46
-0 [1] 47
-0 [1] 48
-0 [1] 49
--1 [1] 50
-0 [1] 51
-0 [1] 52
-0 [1] 53
-0 [1] 54
-0 [1] 55
-0 [1] 56
-0 [1] 57
-0 [1] 58
-1 [1] 59
-0 [1] 60
-0 [1] 61
-0 [1] 62
-0 [1] 63
-0 [1] 64
-0 [1] 65
-0 [1] 66
-0 [1] 67
-0 [1] 68
-0 [1] 69
-0 [1] 70
-0 [1] 71
-18 [1] 72
-0 [1] 73
-0 [1] 74
-0 [1] 75
-0 [1] 76
-0 [1] 77
-12 [1] 78
-0 [1] 79
-0 [1] 80
-0 [1] 81
-0 [1] 82
-2 [1] 83
-0 [1] 84
-0 [1] 85
-0 [1] 86
-0 [1] 87
-0 [1] 88
-0 [1] 89
-0 [1] 90
-0 [1] 91
-0 [1] 92
-0 [1] 93
-0 [1] 94
-0 [1] 95
-0 [1] 96
-0 [1] 97
-0 [1] 98
-0 [1] 99
-0 [1] 100
-0 [1] 101
-0 [1] 102
-0 [1] 103
-0 [1] 104
-0 [1] 105
-0 [1] 106
-0 [1] 107
-0 [1] 108
-0 [1] 109
-0 [1] 110
-0 [1] 111
-0 [1] 112
-0 [1] 113
-0 [1] 114
-0 [1] 115
-0 [1] 116
-0 [1] 117
-0 </code></pre>
+<pre><code>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 -1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 18 0 0 0 0 0 12 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </code></pre>
 </div>
 </div>
 </section>
