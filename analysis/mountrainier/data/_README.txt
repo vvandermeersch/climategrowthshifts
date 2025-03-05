@@ -1,5 +1,7 @@
+Copied an modified from github.com/lizzieinvancouver/PSPmountrainier
+
 Started 3 October 2023
-By Lizzie so far
+Lizzie, Victor
 
 ** PLEASE see below for: Citation for data ** 
 Data available at: https://pnwpsp.forestry.oregonstate.edu/data
@@ -14,6 +16,7 @@ Tree data files (\trees)
 Climate data files (\climate)
 Citation for tree data
 Misc notes (including ideas of what we could look at) 
+trees2024/ folder
 
 <><><><><><><>
 <> Overview <>
@@ -26,9 +29,9 @@ I am trying not to repeat metadata elsewhere, but (from TVO10.Metadata.pdf):
 Plots [of forest trees in forests] are censused every 5 or 6 years. Attributes measured or assessed at each census include tree diameter, tree vigor, and the condition of the crown and stem. The same attributes are recorded for trees (ingrowth) that have exceeded the minimum diameter since the previous census. In many plots tree locations are surveyed to provide a plot-specific x-y location. A mortality assessment is done for trees that have died since the previous census. The assessment characterizes rooting, stem, and crown condition, obvious signs of distress or disturbance, and the apparent predisposing and proximate causes of tree death.
 
 
-<><><><><><><><><><><>
-<> Tree data files <>
-<><><><><><><><><><><>
+<><><><><><><><><><>
+<> pnw_psp folder <>
+<><><><><><><><><><>
 
 ** TV01001_v2.csv - Very rough categories for size-y things and healthy ratings (sort of) for each tree.
 
@@ -68,9 +71,9 @@ More info at: https://andlter.forestry.oregonstate.edu/data/attributes.aspx?dbco
 
 I also have info on plot establishment and description, but cannot post online. 
 
-<><><><><><><><><><><><><><>
-<> Climate data <>
-<><><><><><><><><><><><><><>
+<><><><><><><><><><>
+<> climate folder <>
+<><><><><><><><><><><
 
 I went to: https://climexp.knmi.nl/
 
@@ -101,9 +104,9 @@ LONG: "Data [and/or facilities] were provided by the H.J. Andrews Experimental F
 (4) Also add reference to data citation: 
 Franklin, J.F., D. Bell, S.M. Remillard, and M. Powers. 2023. Long-term growth, mortality and regeneration of trees in permanent vegetation plots in the Pacific Northwest, 1910 to present ver 24. Environmental Data Initiative. https://doi.org/10.6073/pasta/5835a1fadb7fd65842f90256edae999c (Accessed 2023-09-23).
 
-<><><><><><><>
+<><><><><><><><>
 <> Misc notes <>
-<><><><><><><>
+<><><><><><><><>
 
 Could look at tree growth for one species (or more) over time in one STAND. Stands to consider:
 	- AE10 is high elevation site — climate data from Paradise (fairly close) and is fairly species poor
@@ -124,3 +127,40 @@ She would not be surprised if height is not always sampled.
 Notes -- she shew WtchBrm is a Witch's Broom, a likely sign of disease.
 
 She said the climate data sounded right.
+
+><><><><><><><><><><><><><><>
+<> treerings_ailene folder <>
+><><><><><><><><><><><><><><>
+
+Data received from Mao on 7 Feb. 2025 (to Victor)
+
+"Hi Victor,
+
+I forgot that Lizzie owns the repo so I couldn't add you to the repo. Here's all the data she shared with me.
+
+Hope this is helpful!
+
+Best,
+Mao"
+
+><><><><><><><><><><><><><><><>
+<> pnw_psp/MRRS_2024/ folder <>
+><><><><><><><><><><><><><><><>
+These data were received from Andy Bluhm on 28 February 2025 (to Lizzie).
+They are data we requested for our 2025 BIRS (Banff) workshop -- the 2024 collected data in advance of it being fully processed. Here's the email that came with the files:
+
+"Lizzie,
+Attached is the (non QAQC'd) data from the PSP Mt. Rainier stands collected in 2024.
+Our data collection app spits out three files. Then through the PSP/USFS database management system, we clean and merge the data into something like what you use (TV001002). But that process, unfortunately, won't be started for a long time. In the meantime, here's what I have for you.
+
+standdoc_MRRS_2024: notes about the stands/sites
+mortality_MRRS_2024: dead tree measurements
+trees_MRRS_2024: live tree measurements
+
+It shouldn't be too onerous to reformat/merge/append to what you've been working with. The variables are all pretty much the same as what you've been using. 
+
+Note: The other "type" of data we collect are tree locations (mainly used for mapping and creating stem maps). You have these maps. However, last summer I noticed that there were a significant number of sites that had a significant number of mismapped or unmapped trees. So if you're using the stem maps you already have for any type of spatial analysis, please be aware of that. The "trees_MRRS_2024" file has mapping data for both mis-mapped and previously unmapped trees. It's on my list to update these stem maps, but I won't be getting to that anytime soon.
+
+If you have any questions about something please let me know.
+
+Andy"
