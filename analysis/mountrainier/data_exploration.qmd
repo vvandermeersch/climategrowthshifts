@@ -1,0 +1,106 @@
+---
+title: "Diameters and tree-rings"
+format: 
+  html:
+    code-overflow: wrap
+    page-layout: full
+editor_options: 
+  chunk_output_type: console
+crossref:
+  lst-title: "Stan Program"
+filters:
+   - include-code-files
+---
+
+## Environment setup
+
+```{r}
+
+rm(list=ls())
+
+wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
+
+```
+
+## Tree-ring data from Ailene
+
+```{r}
+
+treerings <- read.csv(file.path(wd, "data", "treerings_ailene", "SouthSidecoresX.csv"), header=TRUE)
+treerings$uniqueID <- paste(treerings$Tag, treerings$Core, sep = "_")                      
+meas_cols <-  names(treerings)[grep("X", names(treerings))]
+treerings <- reshape(treerings, dir = "long", 
+                     varying = meas_cols, 
+                     times = as.numeric(gsub("X", "", meas_cols)),
+                     v.names = "rw", timevar = "year")
+treerings <- treerings[c("Stand", "Species", "Tag", "Core", "uniqueID", "DBH", "RingCount", "year", "rw")]
+treerings <- na.omit(treerings)
+treerings <- treerings[order(treerings$year),]
+treerings$cumrw <- ave(treerings$rw, treerings$uniqueID, FUN = cumsum)
+unique(treerings$Stand)
+
+
+```
+
+## DBH data from PSP - until 2017
+
+```{r}
+
+tv01002 <- read.csv(file.path(wd, "data/pnw_psp/TV01002_v17.csv"))
+mtr_data <- tv01002[tv01002$PSP_STUDYID == "MRRS",];rm(tv01002)
+mtr_data <- na.omit(mtr_data[c("STANDID", "TREEID", "DBH", "YEAR")]) # remove NA (death)
+unique(mtr_data$STANDID)
+unique(mtr_data$STANDID)[unique(mtr_data$STANDID) %in% unique(treerings$Stand)] # PARA?
+
+```
+
+## Quick look at both datasets
+
+```{r}
+
+# Number of trees, in common stands
+merge(setNames(aggregate(data=mtr_data[which(mtr_data$STANDID %in% unique(treerings$Stand)),], TREEID ~ STANDID, function(x) length(unique(x))), c("stand", "n_trees_dbh")),
+      setNames(aggregate(data=treerings[which(treerings$Stand %in% unique(mtr_data$STANDID)),], Tag ~ Stand, function(x) length(unique(x))), c("stand", "n_trees_rw")))
+
+```
+
+### Check AV06
+
+```{r}
+
+dbh_data_av06 <- mtr_data[mtr_data$STANDID == "AV06",]
+rw_data_av06 <- treerings[treerings$Stand == "AV06",]
+
+```
+
+```{r}
+#| fig-height: 16
+#| fig-width: 16
+
+par(mfrow=c(10, 8) , mar = c(2,1.8,1.5,1.5))
+
+for (t in unique(rw_data_av06$Tag)){
+  
+  pl.data <- rw_data_av06[rw_data_av06$Tag == t,]
+  plot(pl.data$rw ~ pl.data$year, col = ifelse(pl.data$Core ==1, "grey50", "grey80"),
+       pch = 19, cex = 0.5)
+
+}
+
+```
+
+```{r}
+#| fig-height: 16
+#| fig-width: 16
+
+par(mfrow=c(10, 8) , mar = c(2,1.8,1.5,1.5))
+
+for (t in unique(rw_data_av06$Tag)){
+  
+  pl.data <- rw_data_av06[rw_data_av06$Tag == t,]
+  plot(pl.data$cumrw ~ pl.data$year, col = ifelse(pl.data$Core ==1, "grey50", "grey80"),
+       pch = 19, cex = 0.3)
+
+}
+
+```
