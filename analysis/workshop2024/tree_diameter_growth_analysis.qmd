@@ -1536,9 +1536,5 @@ permission.
 # Original Computing Environment {-}
 
 ```{r, comment=NA}
-writeLines(readLines(file.path(Sys.getenv("HOME"), ".R/Makevars")))
-```
-
-```{r, comment=NA}
 sessionInfo()
 ```
