@@ -1,8 +1,8 @@
 functions {
-  real gompertz(real t, real d_max, real beta, real delta_t_half) {
+  real gompertz(real t, real d_max, real beta, real delta_t_half, real baseline) {
     return d_max * exp(-log2() * exp( -   (2 / log2()) 
                                       * (beta / d_max) 
-                                      * (t - (2000 + delta_t_half))));
+                                      * (t - (baseline + delta_t_half))));
   }
 }
 
@@ -17,11 +17,23 @@ data {
   vector[N_year_grid] year_grid;
 }
 
+transformed data {
+  
+  vector[N_trees] baseline; // different baseline for each tree
+  for (i in 1:N_trees) {
+    
+    int start_idx = Sobs[i]+1;
+    baseline[i] = years[start_idx]; // first year of observations
+    
+  }
+  
+}
+
 parameters {
   real<lower=0> d0[N_trees];      // Minimum DBH (cm)
   real<lower=0> delta_d[N_trees]; // Difference between minimum and maximum DBH (cm)
   real<lower=0> beta[N_trees];    // Intermediate linear growth rate (cm / year)
-  real delta_t_half[N_trees];     // Time to half maximum DBH (years relative to 2000)
+  real delta_t_half[N_trees];     // Time to half maximum DBH (years relative to baseline)
   real<lower=0> sigma;            // Measurement variability (cm)
 }
 
@@ -42,7 +54,7 @@ model {
     
     for (n in 1:N_obs) {
       
-      real mu =  gompertz(years_i[n], delta_d[i], beta[i], delta_t_half[i]) 
+      real mu =  gompertz(years_i[n], delta_d[i], beta[i], delta_t_half[i], baseline[i]) 
                + d0[i];
       dbhs_i[n] ~ normal(mu, sigma);
     }
@@ -55,8 +67,9 @@ generated quantities {
   for (t in 1:N_trees) {
     for (n in 1:N_year_grid) {
       dbh_grid[t, n] = gompertz(year_grid[n], delta_d[t], 
-                       beta[t], delta_t_half[t]) + d0[t];
+                       beta[t], delta_t_half[t], baseline[t]) + d0[t];
       dbh_grid_pred[t, n] = normal_rng(dbh_grid[t, n], sigma);
     }
   }
 }
+
