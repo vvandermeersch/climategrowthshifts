@@ -26,13 +26,16 @@ suppressPackageStartupMessages(library(rstan))
 options(mc.cores = parallel::detectCores())
 rstan_options(auto_write = TRUE)
 
+wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
 
 util <- new.env()
-mikerepo <- 'https://github.com/betanalpha/mcmc_visualization_tools/blob/main/r'
-source(file.path(mikerepo , 'mcmc_analysis_tools_rstan.R?raw=true'), local=util)
-source(file.path(mikerepo , 'mcmc_visualization_tools.R?raw=true'), local=util)
+# mikerepo <- 'https://github.com/betanalpha/mcmc_visualization_tools/blob/main/r'
+# source(file.path(mikerepo , 'mcmc_analysis_tools_rstan.R?raw=true'), local=util)
+# source(file.path(mikerepo , 'mcmc_visualization_tools.R?raw=true'), local=util)
 
-wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
+setwd(wd)
+source(file.path(wd, "mcmc_analysis_tools_rstan.R"), local=util)
+source(file.path(wd, "mcmc_visualization_tools.R"), local=util)
 
 ```
 
@@ -51,8 +54,7 @@ mtr_data <- mtr_data[ave(seq_len(nrow(mtr_data)), mtr_data$TREEID, FUN = length)
 
 ## Same model and trees as in the workshop
 
-
-```{.stan include="stan/heterogeneous_gompertz.stan" filename="heterogeneous\_gompertz.stan"}
+``` {.stan include="stan/heterogeneous_gompertz.stan" filename="heterogeneous_gompertz.stan"}
 ```
 
 ```{r}
@@ -85,9 +87,9 @@ if(run_model){
                 iter = 4000, warmup = 3000,
                 seed = 83052021,
                 verbose = FALSE, refresh=0)
-  saveRDS(fit, file.path("output", "fit", "workshoptrees.rds"))
+  saveRDS(fit, file.path(wd, "output", "fit", "workshoptrees.rds"))
 }else{
-  fit <- readRDS(file.path("output", "fit", "workshoptrees.rds"))
+  fit <- readRDS(file.path(wd, "output", "fit", "workshoptrees.rds"))
 }
 
 ```
@@ -142,16 +144,14 @@ mdl.data$N_year_grid <- length(mdl.data$year_grid)
 
 ```
 
-Here, we have many gradient issues with the previous Stan implementation (see `explore_init_failure.qmd`).
-We need to tweak the model (slightly) to avoid these failure. 
+Here, we have many gradient issues with the previous Stan implementation (see `explore_init_failure.qmd`). We need to tweak the model (slightly) to avoid these failure.
 
 ## Tweaked model, different trees!
 
 The baseline now changes between trees, to avoid gradient failure.
 
-```{.stan include="stan/heterogeneous_gompertz_baselineyear.stan" filename="heterogeneous\_gompertz\_baselineyear.stan"}
+``` {.stan include="stan/heterogeneous_gompertz_baselineyear.stan" filename="heterogeneous_gompertz_baselineyear.stan"}
 ```
-
 
 ```{r}
 
@@ -165,9 +165,9 @@ if(run_model){
                 iter = 4000, warmup = 3000,
                 seed = 83052021,
                 verbose = FALSE, refresh = 0)
-  saveRDS(fit, file.path("output", "fit", "random50trees.rds"))
+  saveRDS(fit, file.path(wd, "output", "fit", "random50trees.rds"))
 }else{
-  fit <- readRDS(file.path("output", "fit", "random50trees.rds"))
+  fit <- readRDS(file.path(wd, "output", "fit", "random50trees.rds"))
 }
 
 diagnostics <- util$extract_hmc_diagnostics(fit)
