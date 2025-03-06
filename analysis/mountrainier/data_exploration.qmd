@@ -46,7 +46,7 @@ unique(treerings$Stand)
 
 tv01002 <- read.csv(file.path(wd, "data", "pnw_psp", "TV01002_v17.csv"))
 mtr_data <- tv01002[tv01002$PSP_STUDYID == "MRRS",];rm(tv01002)
-mtr_data <- na.omit(mtr_data[c("STANDID", "TREEID", "SPECIES", "TREE_STATUS", "DBH", "YEAR")]) # remove NA (death)
+mtr_data <- mtr_data[!is.na(mtr_data$DBH),]# remove NA (death)
 unique(mtr_data$STANDID)
 unique(mtr_data$STANDID)[unique(mtr_data$STANDID) %in% unique(treerings$Stand)] # PARA?
 
@@ -147,10 +147,10 @@ for(i in dup_ids){
 
 ```
 
-There is never more than two duplicated trees (yeah!).
+There is never more than two records (yeah!).
 
-Some duplicated trees are just duplicata (i.e. exactly the same data, including DBH).\
-It's quite straighforward to remove them, without any risk
+Some duplicated trees are just pure duplicates (i.e. exactly the same data, including DBH).\
+It's quite straightforward to remove them, without any risk.
 
 ```{r}
 
@@ -190,7 +190,7 @@ Based on PSP data, the DBH of 43.1 seems more likely.
 
 ```{r}
 
-mtr_data[mtr_data$TREEID %in% i,]
+mtr_data[mtr_data$TREEID %in% i, c("YEAR", "DBH")]
 
 ```
 
@@ -203,7 +203,72 @@ mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Com
 
 ```
 
-Tree is both recorded as missing or not found (`Status = 9`), and also as living (and measured, `Status = 1`).
+Tree is both recorded as missing or not found (`Status = 9`), and also as living (and measured, `Status = 1`)...\
+
+I guess the best we can do now is to clean these `{r} length(dup_ids)` trees manually (if possible?!).
+
+```{r}
+
+i <-  dup_ids[1]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 55 or 53.7
+
+i <-  dup_ids[2]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 44.5 or 44.6
+
+i <-  dup_ids[3]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # same DBH, one without any comment
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[3] & is.na(mtr_2024_sub$Comment_1)), ] # remove it
+
+i <-  dup_ids[4]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 43.5 or 43.8
+
+i <-  dup_ids[5]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 14.3 or 14.2 - one with less comments
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[5] & is.na(mtr_2024_sub$Comment_2)), ] # remove it
+
+i <-  dup_ids[6]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # same DBH, one without any comment
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[6] & is.na(mtr_2024_sub$Comment_1)), ] # remove it
+
+i <-  dup_ids[7]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 96.4 or 81.1, big diff.
+mtr_data[mtr_data$TREEID %in% i, c("YEAR", "DBH")] # DBH in 2017 = 82.1, so neither 96.4 nor 81.1 are likely
+
+i <-  dup_ids[8]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4), "Lean_deg")] # same DBH, Lean deg 0 or 5
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[8] & mtr_2024_sub$Lean_deg == 0), ] # remove 0
+
+i <-  dup_ids[9]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # One with DBH NA
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[9] & is.na(mtr_2024_sub$Dbh)), ] # remove it
+
+i <-  dup_ids[10]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 7.1 or 7.3
+
+i <-  dup_ids[11]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 17.6 or 16 + one without comment...
+mtr_data[mtr_data$TREEID %in% i, c("YEAR", "DBH")] # DBH in 2017 = 15.4, in 2012 = 15.3 (DBH = 16 more likely?)
+
+i <-  dup_ids[12]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # same DBH, one with less comments
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[12] & is.na(mtr_2024_sub$Comment_2)), ] # remove it
+
+i <-  dup_ids[13]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 34.8 or 34.5 + different comments
+
+i <-  dup_ids[14]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # One with DBH NA
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[14] & is.na(mtr_2024_sub$Dbh)), ] # remove it
+
+i <-  dup_ids[15]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 68.9 or 43.1, big diff.
+mtr_data[mtr_data$TREEID %in% i, c("YEAR", "DBH")] # DBH in 2017 = 41.6, so DBH = 43.1 more likely
+mtr_2024_sub <- mtr_2024_sub[-which(mtr_2024_sub$TreeID %in% dup_ids[15] & mtr_2024_sub$Dbh == 43.1), ] # remove DBH = 68.9
+
+i <-  dup_ids[16]
+mtr_2024_dup[mtr_2024_dup$TreeID %in% i,c("TreeID", "Status", "Dbh", paste0("Comment_", 1:4))] # DBH 14.0 and 14.1 + different comments
+
+```
 
 ### Unidentified trees
 
@@ -217,74 +282,17 @@ hist(dbhs_noid, main = "DBHs of trees with missing IDs", xlab = "DBH", breaks = 
 ```
 
 There are mostly small trees, which have just reached DBH threshold of 5 cm---but not only.\
-Coincidentally, trees with missing IDs are the only ones where columns related to canopy (`Canopy_class`, `Crown_ratio`, `Azimuth`...) are not ``NA`.\
-
-Let's do a quick check on unidentified trees with DBH > 20cm, just to start (`{r} nrow(mtr_2024_sub[is.na(mtr_2024_sub$TreeID) & mtr_2024_sub$Dbh >= 20, ])` trees).
-
-```{r}
-
-bigtrees_noid <- mtr_2024_sub[is.na(mtr_2024_sub$TreeID) & mtr_2024_sub$Dbh > 20, ]
-
-grepl("Fused|Shares", paste(bigtrees_noid$Comment_1, bigtrees_noid$Comment_2, bigtrees_noid$Comment_3, bigtrees_noid$Comment_4))
-
-```
-
-Some of these trees are fused, or shared a common base, with another tree---which could explain why they don't have an ID?\
-Let's look at the others.
+There are `{r} nrow(mtr_2024_sub[is.na(mtr_2024_sub$TreeID) & mtr_2024_sub$Dbh >= 20, ])` trees with a DBh > 20 cm!
+Ingrowth trees should be coded with `TREE_STATUS =2` in the database.
 
 ```{r}
 
-bigtrees_noid_noshare <- bigtrees_noid[!grepl("Fused|Shares", paste(bigtrees_noid$Comment_1, bigtrees_noid$Comment_2, bigtrees_noid$Comment_3, bigtrees_noid$Comment_4)),]
+dbhs_noid <- as.numeric(mtr_2024_sub[is.na(mtr_2024_sub$TreeID) & mtr_2024_sub$Status != 2, "Dbh"])
+
+
+hist(dbhs_noid, main = "DBHs of trees with missing IDs", xlab = "DBH", breaks = seq(min(dbhs_noid), max(dbhs_noid), l = 30))
 
 ```
 
-`TREEID` variable is made with `STANDID` and `PLOTNUMBER`.\
-For example, a tree on stand  `AR19` and plot `5` would have an ID beginning by `AR190005`.\
-It might help us to find some missing trees?
-
-```{r}
-
-wheretolook <- paste0(bigtrees_noid_noshare$Stand, ifelse(bigtrees_noid_noshare$Plot < 10, paste0("000", bigtrees_noid_noshare$Plot), paste0("00", bigtrees_noid_noshare$Plot)))
-
-for(i in 1:length(wheretolook)){
-  
-  dbh_threshold <- bigtrees_noid_noshare[i, "Dbh"]-2  # -2, not to be too restrictive
-  sp <- bigtrees_noid_noshare[i, "Species"]
-  potential_trees <- unique(mtr_data[grepl(wheretolook[i], mtr_data$TREEID) & 
-                                       mtr_data$YEAR %in% c(2017) & 
-                                       mtr_data$DBH < dbh_threshold &
-                                       mtr_data$SPECIES %in% sp, ])
-  
-  already_present <- mtr_2024_sub[mtr_2024_sub$TreeID %in% na.omit(potential_trees$TREEID), ]
-  
-  cat(paste0(nrow(potential_trees)-nrow(already_present), " "))
-  
-}
-
-```
-
-We get only zeros, meaning that all potential trees in the PSP dataset (before 2024) that could correspond to trees with missing IDs are already in the 2024 dataset!
-We could try to do the same thing, with trees with DBH between 10 and 20 cm.
-
-```{r}
-
-bigtrees_noid <- mtr_2024_sub[is.na(mtr_2024_sub$TreeID) & mtr_2024_sub$Dbh <= 20 &  mtr_2024_sub$Dbh >= 10, ]
-bigtrees_noid_noshare <- bigtrees_noid[!grepl("Fused|Shares", paste(bigtrees_noid$Comment_1, bigtrees_noid$Comment_2, bigtrees_noid$Comment_3, bigtrees_noid$Comment_4)),]
-wheretolook <- paste0(bigtrees_noid_noshare$Stand, ifelse(bigtrees_noid_noshare$Plot < 10, paste0("000", bigtrees_noid_noshare$Plot), paste0("00", bigtrees_noid_noshare$Plot)))
-
-for(i in 1:length(wheretolook)){
-  dbh_threshold <- bigtrees_noid_noshare[i, "Dbh"]-2  # -2, not to be too restrictive
-  sp <- bigtrees_noid_noshare[i, "Species"]
-  potential_trees <- unique(mtr_data[grepl(wheretolook[i], mtr_data$TREEID) & 
-                                       mtr_data$YEAR %in% c(2013,2017) & 
-                                       mtr_data$DBH < dbh_threshold &
-                                       mtr_data$SPECIES %in% sp, ])
-  
-  already_present <- mtr_2024_sub[mtr_2024_sub$TreeID %in% na.omit(potential_trees$TREEID), c("Stand", "TreeID", 'Dbh')]
-  
-  cat(paste0(nrow(potential_trees)-nrow(already_present), " "))
-  
-}
-
-```
+Removing ingrowth trees let only `{r} length(dbhs_noid)` trees (so some ingrowth trees have DBH > 20! Waou).
 
