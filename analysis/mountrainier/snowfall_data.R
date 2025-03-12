@@ -1,5 +1,9 @@
-
+rm(list=ls())
 wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
+
+
+# LONGMIRE #
+#----------#
 
 # 1909 - 1978
 USC00456894 <- read.csv(file.path(wd, 'data', 'climate', 'USC00456894.csv'), header = FALSE,
@@ -43,3 +47,24 @@ plot(yearly_snowfall$x/1000 ~ yearly_snowfall$year,
      xlab = 'Year', ylab = 'Total snowfall (m)')
 dev.off()
 
+yearly_snowfall <- yearly_snowfall[c('year', 'x')]
+names(yearly_snowfall) <- c('year', 'snowfall (m)')
+write.csv(yearly_snowfall, file = file.path(wd, 'input/climate/snowfall_longmire.csv'))
+
+
+# PARADISE #
+#----------#
+
+# 1916 - 1978
+USC00456898 <- read.csv(file.path(wd, 'data', 'climate', 'USC00456898.csv'), header = FALSE,
+                        col.names = c('id', 'date', 'var', 'value', 'x1', 'x2', 'x3', 'x4')) 
+
+climate_data <- USC00456898[c('id', 'date', 'var', 'value')]
+climate_data$date <- as.Date(as.character(climate_data$date),format="%Y%m%d")
+climate_data$year <- format(climate_data$date, "%Y")
+
+snowfall <- climate_data[climate_data$var == 'SNOW',]
+snowfall <- snowfall[order(snowfall$date), ]
+snowfall$nobs_year <- ave(seq_len(nrow(snowfall)), snowfall$year, FUN = length) 
+check <- unique(snowfall[c('year', 'nobs_year')])
+plot(check$nobs_year ~ check$year)
