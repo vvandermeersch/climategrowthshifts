@@ -111,7 +111,8 @@ ids_missing <- which(is.na(snow[, 'snowdepth']) & snow[, 'year'] == 1970 &
 
 prev <- snow[ids_missing,]
 
-
+pdf(file.path(wd, 'figures', 'gslength_snowfree.pdf'), width = 8, height = 20)
+par(mfrow = c(5,2))
 for(y in as.character(1931:2010)){
   
   df <- snow[snow$date >= as.Date(paste0(as.numeric(y)-1, '-10-01')) & snow$date < as.Date(paste0(y, '-10-01')),]
@@ -123,6 +124,11 @@ for(y in as.character(1931:2010)){
   sos <-  min(snowfreedays$date, na.rm = TRUE)
   eos <- as.Date(paste0(y, '-09-30'))
   
+  df$cumsnowfall <- NA
+  wdw <- 3
+  cumsnowfall <- zoo::rollapply(df$snowfall, wdw, sum, na.rm = TRUE, align = 'right')
+  df[wdw:(length(cumsnowfall)+wdw-1), 'cumsnowfall'] <- cumsnowfall
+  
   plot.new()
   plot.window(ylim =  c(0, max(df$snowdepth, na.rm = TRUE)), xlim =  range(df$date))
   axis.Date(1, format="%d-%m", cex.axis = 0.7)
@@ -132,13 +138,34 @@ for(y in as.character(1931:2010)){
   rect(xleft = sos, xright = eos, ybottom = 0, ytop = max(df$snowdepth, na.rm = TRUE)*1.01, 
        col = '#f0f5df', border = NA)
   
+  if(length(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')) & df$snowfall > 0, 'snowfall']) > 0){
+    
+    df$newsnowfreecount <- NA
+    newsnowfreecount <- zoo::rollapply(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'cumsnowfall'] == 0, 
+                                       7, sum, na.rm = TRUE, align = 'left', fill = NA)
+    df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'newsnowfreecount'] <- newsnowfreecount
+    newsnowfreedays <- df[df$date >=  as.Date(paste0(y, '-03-15')) & df$newsnowfreecount %in% 7,]
+    newsos <- min(newsnowfreedays$date, na.rm = TRUE)
+    
+    rect(xleft = newsos, xright = sos-1, ybottom = 0, ytop = max(df$snowdepth, na.rm = TRUE)*1.01, 
+         col = '#f2f9fb', border = NA)
+    
+  }
+  
   title(ylab = "Snowdepth", cex.lab = 0.8)
   title(xlab = "Month", cex.lab = 0.8, line = 2.2)
   title(main = y, cex.main = 0.8)
-  lines(df$snowdepth ~ df$date, col = 'white', lwd = 5)
+  lines(df$snowdepth ~ df$date, col = 'white', lwd = 3)
   lines(df$snowdepth ~ df$date, col = 'grey40', lwd = 1)
   points(df[df$fill, 'snowdepth'] ~ df[df$fill, 'date'],
          col = 'darkred', cex = 0.6, pch = 20)
+  
+  lines(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'cumsnowfall'] ~
+          df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'date'],
+        col = 'white', lwd = 3)
+  lines(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'cumsnowfall'] ~
+          df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')), 'date'],
+        col = '#6bbad1', lwd = 1)
   
   points(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')) & df$snowfall > 0, 'snowfall'] ~
            df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')) & df$snowfall > 0, 'date'],
@@ -146,8 +173,17 @@ for(y in as.character(1931:2010)){
   
   text(x = (eos-sos)/2+sos , y = max(df$snowdepth, na.rm = TRUE)/2, labels = paste0(eos-sos, ' days'), col = '#9ab739')
   
+  if(length(df[is.na(df$snowdepth) & df$date >=  as.Date(paste0(y, '-03-15')) & df$snowfall > 0, 'snowfall']) > 0){
+    
+    text(x = (eos-newsos)/2+newsos-10 , y = max(df$snowdepth, na.rm = TRUE)/1.5, labels = paste0(eos-newsos, ' days'), col = '#6bbad1')
+    
+  }
+  
+  
+  
+  
 }
-
+dev.off()
 
 
 
