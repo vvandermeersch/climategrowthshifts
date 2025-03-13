@@ -19,8 +19,8 @@
 *.lua
 *.yml
 
-\archive
-\analysis\mountrainier\archive
+/archive
+/analysis/mountrainier/archive
 
 # Quarto Detritus
 *_files
