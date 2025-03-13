@@ -29,3 +29,7 @@
 # Mac Detritus
 *.DS_Store
 
+analysis/mountrainier/climate/era5land/bcookenv
+
+/notposting
+
