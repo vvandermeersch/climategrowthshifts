@@ -1,11 +1,10 @@
-############
-Description of climate files in treerings_ailene
+## Description of climate files in treerings_ailene
+Started at BIRS in March 2025 by Janneke HRL with updates by Lizzie
 
-############
-See also 2011 Ettinger, Ford and HRL (Ecology) paper (and supplement)
+See also 2011 Ettinger et al. 2011 (https://doi.org/10.1890/10-1639.1), Ford and HRL 2016 (https://cdnsciencepub.com/doi/10.1139/cjfr-2016-0188) papers
 
 
-####Climate data
+## Climate data
 Nine climate variables were used to explore climate - tree growth relationships. These variables were calculated for each of the nine stands from the Longmire climate record (daily values of temperature and precipitation) using gridded PRISM climate data to estimate offsets (differences in temperature and precipitation between Longmire and stand locations). These estimated stand specific daily values were then used to calculate yearly average temperature and cumulative precipitation (MAT, PTT) as well as growing season and dormant season temperature and precipitation (GST, DST, GPT, DPT) for each water year (October 1 - September 30). Daily temperature values were also used to calculate growing degree days (GDD), and daily temperature and precipitation values were run through the Anderson snow model to estimate the maximum size of the snowpack (SWE) and snow duration (number of days with snow covered ground). 
 
 1. tree_plot_climate_temp.csv - contains monthly (average) temperature values (in Celsius) from 1909 to 2009 (rows), for all 15 PSP stands (rows). These data were used to calculate annual and seasonal values.
