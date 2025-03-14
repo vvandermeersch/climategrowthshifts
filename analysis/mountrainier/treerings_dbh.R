@@ -142,19 +142,51 @@ for (i in c(1:nrow(spbyplot)))
 dev.off()
 
 
-if(FALSE){
-## Growth goes down with increasing basal area (pi*r^2)
-# assume growth declines for each cm of DBH and we want to look at increment change ...
-# I think this is not a good model, I ignore this problem for now
-xhere <- seq(from=500, to=1500, by=0.1)
-grdecline <- -0.2
-growthere <- grdecline*pi*(xhere/(2*pi))^2
-incrementhere <- rep(NA, length(growthere))
-for(i in c(1:length(xhere)))
-{
-	incrementhere[i] <- (xhere[i+1]/2*pi)-(xhere[i]/2*pi)
-}
-plot(growthere~incrementhere)
+##
+## Simulation study!
+# Growth goes down with increasing basal area (pi*r^2)
+# Using Mike's solution for RW (ring width, aka increment)
+# The below math is simplified to when: t_n-t_{n-1}=1
+
+rwsolution <- function(circum, alpha, i){
+	ringwidthhereplus <- ((-circum[i-1]/pi) + sqrt((circum[i-1]^2/pi^2)-4*alpha))/2
+	ringwidthhereminus <- ((-circum[i-1]/pi) - sqrt((circum[i-1]^2/pi^2)-4*alpha))/2
+	return(ringwidthhereplus)
 }
 
+# Next: Build a bunch of trees of different DBH
+treen <- 20
+yearn <- 100
+treeid <- rep(1:treen, each=yearn)
+yearz <- rep(seq(1:yearn), treen)
+N <- length(yearz)
+startcircum <- rnorm(treen, 30, 500)
+rwdat <- rep(NA, N)
+circumdat <- rep(NA, N)
+alpha <- 0.002
+
+for(n in 1:N){
+	treehere <- treeid[n]
+	if(yearz[n]==1){
+		circumdat[n] <- startcircum[treehere]
+		rwdat[n] <- 0
+	} else{
+		rwdat[n] <- rwsolution(circumdat, alpha, n)
+		circumdat[n] <- circumdat[n-1]+rwdat[n-1]
+	}
+}
+
+df <- data.frame(treeid, yearz, circumdat, rwdat)
+ggplot(df, aes(x=yearz, y=rwdat, color=as.factor(treeid))) +
+		geom_line() +
+		theme_bw() +
+		xlab("year") +
+		ylab("ring width") 
+ggplot(df, aes(x=yearz, y=circumdat, color=as.factor(treeid))) +
+		geom_line() +
+		theme_bw() +
+		xlab("year") +
+		ylab("circumference") 
+# I have some parameter number issues ... 
+# And the math is wrong?
 
