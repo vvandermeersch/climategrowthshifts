@@ -30,6 +30,7 @@
 *.DS_Store
 
 analysis/mountrainier/climate/era5land/bcookenv
+analysis/mountrainier/data/climate/era5land
 
 /notposting
 

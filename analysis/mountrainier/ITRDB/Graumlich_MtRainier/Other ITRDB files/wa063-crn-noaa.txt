@@ -1,0 +1,500 @@
+# Graumlich - Chinook Pass - TSME - ITRDB WA063
+#----------------------------------------------------
+#                World Data Service for Paleoclimatology, Boulder
+#                                  and
+#                     NOAA Paleoclimatology Program
+#             National Centers for Environmental Information (NCEI)
+#----------------------------------------------------
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available), and date accessed when using downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# Description/Documentation lines begin with #
+# Data lines have no #
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/3304
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-tree-3304.json
+#   Study_Level_JSON_Description: JSON metadata of this data file's parent study, which includes all study metadata.
+#
+# Data_Type: Tree Ring
+#
+# Dataset_DOI:
+#
+# Science_Keywords: 
+#--------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa/wa063-crn-noaa.txt
+#   Data_Download_Description: Raw Measurements - NOAA Template File; wa063-crn-noaa.txt
+#
+# Related_Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/chronologies/northamerica/usa/wa063.crn
+#   Related_Online_Description: CRN File; Chronology - Tucson Decadal File
+#
+#--------------------
+# Contribution_Date
+#   Date: 2003-05-14
+#--------------------
+# File_Last_Modified_Date
+#   Date: 2003-05-14
+#--------------------
+# Title
+#   Study_Name: Graumlich - Chinook Pass - TSME - ITRDB WA063
+#--------------------
+# Investigators
+#   Investigators: Graumlich, L.J.
+#--------------------
+# Description_Notes_and_Keywords
+#   Description: NOAA Template Chronology file added 2018-12-20. NOAA Template Raw Measurements file added 2019-02-08.
+#--------------------
+# Publication
+#   Authors: 
+#   Journal_Name: 
+#   Published_Title: 
+#   Published_Date_or_Year: 
+#   Volume: 
+#   Pages: 
+#   Issue: 
+#   Report_Number: 
+#   DOI: 
+#   Full_Citation: 
+#   Abstract: 
+#--------------------
+# Funding_Agency
+#   Funding_Agency_Name:
+#   Grant:
+#--------------------
+# Site_Information
+#   Site_Name: Chinook Pass
+#   Location: Washington
+#   Northernmost_Latitude: 46.85
+#   Southernmost_Latitude: 46.85
+#   Easternmost_Longitude: -121.5
+#   Westernmost_Longitude: -121.5
+#   Elevation_m: 1660
+#--------------------
+# Data_Collection
+#   Collection_Name: WA063
+#   First_Year: 1586
+#   Last_Year: 1980
+#   Time_Unit: CE
+#   Core_Length_m:
+#   Parameter_Keywords:  ring width
+#   Notes: None
+#--------------------
+# Species
+#   Species_Name: Tsuga mertensiana (Bong.) Carrière
+#   Common_Name: mountain hemlock
+#   Tree_Species_Code: TSME
+#--------------------
+# Variables
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Data variables follow that are preceded by '##' in columns one and two.
+# Variables format: shortname-tab-var components: what, material, error, units, seasonality, data type, detail, method, C or N for Character or Numeric data)
+#
+## age_CE	age,,,year Common Era,,tree ring,,,N,
+## trsgi	tree ring standardized growth index,,,,,tree ring,composited,standard chronology method,N,
+## numsamp	number of samples,,,count,,tree ring,,,N,
+#---------------------
+# Data:
+# Missing_Values: NA
+age_CE	trsgi	numsamp
+1586	1.113	1
+1587	1.986	1
+1588	1.833	1
+1589	1.179	1
+1590	0.939	1
+1591	1.528	1
+1592	1.877	1
+1593	1.79	1
+1594	1.877	1
+1595	1.812	1
+1596	2.03	1
+1597	1.593	1
+1598	0.917	1
+1599	1.113	1
+1600	1.179	1
+1601	1.441	1
+1602	1.2	1
+1603	1.241	2
+1604	0.837	2
+1605	0.582	2
+1606	0.861	2
+1607	1.225	2
+1608	1.092	2
+1609	1.034	2
+1610	1.421	2
+1611	1.416	2
+1612	1.085	2
+1613	1.265	2
+1614	1.14	2
+1615	0.992	2
+1616	1.175	2
+1617	1.346	2
+1618	1.061	2
+1619	0.987	2
+1620	1.319	2
+1621	1.538	2
+1622	1.441	2
+1623	1.293	2
+1624	1.56	2
+1625	1.667	2
+1626	1.245	2
+1627	1.101	2
+1628	0.917	2
+1629	0.936	2
+1630	1.1	2
+1631	1.101	2
+1632	1.269	2
+1633	1.459	2
+1634	1.535	2
+1635	1.031	2
+1636	1.613	2
+1637	1.735	2
+1638	2.352	2
+1639	1.338	2
+1640	1.265	2
+1641	0.629	2
+1642	1.078	2
+1643	1.067	2
+1644	1.249	2
+1645	1.52	2
+1646	1.276	2
+1647	1.01	2
+1648	1.086	2
+1649	1.13	2
+1650	0.783	2
+1651	1.015	2
+1652	0.891	2
+1653	0.781	2
+1654	0.82	2
+1655	0.854	2
+1656	0.658	2
+1657	0.665	2
+1658	0.937	2
+1659	0.788	2
+1660	0.915	2
+1661	1.13	2
+1662	0.738	2
+1663	0.89	2
+1664	0.839	2
+1665	0.928	2
+1666	0.805	2
+1667	0.912	2
+1668	0.486	2
+1669	0.733	2
+1670	0.657	3
+1671	0.829	3
+1672	0.986	4
+1673	1.021	4
+1674	0.974	4
+1675	1.025	4
+1676	0.824	4
+1677	0.873	4
+1678	1.165	5
+1679	1.306	5
+1680	1.195	5
+1681	1.244	6
+1682	1.272	6
+1683	1.157	6
+1684	1.189	6
+1685	1.042	6
+1686	1.19	6
+1687	1.278	6
+1688	0.963	6
+1689	1.145	6
+1690	0.848	6
+1691	0.913	6
+1692	0.932	6
+1693	1.019	6
+1694	0.893	6
+1695	1.105	6
+1696	0.85	8
+1697	0.709	8
+1698	0.997	8
+1699	1.062	8
+1700	0.943	8
+1701	0.796	8
+1702	0.97	8
+1703	0.967	8
+1704	1.291	8
+1705	1.438	8
+1706	1.205	8
+1707	0.69	8
+1708	0.799	8
+1709	0.487	8
+1710	0.948	8
+1711	0.77	8
+1712	1.21	8
+1713	0.948	8
+1714	1.066	8
+1715	0.635	8
+1716	1.051	8
+1717	1.214	8
+1718	1.053	8
+1719	0.983	8
+1720	0.819	8
+1721	1.058	8
+1722	0.641	8
+1723	0.765	8
+1724	0.778	9
+1725	0.956	9
+1726	1.061	9
+1727	1.157	9
+1728	0.913	9
+1729	1.069	9
+1730	0.922	9
+1731	0.853	9
+1732	0.968	9
+1733	0.974	9
+1734	1.008	9
+1735	1.197	10
+1736	1.097	10
+1737	0.889	10
+1738	0.968	10
+1739	0.969	10
+1740	1.212	10
+1741	1.238	11
+1742	1.012	11
+1743	1.186	11
+1744	1.068	11
+1745	1.143	11
+1746	1.088	11
+1747	1.093	11
+1748	1.024	11
+1749	0.988	11
+1750	0.899	12
+1751	0.908	12
+1752	0.591	12
+1753	0.61	12
+1754	0.728	12
+1755	0.628	12
+1756	1.137	12
+1757	0.86	12
+1758	0.952	12
+1759	0.763	12
+1760	0.747	12
+1761	0.62	12
+1762	0.649	12
+1763	0.783	12
+1764	0.825	12
+1765	0.748	12
+1766	0.892	12
+1767	0.879	12
+1768	0.83	12
+1769	0.884	12
+1770	1.042	13
+1771	0.982	13
+1772	0.802	13
+1773	0.985	13
+1774	0.982	13
+1775	0.683	13
+1776	0.939	13
+1777	0.957	13
+1778	0.975	13
+1779	0.777	13
+1780	0.956	14
+1781	0.867	14
+1782	0.919	14
+1783	1.129	14
+1784	0.823	14
+1785	0.784	14
+1786	0.771	14
+1787	0.656	14
+1788	0.844	14
+1789	0.734	14
+1790	0.887	14
+1791	1.01	14
+1792	1.173	14
+1793	1.206	14
+1794	1.417	14
+1795	1.219	14
+1796	1.237	18
+1797	0.765	18
+1798	1.045	18
+1799	1.174	18
+1800	1.106	18
+1801	0.885	18
+1802	0.856	18
+1803	0.982	18
+1804	1.069	18
+1805	1.026	18
+1806	0.812	18
+1807	0.853	18
+1808	0.602	18
+1809	0.724	19
+1810	0.452	19
+1811	0.587	19
+1812	0.734	19
+1813	0.8	19
+1814	0.975	19
+1815	0.908	19
+1816	0.961	20
+1817	1.088	20
+1818	1.008	20
+1819	0.724	20
+1820	0.778	20
+1821	0.703	20
+1822	0.857	20
+1823	0.909	20
+1824	0.781	20
+1825	1.006	20
+1826	0.929	20
+1827	0.875	20
+1828	0.843	20
+1829	1.004	20
+1830	0.781	20
+1831	0.76	20
+1832	0.603	20
+1833	0.764	20
+1834	0.978	20
+1835	0.822	20
+1836	0.696	20
+1837	0.776	20
+1838	0.529	20
+1839	0.93	20
+1840	0.55	20
+1841	0.567	20
+1842	0.688	20
+1843	0.902	20
+1844	0.896	20
+1845	0.719	20
+1846	0.915	20
+1847	0.554	20
+1848	0.886	20
+1849	0.396	20
+1850	0.446	20
+1851	0.773	20
+1852	0.733	20
+1853	0.685	20
+1854	0.779	20
+1855	0.778	20
+1856	0.548	20
+1857	0.794	20
+1858	0.796	20
+1859	0.744	20
+1860	0.671	20
+1861	0.692	20
+1862	0.506	20
+1863	1.013	20
+1864	0.677	20
+1865	0.729	20
+1866	0.343	20
+1867	0.451	20
+1868	0.646	20
+1869	0.797	20
+1870	0.595	20
+1871	0.537	20
+1872	0.708	20
+1873	0.83	20
+1874	0.762	20
+1875	0.591	20
+1876	0.613	20
+1877	0.954	20
+1878	0.876	20
+1879	0.806	20
+1880	0.609	20
+1881	0.788	20
+1882	0.818	20
+1883	0.711	20
+1884	0.873	20
+1885	0.973	20
+1886	0.991	20
+1887	0.676	20
+1888	0.957	20
+1889	1.116	20
+1890	1.15	20
+1891	1.048	20
+1892	0.857	20
+1893	0.814	20
+1894	0.869	20
+1895	1.174	20
+1896	0.801	20
+1897	0.965	20
+1898	1.009	20
+1899	0.641	20
+1900	0.917	20
+1901	1.047	20
+1902	0.995	20
+1903	1.019	20
+1904	1.419	20
+1905	1.553	20
+1906	1.069	20
+1907	1.023	20
+1908	0.966	20
+1909	0.932	20
+1910	1.165	20
+1911	1.203	20
+1912	0.986	20
+1913	1.179	20
+1914	1.654	20
+1915	1.417	20
+1916	0.723	20
+1917	0.942	20
+1918	1.137	20
+1919	1.022	20
+1920	1.212	20
+1921	1.104	20
+1922	1.38	20
+1923	1.253	20
+1924	1.336	20
+1925	1.13	20
+1926	1.375	20
+1927	1.173	20
+1928	1.22	20
+1929	1.467	20
+1930	1.49	20
+1931	1.385	20
+1932	1.101	20
+1933	1.203	20
+1934	1.546	20
+1935	1.649	20
+1936	1.404	20
+1937	1.197	20
+1938	1.272	20
+1939	1.373	20
+1940	1.393	20
+1941	1.551	20
+1942	1.465	20
+1943	1.504	20
+1944	1.747	20
+1945	1.592	20
+1946	1.32	20
+1947	1.655	20
+1948	2.054	20
+1949	1.571	20
+1950	1.743	20
+1951	1.919	20
+1952	1.622	20
+1953	1.239	20
+1954	1.001	20
+1955	1.239	20
+1956	1.001	20
+1957	1.249	20
+1958	1.567	20
+1959	1.239	20
+1960	1.652	20
+1961	1.421	20
+1962	1.175	20
+1963	1.35	20
+1964	1.328	20
+1965	1.254	20
+1966	1.586	20
+1967	1.58	20
+1968	1.365	20
+1969	0.95	20
+1970	1.126	20
+1971	0.935	20
+1972	1.019	20
+1973	1.067	20
+1974	0.867	20
+1975	1.058	20
+1976	0.95	20
+1977	1.465	20
+1978	1.041	20
+1979	0.971	20
+1980	0.895	1

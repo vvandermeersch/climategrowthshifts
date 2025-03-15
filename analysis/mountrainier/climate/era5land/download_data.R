@@ -11,7 +11,7 @@ cdsapi <- import("cdsapi")
 source_python(file.path(wd, 'climate', 'era5land', "download_era5.py")) # custom script
 
 #Run script
-for(year in as.character(1950:1980)){
-  download_era5land(year = year)
+for(year in as.character(1950:2010)){
+    download_era5land(year = year)
 }
 

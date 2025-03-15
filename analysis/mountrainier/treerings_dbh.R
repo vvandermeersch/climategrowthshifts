@@ -1,7 +1,10 @@
 ## Started 11 March 2025 ##
 ## By Lizzie ##
 
-## Cribbing some off data_exploration.qmd ##
+## Looking for trends over time in size x growth ##
+
+# Cribbing some off data_exploration.qmd at the start here #
+# See also allometreec.R for simulation study #
 
 # housekeeping 
 rm(list=ls()) 
@@ -9,7 +12,6 @@ options(stringsAsFactors = FALSE)
 
 # libraries
 library(ggplot2)
-library(ggsave)
 
 wd <- "~/Documents/git/projects/grephon/climategrowthshifts/analysis/mountrainier"
 
@@ -144,10 +146,19 @@ dev.off()
 
 ##
 ## Simulation study!
+## See allometreec.R instead
+## And see https://github.com/vvandermeersch/climategrowthshifts/issues/7
+
+## This code below is working because of:
+# 1) My assumption that alpha is a constant
+# 2) Something bad I did with circumference (why is it negative?)
+# 3) Possibly some other coding issues that I did not catch
+## But I am keeping it here for now as it seemed close
+
 # Growth goes down with increasing basal area (pi*r^2)
 # Using Mike's solution for RW (ring width, aka increment)
 # The below math is simplified to when: t_n-t_{n-1}=1
-
+if(FALSE){
 rwsolution <- function(circum, alpha, i){
 	ringwidthhereplus <- ((-circum[i-1]/pi) + sqrt((circum[i-1]^2/pi^2)-4*alpha))/2
 	ringwidthhereminus <- ((-circum[i-1]/pi) - sqrt((circum[i-1]^2/pi^2)-4*alpha))/2
@@ -189,4 +200,5 @@ ggplot(df, aes(x=yearz, y=circumdat, color=as.factor(treeid))) +
 		ylab("circumference") 
 # I have some parameter number issues ... 
 # And the math is wrong?
+}
 

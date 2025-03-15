@@ -1,6 +1,4 @@
 
-
-
 # 1909 - 1978
 USC00456894 <- read.csv(file.path(wd, 'data', 'climate', 'USC00456894.csv'), header = FALSE,
                         col.names = c('id', 'date', 'var', 'value', 'x1', 'x2', 'x3', 'x4')) 
