@@ -1,0 +1,71 @@
+
+
+      Chronology file name   : WA102.CRN
+      Measurement file name  : WA102.RWL
+      Date checked           : 13APR05
+      Checked by             : H. ADAMS AND J. LUKAS
+      Beginning year         : 1719
+      Ending year            : 1992
+      Principal investigators: David W. Peterson and David L. Peterson                
+      Site name              : Mount Rainier Medium
+      Site location          : Washington   
+      Species information    : TSME MOUNTAIN HEMLOCK
+      Latitude               :  +4650
+      Longitude              : -12145
+      Elevation              : 1645M
+
+      Series intercorrelation: 0.628
+      Avg mean sensitivity   : 0.271
+      Avg standard deviation : 0.477
+      Avg autocorrelation    : 0.704
+      Number dated series    : 13
+      Segment length tested  : 50
+
+      Number problem segments: 5
+      Pct problem segments   : 5.81
+
+
+PART 5:  CORRELATION OF SERIES BY SEGMENTS: wa102.rwl                                              14:52  Wed 13 Apr 2005  Page   5
+------------------------------------------------------------------------------------------------------------------------------------
+ Correlations of  50-year dated segments, lagged  25 years
+ Flags:  A = correlation under   .3281 but highest as dated;  B = correlation higher at other than dated position
+
+ Seq Series  Time_span   1750 1775 1800 1825 1850 1875 1900 1925 1950
+                         1799 1824 1849 1874 1899 1924 1949 1974 1999
+ --- -------- ---------  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+   1 HMMR01A  1810 1992             .66  .59  .81  .84  .75  .72  .56
+   2 HMMR02B  1831 1992                  .75  .83  .75  .20B .58  .77
+   3 HMMR06A  1719 1992   .53  .64  .76  .77  .83  .77  .73  .64  .42
+   4 HMMR07A  1775 1992        .37  .69  .71  .85  .86  .55  .52  .59
+   5 HMMR09B  1910 1992                                 .12B .40  .48
+   6 HMMR11A  1845 1992                  .76  .75  .60  .57  .57  .54
+   7 HMMR12B  1824 1992             .46  .47  .73  .78  .41  .36  .49
+   8 HMMR14B  1900 1992                                 .01B .41  .43
+   9 HMMR15A  1869 1992                       .92  .91  .61  .59  .67
+  10 HMMR16A  1793 1992        .32A .33  .46  .83  .80  .65  .75  .73
+  11 HMMR17A  1760 1992   .37  .54  .60  .64  .69  .65  .29A .57  .66
+  12 HMMR18A  1750 1992   .48  .63  .64  .69  .81  .77  .61  .69  .68
+  13 HMMR19A  1849 1992                  .71  .78  .81  .59  .67  .71
+ Av segment correlation   .46  .50  .59  .65  .80  .78  .47  .57  .60
+PART 7:  DESCRIPTIVE STATISTICS: wa102.rwl                                                         14:52  Wed 13 Apr 2005  Page   6
+------------------------------------------------------------------------------------------------------------------------------------
+
+                                                Corr   //-------- Unfiltered --------\\  //---- Filtered -----\\
+                           No.    No.    No.    with   Mean   Max     Std   Auto   Mean   Max     Std   Auto  AR
+ Seq Series   Interval   Years  Segmt  Flags   Master  msmt   msmt    dev   corr   sens  value    dev   corr  ()
+ --- -------- ---------  -----  -----  -----   ------ -----  -----  -----  -----  -----  -----  -----  -----  --
+   1 HMMR01A  1810 1992    183      7      0    .680   2.27   5.02  1.011   .676   .291   2.82   .556  -.047   1
+   2 HMMR02B  1831 1992    162      6      1    .692   2.05   4.40   .716   .619   .255   2.63   .425  -.041   1
+   3 HMMR06A  1719 1992    274      9      0    .656    .54   1.54   .304   .813   .289   2.64   .372  -.028   1
+   4 HMMR07A  1775 1992    218      8      0    .646    .41   1.74   .271   .829   .322   2.58   .387  -.008   1
+   5 HMMR09B  1910 1992     83      3      1    .380   2.38   4.75   .924   .638   .272   2.66   .535  -.045   1
+   6 HMMR11A  1845 1992    148      6      0    .617   1.07   2.55   .407   .547   .274   2.61   .394  -.031   1
+   7 HMMR12B  1824 1992    169      7      0    .593    .94   1.83   .229   .432   .199   2.49   .284  -.008   1
+   8 HMMR14B  1900 1992     93      3      1    .290   1.57   3.91   .795   .887   .198   2.67   .488   .055   1
+   9 HMMR15A  1869 1992    124      5      0    .789   1.11   2.38   .480   .639   .313   2.55   .357  -.079   1
+  10 HMMR16A  1793 1992    200      8      1    .635    .75   3.55   .446   .699   .344   2.68   .370   .002   1
+  11 HMMR17A  1760 1992    233      9      1    .568    .84   1.85   .380   .870   .188   2.51   .324  -.040   1
+  12 HMMR18A  1750 1992    243      9      0    .663    .88   2.36   .354   .652   .273   2.67   .416  -.046   1
+  13 HMMR19A  1849 1992    144      6      0    .712   1.12   2.50   .481   .725   .276   2.60   .417  -.034   1
+ --- -------- ---------  -----  -----  -----   ------ -----  -----  -----  -----  -----  -----  -----  -----  --
+ Total or mean:           2274     86      5    .628   1.10   5.02   .477   .704   .271   2.82   .399  -.028
