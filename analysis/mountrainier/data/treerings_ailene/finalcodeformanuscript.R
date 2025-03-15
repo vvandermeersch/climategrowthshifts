@@ -229,7 +229,7 @@ GPST<-climsitestd[,4]
 DPST<-climsitestd[,5]
 GTST<-climsitestd[,6]
 DTST<-climsitestd[,7]
-SWEST<-climsitestd[,8]
+
 SNDST<-climsitestd[,9]
 GDDST<-climsitestd[,10]
 
