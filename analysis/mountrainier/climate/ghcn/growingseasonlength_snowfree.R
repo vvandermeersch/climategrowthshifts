@@ -462,3 +462,9 @@ axis(2, las = 2, cex.axis = 0.7, tck=-0.02, labels=TRUE)
 lines(gsl_snowfree$gsl ~ as.numeric(gsl_snowfree$year), lwd = 0.5)
 points(gsl_snowfree$gsl ~ as.numeric(gsl_snowfree$year), cex = 0.5, pch = 20)
 abline(v=1974, col="grey80", lty = 'dashed')
+
+gsl_snowfree$gsl_merge <- apply(gsl_snowfree[c('gsl', 'newgsl')],1,max,na.rm=TRUE)
+snowfreegsl_paradise <- gsl_snowfree[c('year', 'gsl_merge')]
+names(snowfreegsl_paradise) <- c('year', 'gsl (days)')
+
+write.csv(snowfreegsl_paradise, file = file.path(wd, 'output/climate/snowfreegsl_paradise.csv'))
