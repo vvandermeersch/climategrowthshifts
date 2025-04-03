@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+\usepackage[top=.50in, bottom=1.0in, left=1in, right=1in]{geometry}
+\renewcommand{\baselinestretch}{1.1}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\bibliographystyle{besjournals}
+
+
+\setlength\parindent{0pt}
+
+\begin{document}
+
+One tree, $\mathrm{N}$ ringwidth measurements $r_w$ for each year $x_n$.\\
+For now, only a long-term Gaussian process:
+
+\begin{equation}\label{eq:1}
+\forall x_n  \hspace{0.5cm} \log{r_w(x_n)} \sim \text{normal}(\mu + f_{\text{long}}(x_n), \sigma^2)
+\end{equation}
+
+with:
+
+\begin {equation}\label{eq:2}
+\vec{f_{\text{long}}} \sim \text{multinormal}(\vec{0}, \mathrm{K_{\text{long}}})
+\end{equation}
+
+\vspace{0.5cm}
+Each element $\mathrm{k}$ of the matrix $\underset{N\times N}{\mathrm{K}_{\text{long}}}$ is defined by the exponentiated quadratic function:
+\begin {equation}
+\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{k}_{i,j} = {\gamma_{\text{long}}^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho_{\text{long}}}\right)^2\right)
+\end{equation}
+with $\gamma_{\text{long}}$ the marginal deviation and $\rho_{\text{long}}$ the length scale
+
+\vspace{0.5cm}
+Note that equations (\ref{eq:1}) and (\ref{eq:2}) are equivalent to:
+
+\begin{equation}
+\log\vec{{r_w}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K}_{\text{long}})
+\end{equation}
+
+where:
+
+\begin{equation}
+    \vec{\mu} = \begin{bmatrix}
+               \mu \\
+               \mu \\
+               \vdots \\
+               \mu
+    \end{bmatrix}
+    \hspace{1cm}
+	\Sigma = 
+	\begin{bmatrix}
+		\sigma^2  & 0 & \ldots & 0 \\
+		0 & \ \sigma^2  & \ldots  & \vdots\\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & \ldots &  \ldots & \sigma^2 
+	\end{bmatrix}
+\end{equation}
+
+\vspace{0.5cm}
+For one tree, it's pretty straightforward to add a short-term Gaussian process:
+
+\begin{equation}
+\log\vec{{r_w}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K}_{\text{long}} + \mathrm{K}_{\text{short}})
+\end{equation}
+
+This short-term Gaussian process is also defined by an exponentiated quadratic function with parameters $\gamma_{\text{short}}$ and $\rho_{\text{short}}$.
+\vspace{0.5cm}
+
+In this case, you can write only one Gaussian process, with one matrix $\mathrm{K}_{\text{long+short}}$ with two exponentiated quadratic functions:
+\begin {equation}
+\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{k}_{i,j} = {\gamma_{\text{long}}^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho_{\text{long}}}\right)^2\right) + {\gamma_{\text{short}}^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho_{\text{short}}}\right)^2\right)
+\end{equation}
+
+\vspace{0.8cm}
+Several trees t $\in [\![1,\mathrm{T}]\!]$ on the same stand, with the same number of ringwidth measurements:
+
+\begin{equation}
+\forall t  \in [\![1,\mathrm{T}]\!] \hspace{1cm} \log\vec{{r_w({t})}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K}_{\text{long+short}})
+\end{equation}
+
+
+
+\end{document}
