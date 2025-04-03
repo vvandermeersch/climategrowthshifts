@@ -18,6 +18,8 @@
 *.out 
 *.lua
 *.yml
+*.fls
+*.fdb_latexmk
 
 /archive
 /analysis/mountrainier/archive
