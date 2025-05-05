@@ -1,0 +1,92 @@
+
+---
+title: "Modelling tree growth with Gaussian processes"
+author:   
+  - Victor
+  - Lizzie
+date: "May 2025"
+date-format: "MMMM YYYY"
+toc: true
+number-sections: true
+highlight: pygments
+execute:
+  enabled: true
+format:
+  html:
+    html-math-method: katex
+    theme:
+      - lux
+    embed-resources: true
+    code-overflow: wrap
+    linkcolor: "#B97C7C"
+    page-layout: full
+    fig-width: 8
+    fig-height: 4
+  pdf:
+    keep-tex: true
+    fig-width: 5.5
+    fig-height: 7.5
+    code-overflow: wrap
+    monofontoptions:
+      - Scale=0.5
+knitr:
+  opts_chunk:
+    comment: ''
+  opts_knit:
+    global.par: TRUE
+format-links: false
+---
+
+## Gaussian process model without climate
+
+Following our one-week workshop in Banff, we came up with a new model of tree growth---with a big contribution of Mike Betancourt. 
+The model is based on Gaussian processes.
+
+### A quick overlook of Gaussian processes
+
+From a simplified (and likely eroneous?) point of view, a (finite-$\mathrm{N}$-dimensional projection) of a Gaussian process $f_\mathrm{N}$ is defined as:
+$$f_\mathrm{N} \sim \text{multinormal}(\mathrm{m}, \mathrm{K})$$
+with a certain mean function $\mathrm{m}$ and a covariance matrix $\mathrm{K}$.  
+In particular, the elements of $\mathrm{K}$ are defined by a covariance function.   
+In our case (and in most Gaussian process applications), we use an *exponentiated quadratic* function:  
+$$\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{k}_{i,j} = {\gamma^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho}\right)^2\right)$$
+This covariance function capture the "link" between observations along a continuous variable, such as time or space.   
+The function is characterized by two parameters:  
+- a marginal deviation $\gamma$, which controls the variability around the mean (the intensity?)  
+- a length scale $\rho$, which controls how long/far the correlations persist  
+
+### Application to tree growth
+
+Now, let's say that we have ringwidth measurements $r_w$ for one tree, for each year $x_n$.
+Using one Gaussian process, a simple model would look like this:
+
+$$\forall x_n  \hspace{0.5cm} \log{r_w(x_n)} \sim \text{normal}(\mu + f(x_n), \sigma^2)$$
+with:
+$$\vec{f} \sim \text{multinormal}(\vec{0}, \mathrm{K})$$
+The two equations are equivalent to:
+
+$$\log\vec{{r_w}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K})$$
+where:
+
+$$
+    \vec{\mu} = \begin{bmatrix}
+               \mu \\
+               \mu \\
+               \vdots \\
+               \mu
+    \end{bmatrix}
+    \hspace{1cm}
+	\Sigma = 
+	\begin{bmatrix}
+		\sigma^2  & 0 & \ldots & 0 \\
+		0 & \ \sigma^2  & \ldots  & \vdots\\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & \ldots &  \ldots & \sigma^2 
+	\end{bmatrix}
+$$
+\vspace{1cm}
+In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
+- one long-term scale Gaussian process, to capture the long-term variation of tree growth, likely related to allometric constraints  
+- one short-term scale Gaussian process, to capture some climatic variations over several years  
+
+
