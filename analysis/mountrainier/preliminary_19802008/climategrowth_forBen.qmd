@@ -55,6 +55,33 @@ The function is characterized by two parameters:
 - a marginal deviation $\gamma$, which controls the variability around the mean (the intensity?)  
 - a length scale $\rho$, which controls how long/far the correlations persist  
 
+```{r}
+#| fig-height: 4
+#| fig-width: 5
+#| echo: false
+
+exp_quad <- function(dx, gamma, rho){
+  return(gamma^2 * exp(-1/2*(dx/rho)^2))
+}
+
+plotdf <- data.frame(dist = seq(0, 50, 0.1), cov = NA)
+gamma <- 2
+rho <- 10
+plotdf$cov <- sapply(plotdf$dist, function(i) exp_quad(i, gamma = gamma, rho = rho))
+
+
+plot.new()
+plot.window(xlim = c(0,max(plotdf$dist)), ylim = c(0,gamma^2))
+grid()
+axis(1, las = 1, cex.axis = 0.8, tck=-0.02, at = c(0,rho, 25,50), labels=c("0", expression(rho), "25", "50"))
+axis(2, las = 1, cex.axis = 0.8, tck=-0.02, at = c(0,gamma^2/exp(1/2),gamma^2), labels=c("0", expression(frac(gamma^2,exp(1/2))), expression(gamma^2)))
+title(main = "Covariogram", line=1, cex.main = 1)
+title(xlab = expression(paste(Delta,x)),  line=3, cex.main = 1)
+lines(plotdf$dist, plotdf$cov, col="white", lwd=4)
+lines(plotdf$dist, plotdf$cov, col="#AE2565FF", lwd=2)
+
+```
+
 ### Application to tree growth
 
 Now, let's say that we have ringwidth measurements $r_w$ for one tree, for each year $x_n$.
@@ -65,7 +92,7 @@ with:
 $$\vec{f} \sim \text{multinormal}(\vec{0}, \mathrm{K})$$
 The two equations are equivalent to:
 
-$$\log\vec{{r_w}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K})$$
+$$\log\vec{{\text{rw}}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K})$$
 where:
 
 $$
@@ -84,9 +111,48 @@ $$
 		0 & \ldots &  \ldots & \sigma^2 
 	\end{bmatrix}
 $$
-\vspace{1cm}
+\
+
 In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
-- one long-term scale Gaussian process, to capture the long-term variation of tree growth, likely related to allometric constraints  
-- one short-term scale Gaussian process, to capture some climatic variations over several years  
+
+* one **long-term scale** Gaussian process $f_{\text{long}}$, to capture the long-term variation of tree growth, likely related to allometric constraints   
+* one **short-term scale** Gaussian process $f_{\text{short,p}}$ per stand $p$, to capture some climatic variations over several years
+
+The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$.   
+The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. 
+
+\
+
+The full model is, for $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
+
+$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu_{sp,p}}, \hspace{0.08cm} \Sigma + \mathrm{K_{sp}})$$
+with:
+$$
+\log\vec{\text{rw}}_{sp,k} = 
+\log \circ \begin{bmatrix}
+  \text{rw}_{sp,p,k}(t_1) \\
+  \text{rw}_{sp,p,k}(t_2) \\
+  \vdots \\
+  \text{rw}_{sp,k}(t_n)
+\end{bmatrix}
+\hspace{1cm}
+\log\vec{\mu}_{sp,p} = 
+\log \circ \begin{bmatrix}
+  \mu_{sp,p}(t_1) \\
+  \mu_{sp,p}(t_2) \\
+  \vdots \\
+  \mu_{sp,p}(t_n)
+\end{bmatrix}
+$$
+
+$$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
+    + \beta_{\text{GSL}} * \text{GSL}(p,t_i)
+    + \beta_{\text{GDD}}  * \text{GDD}(p,t_i)
+    + \beta_{\text{SM}}  * \text{SM}(p,t_i)
+    + \kappa_{\text{sp}}
+    * f_{\text{short,p}}(t_i)$$
+
+$$\vec{f}_{\text{short,p}} \sim \text{multinormal}(\vec{0}, \mathrm{K_\text{short}})$$
+
 
 
