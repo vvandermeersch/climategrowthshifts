@@ -37,7 +37,22 @@ knitr:
 format-links: false
 ---
 
-## Gaussian process model without climate
+```{r}
+#| echo: true
+
+library(terra)
+library(leaflet)
+library(ggplot2)
+
+kippenberger <- c("#8B174DFF", "#AE2565FF", "#C1447EFF", "#D06C9BFF", "#DA9FB8FF", 
+                  "#ADBE7CFF", "#8BA749FF", "#6E8537FF", "#4F5F28FF", "#343D1FFF")
+
+wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
+
+```
+
+
+## Gaussian process model?
 
 Following our one-week workshop in Banff, we came up with a new model of tree growth---with a big contribution of Mike Betancourt. 
 The model is based on Gaussian processes.
@@ -66,14 +81,14 @@ exp_quad <- function(dx, gamma, rho){
 
 plotdf <- data.frame(dist = seq(0, 50, 0.1), cov = NA)
 gamma <- 2
-rho <- 10
+rho <- 15
 plotdf$cov <- sapply(plotdf$dist, function(i) exp_quad(i, gamma = gamma, rho = rho))
 
 
 plot.new()
 plot.window(xlim = c(0,max(plotdf$dist)), ylim = c(0,gamma^2))
 grid()
-axis(1, las = 1, cex.axis = 0.8, tck=-0.02, at = c(0,rho, 25,50), labels=c("0", expression(rho), "25", "50"))
+axis(1, las = 1, cex.axis = 0.8, tck=-0.02, at = c(0,rho, 50), labels=c("0", expression(rho), ""))
 axis(2, las = 1, cex.axis = 0.8, tck=-0.02, at = c(0,gamma^2/exp(1/2),gamma^2), labels=c("0", expression(frac(gamma^2,exp(1/2))), expression(gamma^2)))
 title(main = "Covariogram", line=1, cex.main = 1)
 title(xlab = expression(paste(Delta,x)),  line=3, cex.main = 1)
@@ -119,7 +134,7 @@ In practice, we choose to model the $\log$ of ringwidth with two Gaussian proces
 * one **short-term scale** Gaussian process $f_{\text{short,p}}$ per stand $p$, to capture some climatic variations over several years
 
 The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$.   
-The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. 
+The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below).
 
 \
 
@@ -153,6 +168,188 @@ $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
     * f_{\text{short,p}}(t_i)$$
 
 $$\vec{f}_{\text{short,p}} \sim \text{multinormal}(\vec{0}, \mathrm{K_\text{short}})$$
+\
+
+We look at three different climate predictors, at the stand scale:
+
+* the growing season length $\text{GSL}(p,t_i)$, in days
+* the growing degree days $\text{GDD}(p,t_i)$ accumulated during the growing season, in $\text{x}10$ $^{\circ}$C
+* the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during the growing season, in $\%$
+
+::: {.callout-note}
+To discuss: do we really need the growing season length?
+:::
+
+## Modeling tree growth on Mt Rainier
+
+### Study area
 
 
 
+We have 16 different plots:
+
+```{r}
+#| out-height: 400px
+#| out-width: 400px
+#| echo: false
+
+plots <- read.csv(file.path(wd, "data", "treerings_ailene", "tree_plot_climate_temp.csv"))
+plots_vect <- vect(plots[,c("Longitude", "Latitude")], geom=c("Longitude", "Latitude"), crs = "EPSG:4326")
+
+leaflet(plots) %>% addTiles() %>%
+  addCircleMarkers(~Longitude, ~Latitude, label = ~Plot,
+                   color = 'white', 
+                   stroke = FALSE,
+                   radius = 8, 
+                   fillOpacity = 1) %>%
+  addCircleMarkers(~Longitude, ~Latitude,  label = ~Plot,
+                   color = 'black', 
+                   stroke = FALSE,
+                   radius = 4, 
+                   fillOpacity = 1)
+
+
+```
+
+### Climate predictors
+
+```{r}
+
+raw_data <- read.csv(file.path(wd, 'input/treerings/mosttrees_allspecies_allplots_19802008.csv'))
+clim_pred <- readRDS(file.path(wd, "data", "climate","processed_predictors", "wldas_climpredictors.rds"))
+
+clim_pred$soilmoist_ings <- clim_pred$soilmoist_ings*100 # in percentage
+clim_pred$gdd_ings <- clim_pred$gdd_ings/10 # in 10degC
+
+```
+
+#### Soil moisture
+
+As said before, we first investigate the effect of 3 different predictors.  
+All of them were extracted from WLDAS (from 1980).
+We can look at the soil moisture:  
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(data = clim_pred, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_ings, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) + 
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "Mean soil moisture during GS (%)")
+
+```
+
+We observe some big difference across stands:
+
+```{r}
+#| out-height: 400px
+#| out-width: 700px
+#| echo: false
+
+climplotdf <- unique(clim_pred[, c('ID', 'plotname', 'alt', 'meansm', 'meangdd')])
+climplotdf <- merge(climplotdf, plots[, c("Plot", "Longitude", "Latitude")], by.x = 'plotname', by.y = "Plot")
+
+pal <- colorNumeric(
+  palette = "Blues",
+  domain = climplotdf$meansm*100)
+
+leaflet(climplotdf) %>% addTiles() %>%
+  addCircleMarkers(~Longitude, ~Latitude, label = ~plotname,
+                   color = 'black', 
+                   stroke = FALSE,
+                   radius = 8, 
+                   fillOpacity = 1) %>%
+  addCircleMarkers(~Longitude, ~Latitude,  label = ~plotname,
+                   color =  ~pal(meansm*100), 
+                   stroke = FALSE,
+                   radius = 5, 
+                   fillOpacity = 1) %>%
+  addLegend("bottomright", pal = pal, values = ~meansm*100,
+    title = "Soil moist. (%)",
+    opacity = 1
+  )
+
+```
+
+\ 
+
+If we look at the anomaly from the average stand soil moisture, we observe some similar patterns:
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(data = clim_pred, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_ings-meansm*100, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) +
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "Mean soil moisture during GS (anomaly, %)")
+
+```
+
+#### Growing degree days
+
+We can do the same for GDD:
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(data = clim_pred, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = gdd_ings, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) + 
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "GDD accumulated in GS (x10 degC)")
+
+```
+
+```{r}
+#| out-height: 400px
+#| out-width: 700px
+#| echo: false
+
+pal <- colorNumeric(
+  palette = "Reds",
+  domain = climplotdf$meangdd/10)
+
+leaflet(climplotdf) %>% addTiles() %>%
+  addCircleMarkers(~Longitude, ~Latitude, label = ~plotname,
+                   color = 'black', 
+                   stroke = FALSE,
+                   radius = 8, 
+                   fillOpacity = 1) %>%
+  addCircleMarkers(~Longitude, ~Latitude,  label = ~plotname,
+                   color =  ~pal(meangdd/10), 
+                   stroke = FALSE,
+                   radius = 5, 
+                   fillOpacity = 1) %>%
+  addLegend("bottomright", pal = pal, values = ~meangdd/10,
+    title = "GDD (x10 degC)",
+    opacity = 1
+  )
+
+```
+
+If we look at the anomaly from the average stand GDD, we also observe similar patterns:
+
+```{r}
+#| echo: false
+
+ggplot() +
+  geom_line(data = clim_pred, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = gdd_ings-meangdd/10, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) +
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "GDD accumulated in GS (anomaly, x10 degC)")
+
+```
