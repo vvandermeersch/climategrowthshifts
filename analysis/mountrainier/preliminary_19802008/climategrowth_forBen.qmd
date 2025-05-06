@@ -197,8 +197,6 @@ To discuss: do we really need the growing season length?
 
 ### Study area
 
-
-
 We have 16 different plots:
 
 ```{r}
@@ -223,6 +221,10 @@ leaflet(plots) %>% addTiles() %>%
 
 
 ```
+
+And 6 species:
+
+* lsit species here...
 
 ### Climate predictors
 
@@ -575,10 +577,13 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 
+rm(fit);gc()
+
 ```
 
 ### Retrodictive Check
 
+We first need to validate that our model is adequately capturing the observed data features (before any posterior inference).  
 We can look at some trees on one stand.
 
 ```{r}
@@ -605,11 +610,11 @@ We would need to do more retrodictive check...
 Here we look at $\kappa_\text{sp}$, the species-specific factor that scaled the short-term scale GP.
 
 ```{r}
-#| fig-height: 3
-#| fig-width: 4
+#| fig-height: 4
+#| fig-width: 5
 #| echo: false
 
-par(mfrow=c(2, 1), mar=c(5, 5, 1, 1))
+par(mfrow=c(1, 1), mar=c(5, 5, 1, 1))
 
 names <- sapply(1:data$N_species,
                 function(sp) paste0('kappa_sh[', sp, ']'))
@@ -622,39 +627,13 @@ util$plot_disc_pushforward_quantiles(samples, names,
 
 #### Effects of climate predictors
 
-We now look at posterior distributions of $\beta_{\text{GSL}}$, $\beta_{\text{GDD}}$ and $\beta_{\text{SM}}$.
+To investigate the interactions between model outputs and the observed input, we can look at the posterior predictive behaviors of the 3 climate predictors (here, we look at the distribution of posterior sample medians).
 
 ```{r}
-#| fig-height: 3
-#| fig-width: 5
+#| fig-height: 12
+#| fig-width: 8
 #| echo: false
-
-par(mfrow=c(1, 3))
-util$plot_expectand_pushforward(samples[['beta_gsl']], 25,
-                                display_name="beta_gsl")
-xs <- seq(0, 1, 0.001)
-ys <- dnorm(xs, 0, log(1.8) / 2.57)
-lines(xs, ys, lwd=2, col=util$c_light)
-
-util$plot_expectand_pushforward(samples[['beta_gdd']], 25,
-                                display_name="beta_gdd")
-xs <- seq(0, 1, 0.01)
-ys <- dnorm(xs, 0, log(1.8) / 2.57)
-lines(xs, ys, lwd=2, col=util$c_light)
-
-util$plot_expectand_pushforward(samples[['beta_sm']], 25,
-                                display_name="beta_sm")
-xs <- seq(0, 1, 0.01)
-ys <- dnorm(xs, 0, log(1.8) / 2.57)
-lines(xs, ys, lwd=2, col=util$c_light)
-```
-
-$\beta_{\text{GDD}}$ seems different than zero, while $\beta_{\text{SM}}$ looks weirder.
-
-```{r}
-#| fig-height: 3
-#| fig-width: 5
-#| echo: false
+#| eval: true
 
 par(mfrow=c(3, 1))
 
@@ -671,11 +650,77 @@ util$plot_conditional_median_quantiles(samples, pred_names, data$sm_obs,
                                        0.17*100, 0.32*100, 0.5, data$log_rw_obs, 
                                        xlab="Soil moisture (%)")
 
+```
+
+\
+
+Are there some systematic behavior in the residuals?
+In the 3 residual plots below, we see no indications of model inadequacy (e.g. a missing quadratic trend?).
+
+```{r}
+#| fig-height: 12
+#| fig-width: 8
+#| echo: false
+#| eval: true
+
+par(mfrow=c(3, 1))
 
 pred_names <- sapply(1:data$N, function(n) paste0('log_rw_pred[', n, ']'))
+util$plot_conditional_median_quantiles(samples, pred_names, data$gsl_obs,
+                                       70, 220, 5, data$log_rw_obs, 
+                                       residual=TRUE,
+                                       xlab="GSL (days)")
+
+util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs,
+                                       250/10, 1800/10, 5, data$log_rw_obs, 
+                                       residual=TRUE,
+                                       xlab="GDD (x10 degC)")
+
 util$plot_conditional_median_quantiles(samples, pred_names, data$sm_obs,
                                        0.17*100, 0.32*100, 0.5, data$log_rw_obs, 
-                                       residual=TRUE, xlab="Soil moisture (%)")
+                                       residual=TRUE,
+                                       xlab="Soil moisture (%)")
 
 ```
+
+\
+
+We now look at posterior distributions of $\beta_{\text{GSL}}$, $\beta_{\text{GDD}}$ and $\beta_{\text{SM}}$.
+
+```{r}
+#| fig-height: 3
+#| fig-width: 7.5
+#| echo: false
+
+par(mfrow=c(1, 3))
+util$plot_expectand_pushforward(samples[['beta_gsl']], 25,
+                                display_name=expression(beta[GSL]))
+xs <- seq(0, 1, 0.001)
+ys <- dnorm(xs, 0, log(1.8) / 2.57)
+lines(xs, ys, lwd=2, col=util$c_light)
+
+util$plot_expectand_pushforward(samples[['beta_gdd']], 25,
+                                display_name=expression(beta[GDD]))
+xs <- seq(0, 1, 0.01)
+ys <- dnorm(xs, 0, log(1.8) / 2.57)
+lines(xs, ys, lwd=2, col=util$c_light)
+
+util$plot_expectand_pushforward(samples[['beta_sm']], 25,
+                                display_name=expression(beta[SM]))
+xs <- seq(0, 1, 0.01)
+ys <- dnorm(xs, 0, log(1.8) / 2.57)
+lines(xs, ys, lwd=2, col=util$c_light)
+```
+
+$\beta_{\text{GDD}}$ seems different than zero. We have $\text{median}(\beta_{\text{GDD}})=$ `{r} round(median(samples[['beta_gdd']]), 5)` per x10 degC, so an increase of GDD of 500 degC would lead to a proportional ringwidth increase of $\exp(\beta_{\text{GDD}}\times 50)=$ `{r} round((exp(round(median(samples[['beta_gdd']]), 5)*50)-1)*100,1)`% (because we work on a log-scale).  
+$\beta_{\text{GSL}}$ and $\beta_{\text{SM}}$ are not really different than zero.
+
+::: {.callout-tip}
+## Moving forward
+
+Average soil moisture (across horizons) during growing season does not seem to be a great predictor of tree ringwidth, in our model. 
+
+* Do we have some expertise to explain the posterior predictive behavior of soil mositure, which looks like a bell-shaped curve?  
+* Can we think of a better predictor related to drought (e.g. VPD?), or another way to include soil moisture? (Note that we obtain more or less the same bell-shaped curve for soil moisture between June and August)
+:::
 
