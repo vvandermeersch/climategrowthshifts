@@ -38,16 +38,13 @@ format-links: false
 ---
 
 ```{r}
-#| echo: true
+#| echo: false
 
-library(terra)
+suppressPackageStartupMessages(library(terra))
 library(leaflet)
 library(ggplot2)
-library(rstan)
-library(patchwork)
-
-kippenberger <- c("#8B174DFF", "#AE2565FF", "#C1447EFF", "#D06C9BFF", "#DA9FB8FF", 
-                  "#ADBE7CFF", "#8BA749FF", "#6E8537FF", "#4F5F28FF", "#343D1FFF")
+suppressPackageStartupMessages(library(rstan))
+suppressPackageStartupMessages(library(patchwork))
 
 wd <- "~/projects/climategrowthshifts/analysis/mountrainier"
 
@@ -222,9 +219,7 @@ leaflet(plots) %>% addTiles() %>%
 
 ```
 
-And 6 species:
-
-* lsit species here...
+and 6 species...
 
 ### Climate predictors
 
@@ -245,6 +240,9 @@ We can look at the soil moisture:
 
 ```{r}
 #| echo: false
+
+kippenberger <- c("#8B174DFF", "#AE2565FF", "#C1447EFF", "#D06C9BFF", "#DA9FB8FF", 
+                  "#ADBE7CFF", "#8BA749FF", "#6E8537FF", "#4F5F28FF", "#343D1FFF")
 
 ggplot() +
   geom_line(data = clim_pred, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_ings, color = ID, group = ID), linewidth = 0.5) +
@@ -290,7 +288,7 @@ leaflet(climplotdf) %>% addTiles() %>%
 ```
 
 ::: {.callout-note}
-Any domain expertise on TO11? Higher soil moisture than all other plots.
+TO11 has a higher soil moisture than all other plots. From the handbook, this site is ``on a sheltered terrace above the Carbon River."
 :::
 
 If we look at the anomaly from the average stand soil moisture, we observe some similar patterns:
@@ -577,8 +575,11 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 
-rm(fit);gc()
+```
+```{r}
+#| echo: false
 
+rm(fit);gc(verbose = FALSE)
 ```
 
 ### Retrodictive Check
@@ -593,7 +594,22 @@ We can look at some trees on one stand.
 
 for (t in  (1:4)) {
   idxs <- tree_start_idxs[t]:tree_end_idxs[t]
-  plottree <- fourcustomplots(idx, samples, data)
+  plottree <- fourcustomplots(idx, samples, data, x = data$years)
+  print(plottree + plot_annotation(title = paste0("Stand", uniq_stand_ids[stand_idxs[t]], ", Tree", uniq_tree_ids[t])))
+}
+
+```
+
+Let's look at another stand now.
+
+```{r}
+#| fig-height: 7
+#| fig-width: 8
+#| echo: false
+
+for (t in (61:64)) {
+  idxs <- tree_start_idxs[t]:tree_end_idxs[t]
+  plottree <- fourcustomplots(idx, samples, data, x = data$years)
   print(plottree + plot_annotation(title = paste0("Stand", uniq_stand_ids[stand_idxs[t]], ", Tree", uniq_tree_ids[t])))
 }
 
@@ -627,7 +643,7 @@ util$plot_disc_pushforward_quantiles(samples, names,
 
 #### Effects of climate predictors
 
-To investigate the interactions between model outputs and the observed input, we can look at the posterior predictive behaviors of the 3 climate predictors (here, we look at the distribution of posterior sample medians).
+To investigate the interactions between model outputs and the observed input, we can look at the posterior predictive behaviors of the 3 climate predictors (here, we look at the distribution of posterior sample medians). The posterior (shown in shades of red, representing the different quantiles) falls generally around the observed data (shown in black). Continuous predictors are binned for visualization (gray means no data in that bin). However, for example, at higher GSL the model seems to underpredict the observed log(ring width).
 
 ```{r}
 #| fig-height: 12
@@ -640,14 +656,17 @@ par(mfrow=c(3, 1))
 pred_names <- sapply(1:data$N, function(n) paste0('log_rw_pred[', n, ']'))
 util$plot_conditional_median_quantiles(samples, pred_names, data$gsl_obs,
                                        70, 220, 5, data$log_rw_obs, 
+                                       display_ylim = c(-0.7, 1.2),
                                        xlab="GSL (days)")
 
 util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs,
                                        250/10, 1800/10, 5, data$log_rw_obs, 
+                                       display_ylim = c(-0.7, 1.2),
                                        xlab="GDD (x10 degC)")
 
 util$plot_conditional_median_quantiles(samples, pred_names, data$sm_obs,
                                        0.17*100, 0.32*100, 0.5, data$log_rw_obs, 
+                                       display_ylim = c(-0.7, 1.2),
                                        xlab="Soil moisture (%)")
 
 ```
@@ -722,5 +741,46 @@ Average soil moisture (across horizons) during growing season does not seem to b
 
 * Do we have some expertise to explain the posterior predictive behavior of soil mositure, which looks like a bell-shaped curve?  
 * Can we think of a better predictor related to drought (e.g. VPD?), or another way to include soil moisture? (Note that we obtain more or less the same bell-shaped curve for soil moisture between June and August)
+* Using WLDAS limits our analysis to observations after 1980. Should we try other climate datasets with a longer temporal coverage (but likely of poorer quality and resolution)?
 :::
 
+
+
+```{r}
+#| echo: false
+#| eval: false
+
+for (t in  (501:504)) {
+  idxs <- tree_start_idxs[t]:tree_end_idxs[t]
+  plottree <- fourcustomplots(idx, samples, data, x = data$gdd_obs, xbreaks =  seq(30, 200,5), xannot = 115, xname = 'GDD (x10 degC)')
+  print(plottree + plot_annotation(title = paste0("Stand", uniq_stand_ids[stand_idxs[t]], ", Tree", uniq_tree_ids[t])))
+}
+
+t <- 5
+idxs <- tree_start_idxs[t]:tree_end_idxs[t]
+
+x <- data$gdd_obs[idxs]
+y <- data$log_rw_obs[idxs]
+rw_names <- sapply(idxs,
+                   function(n) paste0('mu1[', n, ']'))
+N <- length(rw_names)
+probs <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+calc <- function(n) {
+  util$ensemble_mcmc_quantile_est(samples[[rw_names[n]]], probs)
+}
+plot_quantiles <- sapply(1:N, calc)
+
+ggplot() +
+  geom_ribbon(aes(x = x, ymin = median(samples[["alpha"]])+plot_quantiles[1,], ymax = median(samples[["alpha"]])+plot_quantiles[9,]), fill =  '#cfa4a4') +
+  geom_ribbon(aes(x = x, ymin = median(samples[["alpha"]])+plot_quantiles[2,], ymax = median(samples[["alpha"]])+plot_quantiles[8,]), fill =  '#c89797') +
+  geom_ribbon(aes(x = x, ymin = median(samples[["alpha"]])+plot_quantiles[3,], ymax = median(samples[["alpha"]])+plot_quantiles[7,]), fill =  '#c18a8a') +
+  geom_ribbon(aes(x = x, ymin = median(samples[["alpha"]])+plot_quantiles[4,], ymax = median(samples[["alpha"]])+plot_quantiles[6,]), fill =  '#bb7d7d') +
+  geom_point(aes(x = x, y = y), size = 2, color = 'white') +
+  geom_point(aes(x = x, y = y), size = 1, color = 'black') +
+  theme_bw() +
+  scale_x_continuous(expand = c(0,0)) +
+  scale_y_continuous(expand = c(0,0), limits = c(-2,2)) +
+  labs(x = '', y = "log(ring width)")
+
+  annotate('text', x = xannot, y = Inf, color = '#bb7d7d', label = 'Full model', hjust = 0, vjust = 2)
+```
