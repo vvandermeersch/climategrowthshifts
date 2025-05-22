@@ -139,18 +139,24 @@ $$
 
 \noindent In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
 \begin{itemize}
-    \item one \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long}}$, to capture the long-term variation of tree growth, likely related to allometric constraints   
-    \item one \textbf{short-term scale} Gaussian process $\vec{f}_{\text{short,p}}$ per stand $p$ (`stand' is a common forestry term that refers to a set of trees in one geographical location), to capture climatic variations that span several years (while our climate metrics, below, occur at the annual-scale)
+    \item one \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long},k}$ for each tree $k$, to capture the long-term variation of tree growth, likely related to allometric constraints   
+    \item one \textbf{short-term scale} Gaussian process $\vec{f}_{\text{short},p}$ per stand $p$ (`stand' is a common forestry term that refers to a set of trees in one geographical location), to capture climatic variations that span several years (while our climate metrics, below, occur at the annual-scale)
 \end{itemize}
 
-\noindent The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$. The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below). We chose two different prior models based on domain-expertise for these two Gaussian processes, to have the prior mass of $\rho_{\text{short}}$ between 3 and 10 years, and the prior mass of $\rho_{\text{sp}}$ between 20 and 60 years.
+\noindent The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$, which defined one covariance matrix $\vec{\mathrm{K}}_{sp}$ per species. \\
+The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, which defined one covariance matrix $\vec{\mathrm{K}}_\text{short}$ common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below). \\
+We chose two different prior models based on domain-expertise for these two Gaussian processes, to have the prior mass of $\rho_{\text{short}}$ between 3 and 10 years, and the prior mass of $\rho_{\text{sp}}$ between 20 and 60 years.
 
 \vspace{0.5cm}
 
 \noindent The full model is, for $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
 
-$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p}, \hspace{0.08cm} \vec{\Sigma} + \vec{\mathrm{K}}_{sp})$$
-with:
+$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \vec{f}_{\text{long},k}, \hspace{0.08cm} \vec{\Sigma})$$
+
+$$\vec{f}_{\text{long},k} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})$$
+
+\noindent with:
+
 $$
 \log\vec{\text{rw}}_{sp,k} = 
 \log \circ \begin{bmatrix}
@@ -169,6 +175,13 @@ $$
 \end{bmatrix}
 $$
 
+\noindent The elements $\mu_{sp,p}(t)$ capture the baseline climate behavior for species sp at stand p and time t. They are built up from the short-term scale GP and from contributions from multiple climate variables, at the stand scale:
+\begin{itemize}
+    \item the growing season length $\text{GSL}(p,t_i)$, in days
+    \item the growing degree days $\text{GDD}(p,t_i)$ accumulated during the growing season, in $\text{x}10$ $^{\circ}$C
+    \item the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during the growing season, in $\%$
+\end{itemize}
+
 $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
     + \beta_{\text{GSL}} * \text{GSL}(p,t_i)
     + \beta_{\text{GDD}}  * \text{GDD}(p,t_i)
@@ -176,16 +189,7 @@ $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
     + \kappa_{\text{sp}}
     * f_{\text{short,p}}(t_i)$$
 
-$$\vec{f}_{\text{short,p}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
-
-\noindent We currently are considering three different climate predictors, at the stand scale:
-\begin{itemize}
-    \item the growing season length $\text{GSL}(p,t_i)$, in days
-    \item the growing degree days $\text{GDD}(p,t_i)$ accumulated during the growing season, in $\text{x}10$ $^{\circ}$C
-    \item the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during the growing season, in $\%$
-\end{itemize}
-
-
+$$\vec{f}_{\text{short},p} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
 
 \clearpage
 
