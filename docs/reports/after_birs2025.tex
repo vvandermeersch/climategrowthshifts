@@ -109,10 +109,10 @@ The function is characterized by two parameters:
 
 \subsection{Application to tree growth}
 
-Now, assume that we have ring width measurements $r_w$ for one tree, for each year $x_n$.
+Now, assume that we have ring width measurements $r_w$ for one tree, for each year $t$.
 Using one Gaussian process, a simple model would look like this:
 
-$$\forall x_n  \hspace{0.5cm} \log{r_w(x_n)} \sim \text{normal}(\mu + f(x_n), \sigma^2)$$
+$$\forall x_n  \hspace{0.5cm} \log{r_w(t)} \sim \text{normal}(\mu + f(x_n), \sigma^2)$$
 with:
 $$\vec{f} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}})$$
 The two equations are equivalent to:
@@ -137,6 +137,10 @@ $$
 	\end{bmatrix}
 $$
 
+\noindent (here, the mean $\mu$ is the same across all observations)
+
+\clearpage
+
 \noindent In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
 \begin{itemize}
     \item one \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long},k}$ for each tree $k$, to capture the long-term variation of tree growth, likely related to allometric constraints   
@@ -158,7 +162,7 @@ $$\vec{f}_{\text{long},k} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp}
 \noindent with:
 
 $$
-\log\vec{\text{rw}}_{sp,k} = 
+\log\vec{\text{rw}}_{sp,p,k} = 
 \log \circ \begin{bmatrix}
   \text{rw}_{sp,p,k}(t_1) \\
   \text{rw}_{sp,p,k}(t_2) \\
@@ -175,12 +179,16 @@ $$
 \end{bmatrix}
 $$
 
-\noindent The elements $\mu_{sp,p}(t)$ capture the baseline climate behavior for species sp at stand p and time t. They are built up from the short-term scale GP and from contributions from multiple climate variables, at the stand scale:
+\vspace{0.25cm}
+
+\noindent The elements $\mu_{sp,p}(t)$ capture the baseline climate behavior for species sp at stand p and time t. They are built up from the short-term scale GP and from contributions of three climate variables, at the stand scale:
 \begin{itemize}
     \item the growing season length $\text{GSL}(p,t_i)$, in days
     \item the growing degree days $\text{GDD}(p,t_i)$ accumulated during the growing season, in $\text{x}10$ $^{\circ}$C
     \item the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during the growing season, in $\%$
 \end{itemize}
+
+\vspace{-0.25cm}
 
 $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
     + \beta_{\text{GSL}} * \text{GSL}(p,t_i)
