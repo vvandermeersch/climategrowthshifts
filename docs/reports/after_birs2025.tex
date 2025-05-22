@@ -78,7 +78,7 @@ Victor van der Meersch (CNRS, Center for Functional and Evolutionary Ecology)
               % same as in the volume.
 
 \section{Overview of the Field}
-What determines how much trees grow and when? Answering this question has become increasingly difficult as climate change has warmed up forests, shifted rainfall patterns increased extreme weather. This research in teams (RIT) aimed to bridge across multiple fields and build better tree growth models leveraging new modeling opportunities and data streams. 
+What determines how much trees grow and when? Answering this question has become increasingly difficult as climate change has warmed up forests, shifted rainfall patterns and increased extreme weather. This research in teams (RIT) aimed to bridge across multiple fields and build better tree growth models by leveraging new modeling opportunities and data streams. 
 
 Tree growth is influenced by a complex interplay of  external events and size-dependent developmental stages that are mediated by environmental factors \citep{Chapin:2002nh,larcher2003}. Different fields have addressed this complexity with varying foci. Foresters and ecologists have generally used data that spans a wide spatial range, but is coarse temporally and short-term (10-30 years) and focused on models that partition growth variation across populations, sites and species \citep[e.g.,][]{zhang2017effect}. In contrast, dendrochronology, a subfield of climatology has used ring width extracted from internal tree cores to build extensive time-series (centuries to millennia) to estimate relationships between annual tree growth and climate---especially temperature and drought \citep{cook2013methods}. 
 
@@ -90,21 +90,21 @@ Our aim over one week was to improve models of how tree growth interacts with a 
 
 One major outcome of work over the first days at BIRS was developing models of how to combine the temporally coarse but spatially dense data from forestry (tree diameter measurements taken every several years) with annual tree-ring data from tree cores. We quickly realized the best way to combine these data would be to build from data using each measurement approach on the same trees. Towards this aim, we are currently collecting this unique multi-method data type at Mount Rainier by coring trees (to gather annual ring data) that have been monitored by diameter measurements for over 40 years as part of the Permanent Sample Plot program. We hope to have these data within a year and will return to this modeling challenge then. 
 
-Moving on from this we focused on modeling annual tree ring data, which is far more powerful for addressing questions of how climate affects growth. While our pre-BIRS meetings had focused on using a Gompertz growth model, we found at BIRS that it was too inflexible to capture the variability in growth observed across our data and thus developed a novel hierarchical Gaussian process model for tree growth, which combines flexible but domaine-expertise-informed functions for long-term and short-term variable growth with three climatic predictors. We detail this model below. 
+Moving on from this we focused on modeling annual tree ring data, which is far more powerful for addressing questions of how climate affects growth. While our pre-BIRS meetings had focused on using a Gompertz growth model, we found at BIRS that it was too inflexible to capture the variability in growth observed across our data and thus developed a novel hierarchical Gaussian process model for tree growth, which combines flexible but domain-expertise-informed functions for long-term and short-term variable growth with three climatic predictors. We detail this model below. 
 
 \subsection{Gaussian process}
 
-From a simplified point of view, a (finite-$\mathrm{N}$-dimensional projection) of a Gaussian process $f_\mathrm{N}$ is defined as:
-$$f_\mathrm{N} \sim \text{multinormal}(\mathrm{m}, \mathrm{K})$$
-with a certain mean function $\mathrm{m}$ and a covariance matrix $\mathrm{K}$.  
-In particular, the elements of $\mathrm{K}$ are defined by a covariance function.   
+From a simplified point of view, a finite-$\mathrm{N}$-dimensional projection of a Gaussian process $\vec{f_\mathrm{N}}$ is defined as:
+$$\vec{f_\mathrm{N}} \sim \text{multinormal}(\vec{\mathrm{m}}, \vec{\mathrm{K}})$$
+with a certain mean vector $\vec{\mathrm{m}}$ and a covariance matrix $\vec{\mathrm{K}}$.  
+In particular, the elements of $\vec{\mathrm{K}}$ are defined by a covariance function.   
 In our model, we use an \emph{exponentiated quadratic} function:  
-$$\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{k}_{i,j} = {\gamma^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho}\right)^2\right)$$
+$$\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{K}_{i,j} = {\gamma^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho}\right)^2\right)$$
 This covariance function capture the "link" between observations along a continuous variable, such as time or space.   
 The function is characterized by two parameters: 
 \begin{itemize}
     \item a marginal deviation $\gamma$, which controls the variability around the mean 
-    \item a length scale $\rho$, which controls how long/far the correlations persist 
+    \item a length scale $\rho$, which controls how long/far the correlations in the residuals around the mean persist
 \end{itemize}
 
 \subsection{Application to tree growth}
@@ -114,10 +114,10 @@ Using one Gaussian process, a simple model would look like this:
 
 $$\forall x_n  \hspace{0.5cm} \log{r_w(x_n)} \sim \text{normal}(\mu + f(x_n), \sigma^2)$$
 with:
-$$\vec{f} \sim \text{multinormal}(\vec{0}, \mathrm{K})$$
+$$\vec{f} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}})$$
 The two equations are equivalent to:
 
-$$\log\vec{{\text{rw}}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \Sigma + \mathrm{K})$$
+$$\log\vec{{\text{rw}}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \vec{\Sigma} + \vec{\mathrm{K}})$$
 where:
 
 $$
@@ -128,7 +128,7 @@ $$
                \mu
     \end{bmatrix}
     \hspace{1cm}
-	\Sigma = 
+	\vec{\Sigma} = 
 	\begin{bmatrix}
 		\sigma^2  & 0 & \ldots & 0 \\
 		0 & \ \sigma^2  & \ldots  & \vdots\\
@@ -139,17 +139,17 @@ $$
 
 \noindent In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
 \begin{itemize}
-    \item one \textbf{long-term scale} Gaussian process $f_{\text{long}}$, to capture the long-term variation of tree growth, likely related to allometric constraints   
-    \item one \textbf{short-term scale} Gaussian process $f_{\text{short,p}}$ per stand $p$ (`stand' is a common forestry term that refers to a set of trees in one geographical location), to capture climatic variations that span several years (while our climate metrics, below, occur at the annual-scale)
+    \item one \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long}}$, to capture the long-term variation of tree growth, likely related to allometric constraints   
+    \item one \textbf{short-term scale} Gaussian process $\vec{f}_{\text{short,p}}$ per stand $p$ (`stand' is a common forestry term that refers to a set of trees in one geographical location), to capture climatic variations that span several years (while our climate metrics, below, occur at the annual-scale)
 \end{itemize}
 
-\noindent The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$. The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below). We chose two different prior models based on domaine-expertise for these two Gaussian processes, to have the prior mass of $\rho_{\text{short}}$ between 3 and 10 years, and the prior mass of $\rho_{\text{sp}}$ between 20 and 60 years.
+\noindent The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$. The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below). We chose two different prior models based on domain-expertise for these two Gaussian processes, to have the prior mass of $\rho_{\text{short}}$ between 3 and 10 years, and the prior mass of $\rho_{\text{sp}}$ between 20 and 60 years.
 
 \vspace{0.5cm}
 
 \noindent The full model is, for $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
 
-$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu_{sp,p}}, \hspace{0.08cm} \Sigma + \mathrm{K_{sp}})$$
+$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p}, \hspace{0.08cm} \vec{\Sigma} + \vec{\mathrm{K}}_{sp})$$
 with:
 $$
 \log\vec{\text{rw}}_{sp,k} = 
@@ -176,7 +176,7 @@ $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
     + \kappa_{\text{sp}}
     * f_{\text{short,p}}(t_i)$$
 
-$$\vec{f}_{\text{short,p}} \sim \text{multinormal}(\vec{0}, \mathrm{K_\text{short}})$$
+$$\vec{f}_{\text{short,p}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
 
 \noindent We currently are considering three different climate predictors, at the stand scale:
 \begin{itemize}
