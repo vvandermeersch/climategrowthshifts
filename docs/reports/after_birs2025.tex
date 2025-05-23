@@ -137,7 +137,7 @@ $$
 	\end{bmatrix}
 $$
 
-\noindent (here, the mean $\mu$ is the same across all observations)
+\noindent and where the mean $\mu$ is the same across all observations.
 
 \clearpage
 
@@ -199,11 +199,15 @@ $$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
 
 $$\vec{f}_{\text{short},p} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
 
+\vspace{0.15cm}
+
+\noindent where $\alpha$ is the grand mean common to all trees.
+
 \clearpage
 
-\subsection{Retrodictive check}
+\subsection{Results}
 
-We can examine how the model fit some trees in one particular stand (from a Pacific Northwest forest):
+We can examine how the model fit some trees in one particular stand (from a Pacific Northwest forest). The plots below show the predictions of the model (shown in shades of color, representing the different quantiles) against observations (black dots), when considering only the long-term scale GP (i.e. with $\mu_{sp,p}(t_i)= \alpha$), both long- and short-term GP (i.e. $\mu_{sp,p}(t_i)= \alpha + \kappa_{\text{sp}}* f_{\text{short,p}}(t_i)$), and the full model (see full equation for $\mu_{sp,p}(t_i)$ above). The left lower plot (`Zoom-in') show the median predictions with a focus on the range of observed y-axis values.
 
 \begin{figure}[h]
     \includegraphics[width = 12cm]{figures/standae10_treef1.png}
@@ -225,7 +229,7 @@ Having developed a new model of tree growth that yields remarkable flexibility i
 
 Work since the meeting has focused on finding the best-available climate data to merge with our data on annual tree growth. Given that our tree growth data was often collected across complex topologies with the goal to span climate variability this is no easy task, as weather stations are often quite far from locations of sampled trees. We are addressing this challenge by working with a climatologist from NASA GISS, but may need to consider modeling some climate metrics (e.g., soil moisture) as latent variables informed by local weather data. We expect progress on this challenge by the end of the summer. 
 
-Taken together, we have advanced on our goal of improving models of how tree growth interacts with a changing climate far more than we expected was possible in such a short time. While work began before our meeting at BIRS and continues on after, the one week to focus on the challenge and work intensively with experts from ecology, advanced modeling and forestry was pivotal to our progress. 
+Taken together, we have advanced on our goal of improving models of how tree growth interacts with a changing climate far more than we expected was possible in such a short time. While work began before our meeting at BIRS and continues on after, the one week to focus on the challenge and work intensively with experts from ecology, advanced statistical modeling and forestry was pivotal to our progress. 
 
 \bibliography{banfftrees}
 
