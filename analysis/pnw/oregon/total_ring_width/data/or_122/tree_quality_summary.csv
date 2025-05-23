@@ -1,0 +1,7 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+HAM01A_raw,42,219,1
+HAM01B_raw,42,224,1
+HAM02A_raw,68,209,3
+HAM02B_raw,68,209,2
+HAM03A_raw,0,226,0
+HAM03B_raw,0,226,0
