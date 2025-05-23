@@ -1,0 +1,9 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+KLT02A_raw,71,233,2
+KLT02B_raw,71,235,1
+KLT03A_raw,80,230,3
+KLT03B_raw,80,231,3
+KLT04A_raw,152,231,0
+KLT04B_raw,150,231,1
+KLT06A_raw,0,290,5
+KLT06B_raw,1,296,5

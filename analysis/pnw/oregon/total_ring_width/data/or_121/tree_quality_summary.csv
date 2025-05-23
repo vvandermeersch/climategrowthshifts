@@ -1,0 +1,9 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+ESL01A_raw,0,101,1
+ESL01B_raw,0,109,1
+ESL02A_raw,100,92,0
+ESL02B_raw,100,92,0
+ESL03A_raw,122,96,0
+ESL03B_raw,122,97,0
+ESL05A_raw,133,91,1
+ESL05B_raw,133,91,1

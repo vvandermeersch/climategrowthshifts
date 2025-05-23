@@ -1,0 +1,8 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+WAS01A_raw,80,161,1
+WAS01B_raw,79,161,1
+WAS01C_raw,85,162,1
+WAS02A_raw,85,161,1
+WAS02B_raw,86,162,1
+WAS03A_raw,5,171,0
+WAS03B_raw,0,169,0

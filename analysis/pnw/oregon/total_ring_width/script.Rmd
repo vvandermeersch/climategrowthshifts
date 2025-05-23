@@ -1,9 +1,45 @@
 ---
-title: "Script"
-output: html_document
+title: "Total Ring Width Data Cleaning Template"
+author: Devina Deng
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-05-12"
 ---
 
+## Script purpose
+This Rmd file provides a template for cleaning dataset of total tree ring width with identical structure, only the file path and output path need to be changed to apply the same workflow to different dataset.
+
+---
+
+## Instructions for use
+- Input the relative path of the dataset you want to clean as input_path in the {user input} chunk.
+- Input the relative path of the wanted outputs as output_1 and output_2 in the {user input} chunk.
+- Run the entire document to:
+  - Mark outliers (z>3)
+  - Count missing values (all years & from 1980) and outliers
+  - Export a cleaned dataset with outlier flag and a tree-level quality summary
+
+---
+
+## Input requirements
+
+A csv file with:
+- A column called "age_CE"
+- The rest of the columns recording total ring width of different trees
+
+---
+
+## Output
+- A cleaned dataset with outlier flag
+- A tree-level quality summary
+
+---
+
+## Reusability
+The file is designed to be reused. Please don't change the cleaning logic but the input and output file paths in the {user input} chunk.
+
+---
 ```{r setup, include=FALSE}
 library(dplyr)
 library(readr)
@@ -11,20 +47,18 @@ library(tidyr)
 library(stringr)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r read dataset}
-file_path <- "or129-rwl-noaa.txt"
-df <- read_tsv(file_path, comment = "#", na = c("NA"))
+```{r user input}
+input_path <- "data/or_126/or126-rwl-noaa.txt"
+# the relative path the raw data
+output_1 <- "data/or_126/cleaned_tree_data_with_flags.csv"
+# the path to write the cleaned data with outlier flag
+output_2 <- "data/or_126/tree_quality_summary.csv"
+# the path to write tree summary
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
+```{r read dataset}
+df <- read_tsv(input_path, comment = "#", na = c("NA"))
+```
 
 ```{r data cleaning}
 year_col <- "age_CE"
@@ -69,11 +103,9 @@ for (tree in tree_cols) {
 }
 
 # save the result
- write_csv(df_with_flags, "cleaned_tree_data_with_flags.csv")
- write_csv(tree_summary, "tree_quality_summary.csv")
+ write_csv(df_with_flags, output_1)
+ write_csv(tree_summary, output_2)
 
 print(head(df_with_flags))
 print(tree_summary)
 ```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
