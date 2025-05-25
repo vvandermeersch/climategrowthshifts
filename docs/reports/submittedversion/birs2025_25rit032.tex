@@ -1,0 +1,276 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  The file contains the LaTeX shell for BIRS workshop reports.
+%%
+%%  The reports are being compiled into one volume so you must stick
+%%  to the following.
+%%
+%%  Do not change/add anything before \begin{document}.
+%%
+%%  There is a list of packages you can uncomment and use.  
+%%
+%%  The use of TeX/LaTeX macros is NOT permitted.  Reports with macros
+%%  will not be accepted. 
+%%
+%%  Please let LaTeX handle the numbering of your sections, equations, 
+%%  figures and tables.
+%%
+%%  Do not be too concerned about page breaks etc.  These may change
+%%  when your document is put into the volume.  We will make sure the
+%%  page breaks look okay.
+%%
+%%  Please use thebibliography environment to do your references.  Use
+%%  the format shown in the examples below.
+%%
+%%  Please use the \includegraphics for including images.  If you
+%%  wish, graphics can be sent separately with comments in the tex
+%%  file to indicate where they should be included and how big they
+%%  they should be.
+%%
+%%  You can find all of the reports for the BIRS workshops online
+%%  under the Publications link.  Select "BIRS 2003 Proceedings" to
+%%  view all the reports.  The Scientific Director recommends the
+%%  following reports as 'good' examples: Chapters 2, 6, 7, 9, 14, 15
+%%  and 22.
+%%
+%%  Last revised on 24 March 2006.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
+
+\setlength{\textwidth}{6.0in}
+\setlength{\textheight}{9in}
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{-0.25in}
+\pagestyle{myheadings}
+
+\usepackage{natbib}
+\bibliographystyle{plain}
+
+\usepackage{times}
+
+%%  Please uncomment any package you need to use.
+%% 
+%%  If you need to use any additional packages please email BIRS
+%%   Programme Coordinator, birs@birs.ca, first.
+%% 
+\usepackage{epsfig}
+%% 
+%%  \usepackage{amssymb}
+%% 
+\usepackage{amsmath}
+%% 
+%%  \usepackage{amsthm}
+%% 
+\usepackage{graphics}
+%% 
+
+\begin{document}
+
+\title{How do trees grow in a non-stationary climate?}
+\author{EM Wolkovich (University of British Columbia, Forest \& Conservation Sciences)
+\\ Janneke Hille Ris Lambers (ETH Zurich, Environmental Systems Science)\\
+Michael Betancourt (Symplectomorphic, LLC)\\
+Victor Van der Meersch (CNRS, Center for Functional and Evolutionary Ecology)
+}
+\date{9--16 March 2025}
+\maketitle
+\vspace{1in}  % This space is so the page break is approximately the
+              % same as in the volume.
+
+\section{Overview of the Field}
+What determines how much trees grow and when? Answering this question has become increasingly difficult as climate change has warmed forests, shifted rainfall patterns and increased extreme weather. This research in teams (RIT) aimed to bridge across multiple fields and build better tree growth models by leveraging new modeling opportunities and data streams. 
+
+Tree growth is influenced by a complex interplay of  external events and size-dependent developmental stages that are mediated by environmental factors \citep{Chapin:2002nh,larcher2003}. Different fields have addressed this complexity with varying foci. Foresters and ecologists have generally used data that spans a wide spatial range, but is coarse temporally and short-term (10-30 years) and focused on models that partition growth variation across populations, sites and species \citep[e.g.,][]{zhang2017effect}. In contrast, dendrochronology, a subfield of climatology, has used ring width extracted from internal tree cores to build extensive time-series (centuries to millennia) to estimate relationships between annual tree growth and climate---especially temperature and drought \citep{cook2013methods}. 
+
+\section{Recent Developments and Open Problems}
+The diverging approaches to modeling tree growth---across forestry, ecology and dendrochronology---may have worked well enough in the past, but recent forecasting attempts have uncovered major issues \citep[e.g., the `divergence problem' in dendrochonology,][]{d2008divergence}. Alongside this, global forecasts increasingly need accurate models of not only how trees grow, but also how that growth varies within and across ecosystems and their climates. Both fields are therefore increasingly recognizing the need for new models that handle shifting temperature and drought regimes. To date, however, few have attempted to merge these disciplines' data-streams and modeling approaches---this challenge was the focus of our RIT. 
+
+\section{Scientific Progress Made}
+Our aim over one week was to improve models of how tree growth interacts with a changing climate by combining  ecological and dendrochronological domain expertise and state-of-the-art statistical methodology to develop principled mathematical models and fit them. The team had met over video-conference several times in advance and thus arrived with data in hand and modeling ideas to begin work.
+
+One major outcome of work over the first days at BIRS was developing models of how to combine the temporally coarse but spatially dense data from forestry (tree diameter measurements taken every several years) with annual tree-ring data from tree cores. We quickly realized the best way to combine these data would be to build from data using each measurement approach on the same trees. Towards this aim, we are currently collecting this unique multi-method data type at Mount Rainier by coring trees (to gather annual ring data) that have been monitored by diameter measurements for over 40 years as part of the Permanent Sample Plot program. We hope to have these data within a year and will return to this modeling challenge then. 
+
+Moving on from this we focused on modeling annual tree ring data, which is far more powerful for addressing questions of how climate affects growth. While our pre-BIRS meetings had focused on using a re-parameterized Gompertz growth model, we found at BIRS that it was too inflexible to capture the variability in growth observed across our data. We thus developed a novel hierarchical Gaussian process model for tree growth, which combines flexible but domain-expertise-informed functions for long-term and short-term variable growth with three climatic predictors. We detail this model below. 
+
+\subsection{Gaussian process}
+
+From a simplified point of view, a finite-$\mathrm{N}$-dimensional projection of a Gaussian process $\vec{f_\mathrm{N}}$ is defined as:
+$$\vec{f_\mathrm{N}} \sim \text{multinormal}(\vec{\mathrm{m}}, \vec{\mathrm{K}})$$
+with a certain mean vector $\vec{\mathrm{m}}$ and a covariance matrix $\vec{\mathrm{K}}$.  
+In particular, the elements of $\vec{\mathrm{K}}$ are defined by a covariance function.   
+In our model, we use an \emph{exponentiated quadratic} function:  
+$$\forall i,j  \in [\![1,\mathrm{N}]\!] \hspace{1cm} \mathrm{K}_{i,j} = {\gamma^2} \exp\left(-\frac{1}{2}\left(\frac{\lvert x_j-x_i \rvert }{\rho}\right)^2\right)$$
+This covariance function capture the `link' between observations along a continuous variable, such as time or space.   
+The function is characterized by two parameters: 
+\begin{itemize}
+    \item a marginal deviation $\gamma$, which controls the variability around the mean 
+    \item a length scale $\rho$, which controls how long/far the correlations in the residuals around the mean persist
+\end{itemize}
+
+\subsection{Application to tree growth}
+
+Now, assume that we have ring width measurements $r_w$ for one tree, for each year $t$.
+Using one Gaussian process, a simple model would look like this:
+
+$$\forall x_n  \hspace{0.5cm} \log{r_w(t)} \sim \text{normal}(\mu + f(x_n), \sigma^2)$$
+with:
+$$\vec{f} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}})$$
+The two equations are equivalent to:
+
+$$\log\vec{{\text{rw}}} \sim \text{multinormal}(\vec{\mu}, \hspace{0.08cm} \vec{\Sigma} + \vec{\mathrm{K}})$$
+where:
+
+$$
+    \vec{\mu} = \begin{bmatrix}
+               \mu \\
+               \mu \\
+               \vdots \\
+               \mu
+    \end{bmatrix}
+    \hspace{1cm}
+	\vec{\Sigma} = 
+	\begin{bmatrix}
+		\sigma^2  & 0 & \ldots & 0 \\
+		0 & \ \sigma^2  & \ldots  & \vdots\\
+		\vdots & \vdots & \ddots & \vdots \\
+		0 & \ldots &  \ldots & \sigma^2 
+	\end{bmatrix}
+$$
+
+\noindent and where the mean $\mu$ is the same across all observations.
+
+\clearpage
+
+\noindent In practice, we choose to model the $\log$ of ringwidth with two Gaussian processes:  
+\begin{itemize}
+    \item one \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long},k}$ for each tree $k$, to capture the long-term variation of tree growth, likely related to allometric constraints   
+    \item one \textbf{short-term scale} Gaussian process $\vec{f}_{\text{short},p}$ per stand $p$ (`stand' is a common forestry term that refers to a set of trees in one geographical location), to capture climatic variations that span several years (while our climate metrics, below, occur at the annual-scale)
+\end{itemize}
+
+\noindent The long-term scale GP is characterized by one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$, which defined one covariance matrix $\vec{\mathrm{K}}_{sp}$ per species. \\
+The short-term scale GP is characterized by two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, which defined one covariance matrix $\vec{\mathrm{K}}_\text{short}$ common across all stands. The short-term scale does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$ (see below). \\
+We chose two different prior models based on domain-expertise for these two Gaussian processes, to have the prior mass of $\rho_{\text{short}}$ between 3 and 10 years, and the prior mass of $\rho_{\text{sp}}$ between 20 and 60 years.
+
+\vspace{0.5cm}
+
+\noindent The full model is, for $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
+
+$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \vec{f}_{\text{long},k}, \hspace{0.08cm} \vec{\Sigma})$$
+
+$$\vec{f}_{\text{long},k} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})$$
+
+\noindent with:
+
+$$
+\log\vec{\text{rw}}_{sp,p,k} = 
+\log \circ \begin{bmatrix}
+  \text{rw}_{sp,p,k}(t_1) \\
+  \text{rw}_{sp,p,k}(t_2) \\
+  \vdots \\
+  \text{rw}_{sp,k}(t_n)
+\end{bmatrix}
+\hspace{1cm}
+\vec{\mu}_{sp,p} = 
+\begin{bmatrix}
+  \mu_{sp,p}(t_1) \\
+  \mu_{sp,p}(t_2) \\
+  \vdots \\
+  \mu_{sp,p}(t_n)
+\end{bmatrix}
+$$
+
+\vspace{0.25cm}
+
+\noindent The elements $\mu_{sp,p}(t)$ capture the baseline climate behavior for species sp at stand p and time t. They are built up from the short-term scale GP and from contributions of three climate variables, at the stand scale:
+\begin{itemize}
+    \item the growing season length $\text{GSL}(p,t_i)$, in days
+    \item the growing degree days $\text{GDD}(p,t_i)$ accumulated during the growing season, in $\text{x}10$ $^{\circ}$C
+    \item the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during the growing season, in $\%$
+\end{itemize}
+
+\vspace{-0.25cm}
+
+$$ \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{0.5cm} \mu_{sp,p}(t_i)= \alpha
+    + \beta_{\text{GSL}} * \text{GSL}(p,t_i)
+    + \beta_{\text{GDD}}  * \text{GDD}(p,t_i)
+    + \beta_{\text{SM}}  * \text{SM}(p,t_i)
+    + \kappa_{\text{sp}}
+    * f_{\text{short,p}}(t_i)$$
+
+$$\vec{f}_{\text{short},p} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
+
+\vspace{0.15cm}
+
+\noindent where $\alpha$ is the grand mean common to all trees.
+
+\clearpage
+
+\subsection{Results}
+
+We can examine how the model fit to several trees in one particular stand (from a Pacific Northwest forest). The plots below show the predictions of the model (shown in shades of color, representing the different quantiles) against observations (black dots), when considering only the long-term scale GP (i.e. with $\mu_{sp,p}(t_i)= \alpha$), both long- and short-term GP (i.e. $\mu_{sp,p}(t_i)= \alpha + \kappa_{\text{sp}}* f_{\text{short,p}}(t_i)$), and the full model (see full equation for $\mu_{sp,p}(t_i)$ above). The left lower plot (`Zoom-in') show the median predictions with a focus on the range of observed y-axis values.
+
+\begin{figure}[h]
+    \includegraphics[width = 12cm]{standae10_treef1.png}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width = 12cm]{standae10_treef10.png}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width = 12cm]{standae10_treef12.png}
+\end{figure}
+
+\clearpage
+
+\section{Outcome of the Meeting}
+
+Having developed a new model of tree growth that yields remarkable flexibility in capturing the long-term variability seen in tree growth across individuals, stands and species---with a hierarchical form that captures these levels---we are excited to share this model with the research community (e.g., at conferences, in publications). These are hierarchical levels of variability that are generally ignored by the dendrochronological community (most dendrochronological models focus on one species and average all trees across a site), while foresters rarely have data that includes annual individual-tree variation. Thus, we hope our models will help bridge diverging perspectives across these fields and provide improved forecasting. First, however, we need to finalize how to robustly add in climate drivers.
+
+Work since the meeting has focused on finding the best-available climate data to merge with our data on annual tree growth. Given that our tree growth data was often collected across complex topologies with the goal to span climate variability this is no easy task, as weather stations are often quite far from locations of sampled trees. We are addressing this challenge by working with a climatologist from NASA GISS to review climate datasets and expected functional forms of growth responses to different metrics. We are also considering whether to model some climate metrics (e.g., soil moisture) as latent variables informed by local weather data. We expect progress on this challenge by the end of the summer. 
+
+Taken together, we have advanced on our goal of improving models of how tree growth interacts with a changing climate far more than we expected was possible in such a short time. While work began before our meeting at BIRS and continues on after, the one week to focus on the challenge and work intensively with experts from ecology, advanced statistical modeling and forestry was pivotal to our progress. 
+
+\begin{thebibliography}{1}
+
+\bibitem{Chapin:2002nh}
+F.~S. Chapin, P.~A. Matson, and H.~A. Mooney.
+\newblock {\em Principles of Terrestrial Ecosystem Ecology}.
+\newblock Springer-Verlag, New York, 2002.
+
+\bibitem{cook2013methods}
+Edward~R Cook and Leonardas~A Kairiukstis.
+\newblock {\em Methods of dendrochronology: applications in the environmental
+  sciences}.
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem{d2008divergence}
+Rosanne D'Arrigo, Rob Wilson, Beate Liepert, and Paolo Cherubini.
+\newblock On the `divergence problem'in northern forests: a review of the
+  tree-ring evidence and possible causes.
+\newblock {\em Global and planetary change}, 60(3-4):289--305, 2008.
+
+\bibitem{larcher2003}
+W.~Larcher.
+\newblock Plants under stress.
+\newblock In {\em Physiological Plant Ecology: Ecophysiology and Stress
+  Physiology of Functional Groups}, chapter~6, pages 345--450. Springer,
+  Heidelberg, 4th edition, 2003.
+
+\bibitem{zhang2017effect}
+Zhaochen Zhang, Michael~J Papaik, Xugao Wang, Zhanqing Hao, Ji~Ye, Fei Lin, and
+  Zuoqiang Yuan.
+\newblock The effect of tree size, neighborhood competition and environment on
+  tree growth in an old-growth temperate forest.
+\newblock {\em Journal of Plant Ecology}, 10(6):970--980, 2017.
+
+\end{thebibliography}
+
+\end{document}
+
+\subsection{Study area}
+
+\begin{figure}[h]
+    \includegraphics[width = 5cm]{figures/sites.png}
+\end{figure}
+
