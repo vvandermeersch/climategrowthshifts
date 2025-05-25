@@ -201,8 +201,15 @@ We have 16 different plots:
 #| out-width: 400px
 #| echo: false
 
+raw_data <- read.csv(file.path(wd, 'input/treerings/mosttrees_allspecies_allplots_19802008.csv'))
+
+plots_withobs <- unique(raw_data$stand)
+
 plots <- read.csv(file.path(wd, "data", "treerings_ailene", "tree_plot_climate_temp.csv"))
+plots <- plots[plots$Plot %in% plots_withobs, ]
 plots_vect <- vect(plots[,c("Longitude", "Latitude")], geom=c("Longitude", "Latitude"), crs = "EPSG:4326")
+
+
 
 leaflet(plots) %>% addTiles() %>%
   addCircleMarkers(~Longitude, ~Latitude, label = ~Plot,
@@ -226,6 +233,8 @@ and 6 species...
 ```{r}
 
 clim_pred <- readRDS(file.path(wd, "data", "climate","processed_predictors", "wldas_climpredictors.rds"))
+
+clim_pred <- clim_pred[clim_pred$plotname %in% plots_withobs, ]
 
 clim_pred$soilmoist_ings <- clim_pred$soilmoist_ings*100 # in percentage
 clim_pred$gdd_ings <- clim_pred$gdd_ings/10 # in 10degC
@@ -424,8 +433,6 @@ We thus have only kept time series with (at least) continuous measurements from 
 
 ```{r}
 
-raw_data <- read.csv(file.path(wd, 'input/treerings/mosttrees_allspecies_allplots_19802008.csv'))
-
 # Average ring widths when both cores are present
 robust_ave <- function(x, y) {
   ifelse(is.na(y), x, mean(c(x, y)))
@@ -576,6 +583,7 @@ base_samples <- util$filter_expectands(samples,
 util$check_all_expectand_diagnostics(base_samples)
 
 ```
+
 ```{r}
 #| echo: false
 
