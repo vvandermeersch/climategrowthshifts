@@ -48,16 +48,16 @@ library(stringr)
 ```
 
 ```{r user input}
-input_path <- "data/or_126/or126-rwl-noaa.txt"
+input_path <- "data/or_106l/or106l-rwl-noaa.txt"
 # the relative path the raw data
-output_1 <- "data/or_126/cleaned_tree_data_with_flags.csv"
+output_1 <- "data/or_106l/cleaned_tree_data_with_flags.csv"
 # the path to write the cleaned data with outlier flag
-output_2 <- "data/or_126/tree_quality_summary.csv"
+output_2 <- "data/or_106l/tree_quality_summary.csv"
 # the path to write tree summary
 ```
 
 ```{r read dataset}
-df <- read_tsv(input_path, comment = "#", na = c("NA"))
+df <- read_tsv(input_path, comment = "#", na = c("NA"),col_types = cols(.default = col_double()))
 ```
 
 ```{r data cleaning}
