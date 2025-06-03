@@ -1,5 +1,5 @@
 rm(list = ls())
-dir <- '/home/victor/projects/climategrowthshifts/analysis/pnw/oregon/total_ring_width/data'
+dir <- '/home/victor/projects/climategrowthshifts/analysis/pnw/data/itrdb/oregon/total_ring_width/data'
 
 datasets <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = TRUE)
 datasets_short <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = FALSE)
@@ -26,7 +26,12 @@ for(d in 1:length(datasets)){
   
   dataset_code <- unlist(strsplit(datasets_short[d], '/'))[1]
   
-  d_summ<- data.frame(dataset = dataset_code, species_name, species_code, north_lat, south_lat, east_lon, west_lon)
+  subtext <- text[grep(text[,1], pattern = 'First_Year'),]
+  first_year <- as.numeric(unlist(strsplit(subtext, ': '))[2])
+  subtext <- text[grep(text[,1], pattern = 'Last_Year'),]
+  last_year <- as.numeric(unlist(strsplit(subtext, ': '))[2])
+  
+  d_summ<- data.frame(dataset = dataset_code, species_name, species_code, first_year, last_year, north_lat, south_lat, east_lon, west_lon, altitude)
   saveRDS(d_summ, file = file.path(dir, dataset_code, paste0(dataset_code, '_info.rds')))
   
   data_summary <- rbind(data_summary,
@@ -34,6 +39,7 @@ for(d in 1:length(datasets)){
 }
 
 data_summary$uniquesite <- ifelse(data_summary$north_lat == data_summary$south_lat & data_summary$east_lon == data_summary$west_lon, TRUE, FALSE)
+saveRDS(data_summary, file = file.path('/home/victor/projects/climategrowthshifts/analysis/pnw/data/itrdb', paste0('itrdb_info.rds')))
 
 # Quick map
 library(rnaturalearth)
@@ -47,3 +53,6 @@ ggplot() +
   theme_minimal() +
   theme(axis.title = element_blank()) +
   coord_sf(xlim = c(-127, -110), ylim = c(40,52))
+
+
+unique(data_summary[,c('species_name', 'species_code')])
