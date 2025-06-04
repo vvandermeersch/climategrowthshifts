@@ -48,11 +48,11 @@ library(stringr)
 ```
 
 ```{r user input}
-input_path <- "data/or_090/or090-rwl-noaa.txt"
+input_path <- "data/wa_165/wa165-rwl-noaa.txt"
 # the relative path the raw data
-output_1 <- "data/or_090/cleaned_tree_data_with_flags.csv"
+output_1 <- "data/wa_165/cleaned_tree_data_with_flags.csv"
 # the path to write the cleaned data with outlier flag
-output_2 <- "data/or_090/tree_quality_summary.csv"
+output_2 <- "data/wa_165/tree_quality_summary.csv"
 # the path to write tree summary
 ```
 

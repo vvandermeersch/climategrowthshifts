@@ -1,0 +1,9 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+WH101A3_raw,76,33,0
+WH101B3_raw,33,33,2
+WH102A3_raw,145,33,1
+WH102B3_raw,154,33,2
+WH103A3_raw,168,33,1
+WH103B3_raw,196,33,0
+WH202A3_raw,106,33,2
+WH202B3_raw,97,33,2

@@ -1,0 +1,14 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+HICL03B_raw,37,32,7
+HICL04A_raw,196,32,5
+HICL05A_raw,32,32,3
+HICL07A_raw,108,32,5
+HICL10B_raw,252,32,1
+HICL11B_raw,313,34,0
+HICL13A_raw,226,32,2
+HICL14B_raw,232,32,0
+HICL15B_raw,175,32,4
+HICL16B_raw,143,32,2
+HICL17B_raw,192,32,2
+HICL19A_raw,230,32,2
+HICL20A_raw,236,32,3
