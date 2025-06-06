@@ -1,45 +1,50 @@
 rm(list = ls())
-dir <- '/home/victor/projects/climategrowthshifts/analysis/pnw/data/itrdb/oregon/total_ring_width/data'
-
+dir <- 'data/itrdb/oregon/total_ring_width/data'
 datasets <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = TRUE)
 datasets_short <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = FALSE)
-
 data_summary <- data.frame()
+
 for(d in 1:length(datasets)){
-  
-  text <- read.delim(datasets[d], nrows = 120)
-  subtext <- text[grep(text[,1], pattern = 'Species_Name'),]
-  species_name <- unlist(strsplit(subtext, ': '))[2]
-  subtext <- text[grep(text[,1], pattern = 'Tree_Species_Code'),]
-  species_code <- unlist(strsplit(subtext, ': '))[2]
-  
-  subtext <- text[grep(text[,1], pattern = 'Northernmost_Latitude'),]
-  north_lat <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  subtext <- text[grep(text[,1], pattern = 'Southernmost_Latitude'),]
-  south_lat <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  subtext <- text[grep(text[,1], pattern = 'Easternmost_Longitude'),]
-  east_lon <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  subtext <- text[grep(text[,1], pattern = 'Westernmost_Longitude'),]
-  west_lon <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  subtext <- text[grep(text[,1], pattern = 'Elevation'),]
-  altitude <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  
-  dataset_code <- unlist(strsplit(datasets_short[d], '/'))[1]
-  
-  subtext <- text[grep(text[,1], pattern = 'First_Year'),]
-  first_year <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  subtext <- text[grep(text[,1], pattern = 'Last_Year'),]
-  last_year <- as.numeric(unlist(strsplit(subtext, ': '))[2])
-  
-  d_summ<- data.frame(dataset = dataset_code, species_name, species_code, first_year, last_year, north_lat, south_lat, east_lon, west_lon, altitude)
-  saveRDS(d_summ, file = file.path(dir, dataset_code, paste0(dataset_code, '_info.rds')))
-  
-  data_summary <- rbind(data_summary,
-                        d_summ)
+text <- read.delim(datasets[d], nrows = 120)
+
+get_val <- function(text,p,numeric=FALSE) {
+rows <- grep(text[,1],pattern=p)
+if (length(rows)==0) {
+return(NA) #no such pattern found
+}
+subtext <- text[grep(text[,1],pattern=p),]
+split_line <- unlist(strsplit(subtext, ': '))
+if (length(split_line)<2) {
+return(NA) #format error: nothing after ": "
+}
+value <- split_line[2]
+if (numeric) {
+value <- as.numeric(value)
+}
+return(value)
+}
+species_name <- get_val(text,'Species_Name')
+species_code <- get_val(text,'Tree_Species_Code')
+
+north_lat <- get_val(text,'Northernmost_Latitude',numeric=TRUE)
+south_lat <- get_val(text,'Southernmost_Latitude',numeric=TRUE)
+east_lon <- get_val(text,'Easternmost_Longitude',numeric=TRUE)
+west_lon <- get_val(text,'Westernmost_Longitude',numeric=TRUE)
+altitude <- get_val(text,'Elevation',numeric=TRUE)
+
+dataset_code <- unlist(strsplit(datasets_short[d], '/'))[1]
+
+first_year <- get_val(text,'First_Year',numeric=TRUE)
+last_year <- get_val(text,'Last_Year',numeric=TRUE)
+d_summ<- data.frame(dataset = dataset_code, species_name, species_code, first_year, last_year, north_lat, south_lat, east_lon, west_lon, altitude)
+saveRDS(d_summ, file = file.path(dir, dataset_code, paste0(dataset_code, '_info.rds')))
+data_summary <- rbind(data_summary,
+d_summ)
 }
 
 data_summary$uniquesite <- ifelse(data_summary$north_lat == data_summary$south_lat & data_summary$east_lon == data_summary$west_lon, TRUE, FALSE)
-saveRDS(data_summary, file = file.path('/home/victor/projects/climategrowthshifts/analysis/pnw/data/itrdb', paste0('itrdb_info.rds')))
+saveRDS(data_summary, file = file.path('data/itrdb', paste0('itrdb_info.rds')))
+
 
 # Quick map
 library(rnaturalearth)
