@@ -1,7 +1,11 @@
+if (requireNamespace("rstudioapi", quietly = TRUE)) {
+  setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+}
+
 rm(list = ls())
-dir <- 'data/itrdb/oregon/total_ring_width/data'
-datasets <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = TRUE)
-datasets_short <- list.files(dir, pattern = '.txt', recursive = TRUE, full.names = FALSE)
+dir <- "data/itrdb/oregon/total_ring_width/data"
+datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
+datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
 data_summary <- data.frame()
 
 for(d in 1:length(datasets)){
@@ -43,7 +47,7 @@ d_summ)
 }
 
 data_summary$uniquesite <- ifelse(data_summary$north_lat == data_summary$south_lat & data_summary$east_lon == data_summary$west_lon, TRUE, FALSE)
-saveRDS(data_summary, file = file.path('data/itrdb', paste0('itrdb_info.rds')))
+saveRDS(data_summary, file = file.path('data/itrdb/oregon', paste0('itrdb_info.rds')))
 
 
 # Quick map
@@ -52,7 +56,7 @@ library(terra)
 library(tidyterra)
 library(ggplot2)
 world <- vect(ne_countries(scale = "medium", returnclass = "sf"))
-ggplot() +
+quick_map <- ggplot() +
   geom_spatvector(data = world, color = 'white', fill = 'grey90') +
   geom_point(data = data_summary, aes(x = east_lon, y = north_lat, color = species_code)) +
   theme_minimal() +
@@ -61,3 +65,5 @@ ggplot() +
 
 
 unique(data_summary[,c('species_name', 'species_code')])
+# save the plot in the oregon folder
+ggsave(plot=quick_map,filename="quick_map.png",path="data/itrdb/oregon",width=6,height=4,dpi=300)

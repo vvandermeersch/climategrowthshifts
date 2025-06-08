@@ -1,0 +1,66 @@
+---
+title: "data_cleaning"
+output: html_document
+date: "2025-06-07"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+```
+
+
+```{r data entry}
+dir <- "data/itrdb/Washington/total_ring_width/data"
+datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
+datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
+```
+
+
+```{r mark the outliers}
+
+for(d in 1:length(datasets)) {
+  df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double()))
+  
+  year_col <- "age_CE"
+  tree_col <- setdiff(names(df),year_col)
+  df_with_flag <- df
+  
+  
+  for(tree in tree_col){
+    x <- df[[tree]]
+    z <- (x-mean(x,na.rm=TRUE))/sd(x,na.rm=TRUE)
+    outlier_flag <- paste0(tree,"_outlier_flag")
+    df_with_flag[outlier_flag]<- ifelse(is.na(z),NA,abs(z)>3)}
+  
+    tree_summary <- data.frame(tree=tree_col)
+    all_years <- seq(min(df_with_flag[[year_col]],na.rm=TRUE),2024)
+    focus_years <- seq(1980,2024)
+    
+  for(tree in tree_col){
+    
+    non_missing <- df %>%
+      select(all_of(year_col),all_of(tree)) %>%
+      filter(!is.na(.data[[tree]]))
+    
+    observed_years <- non_missing[[year_col]]
+    
+    missing_total <- length(setdiff(all_years,observed_years))
+    missing_focus <- length(setdiff(focus_years,observed_years))
+    
+    outlier_col <- paste0(tree,"_outlier_flag")
+    n_outliers <- sum(df_with_flag[[outlier_col]],na.rm=TRUE)
+    
+    tree_summary[tree_summary$tree==tree,"n_missing_total"] <- missing_total
+    tree_summary[tree_summary$tree==tree,"n_missing_1980_on"] <- missing_focus
+    tree_summary[tree_summary$tree==tree,"n_outliers_total"]<- n_outliers
+  }
+    
+  write_csv(df_with_flag,paste0(substr(datasets[d],1,51),"cleaned_tree_data_with_flags.csv"))
+  write_csv(tree_summary,paste0(substr(datasets[d],1,51),"tree_quality_summary.csv"))
+}
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
