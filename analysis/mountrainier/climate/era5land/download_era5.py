@@ -7,7 +7,7 @@ client = cdsapi.Client(timeout=3600,quiet=True,debug=False)
 def download_era5land(year):
   
   request = {
-    "variable": ["2m_temperature"],
+    "variable": ["snow_depth_water_equivalent"],
     "year": year,
     "month": [
       "01", "02", "03",
@@ -32,5 +32,5 @@ def download_era5land(year):
     "frequency": "1_hourly",
     "area": [47, -122, 46, -121.5]
   }
-  file_name = "tmp" + "_" + year + ".nc"
+  file_name = "swe" + "_" + year + ".nc"
   client.retrieve(dataset, request).download(file_name)

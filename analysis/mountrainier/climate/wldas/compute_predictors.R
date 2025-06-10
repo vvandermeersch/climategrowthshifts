@@ -31,6 +31,24 @@ ggplot() +
         panel.grid = element_blank()) +
   labs(x = "DOY", y = "")
 
+
+growingseason$gslength <- growingseason$eos - growingseason$sos
+
+growingseason <-
+  growingseason %>%
+  group_by(ID) %>%
+  mutate(meanlength = mean(gslength)) %>%
+  ungroup()
+
+ggplot() +
+  geom_line(data = growingseason, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = gslength-meanlength, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) + 
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "GSL (anomaly, days)")
+
 # GDD in growing season
 tlower <- 5
 tupper <- 35
@@ -49,14 +67,20 @@ for(year in unique(lubridate::year(datdf$date))){
   }
 }
 
+growingdegrees <-
+  growingdegrees %>%
+  group_by(ID) %>%
+  mutate(meangdd = mean(gdd_ings)) %>%
+  ungroup()
+
 ggplot() +
-  geom_line(data = growingdegrees, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = gdd_ings, color = ID, group = ID), linewidth = 0.5) +
+  geom_line(data = growingdegrees, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = gdd_ings-meangdd, color = ID, group = ID), linewidth = 0.5) +
   scale_color_gradientn(colors = kippenberger) + 
   theme_bw() +
-  scale_x_date(expand = c(0,0), date_labels = "%Y") +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
   theme(legend.position = 'none',
         panel.grid = element_blank()) +
-  labs(x = "Year", y = "GDD")
+  labs(x = "Year", y = "GDD in GS (anomaly, °C)")
 
 # Soil moisture in growing season
 soilmoisture <- data.frame()
@@ -81,11 +105,59 @@ for(year in unique(lubridate::year(datdf$date))){
   }
 }
 
+soilmoisture <-
+  soilmoisture %>%
+  group_by(ID) %>%
+  mutate(meansm = mean(soilmoist_ings)) %>%
+  ungroup()
+
 ggplot() +
-  geom_line(data = soilmoisture, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_ings, color = ID, group = ID), linewidth = 0.5) +
+  geom_line(data = soilmoisture, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_ings-meansm, color = ID, group = ID), linewidth = 0.5) +
   scale_color_gradientn(colors = kippenberger) + 
   theme_bw() +
-  scale_x_date(expand = c(0,0), date_labels = "%Y") +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
   theme(legend.position = 'none',
         panel.grid = element_blank()) +
-  labs(x = "Year", y = "Soil moisture")
+  labs(x = "Year", y = "Soil moisture in GS (anomaly, m3.m-3)")
+
+# Soil moisture in JJA
+soilmoisturejja <- data.frame()
+for(year in unique(lubridate::year(datdf$date))){
+  
+  df010 <- datdf[datdf$var == "soilmoist_010" & lubridate::year(datdf$date) %in% year,]
+  df1040 <- datdf[datdf$var == "soilmoist_1040" & lubridate::year(datdf$date) %in% year,]
+  df40100 <- datdf[datdf$var == "soilmoist_40100" & lubridate::year(datdf$date) %in% year,]
+  df100200 <- datdf[datdf$var == "soilmoist_100200" & lubridate::year(datdf$date) %in% year,]
+  
+  for(p in unique(df$ID)){
+    
+    s <- as.Date(paste0(year, '-06-01'))
+    e <- as.Date(paste0(year, '-08-31'))
+    
+    sm010 <- mean(df010[df010$ID == p & df010$date %in% seq(s, e, 1), "value"])
+    sm1040 <- mean(df1040[df1040$ID == p & df1040$date %in% seq(s, e, 1), "value"])
+    sm40100 <- mean(df40100[df40100$ID == p & df40100$date %in% seq(s, e, 1), "value"])
+    sm100200 <- mean(df100200[df100200$ID == p & df100200$date %in% seq(s, e, 1), "value"])
+    sm <- weighted.mean(c(sm010, sm1040, sm40100, sm100200), c(10,30,60,100))
+    
+    soilmoisturejja <- rbind(soilmoisturejja, data.frame(ID = p, year = year, soilmoist_jja = sm))
+  }
+}
+
+soilmoisturejja <-
+  soilmoisturejja %>%
+  group_by(ID) %>%
+  mutate(meansmjja = mean(soilmoist_jja)) %>%
+  ungroup()
+
+ggplot() +
+  geom_line(data = soilmoisturejja, aes(x = as.Date(paste(year, 01, 01, sep = "-")), y = soilmoist_jja-meansmjja, color = ID, group = ID), linewidth = 0.5) +
+  scale_color_gradientn(colors = kippenberger) + 
+  theme_bw() +
+  scale_x_date(expand = c(0,0), date_labels = "%Y", breaks =  as.Date(paste(seq(1980,2020,5), 01, 01, sep = "-"))) +
+  theme(legend.position = 'none',
+        panel.grid = element_blank()) +
+  labs(x = "Year", y = "Soil moisture in GS (anomaly, m3.m-3)")
+
+climate_predictors <- merge(merge(merge(merge(growingseason, growingdegrees), soilmoisture), soilmoisturejja), plotsID)
+saveRDS(climate_predictors, file = file.path(wd, "climate", "processed_predictors", "wldas_climpredictors.rds"))
