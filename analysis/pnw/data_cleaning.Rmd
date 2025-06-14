@@ -14,7 +14,7 @@ library(stringr)
 
 ```{r data entry}
 # relative path to the folder with all the datasets
-dir <- "data/itrdb/Washington/total_ring_width/data"
+dir <- "data/itrdb/washington/total_ring_width/data"
 
 # relative path to every dataset
 datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
