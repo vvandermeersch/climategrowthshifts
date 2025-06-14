@@ -15,6 +15,10 @@ plet(temp$SWdown_f_tavg) |>
 
 
 leaflet() %>% addTiles() %>%
+  points(plots, col = "white", cex = 3) |> 
+  points(plots, col = "black", cex = 0.7)
+  
+  
   addRectangles(
     lng1=-122, lat1=46.65,
     lng2=-121.45, lat2=47.05,

@@ -1,0 +1,112 @@
+---
+title: "Total Ring Width Data Cleaning Template"
+author: Devina Deng
+output:
+  pdf_document: default
+  html_document: default
+date: "2025-05-12"
+---
+
+## Script purpose
+This Rmd file provides a template for cleaning dataset of total tree ring width with identical structure, only the file path and output path need to be changed to apply the same workflow to different dataset.
+
+---
+
+## Instructions for use
+- Input the relative path of the dataset you want to clean as input_path in the {user input} chunk.
+- Input the relative path of the wanted outputs as output_1 and output_2 in the {user input} chunk.
+- Run the entire document to:
+  - Mark outliers (z>3)
+  - Count missing values (all years & from 1980) and outliers
+  - Export a cleaned dataset with outlier flag and a tree-level quality summary
+
+---
+
+## Input requirements
+
+A csv file with:
+- A column called "age_CE"
+- The rest of the columns recording total ring width of different trees
+
+---
+
+## Output
+- A cleaned dataset with outlier flag
+- A tree-level quality summary
+
+---
+
+## Reusability
+The file is designed to be reused. Please don't change the cleaning logic but the input and output file paths in the {user input} chunk.
+
+---
+```{r setup, include=FALSE}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+```
+
+```{r user input}
+input_path <- "data/wa_165/wa165-rwl-noaa.txt"
+# the relative path the raw data
+output_1 <- "data/wa_165/cleaned_tree_data_with_flags.csv"
+# the path to write the cleaned data with outlier flag
+output_2 <- "data/wa_165/tree_quality_summary.csv"
+# the path to write tree summary
+```
+
+```{r read dataset}
+df <- read_tsv(input_path, comment = "#", na = c("NA"),col_types = cols(.default = col_double()))
+
+```
+
+```{r data cleaning}
+year_col <- "age_CE"
+tree_cols <- setdiff(names(df), year_col)
+
+# create the outlier_flag column to label outliers
+df_with_flags <- df
+
+for (tree in tree_cols) {
+  x <- df[[tree]]
+  z <- (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+  flag_col <- paste0(tree, "_outlier_flag")
+  df_with_flags[[flag_col]] <- ifelse(is.na(z), NA, abs(z) > 3)
+}
+
+tree_summary <- data.frame(tree = tree_cols)
+
+# year range
+year_min <- min(df[[year_col]], na.rm = TRUE)
+year_max <- max(df[[year_col]], na.rm = TRUE)
+
+# create columms of missing values count
+for (tree in tree_cols) {
+  df_tree <- df_with_flags %>% select(all_of(year_col), all_of(tree))
+  non_missing <- df_tree %>% filter(!is.na(.data[[tree]]))
+
+  observed_years <- non_missing[[year_col]]
+  last_sample_year <- 2024
+  
+  all_years <- seq(year_min, last_sample_year)
+  focus_years <- seq(1980, last_sample_year)
+  
+  missing_total <- length(setdiff(all_years, observed_years))
+  missing_focus <- length(setdiff(focus_years, observed_years))
+  
+  outlier_col <- paste0(tree, "_outlier_flag")
+  n_outliers <- sum(df_with_flags[[outlier_col]], na.rm = TRUE)
+  
+  tree_summary[tree_summary$tree == tree, "n_missing_total"] <- missing_total
+  tree_summary[tree_summary$tree == tree, "n_missing_1980_on"] <- missing_focus
+  tree_summary[tree_summary$tree == tree, "n_outliers_total"] <- n_outliers
+}
+
+# save the result
+ write_csv(df_with_flags, output_1)
+ write_csv(tree_summary, output_2)
+
+print(head(df_with_flags))
+print(tree_summary)
+```

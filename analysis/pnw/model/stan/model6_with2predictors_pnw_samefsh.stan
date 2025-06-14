@@ -106,7 +106,7 @@ parameters {
   
   // Short-term proportional growth functional behavior
   // for species JUOC
-  array[N_stands] vector[N_all_years] f_tilde_sh; // Non-centered functional behavior
+  vector[N_all_years] f_tilde_sh; // Non-centered functional behavior
   real<lower=0> rho_sh;   // Time scale
   real<lower=0> gamma_sh; // Marginal variation
   
@@ -119,16 +119,16 @@ parameters {
 transformed parameters {
   array[N_species] real kappa_sh = append_array({1}, kappa_sh_free);
   
-  array[N_stands] vector[N_all_years] f_sh;
+  vector[N_all_years] f_sh;
   {
     matrix[N_all_years, N_all_years] cov
     =   gp_exp_quad_cov(all_years, gamma_sh, rho_sh)
     + diag_matrix(rep_vector(1e-10, N_all_years));
     matrix[N_all_years, N_all_years] L_cov = cholesky_decompose(cov);
     
-    for (s in 1:N_stands) {
-      f_sh[s] = L_cov * f_tilde_sh[s];
-    }
+    
+    f_sh = L_cov * f_tilde_sh;
+    
   }
 }
 
@@ -148,8 +148,8 @@ model {
   rho ~ lognormal(3.55, 0.24);       // 20 <~ rho <~ 60
   gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
   
-  for (s in 1:N_stands)
-    f_tilde_sh[s] ~ normal(0, 1);
+  
+  f_tilde_sh ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
@@ -176,7 +176,7 @@ model {
     + beta_gdd * (gdd_obs_tree - gdd0)
     + beta_sm * (sm_obs_tree - sm0)
     + kappa_sh[species_idx]
-    * f_sh[stand_idx, all_years_idxs_tree];
+    * f_sh[all_years_idxs_tree];
     
     // ***** WARNING *****
       // Making the assumption that N_years[t] = N_all_years for all t
@@ -210,7 +210,7 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     
     mu1[tree_idxs] = alpha + beta_gdd * (gdd_obs_tree - gdd0) + beta_sm * (sm_obs_tree - sm0)
-    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
+    + kappa_sh[species_idx] * f_sh[all_years_idxs_tree];
     
     mu2[tree_idxs] = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree, 
                                  mu1[tree_idxs], gamma[species_idx], rho[species_idx], sigma, 1e-10) - mu1[tree_idxs];             
