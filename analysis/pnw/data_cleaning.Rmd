@@ -13,8 +13,13 @@ library(stringr)
 
 
 ```{r data entry}
+# relative path to the folder with all the datasets
 dir <- "data/itrdb/Washington/total_ring_width/data"
+
+# relative path to every dataset
 datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
+
+# every dataset's name
 datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
 ```
 
@@ -22,18 +27,51 @@ datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
 ```{r mark the outliers}
 
 for(d in 1:length(datasets)) {
-  df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double()))
+  #read the col names line
+  lines <- readLines(datasets[d],n=2000)
+  header_index <- which(!grepl("^#", lines))[1]
+  header <- lines[header_index]
+  
+  # identify duplicated col names
+  col_names <- strsplit(header,"\t")[[1]]
+  du_col <- col_names[duplicated(col_names)]
+  conflictive_text <- "Conflictive data:"
+  
+  # read each dataset under the given folder
+  df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double())) #this line is original
+  cols_to_keep <- names(df)
+  
+  if (length(du_col)>0) {
+    for (du in du_col) {
+    du_cols <- grep(paste0("^",du),names(df),value=TRUE)
+    all_equal <- TRUE
+    
+    for (d in 2:length(du_cols)) {
+      if (!identical(df[[du_cols[d]]],df[[du_cols[d-1]]])) {all_equal <- FALSE
+      break}
+    }
+    if (all_equal) {
+      cols_to_keep <- setdiff(cols_to_keep,du_cols[-1])
+    } else {
+      cols_to_keep <- setdiff(cols_to_keep,du_cols)
+      conflictive_text <- paste0(conflictive_text,du,",")
+      write_lines(conflictive_text,paste0(substr(datasets[d],1,51),"conflctive_data.txt"))
+    }
+  }
+  df <- df%>%
+    select(all_of(cols_to_keep))}
+
   
   year_col <- "age_CE"
   tree_col <- setdiff(names(df),year_col)
+  
   df_with_flag <- df
-  
-  
+ 
   for(tree in tree_col){
     x <- df[[tree]]
     z <- (x-mean(x,na.rm=TRUE))/sd(x,na.rm=TRUE)
     outlier_flag <- paste0(tree,"_outlier_flag")
-    df_with_flag[outlier_flag]<- ifelse(is.na(z),NA,abs(z)>3)}
+    df_with_flag[[outlier_flag]]<- ifelse(is.na(z),NA,abs(z)>3)}
   
     tree_summary <- data.frame(tree=tree_col)
     all_years <- seq(min(df_with_flag[[year_col]],na.rm=TRUE),2024)
