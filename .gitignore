@@ -33,6 +33,9 @@
 
 analysis/mountrainier/climate/era5land/bcookenv
 analysis/mountrainier/data/climate/era5land
+analysis/mountrainier/data/climate/wldas
+
+analysis/pnw/output/model
 
 /notposting
 

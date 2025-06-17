@@ -11,14 +11,14 @@ library(rstan)
 library(dplyr)
 
 # Load treering data
-datadir <- file.path(wd, 'data/itrdb/oregon/total_ring_width/data')
 datasets <- readRDS(file = file.path(wd, 'data/itrdb', paste0('itrdb_info.rds')))
 datasets <- datasets[datasets$last_year >= 2010,]
+datasets <- datasets[datasets$dataset != 'wa_149',]
 
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
   
-  raw_data_d <- read.csv(file.path(datadir, datasets[d, 'dataset'], 'cleaned_tree_data_with_flags.csv'))
+  raw_data_d <- read.csv(file.path(wd, 'data/itrdb', datasets[d, 'state'], 'total_ring_width/data', datasets[d, 'dataset'], 'cleaned_tree_data_with_flags.csv'))
   
   coltokeep <-  !grepl(colnames(raw_data_d), pattern = 'outlier')
   raw_data_d <- raw_data_d[, coltokeep]
@@ -49,16 +49,23 @@ for(d in 1:nrow(datasets)){
 
 # Gather some stands (TEMPORARY, we should find a better method for this)
 stands_gather <-
-  data.frame(stand = datasets$dataset,
-             standgathered = c("or_092", "or_093", "or_094", "or_095", rep("or_098", 7), rep('or_105', 3), rep('or_093', 3),
-                               "or_107", "or_116", "or_129", "or_130", "or_131"))
+  data.frame(stand = c("or_092", "or_093", "or_094", "or_095", "or_096", "or_096e", "or_096l", "or_097", "or_097e",
+                       "or_097l", "or_098", "or_099", "or_100", "or_101", "or_102", "or_103", "or_104", "or_105",
+                       "or_105e", "or_105l", "or_106", "or_106e", "or_106l", "or_107", "or_113", "or_115", "or_116", 
+                       "or_117", "or_129", "or_130", "or_131", 
+                       "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"),
+             standgathered = c("or_092", "or_093", "or_094", "or_095", rep("or_096", 3), rep("or_097", 3), 
+                               rep("or_098", 7), rep("or_105", 3), rep('or_093', 3), "or_107", "or_113", "or_115", "or_116", 
+                               "or_117", "or_129", "or_130", "or_131", 
+                       "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"))
 raw_data <- merge(raw_data, stands_gather)
 
 
 # Load climate data
-clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_pnw_june2025.rds"))
+clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_ext_pnw_june2025.rds"))
 clim_pred$soilmoist_jja <- clim_pred$soilmoist_jja*100 # in percentage
-clim_pred$gdd_ings <- clim_pred$gdd_ings/10 # in 10degC
+clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
+clim_pred$vpd_jja <- clim_pred$vpd_jja # in hPa?
 
 # Sizes
 uniq_tree_ids <- unique(raw_data$tree_id)
@@ -90,9 +97,9 @@ N_all_years <- length(all_years)
 
 # Format data into ragged arrays
 log_rw_obs <- c()
-gsl_obs <- c()
 gdd_obs <- c()
 sm_obs <- c()
+vpd_obs <- c()
 years <- c()
 all_years_idxs <- c()
 N_years <- c()
@@ -119,13 +126,18 @@ for (tid in uniq_tree_ids) {
   
   gdd_obs_tree <- sapply(years_tree, 
                          function(y) 
-                           as.numeric(clim_pred$gdd_ings[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
+                           as.numeric(clim_pred$gdd[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
   
   sm_obs_tree <- sapply(years_tree, 
                         function(y) 
                           as.numeric(clim_pred$soilmoist_jja[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
   sm_obs <- c(sm_obs, sm_obs_tree)
+  
+  vpd_obs_tree <- sapply(years_tree, 
+                        function(y) 
+                          as.numeric(clim_pred$vpd_jja[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
+  vpd_obs <- c(vpd_obs, vpd_obs_tree)
   
   years <- c(years, years_tree)
   all_years_idxs <- c(all_years_idxs, all_years_idxs_tree)
@@ -160,7 +172,7 @@ length(tree_end_idxs)
 N <- length(years)
 
 data <- mget(c('N', 'N_all_years', 'N_trees', 
-               'log_rw_obs', 'gdd_obs', 'sm_obs',
+               'log_rw_obs', 'gdd_obs', 'sm_obs', 'vpd_obs',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
@@ -170,9 +182,11 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
 # fit <- stan(file=file.path(wd, 'model/stan/model6_with2predictors_pnw_samefsh.stan'),
 #             data=data, seed=5838299, cores = 4,
 #             warmup=1000, iter=2024, refresh=10)
-fit <- stan(file=file.path(wd, 'model/stan/model6_with2predictors_pnw_differentbetas.stan'),
-            data=data, seed=5838299, cores = 4,
+fit <- stan(file=file.path(wd, 'model/stan/model6_with3predictors_pnw_differentbetas.stan'),
+            data=data, seed=5838299, 
+            chains = 4, cores = 4,
             warmup=1000, iter=2024, refresh=10)
+saveRDS(fit, file = file.path(wd, 'output/model', '11june2025.rds'))
 
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
@@ -205,13 +219,13 @@ for (t in  50*1:6) {
 }
 
 par(mfrow=c(3, 2))
-for (t in  sample(which(data$stand_idxs == which(uniq_stand_ids == "or_106")), 6)) {
+for (t in  sample(which(data$stand_idxs == which(uniq_stand_ids == "or_093")), 6)) {
   idxs <- tree_start_idxs[t]:tree_end_idxs[t]
   rw_names <- sapply(idxs,
                      function(n) paste0('log_rw_pred[', n, ']'))
   util$plot_conn_pushforward_quantiles(samples, rw_names, data$years[idxs],
                                        xlab="Year", ylab="Log Ring Width Per mm", 
-                                       display_ylim=c(-4, 2),
+                                       display_ylim=c(-6, 2),
                                        main=paste0("Stand ", uniq_stand_ids[stand_idxs[t]], 
                                                    ", Tree ", uniq_tree_ids[t]))
   abline(v=1992, lwd=1, lty=2, col='darkgrey')
@@ -222,10 +236,10 @@ for (t in  sample(which(data$stand_idxs == which(uniq_stand_ids == "or_106")), 6
 
 # Inference
 par(mfrow=c(3, 2))
-for (t in  1 * (1:6)) {
+for (t in  10 * (1:6)) {
   idxs <- tree_start_idxs[t]:tree_end_idxs[t]
   rw_names <- sapply(idxs,
-                     function(n) paste0('mu1[', n, ']'))
+                     function(n) paste0('mu2[', n, ']'))
   util$plot_conn_pushforward_quantiles(samples, rw_names, data$years[idxs],
                                        xlab="Year", ylab="Log Ring Width Per mm", 
                                        display_ylim=c(-4, 2),
@@ -287,18 +301,65 @@ for (s in 1:data$N_species) {
   lines(xs, ys, lwd=2, col=util$c_light)
 }
 
-par(mfrow=c(1, 1), mar = c(4,4,1,1))
+par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
 names <- sapply(1:data$N_species,
                 function(sp) paste0('kappa_sh[', sp, ']'))
 util$plot_disc_pushforward_quantiles(samples, names,
                                      xlab="Species",
                                      xticklab=uniq_species_ids,
-                                     ylab="Climate Response Scaling")
+                                     ylab=expression(kappa[short]))
 
-par(mfrow=c(1, 1), mar = c(4,4,1,1))
+par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
 names <- sapply(1:data$N_species,
                 function(sp) paste0('beta_sm[', sp, ']'))
 util$plot_disc_pushforward_quantiles(samples, names,
                                      xlab="Species",
                                      xticklab=uniq_species_ids,
-                                     ylab="Climate Response Scaling")
+                                     ylab=expression(beta[SMoist]))
+
+par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
+names <- sapply(1:data$N_species,
+                function(sp) paste0('beta_gdd[', sp, ']'))
+util$plot_disc_pushforward_quantiles(samples, names,
+                                     xlab="Species",
+                                     xticklab=uniq_species_ids,
+                                     ylab=expression(beta[GDD]))
+
+par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
+names <- sapply(1:data$N_species,
+                function(sp) paste0('beta_vpd[', sp, ']'))
+util$plot_disc_pushforward_quantiles(samples, names,
+                                     xlab="Species",
+                                     xticklab=uniq_species_ids,
+                                     ylab=expression(beta[VPD]))
+
+spind <- 4
+start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs[start:end],
+                                       0, 32, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       xlab="GDD (x100degC)", main = paste0('Species ', uniq_species_ids[spind]))
+
+pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+util$plot_conditional_median_quantiles(samples, pred_names, data$sm_obs[start:end],
+                                       15, 36, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       xlab="Soil moisture (%)", main = paste0('Species ', uniq_species_ids[spind]))
+
+pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+util$plot_conditional_median_quantiles(samples, pred_names, data$vpd_obs[start:end],
+                                       0, 20, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       xlab="VPD (hPa)", main = paste0('Species ', uniq_species_ids[spind]))
+
+
+plot(c(samples[["beta_gdd[1]"]]) ~ c(samples[["beta_vpd[1]"]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]))
+
+plot(c(samples[["beta_sm[1]"]]) ~ c(samples[["beta_vpd[1]"]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[SMoist]))
+
+plot(c(samples[["beta_gdd[1]"]]) ~ c(samples[["beta_sm[1]"]]),
+     xlab = expression(beta[SMoist]), ylab = expression(beta[GDD]))
