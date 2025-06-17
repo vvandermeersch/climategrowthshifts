@@ -1,9 +1,9 @@
 tree,n_missing_total,n_missing_1980_on,n_outliers_total
-KAP01A_raw,0,131,0
-KAP01B_raw,0,132,1
-KAP02A_raw,82,132,0
-KAP02B_raw,82,135,1
-KAP02C_raw,83,123,2
-KAP02D_raw,83,123,2
-KAP02E_raw,81,112,2
-KAP02F_raw,81,115,2
+KAP01A_raw,175,45,0
+KAP01B_raw,176,45,1
+KAP02A_raw,258,45,0
+KAP02B_raw,261,45,1
+KAP02C_raw,250,45,2
+KAP02D_raw,250,45,2
+KAP02E_raw,237,45,2
+KAP02F_raw,240,45,2

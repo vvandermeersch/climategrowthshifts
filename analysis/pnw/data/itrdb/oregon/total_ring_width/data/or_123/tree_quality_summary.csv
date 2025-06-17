@@ -1,7 +1,7 @@
 tree,n_missing_total,n_missing_1980_on,n_outliers_total
-HAN01A_raw,6,105,0
-HAN01B_raw,6,114,2
-HAN01C_raw,81,126,1
-HAN01D_raw,81,135,0
-HAN02A_raw,0,180,1
-HAN02B_raw,0,178,0
+HAN01A_raw,155,45,0
+HAN01B_raw,164,45,2
+HAN01C_raw,251,45,1
+HAN01D_raw,260,45,0
+HAN02A_raw,224,45,1
+HAN02B_raw,222,45,0
