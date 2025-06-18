@@ -3,7 +3,8 @@
 # housekeeping
 rm(list=ls()) 
 
-setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/")
+
+setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate")
 longmirestation <- read.csv('USC00456894.csv', header = F)
 longmirestation1 <- read.csv('USC00454764.csv', header = F)
 # Full longmire data
@@ -136,7 +137,7 @@ write.csv(paradise_df, "paradise_climateNA.csv")
 }
 
 longmire_df <- read.csv("longmire_climateNA.csv", header = T)
-paradise_df <- read.csv("paradise_climateNA.csv", header = T)
+
 
 # Calculate GDD based on climateNA data
 Tbase <- 5
@@ -178,3 +179,126 @@ colnames(GDD_yearly_longmire_climateNA) <- c("year","GDD_yearly_climateNA")
 longmire_GDD <- merge(GDD_yearly_st, GDD_yearly_longmire_climateNA, by = "year", all.x = TRUE)
 
 write.csv(longmire_GDD, "longmire_GDD.csv")
+
+# Paradise
+# housekeeping
+rm(list=ls()) 
+
+paradisestation <- read.csv('USC00456898.csv', header = F)
+# only need date and data
+paradisestation <- paradisestation[,2:4]
+colnames(paradisestation)<- c("date","type","data")
+paradisestation <- paradisestation[paradisestation$type %in% c("TMAX", "TMIN"), ]
+# rearrage the format
+tab <- xtabs(data ~ date + type, data = paradisestation)
+paradisestation1 <- as.data.frame(tab)
+paradisestation1 <- reshape(paradisestation1,
+                            timevar = "type",
+                            idvar = "date",
+                            direction = "wide")
+# Clean column names
+names(paradisestation1) <- sub("Freq\\.", "", names(paradisestation1))
+# Adjust the real temp
+paradisestation1$TMAX <- paradisestation1$TMAX/10
+paradisestation1$TMIN <- paradisestation1$TMIN/10
+# Adjust the date
+paradisestation1$date <- as.Date(as.character(paradisestation1$date), format = "%Y%m%d")
+paradisestation1$year <- as.numeric(format(paradisestation1$date, "%Y"))
+paradisestation1$month <- as.numeric(format(paradisestation1$date, "%m"))
+paradisestation1$doy <- as.numeric(format(paradisestation1$date, "%j"))
+
+#leap year
+is_leap_year <- function(y) {
+  (y %% 4 == 0 & y %% 100 != 0) | (y %% 400 == 0)
+}
+
+day_counts <- table(paradisestation1$year)
+years <- as.numeric(names(day_counts))
+expected_days <- ifelse(is_leap_year(years), 366, 365)
+missing_years <- years[day_counts < expected_days]
+missing_years
+# Lots of missing data actually...
+years <- sort(unique(paradisestation1$year))
+
+doy_full <- 1:366
+
+# Create full year+doy
+full_grid <- expand.grid(year = years, doy = doy_full)
+
+# Remove 366 for non-leap years
+full_grid <- full_grid[!(full_grid$doy == 366 & !is_leap_year(full_grid$year)), ]
+paradisestation1_full <- merge(full_grid, paradisestation1, by = c("year", "doy"), all.x = TRUE)
+
+# Calculate the climate average
+clim_avg <- aggregate(cbind(TMAX, TMIN) ~ doy, data = paradisestation1, FUN = mean, na.rm = TRUE)
+
+paradisestation_full <- merge(paradisestation1_full, clim_avg, by = "doy", all.x = TRUE, suffixes = c("", "_clim"))
+
+# Fill missing data using averages, for only the missing data
+paradisestation_full$TMAX[is.na(paradisestation_full$TMAX)] <- paradisestation_full$TMAX_clim[is.na(paradisestation_full$TMAX)]
+paradisestation_full$TMIN[is.na(paradisestation_full$TMIN)] <- paradisestation_full$TMIN_clim[is.na(paradisestation_full$TMIN)]
+
+# Reconstruct date
+paradisestation_full$date <- as.Date(ISOdate(paradisestation_full$year, 1, 1)) + paradisestation_full$doy - 1
+paradisestation_full$date <- as.Date(paradisestation_full$date, format = "%Y%m%d")
+paradisestation_full$month <- as.numeric(format(paradisestation_full$date, "%m"))
+
+# Calculate GDD, I use base temp 5 here for now
+Tbase <- 5
+
+paradisestation_full$MeanTemp <- (paradisestation_full$TMAX+paradisestation_full$TMIN) / 2
+paradisestation_full$GDD_daily <- pmax(0, paradisestation_full$MeanTemp-Tbase)
+
+paradisestation_full$year <- as.numeric(format(paradisestation_full$date, "%Y"))
+paradisestation_full$month <- as.numeric(format(paradisestation_full$date, "%m"))
+
+# Monthly GDD
+GDD_monthly_st <- aggregate(GDD_daily ~ year + month, data = paradisestation_full, sum, na.rm = TRUE)
+
+# Yearly GDD
+GDD_yearly_st <- aggregate(GDD_daily ~ year, data = paradisestation_full, sum, na.rm = TRUE)
+colnames(GDD_yearly_st) <- c("year","GDD_yearly_st")
+
+###############################################################################################################ClimateNA#####################################################################################################################
+paradise_df <- read.csv("paradise_climateNA.csv", header = T)
+
+# Calculate GDD based on climateNA data
+Tbase <- 5
+
+paradise_df$MeanTemp <- (paradise_df$TMAX+paradise_df$TMIN) / 2
+paradise_df$GDD_monthly_average <- pmax(0, paradise_df$MeanTemp-Tbase)
+
+# This is just one number, and I have to multiply it by the total days of each month
+days_in_month <- c(31, 28, 31, 30, 31, 30,
+                   31, 31, 30, 31, 30, 31)
+paradise_df$GDD_monthly <- NA
+
+for (i in 1:nrow(paradise_df)) {
+  yr <- paradise_df$year[i]
+  mo <- paradise_df$month[i]
+  
+  # Adjust days for leap year if month is Feb
+  if (mo == 2 && is_leap_year(yr)) {
+    days <- 29
+  } else {
+    days <- days_in_month[mo]
+  }
+  
+  # Calculate daily average temperature
+  Tavg <- (paradise_df$TMAX[i] + paradise_df$TMIN[i]) / 2
+  
+  # Compute GDD for the month
+  gdd <- (Tavg - Tbase) * days
+  
+  # Ensure GDD is not negative
+  paradise_df$GDD_monthly[i] <- ifelse(gdd > 0, gdd, 0)
+}
+
+# Get yearly GDD
+GDD_yearly_paradise_climateNA <- aggregate(GDD_monthly ~ year, data = paradise_df, sum, na.rm = TRUE)
+colnames(GDD_yearly_paradise_climateNA) <- c("year","GDD_yearly_climateNA")
+
+# Merge yearly GDD from weather station data and from climateNA so we can compare
+paradise_GDD <- merge(GDD_yearly_st, GDD_yearly_paradise_climateNA, by = "year", all.x = TRUE)
+
+write.csv(paradise_GDD, "paradise_GDD.csv")
