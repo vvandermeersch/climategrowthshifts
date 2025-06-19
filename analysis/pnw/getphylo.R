@@ -192,7 +192,7 @@ if(run){
   #Resolve multichotomies
   phy.plants.here.ultra <- multi2di(phy.plants.here.ultra)
   
-  # Rescale with the fossil information of how old is the phylogeny (My Botryo family was 69.9 Mya)
+  # Rescale with the fossil information of how old is the phylogeny (Isidora Botryo family was 69.9 Mya; what about us?)
   # treeFam_ultraRes <- rescale(treeFam_ultraR, model = "depth", 69.9)
   
 }
