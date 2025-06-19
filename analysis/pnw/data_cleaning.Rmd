@@ -11,6 +11,27 @@ library(tidyr)
 library(stringr)
 ```
 
+``` {r enter datapackage}
+ dir_of_package <- "data/itrdb/washington/total_ring_width/data/data_1"
+ raw_datasets <- list.files(path=dir_of_package,recursive=TRUE,pattern="rwl-noaa\\.txt$",full.names = TRUE)
+```
+
+```{r extracting raw data}
+for (d in raw_datasets){
+  file_name <- basename(d)
+  id <- sub("-rwl-noaa\\.txt$", "", file_name)
+  new_path <- paste0(str_remove(dir_of_package,basename(dir_of_package)),id)
+  dir.create(new_path)
+  file.copy(from=d,to=new_path)
+}
+
+```
+
+```{r removing the original data package}
+unlink(dir_of_package,recursive=TRUE,force=TRUE)
+```
+
+
 
 ```{r data entry}
 # relative path to the folder with all the datasets
@@ -55,7 +76,7 @@ for(d in 1:length(datasets)) {
     } else {
       cols_to_keep <- setdiff(cols_to_keep,du_cols)
       conflictive_text <- paste0(conflictive_text,du,",")
-      write_lines(conflictive_text,paste0(substr(datasets[d],1,51),"conflctive_data.txt"))
+      write_lines(conflictive_text,paste0(str_remove(datasets[d],basename(datasets[d])),"conflctive_data.txt"))
     }
   }
   df <- df%>%
@@ -96,8 +117,8 @@ for(d in 1:length(datasets)) {
     tree_summary[tree_summary$tree==tree,"n_outliers_total"]<- n_outliers
   }
     
-  write_csv(df_with_flag,paste0(substr(datasets[d],1,51),"cleaned_tree_data_with_flags.csv"))
-  write_csv(tree_summary,paste0(substr(datasets[d],1,51),"tree_quality_summary.csv"))
+  write_csv(df_with_flag,paste0(str_remove(datasets[d],basename(datasets[d])),"cleaned_tree_data_with_flags.csv"))
+  write_csv(tree_summary,paste0(str_remove(datasets[d],basename(datasets[d])),"tree_quality_summary.csv"))
 }
 ```
 

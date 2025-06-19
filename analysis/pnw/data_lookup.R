@@ -48,7 +48,7 @@ for(d in 1:length(datasets)){
   first_year <- get_val(text,'First_Year',numeric=TRUE)
   last_year <- get_val(text,'Last_Year',numeric=TRUE)
   d_summ<- data.frame(state = state, dataset = dataset_code, species_name, species_code, first_year, last_year, north_lat, south_lat, east_lon, west_lon, altitude)
-  # saveRDS(d_summ, file = file.path(dir, dataset_code, paste0(dataset_code, '_info.rds')))
+  saveRDS(d_summ, file = file.path(str_remove(datasets[d],basename(datasets[d])), paste0(dataset_code, '_info.rds')))
   data_summary <- rbind(data_summary, d_summ)
 }
 
