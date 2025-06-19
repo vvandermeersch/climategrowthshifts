@@ -179,20 +179,18 @@ if(run){
   e <- Sys.time()
   print(e-b)
   plot(res, type = "o", log = "xy")
-  
-  
-  #Once you choose lambda, you can make the tree ultrametric with chronos
-  
-  # Make it ultrametric
-  ctrl <- chronos.control(dual.iter.max = 1e6)
-  phy.plants.here.ultra <- chronos(phy.plants.here, lambda =  3.162278e-06, model = "correlated", control = ctrl)
-  #log-Lik = -46.6315
-  #PHIIC = 157.26
-  
-  #Resolve multichotomies
-  phy.plants.here.ultra <- multi2di(phy.plants.here.ultra)
-  
-  # Rescale with the fossil information of how old is the phylogeny (Isidora Botryo family was 69.9 Mya; what about us?)
-  # treeFam_ultraRes <- rescale(treeFam_ultraR, model = "depth", 69.9)
-  
 }
+#Once you choose lambda, you can make the tree ultrametric with chronos
+
+# Make it ultrametric
+ctrl <- chronos.control(dual.iter.max = 1e6)
+phy.plants.here.ultra <- chronos(phy.plants.here, lambda =  3.162278e-06, model = "correlated", control = ctrl)
+#log-Lik = -46.6315
+#PHIIC = 157.26
+
+#Resolve multichotomies
+phy.plants.here.ultra <- multi2di(phy.plants.here.ultra)
+
+# Rescale with the fossil information of how old is the phylogeny (Isidora Botryo family was 69.9 Mya; what about us?)
+# treeFam_ultraRes <- rescale(treeFam_ultraR, model = "depth", 69.9)
+
