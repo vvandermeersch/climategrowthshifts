@@ -365,6 +365,32 @@ for (t in  sample(1:N_trees, 4)) {
 }
 ```
 
+## Retrodictive check
+
+::: {style="font-size: 70%;"}
+6 random trees in stand S18, period 1995-2010:
+:::
+
+```{r}
+trees_s4 <- which(stand_idxs == which(uniq_stand_ids == 'S18'))
+
+par(mfrow=c(2, 3))
+for (t in  sample(trees_s4, 6)) {
+  idxs <- tree_start_idxs[t]:tree_end_idxs[t]
+  idxs <- idxs[16:31]
+  rw_names <- sapply(idxs,
+                     function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conn_pushforward_quantiles(samples, rw_names, data$years[idxs],
+                                       xlab="Year", ylab="Log Ring Width Per mm", 
+                                       display_ylim=c(-4, 4),
+                                       main=paste0("Stand ", uniq_stand_ids[stand_idxs[t]], 
+                                                   ", species ", uniq_species_ids[species_idxs[t]]))
+  points(data$years[idxs], data$log_rw_obs[idxs], pch=16, cex=1.0, col="white")
+  points(data$years[idxs], data$log_rw_obs[idxs], pch=16, cex=0.8, col="black")
+  #abline(v=1974, lwd=2, lty=2, col="#DDDDDD")
+}
+```
+
 ## Inference
 ```{r}
 par(mfrow=c(2, 2), mar = c(4,4,1,1))
@@ -411,9 +437,48 @@ util$plot_disc_pushforward_quantiles(samples, names,
                                      ylab=expression(beta[VPD]))
 ```
 
+## Pair plots
 
+```{r}
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+s <- 1
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_vpd[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[1]))
+s <- 2
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_vpd[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+s <- 3
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_vpd[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+s <- 4
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_vpd[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+```   
 
+## Pair plots
 
-
+```{r}
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+s <- 1
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[1]))
+s <- 2
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+s <- 3
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+s <- 4
+plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
+     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     main = paste0('Species ', uniq_species_ids[s]))
+```   
 
 
