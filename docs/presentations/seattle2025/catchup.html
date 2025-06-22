@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Project update—and moving forward!">
-  <title>quarto-inputee1f42301603492b</title>
+  <title>quarto-inputb2239e566cac80aa</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -352,7 +352,7 @@ Project update—and moving forward!
   \text{rw}_{sp,p,k}(t_1) \\
   \text{rw}_{sp,p,k}(t_2) \\
   \vdots \\
-  \text{rw}_{sp,k}(t_n)
+  \text{rw}_{sp,p,k}(t_n)
 \end{bmatrix}
 \]</span></p>
 </section>
@@ -360,17 +360,22 @@ Project update—and moving forward!
 <h2>Current model</h2>
 <p>For <span class="math inline">\(n\)</span> observations for one tree <span class="math inline">\(k\)</span> of the species <span class="math inline">\(sp\)</span> on the stand <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \vec{f}_{\text{long},k}, \hspace{0.08cm} \vec{\Sigma})\]</span></p>
-<p><span class="math display">\[\vec{f}_{\text{long},k} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})\]</span></p>
+</section>
+<section id="current-model-2" class="slide level2">
+<h2>Current model</h2>
+<p>For <span class="math inline">\(n\)</span> observations for one tree <span class="math inline">\(k\)</span> of the species <span class="math inline">\(sp\)</span> on the stand <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \color{#84AE92}{\vec{f}_{\text{long},k}}, \hspace{0.08cm} \vec{\Sigma})\]</span></p>
+<p><span class="math display">\[\color{#84AE92}{\vec{f}_{\text{long},k}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})\]</span></p>
 </section>
 <section id="long-term-gaussian-process" class="slide level2">
 <h2>Long-term Gaussian process</h2>
-<p>One Gaussian process <span class="math inline">\(\vec{f}_{\text{long},k}\)</span> for each tree <span class="math inline">\(k\)</span>, to capture the long-term variation of tree growth, likely related to allometric constraints</p>
+<p>One Gaussian process <span class="math inline">\(\color{#84AE92}{\vec{f}_{\text{long},k}}\)</span> for each tree <span class="math inline">\(k\)</span>, to capture the long-term variation of tree growth, likely related to allometric constraints</p>
 <ul>
 <li>one pair of parameters <span class="math inline">\(\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}\)</span> per species <span class="math inline">\(sp\)</span>, which defined one covariance matrix <span class="math inline">\(\vec{\mathrm{K}}_{sp}\)</span> per species</li>
 <li>prior mass of <span class="math inline">\(\rho_{\text{sp}}\)</span> between 20 and 60 years</li>
 </ul>
 </section>
-<section id="current-model-2" class="slide level2">
+<section id="current-model-3" class="slide level2">
 <h2>Current model</h2>
 <p>For <span class="math inline">\(n\)</span> observations for one tree <span class="math inline">\(k\)</span> of the species <span class="math inline">\(sp\)</span> on the stand <span class="math inline">\(p\)</span>:</p>
 <p><span class="math display">\[\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \vec{f}_{\text{long},k}, \hspace{0.08cm} \vec{\Sigma})\]</span></p>
@@ -389,54 +394,43 @@ Project update—and moving forward!
 \end{bmatrix}
 \]</span></p>
 </div>
-<p>The elements <span class="math inline">\(\mu_{sp,p}(t)\)</span> are built up from the short-term scale GP and from contributions of three climate variables:</p>
+<p>The elements <span class="math inline">\(\mu_{sp,p}(t)\)</span> are built up from <span style="color:#FADA7A;">the short-term scale GP</span> and from contributions of <span style="color:#578FCA;">three climate variables</span>:</p>
 <div style="font-size: 70%;">
 <p><span class="math display">\[ \begin{split}
 \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{1cm} \mu_{sp,p}(t_i)= \alpha
-    + \beta_{\text{GDD}} * \text{GDD}(p,t_i)
-    + \beta_{\text{SM}}  * \text{SM}(p,t_i)\\
-    + \beta_{\text{VPD}}  * \text{VPD}(p,t_i)
+    +  \color{#578FCA}{\beta_{\text{GDD}} * \text{GDD}(p,t_i)}
+    + \color{#578FCA}{\beta_{\text{SM}}  * \text{SM}(p,t_i)}\\
+    + \color{#578FCA}{\beta_{\text{VPD}}  * \text{VPD}(p,t_i)}
     + \kappa_{\text{sp}}
-    * f_{\text{short,p}}(t_i)
+    * \color{#FADA7A}{f_{\text{short,p}}(t_i)}
      \end{split} \]</span></p>
-<p><span class="math display">\[\vec{f}_{\text{short},p} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})\]</span></p>
+<p><span class="math display">\[\color{#FADA7A}{\vec{f}_{\text{short},p}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})\]</span></p>
 </div>
 </section>
 <section id="short-term-gaussian-process" class="slide level2">
 <h2>Short-term Gaussian process</h2>
-<p>One Gaussian process <span class="math inline">\(\vec{f}_{\text{short},p}\)</span> per stand <span class="math inline">\(p\)</span>, to capture climatic variations that span several years</p>
+<p>One Gaussian process <span class="math inline">\(\color{#FADA7A}{\vec{f}_{\text{short},p}}\)</span> per stand <span class="math inline">\(p\)</span>, to capture climatic variations that span several years</p>
 <ul>
 <li>two parameters <span class="math inline">\(\{\gamma_{\text{short}}, \rho_{\text{short}}\}\)</span>, which defined one covariance matrix <span class="math inline">\(\vec{\mathrm{K}}_\text{short}\)</span> common across all stands</li>
-<li>does not depend on species, but its effect is scaled by a factor <span class="math inline">\(\kappa_\text{sp}\)</span></li>
 <li>prior mass of <span class="math inline">\(\rho_{\text{short}}\)</span> between 3 and 10 years</li>
+<li>does not depend on species, but its effect is scaled by a factor <span class="math inline">\(\kappa_\text{sp}\)</span></li>
 </ul>
 </section>
 <section id="our-climate-predictors" class="slide level2">
 <h2>Our climate predictors</h2>
 <p>Three climate variables, occuring at the annual-scale</p>
 <ul>
-<li>the growing degree days <span class="math inline">\(\text{GDD}(p,t_i)\)</span> accumulated during the entire year, in <span class="math inline">\(\text{x}100\)</span> <span class="math inline">\(^{\circ}\text{C}\)</span></li>
-<li>the mean soil moisture <span class="math inline">\(\text{SM}(p,t_i)\)</span> (weighted average across soil horizons) during summer, in <span class="math inline">\(\%\)</span></li>
-<li>the mean vapor pressure deficit <span class="math inline">\(\text{VPD}(p,t_i)\)</span> during summer, in <span class="math inline">\(\text{hPa}\)</span></li>
+<li>the growing degree days <span class="math inline">\(\color{#578FCA}{\text{GDD}(p,t_i)}\)</span> accumulated during the entire year, in <span class="math inline">\(\text{x}100\)</span> <span class="math inline">\(^{\circ}\text{C}\)</span></li>
+<li>the mean soil moisture <span class="math inline">\(\color{#578FCA}{\text{SM}(p,t_i)}\)</span> (weighted average across soil horizons) during summer, in <span class="math inline">\(\%\)</span></li>
+<li>the mean vapor pressure deficit <span class="math inline">\(\color{#578FCA}{\text{VPD}(p,t_i)}\)</span> during summer, in <span class="math inline">\(\text{hPa}\)</span></li>
 </ul>
+<p>Variables were obtained and processed from the WLDAS dataset (1979–present).</p>
 </section>
-<section id="gaussian-processes" class="slide level2 smaller">
-<h2>Gaussian processes</h2>
-<h4 id="long-term">Long-term</h4>
-<h4 id="short-term">Short-term</h4>
-<ul>
-<li>characterized by</li>
-</ul>
-</section>
-<section id="climate-predictors" class="slide level2">
-<h2>Climate predictors</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
-</div>
-</div>
-<div class="quarto-auto-generated-content">
+<section id="tree-ring-data" class="slide level2">
+<h2>Tree-ring data</h2>
+<p>Tree-ring data were extracted from the ITRDB. We temporarily restricted our analysis to complete time series from 1980 to 2010.</p>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>

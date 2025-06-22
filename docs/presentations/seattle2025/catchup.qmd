@@ -25,7 +25,7 @@ $$
   \text{rw}_{sp,p,k}(t_1) \\
   \text{rw}_{sp,p,k}(t_2) \\
   \vdots \\
-  \text{rw}_{sp,k}(t_n)
+  \text{rw}_{sp,p,k}(t_n)
 \end{bmatrix}
 $$ 
 
@@ -34,12 +34,18 @@ $$
 For $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
 
 $$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \vec{f}_{\text{long},k}, \hspace{0.08cm} \vec{\Sigma})$$
+ 
+## Current model
 
-$$\vec{f}_{\text{long},k} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})$$
+For $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
+
+$$\log\vec{\text{rw}}_{sp,p,k} \sim \text{multinormal}(\vec{\mu}_{sp,p} + \color{#84AE92}{\vec{f}_{\text{long},k}}, \hspace{0.08cm} \vec{\Sigma})$$
+
+$$\color{#84AE92}{\vec{f}_{\text{long},k}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_{sp})$$
 
 ## Long-term Gaussian process
 
-One \textbf{long-term scale} Gaussian process $\vec{f}_{\text{long},k}$ for each tree $k$,
+One \textbf{long-term scale} Gaussian process $\color{#84AE92}{\vec{f}_{\text{long},k}}$ for each tree $k$,
 to capture the long-term variation of tree growth, likely related to allometric constraints  
 
 - one pair of parameters $\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}$ per species $sp$, which defined one covariance matrix $\vec{\mathrm{K}}_{sp}$ per species
@@ -67,57 +73,69 @@ $$
 $$
 :::
 
-The elements $\mu_{sp,p}(t)$ are built up from the short-term scale GP and from contributions of three climate variables:
+The elements $\mu_{sp,p}(t)$ are built up from [the short-term scale GP]{style="color:#FADA7A;"} and from contributions of [three climate variables]{style="color:#578FCA;"}:
 
 ::: {style="font-size: 70%;"}
 $$ \begin{split} 
 \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{1cm} \mu_{sp,p}(t_i)= \alpha
-    + \beta_{\text{GDD}} * \text{GDD}(p,t_i)
-    + \beta_{\text{SM}}  * \text{SM}(p,t_i)\\
-    + \beta_{\text{VPD}}  * \text{VPD}(p,t_i)
+    +  \color{#578FCA}{\beta_{\text{GDD}} * \text{GDD}(p,t_i)}
+    + \color{#578FCA}{\beta_{\text{SM}}  * \text{SM}(p,t_i)}\\
+    + \color{#578FCA}{\beta_{\text{VPD}}  * \text{VPD}(p,t_i)}
     + \kappa_{\text{sp}}
-    * f_{\text{short,p}}(t_i)
+    * \color{#FADA7A}{f_{\text{short,p}}(t_i)}
      \end{split} $$
 
-$$\vec{f}_{\text{short},p} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
+$$\color{#FADA7A}{\vec{f}_{\text{short},p}} \sim \text{multinormal}(\vec{0}, \vec{\mathrm{K}}_\text{short})$$
 :::
 
 ## Short-term Gaussian process
 
-One \textbf{short-term scale} Gaussian process $\vec{f}_{\text{short},p}$ per stand $p$, to capture climatic variations that span several years
+One \textbf{short-term scale} Gaussian process $\color{#FADA7A}{\vec{f}_{\text{short},p}}$ per stand $p$, to capture climatic variations that span several years
 
 - two parameters $\{\gamma_{\text{short}}, \rho_{\text{short}}\}$, which defined one covariance matrix $\vec{\mathrm{K}}_\text{short}$ common across all stands
-- does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$
 - prior mass of $\rho_{\text{short}}$ between 3 and 10 years
+- does not depend on species, but its effect is scaled by a factor $\kappa_\text{sp}$
+
 
 ## Our climate predictors
 
 Three climate variables, occuring at the annual-scale
 
-- the growing degree days $\text{GDD}(p,t_i)$ accumulated during the entire year, in $\text{x}100$ $^{\circ}\text{C}$
-- the mean soil moisture $\text{SM}(p,t_i)$ (weighted average across soil horizons) during summer, in $\%$
-- the mean vapor pressure deficit $\text{VPD}(p,t_i)$ during summer, in $\text{hPa}$
+- the growing degree days $\color{#578FCA}{\text{GDD}(p,t_i)}$ accumulated during the entire year, in $\text{x}100$ $^{\circ}\text{C}$
+- the mean soil moisture $\color{#578FCA}{\text{SM}(p,t_i)}$ (weighted average across soil horizons) during summer, in $\%$
+- the mean vapor pressure deficit $\color{#578FCA}{\text{VPD}(p,t_i)}$ during summer, in $\text{hPa}$
 
-\begin{itemize}
-    \item the growing season length $\text{GSL}(p,t_i)$, in days
-    \item 
-    \item 
-\end{itemize}
+Variables were obtained and processed from the WLDAS dataset (1979–present).
 
+## Tree-ring data
 
-## Gaussian processes {.smaller}
-
-#### Long-term
-
-
-#### Short-term
-
-- characterized by 
-
-## Climate predictors
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+Tree-ring data were extracted from the ITRDB. 
+We temporarily restricted our analysis to complete time series from 1980 to 2010.
 
 ```{r}
-1 + 1
+#| echo: false
+
+wd <- "~/projects/climategrowthshifts/analysis/pnw"
+
+library(rnaturalearth)
+library(terra)
+library(tidyterra)
+library(ggplot2)
+
+
+datasets <- readRDS(file = file.path(wd, 'data/itrdb', paste0('itrdb_info.rds')))
+datasets <- datasets[datasets$last_year >= 2010,]
+datasets <- datasets[datasets$dataset != 'wa_149',] # temporary
+datasets <- datasets[datasets$dataset != 'ca736',] # temporary
+
+world <- vect(ne_countries(scale = "medium", returnclass = "sf"))
+ggplot() +
+  geom_spatvector(data = world, color = 'white', fill = 'grey90') +
+  geom_point(data = datasets, aes(x = east_lon, y = north_lat), color = 'white', size = 2.5) +
+  geom_point(data = datasets, aes(x = east_lon, y = north_lat, color = species_code)) +
+  theme_minimal() +
+  theme(axis.title = element_blank(), legend.title = element_blank()) +
+  coord_sf(xlim = c(-127, -110), ylim = c(34,51)) +
+  labs(title = '16 species, 96 sites')
+  
 ```
