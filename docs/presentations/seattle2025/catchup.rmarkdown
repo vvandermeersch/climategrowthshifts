@@ -15,6 +15,8 @@ format:
               </style>
 ---
 
+
+
 ## Current model
 
 For $n$ observations for one tree $k$ of the species $sp$ on the stand $p$:
@@ -114,6 +116,8 @@ Variables were obtained and processed from the WLDAS dataset (1979–present).
 Tree-ring data were extracted from the ITRDB. 
 We temporarily restricted our analysis to complete time series from 1980 to 2010, and to four species.
 :::
+
+
 ```{r}
 #| echo: false
 
@@ -271,11 +275,15 @@ for (tid in uniq_tree_ids) {
 
   
 ```
+
+
 ::: {style="font-size: 60%;"}
 As a first crude approach, we considered that close sites (approx. <1km) have the same short-term scale GP.
 :::
 
 ## Posterior quantification
+
+
 ```{r}
 #| echo: false
 N <- length(years)
@@ -297,10 +305,14 @@ source('mcmc_analysis_tools_rstan.R', local=util)
 source('mcmc_visualization_tools.R', local=util)
 setwd(wd)
 ```
+
+
 ::: {style="font-size: 70%;"}
 HMC does not appear to have major issues quantifying the posterior distribution.
 :::
 ::: {style="font-size: 60%;"}
+
+
 ```{r}
 #| echo: true
 diagnostics <- util$extract_hmc_diagnostics(fit)
@@ -317,6 +329,8 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 ```
+
+
 :::
 
 ## Retrodictive check
@@ -325,6 +339,8 @@ util$check_all_expectand_diagnostics(base_samples)
 Let's take 4 random trees:
 :::
 
+
+
 ```{r}
 par(mfrow=c(2, 2))
 for (t in  sample(1:N_trees, 4)) {
@@ -341,6 +357,8 @@ for (t in  sample(1:N_trees, 4)) {
   #abline(v=1974, lwd=2, lty=2, col="#DDDDDD")
 }
 ```
+
+
 
 ## Retrodictive check
 
@@ -348,6 +366,8 @@ for (t in  sample(1:N_trees, 4)) {
 Let's take 4 other trees:
 :::
 
+
+
 ```{r}
 par(mfrow=c(2, 2))
 for (t in  sample(1:N_trees, 4)) {
@@ -365,7 +385,11 @@ for (t in  sample(1:N_trees, 4)) {
 }
 ```
 
+
+
 ## Inference
+
+
 ```{r}
 par(mfrow=c(2, 2), mar = c(4,4,1,1))
 for (s in 1:data$N_species) {
@@ -378,7 +402,11 @@ for (s in 1:data$N_species) {
 }
 ```
 
+
+
 ## Inference
+
+
 ```{r}
 par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
 names <- sapply(1:data$N_species,
@@ -389,7 +417,11 @@ util$plot_disc_pushforward_quantiles(samples, names,
                                      ylab=expression(beta[GDD]))
 ```
 
+
+
 ## Inference
+
+
 ```{r}
 par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
 names <- sapply(1:data$N_species,
@@ -400,7 +432,11 @@ util$plot_disc_pushforward_quantiles(samples, names,
                                      ylab=expression(beta[SMoist]))
 ```
 
+
+
 ## Inference
+
+
 ```{r}
 par(mfrow=c(1, 1), mar = c(4,4.5,1,1))
 names <- sapply(1:data$N_species,
@@ -410,10 +446,4 @@ util$plot_disc_pushforward_quantiles(samples, names,
                                      xticklab=uniq_species_ids,
                                      ylab=expression(beta[VPD]))
 ```
-
-
-
-
-
-
 

@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Project update—and moving forward!">
-  <title>quarto-inputb2239e566cac80aa</title>
+  <title>quarto-input4417e3a12dc5ecc1</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="catchup_files/libs/revealjs/dist/theme/quarto.css">
   <link href="catchup_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -369,7 +434,7 @@ Project update—and moving forward!
 </section>
 <section id="long-term-gaussian-process" class="slide level2">
 <h2>Long-term Gaussian process</h2>
-<p>One Gaussian process <span class="math inline">\(\color{#84AE92}{\vec{f}_{\text{long},k}}\)</span> for each tree <span class="math inline">\(k\)</span>, to capture the long-term variation of tree growth, likely related to allometric constraints</p>
+<p>One long-term scale Gaussian process <span class="math inline">\(\color{#84AE92}{\vec{f}_{\text{long},k}}\)</span> for each tree <span class="math inline">\(k\)</span>, to capture the long-term variation of tree growth, likely related to allometric constraints</p>
 <ul>
 <li>one pair of parameters <span class="math inline">\(\{\gamma_{\text{sp}}, \rho_{\text{sp}}\}\)</span> per species <span class="math inline">\(sp\)</span>, which defined one covariance matrix <span class="math inline">\(\vec{\mathrm{K}}_{sp}\)</span> per species</li>
 <li>prior mass of <span class="math inline">\(\rho_{\text{sp}}\)</span> between 20 and 60 years</li>
@@ -398,9 +463,9 @@ Project update—and moving forward!
 <div style="font-size: 70%;">
 <p><span class="math display">\[ \begin{split}
 \forall i  \in [\![1,\mathrm{n}]\!]  \hspace{1cm} \mu_{sp,p}(t_i)= \alpha
-    +  \color{#578FCA}{\beta_{\text{GDD}} * \text{GDD}(p,t_i)}
-    + \color{#578FCA}{\beta_{\text{SM}}  * \text{SM}(p,t_i)}\\
-    + \color{#578FCA}{\beta_{\text{VPD}}  * \text{VPD}(p,t_i)}
+    +  \color{#578FCA}{\beta_{\text{GDD}_{sp}} * \text{GDD}(p,t_i)}
+    + \color{#578FCA}{\beta_{\text{SM}_{sp}}  * \text{SM}(p,t_i)}\\
+    + \color{#578FCA}{\beta_{\text{VPD}_{sp}}  * \text{VPD}(p,t_i)}
     + \kappa_{\text{sp}}
     * \color{#FADA7A}{f_{\text{short,p}}(t_i)}
      \end{split} \]</span></p>
@@ -409,7 +474,7 @@ Project update—and moving forward!
 </section>
 <section id="short-term-gaussian-process" class="slide level2">
 <h2>Short-term Gaussian process</h2>
-<p>One Gaussian process <span class="math inline">\(\color{#FADA7A}{\vec{f}_{\text{short},p}}\)</span> per stand <span class="math inline">\(p\)</span>, to capture climatic variations that span several years</p>
+<p>One short-term scale Gaussian process <span class="math inline">\(\color{#FADA7A}{\vec{f}_{\text{short},p}}\)</span> per stand <span class="math inline">\(p\)</span>, to capture climatic variations that span several years</p>
 <ul>
 <li>two parameters <span class="math inline">\(\{\gamma_{\text{short}}, \rho_{\text{short}}\}\)</span>, which defined one covariance matrix <span class="math inline">\(\vec{\mathrm{K}}_\text{short}\)</span> common across all stands</li>
 <li>prior mass of <span class="math inline">\(\rho_{\text{short}}\)</span> between 3 and 10 years</li>
@@ -424,13 +489,135 @@ Project update—and moving forward!
 <li>the mean soil moisture <span class="math inline">\(\color{#578FCA}{\text{SM}(p,t_i)}\)</span> (weighted average across soil horizons) during summer, in <span class="math inline">\(\%\)</span></li>
 <li>the mean vapor pressure deficit <span class="math inline">\(\color{#578FCA}{\text{VPD}(p,t_i)}\)</span> during summer, in <span class="math inline">\(\text{hPa}\)</span></li>
 </ul>
+<p>The slopes are species-specific, without any partial pooling (for now).</p>
 <p>Variables were obtained and processed from the WLDAS dataset (1979–present).</p>
 </section>
 <section id="tree-ring-data" class="slide level2">
 <h2>Tree-ring data</h2>
-<p>Tree-ring data were extracted from the ITRDB. We temporarily restricted our analysis to complete time series from 1980 to 2010.</p>
+<div style="font-size: 70%;">
+<p>Tree-ring data were extracted from the ITRDB. We temporarily restricted our analysis to complete time series from 1980 to 2010, and to four species.</p>
+</div>
 
-<img data-src="catchup_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-1-1.png" width="960" class="r-stretch"><div style="font-size: 60%;">
+<p>As a first crude approach, we considered that close sites (approx. &lt;1km) have the same short-term scale GP.</p>
+</div>
+</section>
+<section id="posterior-quantification" class="slide level2">
+<h2>Posterior quantification</h2>
+<div style="font-size: 70%;">
+<p>HMC does not appear to have major issues quantifying the posterior distribution.</p>
+</div>
+<div style="font-size: 60%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>diagnostics <span class="ot">&lt;-</span> util<span class="sc">$</span><span class="fu">extract_hmc_diagnostics</span>(fit)</span>
+<span id="cb1-2"><a href=""></a>util<span class="sc">$</span><span class="fu">check_all_hmc_diagnostics</span>(diagnostics)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  All Hamiltonian Monte Carlo diagnostics are consistent with reliable
+Markov chain Monte Carlo.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>samples <span class="ot">&lt;-</span> util<span class="sc">$</span><span class="fu">extract_expectand_vals</span>(fit)</span>
+<span id="cb3-2"><a href=""></a>base_samples <span class="ot">&lt;-</span> util<span class="sc">$</span><span class="fu">filter_expectands</span>(samples,</span>
+<span id="cb3-3"><a href=""></a>                                       <span class="fu">c</span>(<span class="st">'alpha'</span>, <span class="st">'beta_gdd'</span>, <span class="st">'beta_sm'</span>, <span class="st">'beta_vpd'</span>, </span>
+<span id="cb3-4"><a href=""></a>                                         <span class="st">'rho'</span>, <span class="st">'gamma'</span>,</span>
+<span id="cb3-5"><a href=""></a>                                         <span class="st">'f_tilde_sh'</span>,</span>
+<span id="cb3-6"><a href=""></a>                                         <span class="st">'rho_sh'</span>, <span class="st">'gamma_sh'</span>,</span>
+<span id="cb3-7"><a href=""></a>                                         <span class="st">'kappa_sh_free'</span>,</span>
+<span id="cb3-8"><a href=""></a>                                         <span class="st">'sigma'</span>),</span>
+<span id="cb3-9"><a href=""></a>                                       <span class="at">check_arrays=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-10"><a href=""></a>util<span class="sc">$</span><span class="fu">check_all_expectand_diagnostics</span>(base_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>beta_gdd[3]:
+  Chain 4: hat{ESS} (98.580) is smaller than desired (100).
+
+beta_sm[2]:
+  Chain 2: hat{ESS} (91.992) is smaller than desired (100).
+
+f_tilde_sh[9,1]:
+  Chain 2: hat{ESS} (97.561) is smaller than desired (100).
+  Chain 3: hat{ESS} (61.334) is smaller than desired (100).
+  Chain 4: hat{ESS} (97.523) is smaller than desired (100).
+
+f_tilde_sh[9,2]:
+  Chain 3: hat{ESS} (74.480) is smaller than desired (100).
+
+f_tilde_sh[9,4]:
+  Chain 3: hat{ESS} (97.074) is smaller than desired (100).
+
+f_tilde_sh[9,5]:
+  Chain 3: hat{ESS} (70.655) is smaller than desired (100).
+
+f_tilde_sh[9,7]:
+  Chain 3: hat{ESS} (60.645) is smaller than desired (100).
+
+f_tilde_sh[9,11]:
+  Chain 3: hat{ESS} (89.967) is smaller than desired (100).
+
+f_tilde_sh[9,13]:
+  Chain 3: hat{ESS} (75.091) is smaller than desired (100).
+
+f_tilde_sh[9,15]:
+  Chain 3: hat{ESS} (89.782) is smaller than desired (100).
+
+f_tilde_sh[9,16]:
+  Chain 2: hat{ESS} (96.948) is smaller than desired (100).
+
+f_tilde_sh[9,17]:
+  Chain 3: hat{ESS} (90.304) is smaller than desired (100).
+
+f_tilde_sh[9,19]:
+  Chain 2: hat{ESS} (88.604) is smaller than desired (100).
+  Chain 3: hat{ESS} (97.264) is smaller than desired (100).
+
+f_tilde_sh[9,21]:
+  Chain 3: hat{ESS} (91.460) is smaller than desired (100).
+
+f_tilde_sh[9,31]:
+  Chain 3: hat{ESS} (95.613) is smaller than desired (100).
+
+rho_sh:
+  Chain 2: hat{ESS} (70.064) is smaller than desired (100).
+
+gamma_sh:
+  Chain 2: hat{ESS} (91.090) is smaller than desired (100).
+  Chain 4: hat{ESS} (90.291) is smaller than desired (100).
+
+
+Small empirical effective sample sizes result in imprecise Markov chain
+Monte Carlo estimators.</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="retrodictive-check" class="slide level2">
+<h2>Retrodictive check</h2>
+<div style="font-size: 70%;">
+<p>Let’s take 4 random trees:</p>
+</div>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-4-1.png" width="960" class="r-stretch"></section>
+<section id="retrodictive-check-1" class="slide level2">
+<h2>Retrodictive check</h2>
+<div style="font-size: 70%;">
+<p>Let’s take 4 other trees:</p>
+</div>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-5-1.png" width="960" class="r-stretch"></section>
+<section id="inference" class="slide level2">
+<h2>Inference</h2>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
+<section id="inference-1" class="slide level2">
+<h2>Inference</h2>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="inference-2" class="slide level2">
+<h2>Inference</h2>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<section id="inference-3" class="slide level2">
+<h2>Inference</h2>
+
+<img data-src="catchup_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
