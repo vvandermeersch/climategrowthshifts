@@ -1,0 +1,16 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+LSR16_raw,119,14,2
+LSSE20_raw,68,14,0
+LSNE2_raw,14,14,0
+LSSL22_raw,54,14,1
+LSSL17_raw,81,14,2
+LSR31_raw,48,14,1
+LSR15_raw,52,14,1
+LSR8_raw,84,44,2
+LSNE21_raw,105,14,2
+LSNE18_raw,71,14,1
+LSM24_raw,92,14,1
+LSCS14_raw,53,14,0
+LSCS11_raw,88,14,0
+LSCS10_raw,59,14,1
+LSS12_raw,139,14,0

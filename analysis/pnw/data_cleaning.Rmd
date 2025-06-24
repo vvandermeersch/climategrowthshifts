@@ -12,7 +12,7 @@ library(stringr)
 ```
 
 ``` {r enter datapackage}
- dir_of_package <- "data/itrdb/california/total_ring_width/data/data_1"
+ dir_of_package <- "data/itrdb/utah/total_ring_width/data/data_1"
  raw_datasets <- list.files(path=dir_of_package,recursive=TRUE,pattern="rwl-noaa\\.txt$",full.names = TRUE)
 ```
 
@@ -20,7 +20,7 @@ library(stringr)
 for (d in raw_datasets){
   file_name <- basename(d)
   id <- sub("-rwl-noaa\\.txt$", "", file_name)
-  new_path <- paste0(str_remove(dir_of_package,basename(dir_of_package)),id)
+  new_path <- paste0(dirname(dir_of_package),"/",id)
   dir.create(new_path)
   file.copy(from=d,to=new_path)
 }
@@ -35,7 +35,7 @@ unlink(dir_of_package,recursive=TRUE,force=TRUE)
 
 ```{r data entry}
 # relative path to the folder with all the datasets
-dir <- "data/itrdb/california/total_ring_width/data"
+dir <- "data/itrdb/utah/total_ring_width/data"
 
 # relative path to every dataset
 datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)

@@ -134,10 +134,44 @@ paradise_df <- final_df[final_df$station == "paradise", ]
 
 write.csv(longmire_df, "longmire_climateNA.csv")
 write.csv(paradise_df, "paradise_climateNA.csv")
+
+clm <- ClimateNAr(inputFile='C:/PhD/Project/model/rainier.csv', periodList,varList= 'DD5',outDir = 'C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/climateNA/single')
+
+setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/climateNA/station")
+files <- list.files(pattern = "\\.csv$")
+
+all_data <- list()
+
+for (file in files) {
+  df <- read.csv(file, stringsAsFactors = FALSE)
+  
+  # Extract year from filename
+  year <- as.numeric(gsub("\\D", "", file))
+  
+  # Add year column
+  df$year <- year
+  
+  # Reorder columns: id1, year, then the rest
+  other_cols <- setdiff(names(df), c("id1", "year"))
+  df <- df[, c("id1", "year", other_cols)]
+  
+  # Store the processed data
+  all_data[[length(all_data) + 1]] <- df
 }
 
-longmire_df <- read.csv("longmire_climateNA.csv", header = T)
+# Combine into one data frame
+combined_df <- do.call(rbind, all_data)
+combined_df <- combined_df[, -c(3:6)]
 
+longmire_DD5 <- combined_df[combined_df$id1 == "longmire", ]
+paradise_DD5 <- combined_df[combined_df$id1 == "paradise", ]
+write.csv(longmire_DD5,"C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/longmire_DD5.csv")
+write.csv(paradise_DD5,"C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/paradise_DD5.csv")
+}
+
+
+longmire_df <- read.csv("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/longmire_climateNA.csv", header = T)
+longmire_DD5 <- read.csv("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/longmire_DD5.CSV", header = T)
 
 # Calculate GDD based on climateNA data
 Tbase <- 5
@@ -177,9 +211,26 @@ colnames(GDD_yearly_longmire_climateNA) <- c("year","GDD_yearly_climateNA")
 
 # Merge yearly GDD from weather station data and from climateNA so we can compare
 longmire_GDD <- merge(GDD_yearly_st, GDD_yearly_longmire_climateNA, by = "year", all.x = TRUE)
-
+longmire_GDD <- merge(longmire_GDD, longmire_DD5, by = "year", all.x = TRUE)
+longmire_GDD <- longmire_GDD[, -c(4:5)]
 write.csv(longmire_GDD, "longmire_GDD.csv")
 
+# Plotting
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+par(mfrow = c(2, 1))
+longmire_long <- pivot_longer(longmire_GDD, cols = -year, names_to = "source", values_to = "GDD5")
+non_missing_years <- longmire_long$year %>% unique() %>% setdiff(missing_years)
+ggplot(longmire_long, aes(x = year, y = GDD5, color = source)) +
+  geom_line(size = 1) +
+  geom_point() +
+  # Add vertical dashed lines for non-missing years
+  geom_vline(data = data.frame(year = non_missing_years),
+             aes(xintercept = year),
+             linetype = "dashed", color = "gray50") +
+  labs(x = "Year", y = "GDD5 (Longmire)") +
+  theme_minimal()
 # Paradise
 # housekeeping
 rm(list=ls()) 
@@ -261,6 +312,7 @@ colnames(GDD_yearly_st) <- c("year","GDD_yearly_st")
 
 ###############################################################################################################ClimateNA#####################################################################################################################
 paradise_df <- read.csv("paradise_climateNA.csv", header = T)
+paradise_DD5 <- read.csv("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/paradise_DD5.CSV", header = T)
 
 # Calculate GDD based on climateNA data
 Tbase <- 5
@@ -300,5 +352,21 @@ colnames(GDD_yearly_paradise_climateNA) <- c("year","GDD_yearly_climateNA")
 
 # Merge yearly GDD from weather station data and from climateNA so we can compare
 paradise_GDD <- merge(GDD_yearly_st, GDD_yearly_paradise_climateNA, by = "year", all.x = TRUE)
+paradise_GDD <- merge(paradise_GDD, paradise_DD5, by = "year", all.x = TRUE)
+paradise_GDD <- paradise_GDD[, -4]
 
 write.csv(paradise_GDD, "paradise_GDD.csv")
+#Plotting for paradise
+paradise_long <- pivot_longer(paradise_GDD, cols = -year, names_to = "source", values_to = "GDD5")
+non_missing_years <- paradise_long$year %>% unique() %>% setdiff(missing_years)
+ggplot(paradise_long, aes(x = year, y = GDD5, color = source)) +
+  geom_line(size = 1) +
+  geom_point() +
+  # Add vertical dashed lines for non-missing years
+  geom_vline(data = data.frame(year = non_missing_years),
+             aes(xintercept = year),
+             linetype = "dashed", color = "gray50") +
+  labs(x = "Year", y = "GDD5 (Paradise)") +
+  theme_minimal()
+
+
