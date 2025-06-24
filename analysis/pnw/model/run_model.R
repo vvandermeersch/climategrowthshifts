@@ -13,7 +13,8 @@ library(dplyr)
 # Load treering data
 datasets <- readRDS(file = file.path(wd, 'data/itrdb', paste0('itrdb_info.rds')))
 datasets <- datasets[datasets$last_year >= 2010,]
-datasets <- datasets[datasets$dataset != 'wa_149',]
+saveRDS(datasets, file = file.path(wd,'output', 'subsetdatasets.rds'))
+# datasets <- datasets[datasets$dataset != 'wa_149',]
 
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
@@ -48,18 +49,25 @@ for(d in 1:nrow(datasets)){
 }
 
 # Gather some stands (TEMPORARY, we should find a better method for this)
-stands_gather <-
-  data.frame(stand = c("or_092", "or_093", "or_094", "or_095", "or_096", "or_096e", "or_096l", "or_097", "or_097e",
-                       "or_097l", "or_098", "or_099", "or_100", "or_101", "or_102", "or_103", "or_104", "or_105",
-                       "or_105e", "or_105l", "or_106", "or_106e", "or_106l", "or_107", "or_113", "or_115", "or_116", 
-                       "or_117", "or_129", "or_130", "or_131", 
-                       "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"),
-             standgathered = c("or_092", "or_093", "or_094", "or_095", rep("or_096", 3), rep("or_097", 3), 
-                               rep("or_098", 7), rep("or_105", 3), rep('or_093', 3), "or_107", "or_113", "or_115", "or_116", 
-                               "or_117", "or_129", "or_130", "or_131", 
-                       "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"))
-raw_data <- merge(raw_data, stands_gather)
+# stands_gather <-
+#   data.frame(stand = c("or_092", "or_093", "or_094", "or_095", "or_096", "or_096e", "or_096l", "or_097", "or_097e",
+#                        "or_097l", "or_098", "or_099", "or_100", "or_101", "or_102", "or_103", "or_104", "or_105",
+#                        "or_105e", "or_105l", "or_106", "or_106e", "or_106l", "or_107", "or_113", "or_115", "or_116", 
+#                        "or_117", "or_129", "or_130", "or_131", 
+#                        "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"),
+#              standgathered = c("or_092", "or_093", "or_094", "or_095", rep("or_096", 3), rep("or_097", 3), 
+#                                rep("or_098", 7), rep("or_105", 3), rep('or_093', 3), "or_107", "or_113", "or_115", "or_116", 
+#                                "or_117", "or_129", "or_130", "or_131", 
+#                        "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"))
+# raw_data <- merge(raw_data, stands_gather)
 
+# Gather stands if they have the same latitude and longitude (rounded to 1e-2 degree, ie ~1.1km)
+group_dataset <- datasets %>%
+  group_by(round(north_lat,2), round(south_lat,2), round(east_lon,2), round(west_lon,2)) %>%
+  mutate(group_dataset = paste0('S',cur_group_id())) %>%
+  ungroup() %>%
+  dplyr::select(dataset, group_dataset)
+raw_data <- merge(raw_data, group_dataset, by.x = 'stand', by.y = 'dataset')
 
 # Load climate data
 clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_ext_pnw_june2025.rds"))
@@ -71,8 +79,8 @@ clim_pred$vpd_jja <- clim_pred$vpd_jja # in hPa?
 uniq_tree_ids <- unique(raw_data$tree_id)
 N_trees <- length(uniq_tree_ids)
 
-uniq_stand_ids <- unique(raw_data$standgathered)
-N_stands <- length(unique(raw_data$standgathered))
+uniq_stand_ids <- unique(raw_data$stand)
+N_stands <- length(unique(raw_data$stand))
 # altitude <- datasets[,c('dataset', 'altitude')]
 # names(altitude)[1] <- 'stand'
 # raw_data <- merge(raw_data, altitude)
@@ -143,7 +151,7 @@ for (tid in uniq_tree_ids) {
   all_years_idxs <- c(all_years_idxs, all_years_idxs_tree)
   N_years <- c(N_years, N_years_tree)
   
-  stand_tree <- which(uniq_stand_ids == raw_data_tree$standgathered[1])
+  stand_tree <- which(uniq_stand_ids == raw_data_tree$stand[1])
   # stand_tree <- which(uniq_stand_ids == raw_data_tree$region[1])
   stand_idxs <- c(stand_idxs, stand_tree)
   

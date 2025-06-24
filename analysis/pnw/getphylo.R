@@ -20,8 +20,10 @@ library(phytools)
 library(geiger)
 
 colnames <- c("latbi", "shortname")
-sppfull <- read.csv("input/sppnames.csv") # I literally copied this out of https://github.com/vvandermeersch/climategrowthshifts/issues/25
+sppfull <- readRDS(file = file.path('output', 'subsetdatasets.rds'))
+sppfull <- unique(sppfull[c('species_name', 'species_code')])
 names(sppfull) <- colnames
+sppfull[sppfull$shortname == 'PISA', 'latbi'] <- 'Pinus sabiniana'
 
 temp <- str_split_fixed(sppfull$latbi, " ", 3)
 sppfull$phylo.name <- paste(temp[,1], temp[,2], sep="_")

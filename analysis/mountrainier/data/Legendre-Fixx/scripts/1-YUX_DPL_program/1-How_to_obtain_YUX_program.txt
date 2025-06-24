@@ -1,0 +1,5 @@
+To download and install YUX, see this page:
+URL: http://web.utk.edu/~grissino/software.htm
+
+The dendrochronology program library (DPL) is also available for download here:
+URL: http://www.ldeo.columbia.edu/tree-ring-laboratory/resources/software
