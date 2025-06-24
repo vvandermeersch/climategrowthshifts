@@ -2,7 +2,9 @@
 # by Mao
 # housekeeping
 rm(list=ls()) 
-
+library(ggplot2)
+library(tidyr)
+library(dplyr)
 
 setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate")
 longmirestation <- read.csv('USC00456894.csv', header = F)
@@ -213,12 +215,10 @@ colnames(GDD_yearly_longmire_climateNA) <- c("year","GDD_yearly_climateNA")
 longmire_GDD <- merge(GDD_yearly_st, GDD_yearly_longmire_climateNA, by = "year", all.x = TRUE)
 longmire_GDD <- merge(longmire_GDD, longmire_DD5, by = "year", all.x = TRUE)
 longmire_GDD <- longmire_GDD[, -c(4:5)]
-write.csv(longmire_GDD, "longmire_GDD.csv")
+#write.csv(longmire_GDD, "longmire_GDD.csv")
 
 # Plotting
-library(ggplot2)
-library(tidyr)
-library(dplyr)
+
 par(mfrow = c(2, 1))
 longmire_long <- pivot_longer(longmire_GDD, cols = -year, names_to = "source", values_to = "GDD5")
 non_missing_years <- longmire_long$year %>% unique() %>% setdiff(missing_years)
@@ -231,6 +231,18 @@ ggplot(longmire_long, aes(x = year, y = GDD5, color = source)) +
              linetype = "dashed", color = "gray50") +
   labs(x = "Year", y = "GDD5 (Longmire)") +
   theme_minimal()
+# Plot GDD from weather station versus from climateNA
+longmire_GDD$MY <- ifelse(longmire_GDD$year %in% missing_years, "missing", "full")
+
+# Plot
+ggplot(longmire_GDD, aes(x = GDD_yearly_st, y = DD5, color = MY)) + scale_color_manual(values = c("missing" = "red", "full" = "black")) + geom_point() + geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray") +  
+  theme_classic() + xlim(500, 1200) + ylim(500, 1200) +
+  labs(
+    x = "GDD from weather station",
+    y = "GDD from climateNA",
+    color = "Missing years",
+    title = "Longmire"
+  )
 # Paradise
 # housekeeping
 rm(list=ls()) 
@@ -357,16 +369,17 @@ paradise_GDD <- paradise_GDD[, -4]
 
 write.csv(paradise_GDD, "paradise_GDD.csv")
 #Plotting for paradise
-paradise_long <- pivot_longer(paradise_GDD, cols = -year, names_to = "source", values_to = "GDD5")
-non_missing_years <- paradise_long$year %>% unique() %>% setdiff(missing_years)
-ggplot(paradise_long, aes(x = year, y = GDD5, color = source)) +
-  geom_line(size = 1) +
-  geom_point() +
-  # Add vertical dashed lines for non-missing years
-  geom_vline(data = data.frame(year = non_missing_years),
-             aes(xintercept = year),
-             linetype = "dashed", color = "gray50") +
-  labs(x = "Year", y = "GDD5 (Paradise)") +
-  theme_minimal()
+
+paradise_GDD$MY <- ifelse(paradise_GDD$year %in% missing_years, "missing", "full")
+
+# Plot
+ggplot(paradise_GDD, aes(x = GDD_yearly_st, y = DD5, color = MY)) + scale_color_manual(values = c("missing" = "red", "full" = "black")) + geom_point() + geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray") +  
+  theme_classic() + xlim(500, 1200) + ylim(500, 1200) +
+  labs(
+    x = "GDD from weather station",
+    y = "GDD from climateNA",
+    color = "Missing years",
+    title = "Paradise"
+  )
 
 
