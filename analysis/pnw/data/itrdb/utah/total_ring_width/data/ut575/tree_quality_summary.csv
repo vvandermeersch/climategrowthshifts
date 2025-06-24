@@ -1,0 +1,11 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+MDS-02A_raw,58,26,1
+MDS-02B_raw,73,26,0
+MCS-03A_raw,39,26,1
+MDS-03B_raw,30,26,1
+MDS-04A_raw,30,26,0
+MDS-04B_raw,37,28,0
+MDS-06A_raw,29,26,1
+MDS-06B_raw,57,26,1
+MDS-07A_raw,50,28,0
+MDS-07B_raw,26,26,0

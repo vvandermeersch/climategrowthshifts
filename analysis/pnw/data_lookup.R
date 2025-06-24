@@ -7,6 +7,7 @@ library(rnaturalearth)
 library(terra)
 library(tidyterra)
 library(ggplot2)
+library(stringr)
 
 get_val <- function(text,p,numeric=FALSE) {
   rows <- grep(text[,1],pattern=p)
