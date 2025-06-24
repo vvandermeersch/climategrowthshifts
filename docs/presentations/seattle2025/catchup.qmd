@@ -391,6 +391,73 @@ for (t in  sample(trees_s4, 6)) {
 }
 ```
 
+## Retrodictive check
+
+::: {style="font-size: 70%;"}
+What about our climate predictors?
+:::
+
+```{r}
+
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+for(spind in 1:4){
+  start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+  end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+  pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs[start:end],
+                                       0, 32, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       ylab = 'Marginal quantiles',
+                                       xlab="GDD (x100degC)", main = paste0('Species ', uniq_species_ids[spind]))
+}
+
+```
+
+## Retrodictive check
+
+::: {style="font-size: 70%;"}
+What about our climate predictors?
+:::
+
+```{r}
+
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+for(spind in 1:4){
+  start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+  end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+  pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conditional_median_quantiles(samples, pred_names, data$sm_obs[start:end],
+                                       10, 34, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       ylab = 'Marginal quantiles',
+                                       xlab="SM (%)", main = paste0('Species ', uniq_species_ids[spind]))
+}
+
+```
+
+## Retrodictive check
+
+::: {style="font-size: 70%;"}
+What about our climate predictors?
+:::
+
+```{r}
+
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+for(spind in 1:4){
+  start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+  end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+  pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conditional_median_quantiles(samples, pred_names, data$vpd_obs[start:end],
+                                       0, 22, 1, data$log_rw_obs[start:end], 
+                                       residual=FALSE,
+                                       ylab = 'Marginal quantiles',
+                                       xlab="VPD (hPa)", main = paste0('Species ', uniq_species_ids[spind]))
+}
+
+```
+
+
 ## Inference
 ```{r}
 par(mfrow=c(2, 2), mar = c(4,4,1,1))
