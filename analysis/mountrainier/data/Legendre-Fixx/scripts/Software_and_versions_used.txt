@@ -1,0 +1,15 @@
+Software used:
+Windendro 2009B Regent Instruments Canada Incorporated
+Cofecha version 6.06P
+Yux version 6.05P
+Climate WNA version 5.40
+Geoplaner version 2.7 
+R version 3.3.2 (2016-10-31) -- "Sincere Pumpkin Patch"
+
+
+
+R packages used:
+dplr version 1.6.5.
+treeclim version 2.0.0
+MuMIn version 1.15.6
+
