@@ -223,7 +223,49 @@ util$check_all_expectand_diagnostics(base_samples)
 
 saveRDS(fit, "output/model6_with3predictorsClimateNA.rds")
 saveRDS(samplesfromfit, "output/model6_with3predictorsClimateNAsamples.rds")
-samplesfromfit <- extract(fit)
+# samplesfromfit <- extract(fit)
+
+# Retrodictive check
+
+## Plot 4 random trees
+par(mfrow=c(2, 2))
+for (t in  sample(1:N_trees, 4)) {
+  idxs <- tree_start_idxs[t]:tree_end_idxs[t]
+  rw_names <- sapply(idxs,
+                     function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conn_pushforward_quantiles(samples, rw_names, data$years[idxs],
+                                       xlab="Year", ylab="Log Ring Width Per mm", 
+                                       display_ylim=c(-4, 4),
+                                       main=paste0("Stand ", uniq_stand_ids[stand_idxs[t]], 
+                                                   ", species ", uniq_species_ids[species_idxs[t]]))
+  points(data$years[idxs], data$log_rw_obs[idxs], pch=16, cex=1.0, col="white")
+  points(data$years[idxs], data$log_rw_obs[idxs], pch=16, cex=0.8, col="black")
+  #abline(v=1974, lwd=2, lty=2, col="#DDDDDD")
+}
+
+## Look at GDD per stands
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+for(s in 1:N_stands){
+  start <- data$tree_start_idxs[min(which(data$stand_idxs == s))]
+  end <- data$tree_end_idxs[max(which(data$stand_idxs == s))]
+  pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs[start:end],
+                                         0, 32, 1, data$log_rw_obs[start:end], 
+                                         residual=FALSE,
+                                         ylab = 'Marginal quantiles',
+                                         xlab="GDD (degC)", main = paste0('Species ', uniq_species_ids[spind]))
+}
+## Idem,but residuals
+for(s in 1:N_stands){
+  start <- data$tree_start_idxs[min(which(data$stand_idxs == s))]
+  end <- data$tree_end_idxs[max(which(data$stand_idxs == s))]
+  pred_names <- sapply(start:end, function(n) paste0('log_rw_pred[', n, ']'))
+  util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs[start:end],
+                                         0, 32, 1, data$log_rw_obs[start:end], 
+                                         residual=TRUE,
+                                         ylab = 'Marginal quantiles',
+                                         xlab="GDD (degC)", main = paste0('Species ', uniq_species_ids[spind]))
+}
 
 par(mfrow=c(1, 3))
 util$plot_expectand_pushforward(samples[['beta_ffp']], 25,
