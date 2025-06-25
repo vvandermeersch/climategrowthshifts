@@ -1,5 +1,6 @@
 /* Similar to model6_with3predictors.stan but for Climate NA data 
-Started 25 June 2025 */
+Started 25 June 2025 
+Edited by Mao on 25 June 2025*/
 
 functions {
   vector gp_pred_rng(array[] real x2,
@@ -87,24 +88,24 @@ data {
   array[N_trees] int<lower=1, upper=N> tree_end_idxs;
   
   vector[N] log_rw_obs; // Log of Observed Ring Width Per 1 mm
-  vector[N] gsl_obs;    // Observed growing season length (days)
-  vector[N] gdd_obs;    // Observed gdd (during GS) (x10 degC)
-  vector[N] sm_obs;    // Observed soil moisture (during GS) (m3.m-3)
+  vector[N] ffp_obs;    // Observed frost free period (day)
+  vector[N] gdd_obs;    // Observed gdd (during GS) (degC)
+  vector[N] pas_obs;    // Observed precipitation as snow (from Aug of the previous year to July of current year) (mm)
   
   
 }
 
 transformed data {
-  real gsl0 = 150; // GSL Baseline (days)
-  real gdd0 = 100;
-  real sm0 = 25;
+  real ffp0 = 120; // ffp Baseline (days)
+  real gdd0 = 1100;
+  real pas0 = 500;
 }
 
 parameters {
   real alpha; // Log ring width baseline
-  real<lower=0> beta_gsl; // GSL slope (1 / days)
+  real<lower=0> beta_ffp; // FFP slope 
   real<lower=0> beta_gdd; // GDD slope 
-  real<lower=0> beta_sm; // SM slope 
+  real<lower=0> beta_pas; // PAS slope 
   
   array[N_species] real<lower=0> rho;   // Lifetime growth time scale
   array[N_species] real<lower=0> gamma; // Lifetime proportional growth variation
@@ -147,9 +148,9 @@ model {
   }
   
   alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
-  beta_gsl ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  beta_ffp ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_ffp <~ log(1.8)
+  beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gdd <~ log(1.8)
+  beta_pas ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pas <~ log(1.8)
   
   rho ~ lognormal(3.55, 0.24);       // 20 <~ rho <~ 60
   gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
@@ -172,17 +173,17 @@ model {
     array[N_years[t]] int all_years_idxs_tree
     = all_years_idxs[tree_idxs];
     array[N_years[t]] real years_tree = years[tree_idxs];
-    vector[N_years[t]] gsl_obs_tree = gsl_obs[tree_idxs];
+    vector[N_years[t]] ffp_obs_tree = ffp_obs[tree_idxs];
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
-    vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
+    vector[N_years[t]] pas_obs_tree = pas_obs[tree_idxs];
     
     int stand_idx = stand_idxs[t];
     int species_idx = species_idxs[t];
     
     vector[N_years[t]] mu =  alpha
-    + beta_gsl * (gsl_obs_tree - gsl0)
+    + beta_ffp * (ffp_obs_tree - ffp0)
     + beta_gdd * (gdd_obs_tree - gdd0)
-    + beta_sm * (sm_obs_tree - sm0)
+    + beta_pas * (pas_obs_tree - pas0)
     + kappa_sh[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
@@ -211,17 +212,17 @@ generated quantities {
     array[N_years[t]] int all_years_idxs_tree
     = all_years_idxs[tree_idxs];
     array[N_years[t]] real years_tree = years[tree_idxs];
-    vector[N_years[t]] gsl_obs_tree = gsl_obs[tree_idxs];
+    vector[N_years[t]] ffp_obs_tree = ffp_obs[tree_idxs];
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
-    vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
+    vector[N_years[t]] pas_obs_tree = pas_obs[tree_idxs];
     
     int stand_idx = stand_idxs[t];
     int species_idx = species_idxs[t];
     
      vector[N_years[t]] mu =  alpha
-    + beta_gsl * (gsl_obs_tree - gsl0)
+    + beta_ffp * (ffp_obs_tree - ffp0)
     + beta_gdd * (gdd_obs_tree - gdd0)
-    + beta_sm * (sm_obs_tree - sm0)
+    + beta_pas * (pas_obs_tree - pas0)
     + kappa_sh[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
@@ -237,8 +238,8 @@ generated quantities {
     rw[tree_idxs] = exp(log_rw);
     log_rw_pred[tree_idxs] = normal_rng(log_rw, sigma);
     
-    mu1[tree_idxs] = beta_gsl * (gsl_obs_tree - gsl0)
+    mu1[tree_idxs] = beta_ffp * (ffp_obs_tree - ffp0)
     + beta_gdd * (gdd_obs_tree - gdd0)
-    + beta_sm * (sm_obs_tree - sm0);
+    + beta_pas * (pas_obs_tree - pas0);
   }
 }

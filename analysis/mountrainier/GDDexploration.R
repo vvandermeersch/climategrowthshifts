@@ -236,7 +236,7 @@ longmire_GDD$MY <- ifelse(longmire_GDD$year %in% missing_years, "missing", "full
 
 # Plot
 ggplot(longmire_GDD, aes(x = GDD_yearly_st, y = DD5, color = MY)) + scale_color_manual(values = c("missing" = "red", "full" = "black")) + geom_point() + geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray") +  
-  theme_classic() + xlim(500, 1200) + ylim(500, 1200) +
+  theme_classic() + xlim(1200, 2100) + ylim(1200, 2100) +
   labs(
     x = "GDD from weather station",
     y = "GDD from climateNA",
