@@ -11,6 +11,7 @@ if(length(grep("victor", getwd()) > 0)) {
 }
 
 util <- new.env()
+runmodel <- FALSE
 source('mcmc_analysis_tools_rstan.R', local=util)
 source('mcmc_visualization_tools.R', local=util)
 
@@ -201,11 +202,16 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'tree_start_idxs', 'tree_end_idxs'))
 
 # Posterior Quantification
+if(runmodel){
 fit <- stan(file=file.path('stan/model6_with3predictorsClimateNA.stan'),
             data=data, seed=5838299, cores = 4,
             warmup=1000, iter=2000, refresh=10)
+}
 
-
+if(!runmodel){
+  fit <- readRDS("output/model6_with3predictorsClimateNA.rds")
+  samples <- readRDS("output/model6_with3predictorsClimateNAsamples.rds")
+}
 
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
@@ -222,8 +228,7 @@ base_samples <- util$filter_expectands(samples,
 util$check_all_expectand_diagnostics(base_samples)
 
 saveRDS(fit, "output/model6_with3predictorsClimateNA.rds")
-saveRDS(samplesfromfit, "output/model6_with3predictorsClimateNAsamples.rds")
-# samplesfromfit <- extract(fit)
+saveRDS(samples, "output/model6_with3predictorsClimateNAsamples.rds")
 
 # Retrodictive check
 
