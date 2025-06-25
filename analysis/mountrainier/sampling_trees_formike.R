@@ -68,7 +68,7 @@ any(aggregate(`rw_core1 (mm)` ~ tree_id, data = sampled_cores, FUN = function(x)
 write.csv(sampled_cores, file = file.path(wd, 'input/treerings/abam_allplots.csv'))
 
 
-# sample trees from the same species, all plots
+# sample trees from all species, all plots
 treerings <- read.csv(file.path(wd, "data", "treerings_ailene", "SouthSidecoresX.csv"), header=TRUE)
 treerings$uniqueID <- paste(treerings$Tag, treerings$Core, sep = "_")                      
 meas_cols <-  names(treerings)[grep("X", names(treerings))]
