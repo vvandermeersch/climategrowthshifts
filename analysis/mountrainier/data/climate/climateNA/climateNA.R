@@ -7,7 +7,7 @@ setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/cli
 inputFile <- 'MORAstands.csv'
 periodList <- 1901:2024
 varList <- c('MAT','DD5','NFFD','FFP','PAS','Tmax01','Tmax02','Tmax03','Tmax04','Tmax05','Tmax06','Tmax07','Tmax08','Tmax09','Tmax10','Tmax11','Tmax12','Tmin01','Tmin02','Tmin03','Tmin04','Tmin05','Tmin06','Tmin07','Tmin08','Tmin09','Tmin10','Tmin11','Tmin12','Tave01','Tave02','Tave03','Tave04','Tave05','Tave06','Tave07','Tave08','Tave09','Tave10','Tave11','Tave12','PPT01','PPT02','PPT03','PPT04','PPT05','PPT06','PPT07','PPT08','PPT09','PPT10','PPT11','PPT12')
-outDir <- 'C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/climateNA/single'
+outDir <- 'C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/climateNA/single/'
 clm <- ClimateNAr(inputFile, periodList,varList,outDir)
 
 setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier/data/climate/climateNA/single")
