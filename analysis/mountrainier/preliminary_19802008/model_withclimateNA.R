@@ -221,6 +221,10 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 
+saveRDS(fit, "output/model6_with3predictorsClimateNA.rds")
+saveRDS(samplesfromfit, "output/model6_with3predictorsClimateNAsamples.rds")
+samplesfromfit <- extract(fit)
+
 par(mfrow=c(1, 3))
 util$plot_expectand_pushforward(samples[['beta_ffp']], 25,
                                 display_name="beta_ffp")
