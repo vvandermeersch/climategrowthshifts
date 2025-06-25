@@ -6,6 +6,8 @@ if(length(grep("victor", getwd()) > 0)) {
   setwd("~/projects/climategrowthshifts/analysis/mountrainier")
 } else if(length(grep("Xiaomao", getwd()) > 0)) {
   setwd("C:/PhD/Project/climategrowthshifts/analysis/mountrainier")
+} else if(length(grep("lizzie", getwd()) > 0)) {
+  setwd("~/Documents/git/projects/grephon/climategrowthshifts/analysis/mountrainier")
 }
 
 util <- new.env()
