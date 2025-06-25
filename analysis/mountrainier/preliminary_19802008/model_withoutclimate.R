@@ -170,7 +170,7 @@ util$check_all_expectand_diagnostics(base_samples)
 # Retrodictive Check
 par(mfrow=c(3, 2))
 
-for (t in  10 * (1:6)) {
+for (t in  1 * (1:6)) {
   idxs <- tree_start_idxs[t]:tree_end_idxs[t]
   rw_names <- sapply(idxs,
                      function(n) paste0('log_rw_pred[', n, ']'))

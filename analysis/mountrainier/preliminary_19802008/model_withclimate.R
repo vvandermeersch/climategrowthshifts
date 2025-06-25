@@ -34,7 +34,7 @@ raw_data$rw_core_ave..mm. <- as.vector(by(raw_data,
 
 
 # Reduce data size (temporary)
-# raw_data <- raw_data[raw_data$tree_id %in% sample(raw_data$tree_id, 40),]
+raw_data <- raw_data[raw_data$tree_id %in% sample(raw_data$tree_id, 40),]
 
 # Sizes
 uniq_tree_ids <- unique(raw_data$tree_id)
