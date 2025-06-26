@@ -1,7 +1,7 @@
 /* Similar to model6_with3predictorsClimateNA.stan but with ...
 ... spp climate responses partially pooled by phylogeny 
 Started 25 June 2025 
-Edited by Mao on 25 June 2025 */
+Edited by Mao + Victor on 25 June 2025 */
 
 functions {
   vector gp_pred_rng(array[] real x2,
@@ -93,6 +93,7 @@ data {
   vector[N] gdd_obs;    // Observed gdd (during GS) (degC)
   vector[N] pas_obs;    // Observed precipitation as snow (from Aug of the previous year to July of current year) (mm)
   
+  corr_matrix[N_species] Cphy; // phylogenetic relationship matrix (fixed)
   
 }
 
@@ -104,32 +105,60 @@ transformed data {
 
 parameters {
   real alpha; // Log ring width baseline
-  real<lower=0> beta_ffp; // FFP slope 
-  real<lower=0> beta_gdd; // GDD slope 
-  real<lower=0> beta_pas; // PAS slope 
   
-  array[N_species] real<lower=0> rho;   // Lifetime growth time scale
-  array[N_species] real<lower=0> gamma; // Lifetime proportional growth variation
+  // FFP slope (units?)
+  vector[N_species] beta_ffp_sp; 
+  real beta_ffp; // root value
+  real<lower=0, upper=1> lambda_beta_ffp;  // phylogenetic structure        
+  real<lower=0> sigma_beta_ffp; // overall rate of change (brownian motion?)
+  
+  // GDD slope (units?)
+  vector[N_species] beta_gdd_sp; 
+  real beta_gdd; // root value
+  real<lower=0, upper=1> lambda_beta_gdd;  // phylogenetic structure        
+  real<lower=0> sigma_beta_gdd; // overall rate of change (brownian motion?)
+  
+  // PAS slope (units?)
+  vector[N_species] beta_pas_sp; 
+  real beta_pas; // root value
+  real<lower=0, upper=1> lambda_beta_pas;  // phylogenetic structure        
+  real<lower=0> sigma_beta_pas; // overall rate of change (brownian motion?)
+
+  // Lifetime proportional growth scale
+  // array[N_species] real<lower=0> rho_sp;
+  vector<lower=0>[N_species] rho_sp; 
+  real<lower=0> rho; // root value
+  real<lower=0, upper=1> lambda_rho;  // phylogenetic structure        
+  real<lower=0> sigma_rho; // overall rate of change (brownian motion?)
+  
+  // Lifetime proportional growth variation
+  vector<lower=0>[N_species] gamma_sp; 
+  real<lower=0> gamma; // root value
+  real<lower=0, upper=1> lambda_gamma;  // phylogenetic structure        
+  real<lower=0> sigma_gamma; // overall rate of change (brownian motion?)
   
   // Short-term proportional growth functional behavior
   // for species Abam
   array[N_stands] vector[N_all_years] f_tilde_sh; // Non-centered functional behavior
   real<lower=0> rho_sh;   // Time scale
-  real<lower=0> gamma_sh; // Marginal variation
+  // real<lower=0> gamma_sh; // Marginal variation - NOW FIXED TO 1!
   
   // Short-term proportional growth species scaling
-  array[N_species - 1] real<lower=0> kappa_sh_free;
+  vector<lower=0>[N_species] kappa_sh_sp; 
+  real<lower=0> kappa_sh; // root value
+  real<lower=0, upper=1> lambda_kappa_sh;  // phylogenetic structure        
+  real<lower=0> sigma_kappa_sh; // overall rate of change (brownian motion?)
   
   real<lower=0> sigma; // Proportional measurement error
 }
 
 transformed parameters {
-  array[N_species] real kappa_sh = append_array({1}, kappa_sh_free);
+  // array[N_species] real kappa_sh = append_array({1}, kappa_sh_free);
   
   array[N_stands] vector[N_all_years] f_sh;
   {
     matrix[N_all_years, N_all_years] cov
-    =   gp_exp_quad_cov(all_years, gamma_sh, rho_sh)
+    =   gp_exp_quad_cov(all_years, 1, rho_sh)
     + diag_matrix(rep_vector(1e-10, N_all_years));
     matrix[N_all_years, N_all_years] L_cov = cholesky_decompose(cov);
     
@@ -137,13 +166,40 @@ transformed parameters {
       f_sh[s] = L_cov * f_tilde_sh[s];
     }
   }
+  
+  corr_matrix[N_species] C_beta_ffp = lambda_beta_ffp * Cphy;
+  C_beta_ffp = C_beta_ffp - diag_matrix(diagonal(C_beta_ffp)) + diag_matrix(diagonal(Cphy));
+  corr_matrix[N_species] C_beta_gdd = lambda_beta_gdd * Cphy;
+  C_beta_gdd = C_beta_gdd - diag_matrix(diagonal(C_beta_gdd)) + diag_matrix(diagonal(Cphy));
+  corr_matrix[N_species] C_beta_pas = lambda_beta_pas * Cphy;
+  C_beta_pas = C_beta_pas - diag_matrix(diagonal(C_beta_pas)) + diag_matrix(diagonal(Cphy));
+  
+  corr_matrix[N_species] C_rho = lambda_rho * Cphy;
+  C_rho = C_rho - diag_matrix(diagonal(C_rho)) + diag_matrix(diagonal(Cphy));
+  corr_matrix[N_species] C_gamma = lambda_gamma * Cphy;
+  C_gamma = C_gamma - diag_matrix(diagonal(C_gamma)) + diag_matrix(diagonal(Cphy));
+  
+  corr_matrix[N_species] C_kappa_sh = lambda_kappa_sh * Cphy;
+  C_kappa_sh = C_kappa_sh - diag_matrix(diagonal(C_kappa_sh)) + diag_matrix(diagonal(Cphy));
+  
+  // more numerically stable and more efficient to use pre-factored covariance matrices (i.e. multi_normal_cholesky in the following)
+  matrix[N_species,N_species] L_beta_ffp =  cholesky_decompose(sigma_beta_ffp^2*C_beta_ffp); 
+  matrix[N_species,N_species] L_beta_gdd =  cholesky_decompose(sigma_beta_gdd^2*C_beta_gdd); 
+  matrix[N_species,N_species] L_beta_pas =  cholesky_decompose(sigma_beta_pas^2*C_beta_pas); 
+  
+  matrix[N_species,N_species] L_rho =  cholesky_decompose(sigma_rho^2*C_rho); 
+  matrix[N_species,N_species] L_gamma =  cholesky_decompose(sigma_gamma^2*C_gamma); 
+  
+  matrix[N_species,N_species] L_kappa_sh =  cholesky_decompose(sigma_kappa_sh^2*C_kappa_sh); 
+  
+  
 }
 
 model {
   array[N_species] matrix[N_all_years, N_all_years] L_cov;
   for (sp in 1:N_species) {
     matrix[N_all_years, N_all_years] cov
-    =  gp_exp_quad_cov(all_years, gamma[sp], rho[sp])
+    =  gp_exp_quad_cov(all_years, gamma_sp[sp], rho_sp[sp])
     + diag_matrix(rep_vector(square(sigma), N_all_years));
     L_cov[sp] = cholesky_decompose(cov);
   }
@@ -159,11 +215,34 @@ model {
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
-  gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
+  // gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
-  kappa_sh_free ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
+  
+   // Temporary priors (to modify!)
+   lambda_beta_ffp ~ beta(1.5, 1.5);
+  sigma_beta_ffp  ~ normal(0, 1);
+  lambda_beta_gdd ~ beta(1.5, 1.5);
+  sigma_beta_gdd  ~ normal(0, 1);
+  lambda_beta_pas ~ beta(1.5, 1.5);
+  sigma_beta_pas  ~ normal(0, 1);
+  lambda_rho ~ beta(1.5, 1.5);
+  sigma_rho  ~ normal(0, 1);
+  lambda_gamma ~ beta(1.5, 1.5);
+  sigma_gamma  ~ normal(0, 1);
+  lambda_kappa_sh ~ beta(1.5, 1.5);
+  sigma_kappa_sh  ~ normal(0, 1);
+  
+  beta_ffp_sp ~ multi_normal_cholesky(rep_vector(beta_ffp,N_species), L_beta_ffp); 
+  beta_gdd_sp ~ multi_normal_cholesky(rep_vector(beta_gdd,N_species), L_beta_gdd); 
+  beta_pas_sp ~ multi_normal_cholesky(rep_vector(beta_pas,N_species), L_beta_pas); 
+  
+  rho_sp ~ multi_normal_cholesky(rep_vector(rho,N_species), L_rho); 
+  gamma_sp ~ multi_normal_cholesky(rep_vector(gamma,N_species), L_gamma); 
+  
+  kappa_sh_sp ~ multi_normal_cholesky(rep_vector(kappa_sh,N_species), L_kappa_sh); 
   
   for (t in 1:N_trees) {
     array[N_years[t]] int tree_idxs
@@ -182,10 +261,10 @@ model {
     int species_idx = species_idxs[t];
     
     vector[N_years[t]] mu =  alpha
-    + beta_ffp * (ffp_obs_tree - ffp0)
-    + beta_gdd * (gdd_obs_tree - gdd0)
-    + beta_pas * (pas_obs_tree - pas0)
-    + kappa_sh[species_idx]
+    + beta_ffp_sp[species_idx] * (ffp_obs_tree - ffp0)
+    + beta_gdd_sp[species_idx] * (gdd_obs_tree - gdd0)
+    + beta_pas_sp[species_idx] * (pas_obs_tree - pas0)
+    + kappa_sh_sp[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
     // ***** WARNING *****
@@ -221,18 +300,18 @@ generated quantities {
     int species_idx = species_idxs[t];
     
      vector[N_years[t]] mu =  alpha
-    + beta_ffp * (ffp_obs_tree - ffp0)
-    + beta_gdd * (gdd_obs_tree - gdd0)
-    + beta_pas * (pas_obs_tree - pas0)
-    + kappa_sh[species_idx]
+    + beta_ffp_sp[species_idx] * (ffp_obs_tree - ffp0)
+    + beta_gdd_sp[species_idx] * (gdd_obs_tree - gdd0)
+    + beta_pas_sp[species_idx] * (pas_obs_tree - pas0)
+    + kappa_sh_sp[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree,
                                             log_rw_obs[tree_idxs],
                                             years_tree,
                                             mu,
-                                            gamma[species_idx],
-                                            rho[species_idx],
+                                            gamma_sp[species_idx],
+                                            rho_sp[species_idx],
                                             sigma,
                                             1e-10);                                         
                                             
