@@ -1,0 +1,10 @@
+
+Codes:
+PARA = South side
+SPRY = Northwest side
+SUNR = East side
+
+ABIAMA = Abies amabilis
+ABILAS = Abies lasiocarpa
+TSUMER = Tsuga mertensiana
+CALNOO = Callitropsis nootkatensis
