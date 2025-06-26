@@ -213,9 +213,10 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
 
 # Posterior Quantification
 if(runmodel){
-fit <- stan(file=file.path('stan/model6_with3predictorsClimateNAspp.stan'),
-            data=data, seed=5838299, cores = 4,
-            warmup=1000, iter=2024, refresh=10)
+  fit <- stan(file=file.path('stan/model6_with3predictorsClimateNAspp.stan'),
+              data=data, seed=5838299, cores = 4,
+              warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit, "output/model6_with3predictorsClimateNAspp.rds")
 }
 
 if(!runmodel){
@@ -237,7 +238,6 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 
-saveRDS(fit, "output/model6_with3predictorsClimateNA.rds")
 saveRDS(samples, "output/model6_with3predictorsClimateNAsamples.rds")
 
 # Retrodictive check
