@@ -20,6 +20,7 @@ library(rstan)
 # Data exploration
 # raw_data <- read.csv(file.path(wd, 'input/treerings/mosttrees_allspecies_allplots_19802008.csv'))
 raw_data <- read.csv(file.path('input/treerings/mosttrees_allspecies_allplots_19802008.csv'))
+raw_data <- raw_data[raw_data$species != 'Xano',]
 
 clim_pred <- read.csv(file.path('data/climate/climateNAMORAStands.csv'))
 
@@ -191,6 +192,15 @@ plot(year, ffp_ave, pch=16, cex=1.0,
      main=paste("Tree", uniq_tree_ids[t]))
 
 
+# Get the phylogenetic matrix (path to modify, I don't know how to use setwd)
+print(uniq_species_ids)
+sps.list <- c('Abies_amabilis', 'Tsuga_mertensiana', 'Pseudotsuga_menziesii', 'Thuja_plicata',  'Tsuga_heterophylla')
+print(sps.list)
+phy.plants <- read.tree(file.path('~/projects/climategrowthshifts/analysis/pnw', "input/ALLMB.tre"))
+phy.plants.here <-  drop.tip(phy.plants,
+                             which(!phy.plants$tip.label %in% sps.list))
+Cphy <- ape::vcv.phylo(phy.plants.here,corr=TRUE)
+
 # Collection data into list
 N <- length(years)
 
@@ -199,13 +209,13 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
-               'tree_start_idxs', 'tree_end_idxs'))
+               'tree_start_idxs', 'tree_end_idxs', 'Cphy'))
 
 # Posterior Quantification
 if(runmodel){
-fit <- stan(file=file.path('stan/model6_with3predictorsClimateNA.stan'),
+fit <- stan(file=file.path('stan/model6_with3predictorsClimateNAspp.stan'),
             data=data, seed=5838299, cores = 4,
-            warmup=1000, iter=2000, refresh=10)
+            warmup=1000, iter=2024, refresh=10)
 }
 
 if(!runmodel){
