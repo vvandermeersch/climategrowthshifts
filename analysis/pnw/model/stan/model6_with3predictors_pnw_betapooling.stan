@@ -100,9 +100,18 @@ transformed data {
 
 parameters {
   real alpha; // Log ring width baseline
-  array[N_species] real beta_gdd; // GDD slope (1/100degC)
-  array[N_species] real beta_sm; // SM slope (1/%)
-  array[N_species] real beta_vpd; // VPD slope (1/hPa)
+  
+  real beta_gdd; // GDD slope (1/100degC)
+  real beta_sm; // SM slope (1/%)
+  real beta_vpd; // VPD slope (1/hPa)
+  
+  real<lower=0> sigma_gdd; // GDD slope (1/100degC)
+  real<lower=0> sigma_sm; // SM slope (1/%)
+  real<lower=0> sigma_vpd; // VPD slope (1/hPa)
+  
+  array[N_species] real beta_tilde_gdd_sp; // GDD slope (1/100degC)
+  array[N_species] real beta_tilde_sm_sp; // SM slope (1/%)
+  array[N_species] real beta_tilde_vpd_sp; // VPD slope (1/hPa)
   
   array[N_species] real<lower=0> rho;   // Lifetime growth time scale
   array[N_species] real<lower=0> gamma; // Lifetime proportional growth variation
@@ -133,6 +142,19 @@ transformed parameters {
       f_sh[s] = L_cov * f_tilde_sh[s];
     }
   }
+  
+  array[N_species] real beta_gdd_sp; // GDD slope (1/100degC)
+  array[N_species] real beta_sm_sp; // SM slope (1/%)
+  array[N_species] real beta_vpd_sp; // VPD slope (1/hPa)
+  
+  for (s in 1:N_species) {
+    
+      beta_gdd_sp[s] = beta_gdd + sigma_gdd *  beta_tilde_gdd_sp[s];
+      beta_sm_sp[s] = beta_sm + sigma_sm *  beta_tilde_sm_sp[s];
+      beta_vpd_sp[s] = beta_vpd + sigma_vpd *  beta_tilde_vpd_sp[s];
+
+  }
+  
 }
 
 model {
@@ -148,6 +170,18 @@ model {
   beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   beta_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  
+  sigma_gdd ~ normal(0, log(1.8) / 2.57); // 0 <~ beta_gsl <~ log(1.8)
+  sigma_sm ~ normal(0, log(1.8) / 2.57); // 0 <~ beta_gsl <~ log(1.8)
+  sigma_vpd ~ normal(0, log(1.8) / 2.57); // 0 <~ beta_gsl <~ log(1.8)
+  
+  for (s in 1:N_species) {
+    
+    beta_tilde_gdd_sp[s] ~ normal(0,1);
+    beta_tilde_sm_sp[s] ~ normal(0,1);
+    beta_tilde_vpd_sp[s] ~ normal(0,1);
+    
+  }
   
   rho ~ lognormal(3.55, 0.24);       // 20 <~ rho <~ 60
   gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
@@ -178,9 +212,9 @@ model {
     int species_idx = species_idxs[t];
     
     vector[N_years[t]] mu =  alpha
-    + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
-    + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
+    + beta_gdd_sp[species_idx] * (gdd_obs_tree - gdd0)
+    + beta_sm_sp[species_idx] * (sm_obs_tree - sm0)
+    + beta_vpd_sp[species_idx] * (vpd_obs_tree - vpd0)
     + kappa_sh[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
@@ -216,8 +250,8 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
     
-    mu1[tree_idxs] = alpha + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - sm0) + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
+    mu1[tree_idxs] = alpha + beta_gdd_sp[species_idx] * (gdd_obs_tree - gdd0) + beta_sm_sp[species_idx] * (sm_obs_tree - sm0)
+    + beta_vpd_sp[species_idx] * (vpd_obs_tree - sm0) + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
     
     mu2[tree_idxs] = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree, 
                                  mu1[tree_idxs], gamma[species_idx], rho[species_idx], sigma, 1e-10) - mu1[tree_idxs];             

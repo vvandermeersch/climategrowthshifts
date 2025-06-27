@@ -100,9 +100,9 @@ transformed data {
 
 parameters {
   real alpha; // Log ring width baseline
-  array[N_species] real beta_gdd; // GDD slope (1/100degC)
-  array[N_species] real beta_sm; // SM slope (1/%)
-  array[N_species] real beta_vpd; // VPD slope (1/hPa)
+  real beta_gdd; // GDD slope (1/100degC)
+  real beta_sm; // SM slope (1/%)
+  real beta_vpd; // VPD slope (1/hPa)
   
   array[N_species] real<lower=0> rho;   // Lifetime growth time scale
   array[N_species] real<lower=0> gamma; // Lifetime proportional growth variation
@@ -178,9 +178,9 @@ model {
     int species_idx = species_idxs[t];
     
     vector[N_years[t]] mu =  alpha
-    + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
-    + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
+    + beta_gdd * (gdd_obs_tree - gdd0)
+    + beta_sm * (sm_obs_tree - sm0)
+    + beta_vpd * (vpd_obs_tree - vpd0)
     + kappa_sh[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
@@ -216,8 +216,8 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
     
-    mu1[tree_idxs] = alpha + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - sm0) + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
+    mu1[tree_idxs] = alpha + beta_gdd * (gdd_obs_tree - gdd0) + beta_sm * (sm_obs_tree - sm0)
+    + beta_vpd * (vpd_obs_tree - sm0) + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
     
     mu2[tree_idxs] = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree, 
                                  mu1[tree_idxs], gamma[species_idx], rho[species_idx], sigma, 1e-10) - mu1[tree_idxs];             
