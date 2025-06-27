@@ -58,30 +58,34 @@ Comp.fun <- function(BAnb, TDnb,
   )))
 }
 
-#Simulation----
-#Simulating phylo effect on basal area
-nsim <- 1000
+
+#Setting up data
 tmpneighb <- neighbordata[!is.na(neighbordata$phylodist),]
 tmpneighb$BAnb <- (tmpneighb$DBH.neighbor./2)^2
 tmpneighb$sp.nums <-  sp.nums[tmpneighb$Species.neighbor.]
 tmpneighb <- tmpneighb[,-which(colSums(is.na(tmpneighb))==nrow(tmpneighb))]
 tmpneighb <- tmpneighb[-which(rowSums(is.na(tmpneighb))>0),]
 
+#Simulation----
+#Simulating phylo effect on basal area
+ntrees <- 400
+rpt <- 3 #rings per tree
+
 #Simulate base areas of focal species
 #Choose random species, sample DBH from observed
-spsim <- sample(treephylo$tip.label, size = nsim, replace = T)
-DBHf<- sample(neighbordata.info$DBH[!is.na(neighbordata.info$DBH)], size = nsim, replace = T)
+spsim <- sample(treephylo$tip.label, size = ntrees, replace = T)
+DBHf<- sample(neighbordata.info$DBH[!is.na(neighbordata.info$DBH)], size = ntrees, replace = T)
 BAf <- (DBHf/2)^2
 
 Nneighb <- sample(sapply(unique(neighbordata$Treeid), function(x){sum(neighbordata$Treeid==x)}),
-                  nsim, replace = T)
+                  ntrees, replace = T)
 
 #Simulate latent traits
 latenttraits <- fastBM(treephylo)
 
 #Simulate neighbors
 Neighbors <- list()
-for(i in 1:nsim){
+for(i in 1:ntrees){
   Neighbors[[i]] <- tmpneighb[sample(1:nrow(tmpneighb), Nneighb[i]),]
   for(j in 1:nrow(Neighbors[[i]])){
     Neighbors[[i]]$phylodist[j] <- latenttraits[spsim[i]]-latenttraits[Neighbors[[i]]$Species.neighbor.[j]]
@@ -97,15 +101,15 @@ kappa <- runif(1, 0.01, 0.07)
 Beta1 <- runif(1, 0.8, 1.2)
 Beta2 <- runif(1, 0.8, 1.2)
 BA0 <- 10
-treesp <- as.integer(sp.nums[spsim])
-BaseGrowth <- unlist(sapply(1:nsim, function(x){rlnorm(1, 
+treesp <- rep(as.integer(sp.nums[spsim]), each = rpt)
+BaseGrowth <- c(sapply(1:ntrees, function(x){rlnorm(rpt, 
                                                 mu[treesp[x]],
                                                 base_var[treesp[x]])}))
-AllComps <- unlist(sapply(1:nsim, function(x){
+AllComps <- rep(unlist(sapply(1:ntrees, function(x){
   Comp.fun(Neighbors[[x]]$BAnb, Neighbors[[x]]$phylodist,
            alpha = alpha1, beta.phylo = Beta2, kappa = kappa,
            BA0 = BA0)
-}))
+})), each = rpt)
 RingGrowth <- Beta1*BaseGrowth*AllComps
 hist(RingGrowth, breaks = seq(0,ceiling(max(RingGrowth)), 0.25))
 
@@ -126,21 +130,21 @@ library(rstan)
 #A BA0 (not a parameter?)
 #And kappa1 and kappa2, scaling phylogeny
 
-start_ids <- c(1, 1+cumsum(Nneighb[-length(Nneighb)]))
-end_ids <- cumsum(Nneighb)
+start_ids <- rep(c(1, 1+cumsum(Nneighb[-length(Nneighb)])), each = rpt)
+end_ids <- rep(cumsum(Nneighb), each = rpt)
 
 standata <- list(
-  N_trees = nsim,
-  S = max(sp.nums),
-  y = RingGrowth,
-  N_neighbors = sum(Nneighb),
-  tree_sp = treesp,
-  tree_N_neighbs = Nneighb,
-  tree_start_idxs = start_ids,
+  Nobs = ntrees*rpt, #Number of observations
+  S = max(sp.nums), #Number of unique species
+  y = RingGrowth, #Ring growth observations
+  N_neighbors = sum(Nneighb), #Total number of neighbors
+  tree_sp = treesp, #Species of focal tree in each observation
+  tree_N_neighbs = rep(Nneighb, each = rpt), #Number of neighbors for each obs
+  tree_start_idxs = start_ids, #Neighbor ids for each obs
   tree_end_idxs = end_ids,
   
-  neighbor_BA = unlist(c(sapply(1:nsim, function(x){Neighbors[[x]]$BAnb}))),
-  neighbor_sp = unlist(c(sapply(1:nsim, function(x){Neighbors[[x]]$sp.nums}))),
+  neighbor_BA = unlist(c(sapply(1:ntrees, function(x){Neighbors[[x]]$BAnb}))),
+  neighbor_sp = unlist(c(sapply(1:ntrees, function(x){Neighbors[[x]]$sp.nums}))),
   BA0 = 10,
   Sigma = vcv(treephylo)
   )
@@ -171,16 +175,27 @@ for(i in 1:9){
   abline(v = base_var[i])
 }
 
-par(mfrow = c(2,2))
-util$plot_expectand_pushforward(samples[['kappa']], 20, "phylo kappa")
-abline(v = kappa)
+for(i in 1:9){
+  util$plot_expectand_pushforward(samples[[paste0('traits[',i,']')]], 20, "latent traits")
+  abline(v = latenttraits[i])
+}
 
-util$plot_expectand_pushforward(samples[['alpha']], 20, "BA alpha")
-abline(v = alpha1)
+S <- max(sp.nums)
+pairwise.dists <- matrix(nrow = S, ncol = S)
+pairwise.list <- list()
+for(i in 1:(S-1)){
+  for(j in (i+1):S){
+    pairwise.list[[paste0("pd",i,j)]] <- abs(
+      samples[[paste0('traits[',i,']')]] - samples[[paste0('traits[',j,']')]]) 
+  }
+}
 
-util$plot_expectand_pushforward(samples[['beta1']], 20, "Beta1 (Competition slope)")
-abline(v = Beta1)
-
-util$plot_expectand_pushforward(samples[['beta2']], 20, "Beta2 (on trait distance)")
-abline(v = Beta2)
+dev.off()
+par(mfrow=c(3,3))
+for(i in 1:(S-1)){
+  #par(mfrow = c(ceiling(sqrt(S-i)), ceiling(sqrt(S-i))))
+  for(j in (i+1):S){
+  util$plot_expectand_pushforward(pairwise.list[[paste0('pd',i,j)]], 20, paste("distance", i, j))
+abline(v = abs(latenttraits[i]-latenttraits[j]))
+}}
 #Heuristic Model
