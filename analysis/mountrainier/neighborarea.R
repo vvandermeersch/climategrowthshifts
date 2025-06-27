@@ -9,6 +9,7 @@
 
 library(ape)
 library(geiger)
+library(tidyverse)
 
 #Load data
 neighbordir <- "analysis/mountrainier/input/neighborhood/"
@@ -64,16 +65,26 @@ area.df$neighborarea <- NA
 area.df$neighborarea.canopy <- NA
 area.df$phylowarning <- NA
 
+neighbordata$phylodist.trans <- NA
+neighbordata$phylodist.trans[neighbordata$phylodist==0] <- 1
+neighbordata$phylodist.trans[neighbordata$phylodist!=0 & !is.na(neighbordata$phylodist)] <-
+  1/sqrt(neighbordata$phylodist[neighbordata$phylodist!=0 & !is.na(neighbordata$phylodist)])
+
 #Treeids are not replicated across stands, so just do analysis on Treeid
 for(i in 1:nrow(area.df)){
   tmp <- neighbordata[neighbordata$Treeid == area.df$Treeid[i],]
   area.df$neighborarea[i] <- sum(tmp$DBH.neighbor., na.rm = T)
   area.df$neighborarea.canopy[i]<- sum(tmp$DBH.neighbor.[tmp$Canopy. == "y"])
   
-  area.df$neighborarea.phylo[i] <- sum(tmp$DBH.neighbor. * sqrt(tmp$phylodist))
+  area.df$neighborarea.phylo[i] <- sum(tmp$DBH.neighbor. * tmp$phylodist.trans)
   area.df$neighborarea.canopy.phylo[i] <- sum(tmp$DBH.neighbor.[tmp$Canopy. == "y"] *
-                                                sqrt(tmp$phylodist[tmp$Canopy. == "y"]))
+                                                tmp$phylodist.trans)
   if(any(tmp$phylodist >= 998 | is.na(tmp$phylodist))){
     area.df$phylowarning[i] <- T
   } #Tagging things with phylogenetic distances messed up due to non-singular tag/stand matching
 }
+
+hist(log(area.df$neighborarea), xlab ="log Neighbor Basal Area")
+hist(log(area.df$neighborarea.phylo), xlab ="log Neighbor Basal Area (Canopy)")
+hist(log(area.df$neighborarea.canopy), xlab ="log Neighbor Basal Area (Phylo-weighted)")
+hist(log(area.df$neighborarea.canopy.phylo), xlab ="log Neighbor Basal Area (Canopy, Phylo-weighted")
