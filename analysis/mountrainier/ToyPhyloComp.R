@@ -180,6 +180,19 @@ for(i in 1:9){
   abline(v = latenttraits[i])
 }
 
+par(mfrow = c(2, 2))
+util$plot_expectand_pushforward(samples[[paste0('beta1')]], 20, "beta1")
+abline(v = Beta1)
+
+util$plot_expectand_pushforward(samples[[paste0('beta2')]], 20, "beta2")
+abline(v = Beta2)
+
+util$plot_expectand_pushforward(samples[[paste0('alpha')]], 20, "alpha")
+abline(v = alpha1)
+
+util$plot_expectand_pushforward(samples[[paste0('kappa')]], 20, "kappa")
+abline(v = kappa)
+
 S <- max(sp.nums)
 pairwise.dists <- matrix(nrow = S, ncol = S)
 pairwise.list <- list()
