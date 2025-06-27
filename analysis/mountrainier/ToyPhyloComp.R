@@ -171,7 +171,7 @@ for(i in 1:9){
   abline(v = base_var[i])
 }
 
-
+par(mfrow = c(2,2))
 util$plot_expectand_pushforward(samples[['kappa']], 20, "phylo kappa")
 abline(v = kappa)
 

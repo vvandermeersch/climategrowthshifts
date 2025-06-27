@@ -65,6 +65,7 @@ model {
         
       real totalcomp = beta1*prod(BAcomp)*prod(phylocomp);
       
+      #If B~lognormal(u, sd), then a*B = C~lognormal(u + log(a), sd)
       target += lognormal_lpdf(y[i] | mu[tree_sp[i]] + log(totalcomp), base_var[tree_sp[i]]);
   }
 }
