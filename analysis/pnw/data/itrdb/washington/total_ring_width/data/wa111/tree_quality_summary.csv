@@ -1,0 +1,17 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+FMMR02A_raw,72,32,0
+FMMR03B_raw,32,32,0
+FMMR04A_raw,74,32,0
+FMMR05B_raw,32,32,0
+FMMR06A_raw,95,32,1
+FMMR07B_raw,81,32,0
+FMMR09A_raw,32,32,0
+FMMR10A_raw,81,32,0
+FMMR11A_raw,33,33,1
+FMMR12A_raw,32,32,1
+FMMR13A_raw,32,32,0
+FMMR15A_raw,32,32,1
+FMMR16A_raw,32,32,1
+FMMR18A_raw,34,32,1
+FMMR19A_raw,92,32,0
+FMMR20B_raw,82,32,1

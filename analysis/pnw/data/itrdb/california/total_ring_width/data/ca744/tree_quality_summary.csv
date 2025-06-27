@@ -1,0 +1,17 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+PL11_09_raw,151,1,0
+PL11_07_raw,95,1,0
+PL11_16_raw,80,1,0
+PL11_10_raw,135,1,0
+PL11_02_raw,149,1,0
+PL11_04_raw,122,1,0
+PL11_15_raw,63,1,1
+PL11_03_raw,120,1,0
+PL11_13_raw,14,14,0
+PL11_01_raw,123,1,0
+PL11_14_raw,187,1,1
+PL11_05_raw,160,1,0
+PL11_11_raw,155,1,0
+PL11_08_raw,135,1,0
+PL11_12_raw,137,1,0
+PL11_06_raw,146,45,1

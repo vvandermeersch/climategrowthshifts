@@ -11,10 +11,31 @@ library(tidyr)
 library(stringr)
 ```
 
+``` {r enter datapackage}
+ dir_of_package <- "data/itrdb/utah/total_ring_width/data/data_1"
+ raw_datasets <- list.files(path=dir_of_package,recursive=TRUE,pattern="rwl-noaa\\.txt$",full.names = TRUE)
+```
+
+```{r extracting raw data}
+for (d in raw_datasets){
+  file_name <- basename(d)
+  id <- sub("-rwl-noaa\\.txt$", "", file_name)
+  new_path <- paste0(dirname(dir_of_package),"/",id)
+  dir.create(new_path)
+  file.copy(from=d,to=new_path)
+}
+
+```
+
+```{r removing the original data package}
+unlink(dir_of_package,recursive=TRUE,force=TRUE)
+```
+
+
 
 ```{r data entry}
 # relative path to the folder with all the datasets
-dir <- "data/itrdb/washington/total_ring_width/data"
+dir <- "data/itrdb/utah/total_ring_width/data"
 
 # relative path to every dataset
 datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
@@ -23,6 +44,26 @@ datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
 datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
 ```
 
+```{r define a function to read datasets}
+read_noaa_df <- function(filepath) {
+    lines <- read_lines(filepath)
+    header_line_idx <- which(grepl("^age_CE\t",lines))[1]
+    
+    if (is.na(header_line_idx)) {
+      stop(paste("can't find data in file",filepath))
+    }
+    data_lines <- lines[header_line_idx:length(lines)]
+
+    # write the data in a temporal file
+    temp_file <- tempfile(fileext = ".txt")
+    writeLines(data_lines, temp_file)
+  
+    # read data 
+    df <- read_tsv(temp_file, comment="#", col_types = cols(.default = col_double()), na = c("NA"))
+    
+    return(df)}
+  
+```
 
 ```{r mark the outliers}
 
@@ -38,7 +79,26 @@ for(d in 1:length(datasets)) {
   conflictive_text <- "Conflictive data:"
   
   # read each dataset under the given folder
-  df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double())) #this line is original
+  # df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double())) #this line is original
+  # read_noaa_df <- function(filepath) {
+  #   lines <- read_lines(filepath,warn=FALSE)
+  #   header_line_idx <- which(grepl("^age_CE\t",lines))[1]
+  #   
+  #   if (is.na(header_line_idx)) {
+  #     stop(paste("can't find data in file",filepath))
+  #   }
+  #   data_lines <- lines[header_line_idx:length(lines)]
+  # 
+  #   # write the data in a temporal file
+  #   temp_file <- tempfile(fileext = ".txt")
+  #   writeLines(data_lines, temp_file)
+  # 
+  #   # read data 
+  #   df <- read_tsv(temp_file, comment="#", col_types = cols(.default = col_double()), na = c("NA"))
+  #   
+  #   return(df)}
+  # 
+  df <- read_noaa_df(datasets[d])
   cols_to_keep <- names(df)
   
   if (length(du_col)>0) {
@@ -46,8 +106,8 @@ for(d in 1:length(datasets)) {
     du_cols <- grep(paste0("^",du),names(df),value=TRUE)
     all_equal <- TRUE
     
-    for (d in 2:length(du_cols)) {
-      if (!identical(df[[du_cols[d]]],df[[du_cols[d-1]]])) {all_equal <- FALSE
+    for (j in 2:length(du_cols)) {
+      if (!identical(df[[du_cols[j]]],df[[du_cols[j-1]]])) {all_equal <- FALSE
       break}
     }
     if (all_equal) {
@@ -55,7 +115,7 @@ for(d in 1:length(datasets)) {
     } else {
       cols_to_keep <- setdiff(cols_to_keep,du_cols)
       conflictive_text <- paste0(conflictive_text,du,",")
-      write_lines(conflictive_text,paste0(substr(datasets[d],1,51),"conflctive_data.txt"))
+      write_lines(conflictive_text,file.path(dirname(datasets[d]),"conflictive_data.txt"),append=TRUE)
     }
   }
   df <- df%>%
@@ -67,6 +127,7 @@ for(d in 1:length(datasets)) {
   
   df_with_flag <- df
  
+  # mark the outlier
   for(tree in tree_col){
     x <- df[[tree]]
     z <- (x-mean(x,na.rm=TRUE))/sd(x,na.rm=TRUE)
@@ -77,6 +138,7 @@ for(d in 1:length(datasets)) {
     all_years <- seq(min(df_with_flag[[year_col]],na.rm=TRUE),2024)
     focus_years <- seq(1980,2024)
     
+  # count the outliers and missing values
   for(tree in tree_col){
     
     non_missing <- df %>%
@@ -96,8 +158,8 @@ for(d in 1:length(datasets)) {
     tree_summary[tree_summary$tree==tree,"n_outliers_total"]<- n_outliers
   }
     
-  write_csv(df_with_flag,paste0(substr(datasets[d],1,51),"cleaned_tree_data_with_flags.csv"))
-  write_csv(tree_summary,paste0(substr(datasets[d],1,51),"tree_quality_summary.csv"))
+  write_csv(df_with_flag,file.path(dirname(datasets[d]),"cleaned_tree_data_with_flags.csv"))
+  write_csv(tree_summary,file.path(dirname(datasets[d]),"tree_quality_summary.csv"))
 }
 ```
 

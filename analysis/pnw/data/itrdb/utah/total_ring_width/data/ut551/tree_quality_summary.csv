@@ -1,0 +1,11 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+BLS1B_raw,97,5,1
+BLS1A_raw,86,5,3
+BLS2_raw,79,5,0
+BLS3A_raw,24,5,1
+BLS3B_raw,5,5,2
+BLS4A_raw,71,5,0
+BLS4B_raw,60,5,1
+BLS5A_raw,105,5,2
+BLS5B_raw,82,5,0
+BLS7A_raw,38,5,1

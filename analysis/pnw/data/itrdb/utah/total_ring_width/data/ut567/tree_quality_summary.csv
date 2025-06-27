@@ -1,0 +1,17 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+FGC01E_raw,39,26,2
+FGC01W_raw,39,26,1
+FGC02E_raw,47,26,0
+FGC02W_raw,47,26,2
+FGC03E_raw,44,26,1
+FGC03W_raw,41,26,0
+FGC04E_raw,39,26,0
+FGC04W_raw,39,26,2
+FGC05E_raw,65,26,0
+FGC05W_raw,45,26,0
+FGC06E_raw,43,26,0
+FGC06W_raw,35,26,0
+FGC07E_raw,32,26,0
+FGC07W_raw,26,26,1
+FGC08E_raw,32,26,1
+FGC08W_raw,86,45,0
