@@ -2,15 +2,15 @@
 //Created by Avery, June 25, 2025
 
 data {
-  int<lower=0> N_trees; //number of trees
+  int<lower=0> Nobs; //number of observations
   int S; //number of species
-  array[N_trees] real y; //ring width observations
+  array[Nobs] real y; //ring width observations
   int<lower=0> N_neighbors; //total number of neighbors
   
-  array[N_trees] int<lower=1> tree_sp; //species of focal tree
-  array[N_trees] int<lower=1> tree_N_neighbs;
-  array[N_trees] int<lower=1, upper=N_neighbors> tree_start_idxs;
-  array[N_trees] int<lower=1, upper=N_neighbors> tree_end_idxs;
+  array[Nobs] int<lower=1> tree_sp; //species of focal tree
+  array[Nobs] int<lower=1> tree_N_neighbs;
+  array[Nobs] int<lower=1, upper=N_neighbors> tree_start_idxs;
+  array[Nobs] int<lower=1, upper=N_neighbors> tree_end_idxs;
   
   vector[N_neighbors] neighbor_BA; 
   array[N_neighbors] int<lower=1, upper = S> neighbor_sp; 
@@ -35,7 +35,6 @@ parameters {
   real beta2; //factor of trait distance in phylo term
   
   vector[S] traits; //latent species traits
-  //vector basegrowth[N_trees]; //base unobserved growth, unneeded?
   real kappa; //effect of hylogenetic competition at no trait distance
 }
 
@@ -55,7 +54,7 @@ model {
 
   target += multi_normal_cholesky_lpdf(traits | zeros_vector(S), L);
 
-  for(i in 1:N_trees) {
+  for(i in 1:Nobs) {
     //For each tree, get the product of BAnb^alphas, the product of phylogenetic competition,
     //and multiply those
       vector[tree_N_neighbs[i]] BAcomp = neighbor_relBA[tree_start_idxs[i]:tree_end_idxs[i]]^(-alpha);

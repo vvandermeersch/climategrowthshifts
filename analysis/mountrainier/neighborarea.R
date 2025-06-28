@@ -15,7 +15,6 @@ library(tidyverse)
 neighbordir <- "analysis/mountrainier/input/neighborhood/"
 neighbordata <- read.csv(paste0(neighbordir, "neighborhooddatacored2008to2011.csv"))
 neighbordata.info <- read.csv(paste0(neighbordir, "neighborhooddatacored2008to2011treeinfo.csv"))
-rainiercodes
 
 #A little maintenance
 neighbordata.info$Species <- toupper(str_trim(neighbordata.info$Species))
@@ -45,9 +44,12 @@ rainiercoph <- cophenetic(treephylo)
 neighbordata$phylodist <- NA
 
 #Calculate phylogenetic distance of each neighbor
+#Share issues with Janneke
+errorvec <- c()
 for(i in 1:nrow(neighbordata)){
   mysp <- neighbordata.info$Species[neighbordata.info$Tag == neighbordata$Treeid[i] &
                                       neighbordata.info$Stand == neighbordata$Stand[i]]
+  if(length(mysp)>1){errorvec <- c(errorvec, i)}
   if(length(mysp)>1){neighbordata$phylodist[i] <- 999; next}
   #There are some rows where there appear to be multiple matches for both Stand and Treeid?
   neighbsp <- neighbordata$Species.neighbor.[i]
@@ -58,6 +60,7 @@ for(i in 1:nrow(neighbordata)){
     neighbordata$phylodist[i] <- rainiercoph[ind1, ind2]
   } else{neighbordata$phylodist[i] <- NA}
 }
+table(neighbordata$Treeid[errorvec])
 
 #Set up data frame
 area.df <- as.data.frame(unique(neighbordata[,c("Stand","Treeid")]))
