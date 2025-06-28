@@ -48,7 +48,22 @@ for(d in 1:length(datasets)){
   
   first_year <- get_val(text,'First_Year',numeric=TRUE)
   last_year <- get_val(text,'Last_Year',numeric=TRUE)
-  d_summ<- data.frame(state = state, dataset = dataset_code, species_name, species_code, first_year, last_year, north_lat, south_lat, east_lon, west_lon, altitude)
+  
+  if(is.na(first_year)){
+    first_year <- get_val(text,'Earliest_Year',numeric=TRUE)
+  }
+  if(is.na(last_year)){
+    last_year <- get_val(text,'Most_Recent_Year',numeric=TRUE)
+  }
+  
+  time_unit <- get_val(text,'Time_Unit',numeric=FALSE)
+  
+  subtext <- text[grep(text[,1],pattern='millimeter'),][1]
+  split_line <- unlist(strsplit(subtext, ','))
+  ringwidth_unit <- split_line[grep(split_line,pattern='millimeter')]
+  if(length(ringwidth_unit)==0){ringwidth_unit <- 'unknown'}
+  
+  d_summ<- data.frame(state = state, dataset = dataset_code, species_name, species_code, first_year, last_year, ringwidth_unit, time_unit, north_lat, south_lat, east_lon, west_lon, altitude)
   saveRDS(d_summ, file = file.path(str_remove(datasets[d],basename(datasets[d])), paste0(dataset_code, '_info.rds')))
   data_summary <- rbind(data_summary, d_summ)
 }
