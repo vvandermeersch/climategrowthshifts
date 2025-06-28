@@ -31,8 +31,8 @@ for(f in rwl_files){
   if(!(state %in% states)){next}
   
   dataset <- sub("\\.[^.]*$", "", f)
-  # there is something wrong with this dataset, and it doesnot span our period of interest
-  if(dataset %in% c('or042x')){next}
+  # empty datasets, or other issues
+  if(dataset %in% c('or042x', 'ut528')){next}
   
   rwdat <- dplR::read.rwl(file.path(raw_dir, f), format = 'tucson', verbose = FALSE)
   # tryCatch({m   <-  dplR::read.rwl(file.path(raw_dir, f), format = 'tucson', verbose = FALSE)}, warning=function(w) print(f))
@@ -49,10 +49,14 @@ for(f in rwl_files){
     rwdat_long$dataset <- dataset
     rwdat_long <- rwdat_long[, c('dataset', "year", 'tree_id', "core_id", "rw_mm")]
     
-    # datasets with errors in the end-of-marker (should be -9999)
+    # datasets with obvious errors in the end-of-series marker (should be -9999)
     if(dataset %in% c('ca684', 'ca681', 'ca682', 'ca683', 'ca685', 'ca686',
                       'nv524', 'nv525', 'nv526', 'nv523', 'nv527')){
       rwdat_long$rw_mm <- rwdat_long$rw_mm/10 
+    }
+    if(dataset %in% c('or090')){
+      coresid <- c('LCF16A', 'LCF30B', 'LCF37B') # three cores obviously have wrong end-of-series markers
+      rwdat_long[rwdat_long$core_id %in% coresid, 'rw_mm'] <- rwdat_long[rwdat_long$core_id %in% coresid, 'rw_mm']/10
     }
     
     ringwidth_series <- rbind(ringwidth_series, rwdat_long)
