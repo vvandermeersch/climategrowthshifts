@@ -1,3 +1,19 @@
+rm(list = ls())
+wd <- '/home/victor/projects/climategrowthshifts/analysis/pnw'
+options(timeout=120)
+
+# ----------------------------------- #
+# Retrieve metadata from ITRDB stands #
+# ----------------------------------- #
+download_until_success <- function(url, destfile, ..., maxcount = 5) {
+  count <- 0
+  repeat{
+    Sys.sleep(0.5)
+    try(download.file(url, destfile, ...))
+    count <- count + 1
+    if (file.exists(destfile) || count >= maxcount){break}
+  }
+}
 get_val <- function(text,p,numeric=FALSE) {
   rows <- grep(text[,1],pattern=p)
   if (length(rows)==0) {
@@ -18,10 +34,15 @@ get_val <- function(text,p,numeric=FALSE) {
 server <- "https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa"
 filenames <- unlist(xml2::as_list(httr::content(httr::GET(server))))
 filenames <- filenames[grepl(filenames, pattern = '*.txt$')]
+datasets <- sub("-.*", "", filenames)
+ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly.rds'))
+datasets_filtered <- unique(ringwidth_series$dataset)
 data_summary <- data.frame()
-for(f in filenames){
+for(f in filenames[which(datasets %in% datasets_filtered)]){
   
-  text <- read.delim(file.path(server, f), nrows = 350)
+  download_until_success(file.path(server, f), file.path(tempdir(), f))
+  text <- read.delim(file.path(tempdir(), f), nrows = 350)
+  file.remove(file.path(tempdir(), f))
   
   species_name <- get_val(text,'Species_Name')
   species_code <- get_val(text,'Tree_Species_Code')
@@ -58,5 +79,4 @@ for(f in filenames){
                       north_lat, south_lat, east_lon, west_lon, altitude)
   data_summary <- rbind(data_summary, d_summ)
 }
-
 saveRDS(data_summary, file = file.path('input', 'itrdb', 'datasets_summary_usonly.rds'))
