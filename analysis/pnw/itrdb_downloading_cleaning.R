@@ -14,19 +14,51 @@ if(FALSE){
       if (file.exists(destfile) || count >= maxcount){break}
     }
   }
+  states <- c('az', 'ca', 'id', 'nv', 'or', 'ut', 'wa',
+              'can', 'cana')
   raw_dir <- file.path(wd, "data", "itrdb", "usa")
   server <- "https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/usa"
   filenames <- unlist(xml2::as_list(httr::content(httr::GET(server))))
   filenames <- filenames[grepl(filenames, pattern = '*.rwl$') & !grepl(filenames, pattern = '*-noaa.rwl$')]
   for (file in filenames) {
-    download_until_success(file.path(server, file), file.path(raw_dir, file))
+    id <- gsub("\\.rwl", "", file)
+    if(id == "or015b"){next}
+    state <- sub("(\\D*).*", "\\1", id)
+    if(!(state %in% states)){
+      next
+    }
+    type <- regmatches(id, regexec("[0-9]+(.*)", id))[[1]][2]
+    if(type == ''){
+      download_until_success(file.path(server, file), file.path(raw_dir, file))
+    }else if(type %in% c('l', 'e', 'i', 'n', 't', 'x', 'd', 'p')){
+      # we don't want late/early wood width or density
+      next
+    }else{
+      stop(paste0(file))
+    }
   }
   raw_dir <- file.path(wd, "data", "itrdb", "canada")
   server <- "https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/canada"
   filenames <- unlist(xml2::as_list(httr::content(httr::GET(server))))
   filenames <- filenames[grepl(filenames, pattern = '*.rwl$') & !grepl(filenames, pattern = '*-noaa.rwl$')]
   for (file in filenames) {
-    download_until_success(file.path(server, file), file.path(raw_dir, file))
+    id <- gsub("\\.rwl", "", file)
+    if(id == "cana" | sub("(.*\\d)[^\\d]*$", "\\1", id) == 'cana168'){next}
+    state <- sub("(\\D*).*", "\\1", id)
+    if(!(state %in% states)){
+      next
+    }
+    type <- regmatches(id, regexec("[0-9]+(.*)", id))[[1]][2]
+    if(type == '' | type == 'rw'){
+      download_until_success(file.path(server, file), file.path(raw_dir, file))
+    }else if(type %in% c('l', 'e', 'i', 'n', 't', 'x', 'd', 'p',
+                         'rlw', 'rew', 'rd', 'ld', 'mxd', 'mnd', 'lw',
+                         'ew', 'ed', 'bm', 'ba')){
+      # we don't want late/early wood width or density
+      next
+    }else{
+      stop(paste0(file))
+    }
   }
 }
 
@@ -36,8 +68,6 @@ if(FALSE){
 ringwidth_series <- data.frame()
 datasets_summary <- data.frame()
 years <- c(1980:2025)
-states <- c('az', 'ca', 'id', 'nv', 'or', 'ut', 'wa',
-            'can', 'cana')
 min_nyears <- 20 # minimum timeseries length
 
 # US datasets

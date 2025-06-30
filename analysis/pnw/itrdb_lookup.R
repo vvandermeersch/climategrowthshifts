@@ -54,7 +54,7 @@ for(f in filenames[which(datasets %in% datasets_filtered)]){
   altitude <- get_val(text,'Elevation',numeric=TRUE)
   
   state <- sub("(\\D*).*", "\\1", f)
-  dataset <- sub("\\.[^.]*$", "", f)
+  dataset <- sub("-.*", "", f)
   
   first_year <- get_val(text,'First_Year',numeric=TRUE)
   last_year <- get_val(text,'Last_Year',numeric=TRUE)
@@ -79,4 +79,4 @@ for(f in filenames[which(datasets %in% datasets_filtered)]){
                       north_lat, south_lat, east_lon, west_lon, altitude)
   data_summary <- rbind(data_summary, d_summ)
 }
-saveRDS(data_summary, file = file.path('input', 'itrdb', 'datasets_summary_usonly.rds'))
+saveRDS(data_summary, file = file.path(wd, 'input', 'itrdb', 'datasets_summary_usonly.rds'))
