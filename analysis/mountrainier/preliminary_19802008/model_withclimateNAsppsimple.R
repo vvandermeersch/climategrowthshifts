@@ -1,5 +1,5 @@
-### Created by Victor ###
-### Edited by Mao on 25 June 2025 ###
+### Started by Victor ###
+### Edited by Mao, Lizzie on 25-27 June 2025 ###
 
 rm(list = ls())
 if(length(grep("victor", getwd()) > 0)) {
@@ -11,7 +11,7 @@ if(length(grep("victor", getwd()) > 0)) {
 }
 
 util <- new.env()
-runmodel <- TRUE
+runmodel <- FALSE
 source('mcmc_analysis_tools_rstan.R', local=util)
 source('mcmc_visualization_tools.R', local=util)
 
@@ -210,8 +210,7 @@ if(runmodel){
 }
 
 if(!runmodel){
-  fit <- readRDS("output/model6_with3predictorsClimateNA.rds")
-  samples <- readRDS("output/model6_with3predictorsClimateNAsamples.rds")
+  fit <- readRDS("output/model6_with3predictorsClimateNAspp.rds")
 }
 
 diagnostics <- util$extract_hmc_diagnostics(fit)
@@ -220,15 +219,13 @@ util$check_all_hmc_diagnostics(diagnostics)
 samples <- util$extract_expectand_vals(fit)
 base_samples <- util$filter_expectands(samples,
                                        c('alpha', 
-                                         'rho', 'gamma',
+                                         'rho_sp', 'gamma_sp',
                                          'f_tilde_sh',
                                          'rho_sh', 'gamma_sh',
                                          'kappa_sh_free',
                                          'sigma'),
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
-
-saveRDS(samples, "output/model6_with3predictorsClimateNAsamples.rds")
 
 # Retrodictive check
 
@@ -248,7 +245,10 @@ for (t in  sample(1:N_trees, 4)) {
   #abline(v=1974, lwd=2, lty=2, col="#DDDDDD")
 }
 
-## Look at GDD per stands
+## ALERT! These plots are not currently working ...
+if(FALSE){
+spind <- 1
+## Look at GDD per stands (not running)
 par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
 for(s in 1:N_stands){
   start <- data$tree_start_idxs[min(which(data$stand_idxs == s))]
@@ -260,7 +260,7 @@ for(s in 1:N_stands){
                                          ylab = 'Marginal quantiles',
                                          xlab="GDD (degC)", main = paste0('Species ', uniq_species_ids[spind]))
 }
-## Idem,but residuals
+## Idem,but residuals (not running)
 for(s in 1:N_stands){
   start <- data$tree_start_idxs[min(which(data$stand_idxs == s))]
   end <- data$tree_end_idxs[max(which(data$stand_idxs == s))]
@@ -271,38 +271,76 @@ for(s in 1:N_stands){
                                          ylab = 'Marginal quantiles',
                                          xlab="GDD (degC)", main = paste0('Species ', uniq_species_ids[spind]))
 }
+}
 
-par(mfrow=c(1, 3))
-util$plot_expectand_pushforward(samples[['beta_ffp']], 25,
-                                display_name="beta_ffp")
+## Climate predictors
+par(mfrow=c(2, 3))
+for(spind in c(1:5)){
+util$plot_expectand_pushforward(samples[[paste0('beta_ffp_sp[', spind, ']')]], 25,
+                                display_name="beta_ffp_sp", main=unique(raw_data$species)[spind])
 xs <- seq(0, 1, 0.001)
 ys <- dnorm(xs, 0, log(1.8) / 2.57)
 lines(xs, ys, lwd=2, col=util$c_light)
+}
 
-util$plot_expectand_pushforward(samples[['beta_gdd']], 25,
-                                display_name="beta_gdd")
+par(mfrow=c(2, 3))
+for(spind in c(1:5)){
+util$plot_expectand_pushforward(samples[[paste0('beta_gdd_sp[', spind, ']')]], 25,
+                                display_name="beta_gdd_sp", main=unique(raw_data$species)[spind])
 xs <- seq(0, 1, 0.01)
 ys <- dnorm(xs, 0, log(1.8) / 2.57)
 lines(xs, ys, lwd=2, col=util$c_light)
+abline(v=0)
+}
 
-util$plot_expectand_pushforward(samples[['beta_pas']], 25,
-                                display_name="beta_pas")
+par(mfrow=c(2, 3))
+for(spind in c(1:5)){
+util$plot_expectand_pushforward(samples[[paste0('beta_pas_sp[', spind, ']')]], 25,
+                                display_name="beta_pas_sp", main=unique(raw_data$species)[spind])
 xs <- seq(0, 1, 0.01)
 ys <- dnorm(xs, 0, log(1.8) / 2.57)
 lines(xs, ys, lwd=2, col=util$c_light)
+abline(v=0)
+}
+
+## Rho for species
+par(mfrow=c(2, 3))
+for(spind in c(1:5)){
+util$plot_expectand_pushforward(samples[[paste0('rho_sp[', spind, ']')]], 25,
+                                display_name="rho_sp", main=unique(raw_data$species)[spind])
+xs <- seq(0, 20, 0.001)
+ys <- dnorm(xs, 0, log(1.8) / 2.57)
+lines(xs, ys, lwd=2, col=util$c_light)
+}
 
 
+# 
+par(mfrow=c(3, 1))
+pred_names <- sapply(1:data$N, function(n) paste0('log_rw_pred[', n, ']'))
+util$plot_conditional_median_quantiles(samples, pred_names, data$ffp_obs,
+                                       60, 200, 14, data$log_rw_obs, 
+                                       xlab="FFP (days)")
+
+util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs,
+                                       520, 2200, 80, data$log_rw_obs, 
+                                       xlab="GDD (degC)")
+
+util$plot_conditional_median_quantiles(samples, pred_names, data$pas_obs,
+                                       100, 2100, 100, data$log_rw_obs, 
+                                       xlab="PAS (mm)")
+
+# residuals
 par(mfrow=c(3, 1))
 
 pred_names <- sapply(1:data$N, function(n) paste0('log_rw_pred[', n, ']'))
 util$plot_conditional_median_quantiles(samples, pred_names, data$ffp_obs,
-                                       60, 200, 5, data$log_rw_obs, 
-                                       xlab="FFP (days)")
+                                       60, 200, 10, data$log_rw_obs, 
+                                       xlab="FFP (days)", residual=TRUE)
 
 util$plot_conditional_median_quantiles(samples, pred_names, data$gdd_obs,
-                                       520, 2200, 50, data$log_rw_obs, 
-                                       xlab="GDD (degC)")
+                                       520, 2200, 80, data$log_rw_obs, 
+                                       xlab="GDD (degC)", residual=TRUE)
 
 util$plot_conditional_median_quantiles(samples, pred_names, data$pas_obs,
-                                       50, 2100, 50, data$log_rw_obs, 
-                                       xlab="PAS (mm)")
+                                       100, 2100, 100, data$log_rw_obs, 
+                                       xlab="PAS (mm)", residual=TRUE)

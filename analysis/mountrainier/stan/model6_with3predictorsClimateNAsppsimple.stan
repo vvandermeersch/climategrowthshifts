@@ -124,7 +124,7 @@ parameters {
   // for species Abam
   array[N_stands] vector[N_all_years] f_tilde_sh; // Non-centered functional behavior
   real<lower=0> rho_sh;   // Time scale
-  real<lower=0> gamma_sh; // Marginal variation - NOW FIXED TO 1!
+  real<lower=0> gamma_sh; // Marginal variation
 
   // Short-term proportional growth species scaling
   array[N_species-1] real<lower=0> kappa_sh_free; 
@@ -145,9 +145,7 @@ transformed parameters {
     for (s in 1:N_stands) {
       f_sh[s] = L_cov * f_tilde_sh[s];
     }
-  } 
-  
-  
+  }  
 }
 
 model {
@@ -163,15 +161,18 @@ model {
   beta_ffp_sp ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_ffp <~ log(1.8)
   beta_gdd_sp ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gdd <~ log(1.8)
   beta_pas_sp ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pas <~ log(1.8)
+
+  rho_sp ~ lognormal(3.55, 0.24);       // 20 <~ rho <~ 60
+  gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
   
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
     
-  sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
-  
+  kappa_sh_free ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
 
+  sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
   
   for (t in 1:N_trees) {
     array[N_years[t]] int tree_idxs
