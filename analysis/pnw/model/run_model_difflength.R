@@ -1,5 +1,4 @@
-
-rm(list = ls())
+rm(list = ls());gc()
 wd <- "~/projects/climategrowthshifts/analysis/pnw"
 setwd(file.path(wd, 'model'))
 util <- new.env()
@@ -11,106 +10,83 @@ library(rstan)
 library(dplyr)
 
 # Load treering data
-datasets <- readRDS(file = file.path(wd, 'data/itrdb', paste0('itrdb_info.rds')))
-datasets <- datasets[datasets$last_year >= 2010,]
-saveRDS(datasets, file = file.path(wd,'output', 'subsetdatasets.rds'))
-datasets <- datasets[datasets$dataset != 'wa_149',] # temporary
+datasets <- readRDS(file.path(wd, 'input', 'itrdb', 'datasets_summary_usonly.rds'))
+
+# Temporary
+# datasets$dataset <- sub("-.*", "", datasets[,'dataset'])
+
+# datasets <- datasets[datasets$last_year >= 1999,] # at least 20 years of observations
+datasets <- datasets[datasets$dataset != 'wa149',] # temporary 
+datasets <- datasets[datasets$dataset != 'ca673',] # temporary
 
 # Temporary, dropping Angiosperms
-todrop <- c('QUGA', 'QULO', 'PPTR', 'PPFR', 'PLRA')
+todrop <- c('QUGA', 'QULO', 'PPTR', 'PPFR', 'PLRA', 'QUDG')
 datasets <- datasets[!(datasets$species_code %in% todrop),]
 
 # Same species
-datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <- datasets[datasets$species_code == 'ABLA', c('species_name', 'species_code')] 
+datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <- 
+  unique(datasets[datasets$species_code == 'ABLA', c('species_name', 'species_code')])
 
-saveRDS(datasets, file.path(wd, 'output', 'subsetdatasets.rds'))
 source(file.path(wd, 'getphylo.R'))
 
+ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly.rds'))
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
   
-  raw_data_d <- read.csv(file.path(wd, 'data/itrdb', datasets[d, 'state'], 'total_ring_width/data', datasets[d, 'dataset'], 'cleaned_tree_data_with_flags.csv'))
+  raw_data_d <- ringwidth_series[ringwidth_series$dataset == datasets[d, 'dataset'], ]
   
-  coltokeep <-  !grepl(colnames(raw_data_d), pattern = 'outlier')
-  raw_data_d <- raw_data_d[, coltokeep]
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1980 & raw_data_d$year < 2024 & !is.na(raw_data_d$year), ]
+  # raw_data_d <- raw_data_d[ , colSums(is.na(raw_data_d)) < length(1980:2010)]
   
-  raw_data_d <- raw_data_d[raw_data_d$age_CE >= 1980 & raw_data_d$age_CE <= 2010 & !is.na(raw_data_d$age_CE), ]
-  raw_data_d <- raw_data_d[ , colSums(is.na(raw_data_d)) < length(1980:2010)]
+  raw_data_d$species_code <- datasets[d, 'species_code']
   
-  raw_data_long <- raw_data_d %>%
-    tidyr::pivot_longer(cols = -age_CE, names_to = 'core_id', values_to ='rw_core')
-  names(raw_data_long)[1] <- 'year'
-  raw_data_long$stand <- datasets[d, 'dataset']
-  raw_data_long$species <- datasets[d, 'species_code']
+  # raw_data_long[raw_data_long$rw_core %in% c(-8, -9999), 'rw_core'] <- NA # dealing with weird values in or_105 dataset
   
-  raw_data_long[raw_data_long$rw_core %in% c(-8, ), 'rw_core'] <- NA # dealing with weird values in or_105, cana399 datasets
+  # create a unique tree id (across all datasets)
+  raw_data_d$tree_id_uniq <- paste0(raw_data_d$dataset, "_", raw_data_d$tree_id)
   
-  raw_data_long$tree_id <- stringr::str_split_i(raw_data_long$core_id, pattern = '_', i = 1)
-  raw_data_long$tree_id <- paste0(raw_data_long$stand, "_", substr(raw_data_long$tree_id,1,nchar(raw_data_long$tree_id)-1))
+  raw_data_d <- aggregate(
+    rw_mm ~ dataset + species_code + tree_id_uniq + year,
+    data = raw_data_d,
+    FUN = function(x) mean(x, na.rm = TRUE),
+    na.action = na.pass
+  )
+  names(raw_data_d)[names(raw_data_d) == "rw_mm"] <- "rw_avg_mm"
   
-  raw_data_d <- raw_data_long %>%
-    group_by(stand, species, tree_id, year) %>%
-    summarise(rw_core_ave = mean(rw_core, na.rm = TRUE), .groups = 'drop')
-  
-  trees_to_remove <- unique(raw_data_d[is.na(raw_data_d$rw_core_ave) | raw_data_d$rw_core_ave == 0 , 'tree_id'])
-  raw_data_d <- raw_data_d[!(raw_data_d$tree_id %in% trees_to_remove$tree_id),]
+  trees_to_remove <- unique(raw_data_d[is.na(raw_data_d$rw_avg_mm) | raw_data_d$rw_avg_mm == 0 , 'tree_id_uniq'])
+  raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
   
   raw_data <- rbind(raw_data, raw_data_d)
 }
 
-# Gather some stands (TEMPORARY, we should find a better method for this)
-# stands_gather <-
-#   data.frame(stand = c("or_092", "or_093", "or_094", "or_095", "or_096", "or_096e", "or_096l", "or_097", "or_097e",
-#                        "or_097l", "or_098", "or_099", "or_100", "or_101", "or_102", "or_103", "or_104", "or_105",
-#                        "or_105e", "or_105l", "or_106", "or_106e", "or_106l", "or_107", "or_113", "or_115", "or_116", 
-#                        "or_117", "or_129", "or_130", "or_131", 
-#                        "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"),
-#              standgathered = c("or_092", "or_093", "or_094", "or_095", rep("or_096", 3), rep("or_097", 3), 
-#                                rep("or_098", 7), rep("or_105", 3), rep('or_093', 3), "or_107", "or_113", "or_115", "or_116", 
-#                                "or_117", "or_129", "or_130", "or_131", 
-#                        "wa_149", "wa_161", "wa_162", "wa_163", "wa_164", "wa_165", "wa_166"))
-# raw_data <- merge(raw_data, stands_gather)
-
 # Gather stands if they have the same latitude and longitude (rounded to 1e-2 degree, ie ~1.1km)
-group_dataset <- datasets %>%
-  group_by(round(north_lat,2), round(south_lat,2), round(east_lon,2), round(west_lon,2)) %>%
-  mutate(group_dataset = paste0('S',cur_group_id())) %>%
-  ungroup() %>%
-  dplyr::select(dataset, group_dataset)
-raw_data <- merge(raw_data, group_dataset, by.x = 'stand', by.y = 'dataset')
+group_keys <- interaction(
+  round(datasets$north_lat,2),
+  round(datasets$south_lat,2),
+  round(datasets$east_lon,2),
+  round(datasets$west_lon,2),
+  drop = TRUE
+)
+datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
+raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 
 # Load climate data
-clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_ext_pnw_25june2025.rds"))
+clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_ext_pnw_28june2025.rds"))
 clim_pred$soilmoist_mjj <- clim_pred$soilmoist_mjj*100 # in percentage
 clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
 clim_pred$vpd_mjj <- clim_pred$vpd_mjj # in hPa?
 
 # Sizes
-uniq_tree_ids <- unique(raw_data$tree_id)
+uniq_tree_ids <- unique(raw_data$tree_id_uniq)
 N_trees <- length(uniq_tree_ids)
 
-uniq_stand_ids <- unique(raw_data$group_dataset)
-N_stands <- length(unique(raw_data$group_dataset))
-# altitude <- datasets[,c('dataset', 'altitude')]
-# names(altitude)[1] <- 'stand'
-# raw_data <- merge(raw_data, altitude)
-# raw_data$region <- ifelse(raw_data$altitude < 1000, "A", "B")
-# uniq_stand_ids <- unique(raw_data$region)
-# N_stands <- length(unique(raw_data$region))
+uniq_stand_ids <- unique(raw_data$grouped_stand)
+N_stands <- length(unique(raw_data$grouped_stand))
 
-uniq_species_ids <- unique(raw_data$species) #  Important that JUOC is first here!
+uniq_species_ids <- unique(raw_data$species_code) #  Important that JUOC is first here!
 N_species <- length(uniq_species_ids)
 
-# Common years
-all_years <- NULL
-for (tid in uniq_tree_ids) {
-  years <- raw_data[raw_data$tree_id == tid,]$year
-  if (is.null(all_years))
-    all_years <- years
-  else
-    all_years <- intersect(years, all_years)
-}
-
+all_years <-  min(raw_data$year):max(raw_data$year)
 N_all_years <- length(all_years)
 
 # Format data into ragged arrays
@@ -128,44 +104,50 @@ idx <- 1
 tree_start_idxs <- c()
 tree_end_idxs <- c()
 
-for (tid in uniq_tree_ids) {
+for(tid in uniq_tree_ids) {
+  print(tid)
   
-  raw_data_tree <- raw_data[raw_data$tree_id == tid & raw_data$year %in% all_years,]
+  raw_data_tree <- raw_data[raw_data$tree_id_uniq == tid & raw_data$year %in% all_years,]
   
   years_tree <- raw_data_tree$year
   all_years_idxs_tree <- sapply(years_tree, function(y) which(all_years == y))
   N_years_tree <- length(years_tree)
-  if(N_years_tree > 31){stop()}
-  
-  log_rw_obs_tree <- sapply(years_tree, 
-                            function(y) 
-                              log(raw_data_tree$rw_core_ave[raw_data_tree$year == y][1]))
-  log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
+  if(N_years_tree > 45 | N_years_tree < 20){stop()}
   
   gdd_obs_tree <- sapply(years_tree, 
                          function(y) 
-                           as.numeric(clim_pred$gdd[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
+                           as.numeric(clim_pred$gdd[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  if(any(is.na(gdd_obs_tree))){
+    stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
+  }
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
+  
+  log_rw_obs_tree <- sapply(years_tree, 
+                            function(y) 
+                              log(raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
+  log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
+  
+  
   
   sm_obs_tree <- sapply(years_tree, 
                         function(y) 
-                          as.numeric(clim_pred$soilmoist_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
+                          as.numeric(clim_pred$soilmoist_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
   sm_obs <- c(sm_obs, sm_obs_tree)
   
   vpd_obs_tree <- sapply(years_tree, 
                         function(y) 
-                          as.numeric(clim_pred$vpd_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$stand[1]][1]))
+                          as.numeric(clim_pred$vpd_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
   vpd_obs <- c(vpd_obs, vpd_obs_tree)
   
   years <- c(years, years_tree)
   all_years_idxs <- c(all_years_idxs, all_years_idxs_tree)
   N_years <- c(N_years, N_years_tree)
   
-  stand_tree <- which(uniq_stand_ids == raw_data_tree$group_dataset[1])
+  stand_tree <- which(uniq_stand_ids == raw_data_tree$grouped_stand[1])
   # stand_tree <- which(uniq_stand_ids == raw_data_tree$region[1])
   stand_idxs <- c(stand_idxs, stand_tree)
   
-  species_tree <- which(uniq_species_ids == raw_data_tree$species[1])
+  species_tree <- which(uniq_species_ids == raw_data_tree$species_code[1])
   species_idxs <- c(species_idxs, species_tree)
   
   tree_start_idxs <- c(tree_start_idxs, idx)
@@ -175,16 +157,15 @@ for (tid in uniq_tree_ids) {
 
 # Cross check sizes
 N_trees
-
 length(log_rw_obs)
 length(gdd_obs)
 length(sm_obs)
 length(years)
 length(all_years_idxs)
 length(N_years)
-
 length(tree_start_idxs)
 length(tree_end_idxs)
+sum(is.na(gdd_obs)) # check clim. pred
 
 # Phylogenetic matrix
 Cphy <- ape::vcv.phylo(phy.plants.here,corr=TRUE)
@@ -197,18 +178,18 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
-               'tree_start_idxs', 'tree_end_idxs', 'Cphy'))
-
-saveRDS(data, file = file.path(wd, 'output/model', 'data_25june2025.rds'))
+               'tree_start_idxs', 'tree_end_idxs'))
+data$years <- as.numeric(data$years)
+saveRDS(data, file = file.path(wd, 'output/model', 'data_28june2025.rds'))
 
 # Posterior Quantification
 # fit <- stan(file=file.path(wd, 'model/stan/model6_with2predictors_pnw_samefsh.stan'),
 #             data=data, seed=5838299, cores = 4,
 #             warmup=1000, iter=2024, refresh=10)
-fit <- stan(file=file.path(wd, 'model/stan/model6_with3predictors_pnw_differentbetas.stan'),
+fit <- stan(file=file.path(wd, 'model/stan/model6_with3predictors_pnw_fullphylo_difflength_test.stan'),
             data=data, seed=5838299, 
             chains = 4, cores = 4,
-            warmup=1000, iter=2024, refresh=10)
+            warmup=10, iter=20, refresh=10)
 saveRDS(fit, file = file.path(wd, 'output/model', 'fit_20june2025.rds'))
 
 diagnostics <- util$extract_hmc_diagnostics(fit)
