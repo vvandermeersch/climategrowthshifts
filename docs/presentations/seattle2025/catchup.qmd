@@ -349,6 +349,7 @@ Let's take 4 other trees:
 :::
 
 ```{r}
+
 par(mfrow=c(2, 2))
 for (t in  sample(1:N_trees, 4)) {
   idxs <- tree_start_idxs[t]:tree_end_idxs[t]
@@ -398,6 +399,7 @@ What about our climate predictors?
 :::
 
 ```{r}
+#| eval: false
 
 par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
 for(spind in 1:4){
@@ -420,6 +422,7 @@ What about our climate predictors?
 :::
 
 ```{r}
+#| eval: false
 
 par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
 for(spind in 1:4){
@@ -442,6 +445,7 @@ What about our climate predictors?
 :::
 
 ```{r}
+#| eval: false
 
 par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
 for(spind in 1:4){
@@ -532,20 +536,66 @@ plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_vpd[",s,"
 par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
 s <- 1
 plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
-     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     xlab = expression(beta[SMoist]), ylab = expression(beta[GDD]), 
      main = paste0('Species ', uniq_species_ids[1]))
 s <- 2
 plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
-     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     xlab = expression(beta[SMoist]), ylab = expression(beta[GDD]), 
      main = paste0('Species ', uniq_species_ids[s]))
 s <- 3
 plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
-     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     xlab = expression(beta[SMoist]), ylab = expression(beta[GDD]), 
      main = paste0('Species ', uniq_species_ids[s]))
 s <- 4
 plot(c(samples[[paste0("beta_gdd[",s,"]")]]) ~ c(samples[[paste0("beta_sm[",s,"]")]]),
-     xlab = expression(beta[VPD]), ylab = expression(beta[GDD]), 
+     xlab = expression(beta[SMoist]), ylab = expression(beta[GDD]), 
      main = paste0('Species ', uniq_species_ids[s]))
 ```   
+
+## 
+
+```{r}
+
+par(mfrow=c(2, 2), mar = c(4,4.5,2.5,1))
+for (spind in 1:data$N_species) {
+  start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+  end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+  
+  plot(data$gdd_obs[start:end] ~ data$vpd_obs[start:end], ylab = 'GDD', xlab = 'VPD', main = paste0('Species ', uniq_species_ids[spind]))
+}
+
+
+```  
+
+## 
+
+```{r}
+
+par(mfrow=c(2, 4), mar = c(4,4.5,2.5,1))
+data$tree_id <- rep(data$N_trees, each= length(data$all_years))
+for (spind in 1:data$N_species) {
+  start <- data$tree_start_idxs[min(which(data$species_idxs == spind))]
+  end <- data$tree_end_idxs[max(which(data$species_idxs == spind))]
+  gdd <- sapply(start:end, function(i){
+    median(samples[[paste0("beta_gdd[",spind,"]")]] * data$gdd_obs[i])
+  })
+  
+  vpd <- sapply(start:end, function(i){
+    median(samples[[paste0("beta_vpd[",spind,"]")]] * data$vpd_obs[i])
+  })
+  
+  sum <- sapply(start:end, function(i){
+    median(samples[[paste0("beta_gdd[",spind,"]")]] * data$gdd_obs[i] + samples[[paste0("beta_vpd[",spind,"]")]] * data$vpd_obs[i])
+  })
+  
+  plot(gdd ~ vpd, ylab = expression(beta[GDD]%*%GDD), xlab = expression(beta[VPD]%*%VPD), main = paste0('Species ', uniq_species_ids[spind]))
+  hist(sum, main ='', xlab = expression(beta[GDD]%*%GDD+beta[VPD]%*%VPD))
+}
+
+
+```   
+
+
+
 
 
