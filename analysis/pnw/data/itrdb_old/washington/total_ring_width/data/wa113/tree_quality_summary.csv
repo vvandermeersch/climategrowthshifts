@@ -1,0 +1,10 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+FLLM01B_raw,42,32,0
+FLLM03B_raw,67,32,1
+FLLM05A_raw,62,32,1
+FLLM09B_raw,60,32,0
+FLLM10B_raw,32,32,0
+FLLM11A_raw,59,32,0
+FLLM12A_raw,48,32,2
+FLLM14A_raw,68,32,0
+FLLM15B_raw,34,32,3

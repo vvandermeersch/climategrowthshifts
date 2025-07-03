@@ -1,0 +1,11 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+SVF01A_raw,87,29,1
+SVF01B_raw,29,29,1
+SVF02A_raw,145,29,1
+SVF02B_raw,72,29,4
+SVF03A_raw,94,29,0
+SVF03B_raw,70,29,0
+SVF04A_raw,90,29,2
+SVF04B_raw,48,29,1
+SVF05A_raw,91,29,2
+SVF05B_raw,82,29,1

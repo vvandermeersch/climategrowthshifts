@@ -1,0 +1,17 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+HMHL01A_raw,125,32,0
+HMHL02A_raw,109,32,0
+HMHL03A_raw,64,32,0
+HMHL04A_raw,32,32,4
+HMHL05A_raw,101,32,0
+HMHL08A_raw,59,32,0
+HMHL09A_raw,147,32,0
+HMHL10A_raw,70,32,4
+HMHL11A_raw,108,32,0
+HMHL12A_raw,142,32,2
+HMHL14A_raw,77,32,3
+HMHL15A_raw,106,32,0
+HMHL17A_raw,38,32,4
+HMHL18A_raw,52,32,5
+HMHL19A_raw,121,32,0
+HMHL20A_raw,75,32,4

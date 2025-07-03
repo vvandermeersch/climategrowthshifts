@@ -1,0 +1,17 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+TSW011_raw,39,37,6
+TSW012_raw,39,37,5
+TSW021_raw,238,37,0
+TSW022_raw,248,37,0
+TSW031_raw,230,37,0
+TSW032_raw,237,37,0
+TSW041_raw,233,37,1
+TSW042_raw,208,37,2
+TSW051_raw,171,37,2
+TSW052_raw,171,37,1
+TSW061_raw,55,37,4
+TSW062_raw,77,37,3
+TSW063_raw,180,45,2
+TSW071_raw,128,37,2
+TSW072_raw,127,37,1
+TSW081_raw,160,45,4
