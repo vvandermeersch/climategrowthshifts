@@ -10,14 +10,14 @@ setwd(wd)
 data <- readRDS(file.path(wd, 'output/model', 'data_28june2025.rds'))
 
 # Posterior quantification - diagnostics
-fit <- readRDS(file.path(wd, 'output/model', 'fit_28june2025_nopooling.rds')) # run on Margot
+fit <- readRDS(file.path(wd, 'output/model', 'fit_28june2025_completepooling_winterac.rds')) # run on Margot
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
 
 samples <- util$extract_expectand_vals(fit)
 base_samples <- util$filter_expectands(samples,
                                        c('alpha', 
-                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'beta_gdd', 'beta_sm', 'beta_vpd', 'beta_smvpd',
                                          'rho_sp', 'gamma_sp',
                                          'f_tilde_sh',
                                          'rho_sh', 'kappa_sh',
@@ -25,22 +25,16 @@ base_samples <- util$filter_expectands(samples,
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
 
-base_samples <- util$filter_expectands(samples,
-                                       c('log_rw_pred'),
-                                       check_arrays=TRUE)
-util$check_all_expectand_diagnostics(base_samples)
-
-
 # Investigate species 20 and 21
 for(s in 1:data$N_species){
   util$plot_pairs_by_chain(samples[[paste0('gamma_sp[',s,']')]], paste0('gamma_sp[',s,']'), samples[[paste0('rho_sp[',s,']')]], paste0('rho_sp[',s,']'))
 }
 
-for(s in 1:data$N_species){
-  util$plot_pairs_by_chain(samples[[paste0('beta_gdd[',s,']')]], paste0('beta_gdd'), samples[[paste0('beta_vpd[',s,']')]], paste0('beta_vpd[',s,']'))
-}
+# for(s in 1:data$N_species){
+#   util$plot_pairs_by_chain(samples[[paste0('beta_gdd[',s,']')]], paste0('beta_gdd'), samples[[paste0('beta_vpd[',s,']')]], paste0('beta_vpd[',s,']'))
+# }
 
-par(mfrow=c(1, 3))
+par(mfrow=c(1, 4))
 util$plot_expectand_pushforward(samples[['beta_gdd']], 200,
                                 flim = c(-0.15,0.15),
                                 display_name="beta_gdd")
@@ -58,13 +52,15 @@ util$plot_expectand_pushforward(samples[['beta_sm']], 200,
 util$plot_expectand_pushforward(samples[['beta_vpd']], 200,
                                 flim = c(-0.15,0.15),
                                 display_name="beta_vpd")
+
+util$plot_expectand_pushforward(samples[['beta_smvpd']], 200,
+                                flim = c(-0.15,0.15),
+                                display_name="beta_smvpd")
+
 # xs <- seq(-1, 1, 0.01)
 # ys <- dnorm(xs, 0, log(1.8) / 2.57)
 # lines(xs, ys, lwd=2, col=util$c_light)
 
-util$plot_expectand_pushforward(samples[['rho_sh']], 20,
-                                # flim = c(1,2),
-                                display_name="beta_vpd")
 
 
 par(mfrow=c(1, 1), mar = c(4,4,1,1))
@@ -273,7 +269,7 @@ for(t in which(data$species_idxs == 22 & data$stand_idxs == 138)){
   }
 }
 
-stand <- 138
+stand <- 124
 par(mfrow=c(2, 2), mar = c(4,4,1,1))
 for(c in 1:4){
   ss <- lapply(samples, function(s) array(s[c,], dim = c(1,1024)))
