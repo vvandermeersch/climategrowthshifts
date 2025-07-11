@@ -1,0 +1,15 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+FHMA01A_raw,32,32,0
+FHMA02B_raw,32,32,0
+FHMA03A_raw,32,32,2
+FHMA04A_raw,32,32,1
+FHMA05A_raw,32,32,3
+FHMA06A_raw,32,32,1
+FHMA07A_raw,32,32,1
+FHMA08B_raw,32,32,0
+FHMA09B_raw,32,32,1
+FHMA10A_raw,101,32,0
+FHMA11A_raw,32,32,1
+FHMA14B_raw,32,32,0
+FHMA15A_raw,38,32,0
+FHMA16A_raw,32,32,0

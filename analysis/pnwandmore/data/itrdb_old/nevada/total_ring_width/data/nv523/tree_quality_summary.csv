@@ -1,0 +1,14 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+BB51_raw,39,4,0
+BB52_raw,70,4,0
+BB15_raw,71,4,1
+BB11A_raw,36,4,1
+BB11B_raw,33,4,1
+BB17_raw,75,7,1
+BB18_raw,4,4,1
+BB1_raw,97,29,0
+BB2_raw,96,28,0
+BB3_raw,94,26,0
+BB4_raw,91,23,1
+BB14_raw,65,4,0
+BB6_raw,70,4,0

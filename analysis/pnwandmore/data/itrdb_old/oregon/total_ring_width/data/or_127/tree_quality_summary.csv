@@ -1,0 +1,11 @@
+tree,n_missing_total,n_missing_1980_on,n_outliers_total
+SOU01A_raw,176,45,5
+SOU01B_raw,187,45,5
+SOU02A_raw,198,45,2
+SOU02B_raw,199,45,2
+SOU03A_raw,204,45,0
+SOU03B_raw,201,45,1
+SOU04A_raw,212,45,2
+SOU04B_raw,212,45,2
+SOU02C_raw,186,45,2
+SOU02D_raw,185,45,2

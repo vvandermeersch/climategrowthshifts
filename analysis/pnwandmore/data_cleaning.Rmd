@@ -1,0 +1,166 @@
+---
+title: "data_cleaning"
+output: html_document
+date: "2025-06-07"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+```
+
+``` {r enter datapackage}
+ dir_of_package <- "data/itrdb/utah/total_ring_width/data/data_1"
+ raw_datasets <- list.files(path=dir_of_package,recursive=TRUE,pattern="rwl-noaa\\.txt$",full.names = TRUE)
+```
+
+```{r extracting raw data}
+for (d in raw_datasets){
+  file_name <- basename(d)
+  id <- sub("-rwl-noaa\\.txt$", "", file_name)
+  new_path <- paste0(dirname(dir_of_package),"/",id)
+  dir.create(new_path)
+  file.copy(from=d,to=new_path)
+}
+
+```
+
+```{r removing the original data package}
+unlink(dir_of_package,recursive=TRUE,force=TRUE)
+```
+
+
+
+```{r data entry}
+# relative path to the folder with all the datasets
+dir <- "data/itrdb/utah/total_ring_width/data"
+
+# relative path to every dataset
+datasets <- list.files(dir,recursive = TRUE,pattern='.txt',full.names = TRUE)
+
+# every dataset's name
+datasets_short <- list.files(dir,pattern=".txt",recursive=TRUE,full.names=FALSE)
+```
+
+```{r define a function to read datasets}
+read_noaa_df <- function(filepath) {
+    lines <- read_lines(filepath)
+    header_line_idx <- which(grepl("^age_CE\t",lines))[1]
+    
+    if (is.na(header_line_idx)) {
+      stop(paste("can't find data in file",filepath))
+    }
+    data_lines <- lines[header_line_idx:length(lines)]
+
+    # write the data in a temporal file
+    temp_file <- tempfile(fileext = ".txt")
+    writeLines(data_lines, temp_file)
+  
+    # read data 
+    df <- read_tsv(temp_file, comment="#", col_types = cols(.default = col_double()), na = c("NA"))
+    
+    return(df)}
+  
+```
+
+```{r mark the outliers}
+
+for(d in 1:length(datasets)) {
+  #read the col names line
+  lines <- readLines(datasets[d],n=2000)
+  header_index <- which(!grepl("^#", lines))[1]
+  header <- lines[header_index]
+  
+  # identify duplicated col names
+  col_names <- strsplit(header,"\t")[[1]]
+  du_col <- col_names[duplicated(col_names)]
+  conflictive_text <- "Conflictive data:"
+  
+  # read each dataset under the given folder
+  # df <- read_tsv(datasets[d],comment="#",na=c("NA"),col_types = cols(.default = col_double())) #this line is original
+  # read_noaa_df <- function(filepath) {
+  #   lines <- read_lines(filepath,warn=FALSE)
+  #   header_line_idx <- which(grepl("^age_CE\t",lines))[1]
+  #   
+  #   if (is.na(header_line_idx)) {
+  #     stop(paste("can't find data in file",filepath))
+  #   }
+  #   data_lines <- lines[header_line_idx:length(lines)]
+  # 
+  #   # write the data in a temporal file
+  #   temp_file <- tempfile(fileext = ".txt")
+  #   writeLines(data_lines, temp_file)
+  # 
+  #   # read data 
+  #   df <- read_tsv(temp_file, comment="#", col_types = cols(.default = col_double()), na = c("NA"))
+  #   
+  #   return(df)}
+  # 
+  df <- read_noaa_df(datasets[d])
+  cols_to_keep <- names(df)
+  
+  if (length(du_col)>0) {
+    for (du in du_col) {
+    du_cols <- grep(paste0("^",du),names(df),value=TRUE)
+    all_equal <- TRUE
+    
+    for (j in 2:length(du_cols)) {
+      if (!identical(df[[du_cols[j]]],df[[du_cols[j-1]]])) {all_equal <- FALSE
+      break}
+    }
+    if (all_equal) {
+      cols_to_keep <- setdiff(cols_to_keep,du_cols[-1])
+    } else {
+      cols_to_keep <- setdiff(cols_to_keep,du_cols)
+      conflictive_text <- paste0(conflictive_text,du,",")
+      write_lines(conflictive_text,file.path(dirname(datasets[d]),"conflictive_data.txt"),append=TRUE)
+    }
+  }
+  df <- df%>%
+    select(all_of(cols_to_keep))}
+
+  
+  year_col <- "age_CE"
+  tree_col <- setdiff(names(df),year_col)
+  
+  df_with_flag <- df
+ 
+  # mark the outlier
+  for(tree in tree_col){
+    x <- df[[tree]]
+    z <- (x-mean(x,na.rm=TRUE))/sd(x,na.rm=TRUE)
+    outlier_flag <- paste0(tree,"_outlier_flag")
+    df_with_flag[[outlier_flag]]<- ifelse(is.na(z),NA,abs(z)>3)}
+  
+    tree_summary <- data.frame(tree=tree_col)
+    all_years <- seq(min(df_with_flag[[year_col]],na.rm=TRUE),2024)
+    focus_years <- seq(1980,2024)
+    
+  # count the outliers and missing values
+  for(tree in tree_col){
+    
+    non_missing <- df %>%
+      select(all_of(year_col),all_of(tree)) %>%
+      filter(!is.na(.data[[tree]]))
+    
+    observed_years <- non_missing[[year_col]]
+    
+    missing_total <- length(setdiff(all_years,observed_years))
+    missing_focus <- length(setdiff(focus_years,observed_years))
+    
+    outlier_col <- paste0(tree,"_outlier_flag")
+    n_outliers <- sum(df_with_flag[[outlier_col]],na.rm=TRUE)
+    
+    tree_summary[tree_summary$tree==tree,"n_missing_total"] <- missing_total
+    tree_summary[tree_summary$tree==tree,"n_missing_1980_on"] <- missing_focus
+    tree_summary[tree_summary$tree==tree,"n_outliers_total"]<- n_outliers
+  }
+    
+  write_csv(df_with_flag,file.path(dirname(datasets[d]),"cleaned_tree_data_with_flags.csv"))
+  write_csv(tree_summary,file.path(dirname(datasets[d]),"tree_quality_summary.csv"))
+}
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
