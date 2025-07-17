@@ -1,5 +1,5 @@
 rm(list = ls())
-wd <- "~/projects/climategrowthshifts/analysis/pnw"
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
 library(ggplot2)
 setwd(file.path(wd, 'model'))
 util <- new.env()
@@ -8,16 +8,16 @@ source('mcmc_visualization_tools.R', local=util)
 setwd(wd)
 
 # Model data
-data <- readRDS(file.path(wd, 'output/model', 'data_28june2025.rds'))
+data <- readRDS(file.path(wd, 'output/model', 'data_03july2025.rds'))
 
 # Posterior quantification - diagnostics
-fit <- readRDS(file.path(wd, 'output/model', 'fit_28june2025_nopooling.rds')) 
+fit <- readRDS(file.path(wd, 'output/model', 'fit_03july2025_partialpooling_2clades_centered.rds')) 
 
-
+samples <- util$extract_expectand_vals(fit)
 util$plot_realizations(samples, names, data$all_years,N_plots=50,
                        xlab="Year",
                        display_ylim=c(-3, 3), display_xlim = c(1980, 2015))
-samples <- util$extract_expectand_vals(fit)
+
 
 
 stands <- 1:data$N_stands

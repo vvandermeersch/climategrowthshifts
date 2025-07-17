@@ -48,7 +48,7 @@ for(d in 1:nrow(datasets)){
   
   raw_data_d <- ringwidth_series[ringwidth_series$dataset == datasets[d, 'dataset'], ]
   
-  raw_data_d <- raw_data_d[raw_data_d$year >= 1980 & raw_data_d$year < 2024 & !is.na(raw_data_d$year), ]
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1983 & raw_data_d$year < 2024 & !is.na(raw_data_d$year), ]
   # raw_data_d <- raw_data_d[ , colSums(is.na(raw_data_d)) < length(1980:2010)]
   
   raw_data_d$species_code <- datasets[d, 'species_code']
@@ -114,6 +114,9 @@ log_rw_obs <- c()
 gdd_obs <- c()
 sm_obs <- c()
 vpd_obs <- c()
+vpd_obs_n1 <- c()
+vpd_obs_n2 <- c()
+vpd_obs_n3 <- c()
 years <- c()
 all_years_idxs <- c()
 N_years <- c()
@@ -132,7 +135,7 @@ for(tid in uniq_tree_ids) {
   years_tree <- raw_data_tree$year
   all_years_idxs_tree <- sapply(years_tree, function(y) which(all_years == y))
   N_years_tree <- length(years_tree)
-  if(N_years_tree > 45 | N_years_tree < 20){stop()}
+  if(N_years_tree > 45 | N_years_tree < 17){stop()} # 17 here for length(1983:1999)
   
   gdd_obs_tree <- sapply(years_tree, 
                          function(y) 
@@ -159,6 +162,21 @@ for(tid in uniq_tree_ids) {
                            as.numeric(clim_pred$vpd_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
   vpd_obs <- c(vpd_obs, vpd_obs_tree)
   
+  vpd_obs_tree_n1 <- sapply(years_tree, 
+                         function(y) 
+                           as.numeric(clim_pred$vpd_mjj[clim_pred$year == as.character(as.numeric(y)-1) & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  vpd_obs_n1 <- c(vpd_obs_n1, vpd_obs_tree_n1)
+  
+  vpd_obs_tree_n2 <- sapply(years_tree, 
+                            function(y) 
+                              as.numeric(clim_pred$vpd_mjj[clim_pred$year == as.character(as.numeric(y)-2) & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  vpd_obs_n2 <- c(vpd_obs_n2, vpd_obs_tree_n2)
+  
+  vpd_obs_tree_n3 <- sapply(years_tree, 
+                            function(y) 
+                              as.numeric(clim_pred$vpd_mjj[clim_pred$year == as.character(as.numeric(y)-3) & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  vpd_obs_n3 <- c(vpd_obs_n3, vpd_obs_tree_n3)
+ 
   years <- c(years, years_tree)
   all_years_idxs <- c(all_years_idxs, all_years_idxs_tree)
   N_years <- c(N_years, N_years_tree)
@@ -180,6 +198,8 @@ N_trees
 length(log_rw_obs)
 length(gdd_obs)
 length(sm_obs)
+length(vpd_obs)
+length(vpd_obs_n3)
 length(years)
 length(all_years_idxs)
 length(N_years)
@@ -192,7 +212,8 @@ sum(is.na(gdd_obs)) # check clim. pred
 N <- length(years)
 N_clades <- 2
 data <- mget(c('N', 'N_all_years', 'N_trees', 
-               'log_rw_obs', 'gdd_obs', 'sm_obs', 'vpd_obs',
+               'log_rw_obs', 'gdd_obs', 'sm_obs', 
+               'vpd_obs', 'vpd_obs_n1', 'vpd_obs_n2', 'vpd_obs_n3',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
@@ -203,5 +224,4 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
                ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025_legacies.rds'))
