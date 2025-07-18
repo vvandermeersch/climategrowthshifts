@@ -1,5 +1,5 @@
 rm(list = ls())
-wd <- "~/projects/climategrowthshifts/analysis/pnw"
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
 setwd(file.path(wd, 'model'))
 util <- new.env()
 source('mcmc_analysis_tools_rstan.R', local=util)
