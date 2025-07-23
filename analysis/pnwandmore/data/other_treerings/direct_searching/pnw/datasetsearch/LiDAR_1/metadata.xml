@@ -1,0 +1,371 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Brian Sherrod</origin>
+        <origin>Richard Blakely</origin>
+        <origin>Craig Weaver</origin>
+        <pubdate>20210719</pubdate>
+        <title>LiDAR and paleoseismology solve 140-yr old earthquake mystery in the Pacific Northwest USA - source tabular data and images for 1872 Chelan earthquake fault scarp study</title>
+        <geoform>Text files and binary data</geoform>
+        <pubinfo>
+          <pubplace>Seattle, WA</pubplace>
+          <publish>U.S. Geological Survey</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.5066/P9F387YY</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset contains LiDAR DEMs, magnetic field images and data, radiocarbon results, tree ring counts, and fault scarp trench logs.</abstract>
+      <purpose>These data were collected to identify and describe the source rupture for the December 14 1872 earthquake near Chelan, Washington.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>2009</begdate>
+          <enddate>2018</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>In work</progress>
+      <update>As needed</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-120.40466308473</westbc>
+        <eastbc>-120.1904296863</eastbc>
+        <northbc>47.705770704843</northbc>
+        <southbc>47.516905201769</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>Paleoseismology</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:5ae09817e4b0e2c2dd2e9c92</themekey>
+      </theme>
+      <place>
+        <placekt>Entiat, Washington</placekt>
+        <placekey>Entiat, Washington</placekey>
+        <placekey>Chelan, Washington</placekey>
+      </place>
+      <stratum>
+        <stratkt>USGS Thesaurus</stratkt>
+        <stratkey>surficial geologic units</stratkey>
+      </stratum>
+      <temporal>
+        <tempkt>USGS Thesaurus</tempkt>
+        <tempkey>Holocene</tempkey>
+      </temporal>
+    </keywords>
+    <accconst>none</accconst>
+    <useconst>none</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Brian Sherrod</cntper>
+          <cntorg>USGS</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>Dept of Earth and Space Sciences, University of Washington, Box 351310</address>
+          <city>Seattle</city>
+          <state>WA</state>
+          <postal>98001</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>253-653-8358</cntvoice>
+        <cntemail>bsherrod@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Puget Sound LiDAR Consortium</datacred>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>No formal attribute accuracy tests were conducted</attraccr>
+    </attracc>
+    <logic>No formal logical accuracy tests were conducted</logic>
+    <complete>Data set is considered complete for the information presented, as described in the abstract. Users are advised to read the rest of the metadata record carefully for additional details.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>No formal positional accuracy tests were conducted</horizpar>
+      </horizpa>
+      <vertacc>
+        <vertaccr>No formal positional accuracy tests were conducted</vertaccr>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <procstep>
+        <procdesc>For aeromagnetic data: The interpretation of magnetic anomalies was based on a low-altitude, high-resolution airborne survey of the magnetic field flown in 2011 by a geophysical consulting firm under contract to the U.S. Geological Survey.  Measurements of the total magnetic field were made along parallel lines oriented east-west and spaced 400 m apart.  Survey altitude was nominally 250 m above ground but varied significantly over rugged terrain.  Survey altitude was &lt;200 m over the relatively flat plateau southeast of the scarp, 700 to 1000 m over the Columbia River, and 740 to 860 m directly over the scarp.  Total field measurements were reduced to total-field anomaly values by subtraction of the International Geomagnetic Reference Field (IGRF).  
+Various well-established methods (Blakely, R.J., 1996, Potential theory in gravity and magnetic applications: Cambridge University Press, 464 p.) were used to facilitate our interpretation, including reduction to the pole to remove magnetic anomaly asymmetries caused by non-vertical magnetization and non-vertical ambient field, filtering to emphasize anomalies caused by shallow magnetic sources, and boundary analysis to automatically map contacts between near-surface rocks with contrasting magnetic properties.  These derivative products were used together and with topographic and geologic databases to interpret lithologic contacts lying near and parallel to the scarp and to extrapolate those contacts beyond the limits of the scarp.
+
+For paleoseismic trenches: Trenches across the scarp were excavated by hand using picks and shovels to depths of ~1.3m. We logged stratigraphic contacts and structural features on rectified photomosaics of each trench. After cleaning the trench walls using hand tools, we gridded the walls using laser levels and established horizontal and vertical fiduciary marks using nails and string. Photomosaics were created by taking digital photographs of each grid cell and digitally stitching rectified photographs in Adobe PhotoShop CS6. Photomosaics were printed on 24" wide paper, mounted on foam boards and covered with acetate. Stratigraphic contacts, faults, and other field observations were recorded on the acetate in permanent marker. The acetate was scanned and a digital file imported into Adobe Illustrator for final trench log preparation.</procdesc>
+        <procdate>2013</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <indspref>Spencer Canyon near Entiat, Washington</indspref>
+    <direct>Raster</direct>
+  </spdoinfo>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>TreeRingData_WGS84.csv</enttypl>
+        <enttypd>Tree ring counts of increment cores collected from living trees on landslides in Spencer Canyon near Entiat, WA</enttypd>
+        <enttypds>Brian Sherrod</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>long</attrlabl>
+        <attrdef>Longitude of sample in geographic coordinates and datum WGS84</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-180</rdommin>
+            <rdommax>180</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>lat</attrlabl>
+        <attrdef>Latitude for sample in geographic coordinates and datum WGS84</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-90</rdommin>
+            <rdommax>90</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>landslide</attrlabl>
+        <attrdef>A text identifier of the landslide from which the sample originated.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>north</edomv>
+            <edomvd>Sample originated from the landslide on the north side of teh canyon.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>south</edomv>
+            <edomvd>Sample originated from the landslide on the south side of the canyon.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>sample_ID</attrlabl>
+        <attrdef>Unique identifier for each sampled tree.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>SC01</rdommin>
+            <rdommax>SC048</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RingCount</attrlabl>
+        <attrdef>Number of rings from each increment core, starting at center ring and working outwards toward bark, counted under low magnification.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1</rdommin>
+            <rdommax>1000</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>error</attrlabl>
+        <attrdef>Estimated error in counting rings, usually due to extremely narrow rings or rings partially obscured.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>10</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Trench Units.xlsx</enttypl>
+        <enttypd>Descriptions of lithologic units logged and described at Sites 2 and 3 in Spencer Canyon paleoseismic trenches</enttypd>
+        <enttypds>Brian Sherrod</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Unit</attrlabl>
+        <attrdef>Lithologic unit designation</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Unique unit designation for each unit encountered in the field.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Lithology</attrlabl>
+        <attrdef>Lithologic description of unit</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Brief lithologic description of unit (e.g, pebbly silty sand)</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Matrix Texture</attrlabl>
+        <attrdef>A text description of the unit matrix (iff applicable)</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <udom>Matrix texture descriptions derived from matrix evaluations in the field and estimated from soil matrix triangle and from field methodology.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Munsell Color</attrlabl>
+        <attrdef>Estimation of unit color from Munsell Soil Color charts</attrdef>
+        <attrdefs>Munsell Soil Color charts</attrdefs>
+        <attrdomv>
+          <udom>Unique identified for unit color obtained from booklet of Munsell Soil Color charts.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Clasts</attrlabl>
+        <attrdef>A range of percentages provided for each type of clast identified in unit sample (e.g., cobbles, pebbles, angularity, and support)</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>This field contains an range of numeric and text values describing the types and abundances of pebbles and cobbles, angularity of clasts (e.g., rounded, subrounded, subangular, or angular), and type of clast support (matrix or clast).</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Stratification</attrlabl>
+        <attrdef>A text description of the type of stratification observed.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <udom>A text entry describing the type(s) of stratification observed in the unit (e.g., cross bedding, planar bedding, massive, etc.)</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Organic Materials</attrlabl>
+        <attrdef>A text description of the type(s) of organic materials present in each unit.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>A text description and code describing the types of organic materials present. The types are non-unique and the code is obtained using the US Soil Conservation Service field book (Schoeneberger, P.J., D.A. Wysocki, E.C. Benham, and Soil Survey Staff. 2012. Field book for describing and sampling soils, Version 3.0. Natural Resources Conservation Service, National Soil Survey Center, Lincoln, NE.)</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Soil Features</attrlabl>
+        <attrdef>A text and coded value describing the type(s) of soil horizon and soil structures observed.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>A text description and coded value for each unit describing the type(s) of soil horizons observed and coded values for observed soil structure obtained from sol samples and described using Schoeneberger, P.J., D.A. Wysocki, E.C. Benham, and Soil Survey Staff. 2012. Field book for describing and sampling soils, Version 3.0. Natural Resources Conservation Service, National Soil Survey Center, Lincoln, NE.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Contact</attrlabl>
+        <attrdef>A text description of the lower contact for each unit.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <udom>A text description of the lower contact for each unit. Three main descriptors are provided - Distinctness, Topography, and Unit Shape. Text description can be aided with examples from Schoeneberger, P.J., D.A. Wysocki, E.C. Benham, and Soil Survey Staff. 2012. Field book for describing and sampling soils, Version 3.0. Natural Resources Conservation Service, National Soil Survey Center, Lincoln, NE.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Deformation</attrlabl>
+        <attrdef>A text description of any observed deformation of unit.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <udom>A text description of observed unit deformation, including gravity-induced deformation, faulting, folding, liquefaction,etc.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Genesis_Int</attrlabl>
+        <attrdef>A text description of unit genesis and/or an interpretation of each unit.</attrdef>
+        <attrdefs>Producer defined.</attrdefs>
+        <attrdomv>
+          <udom>A text description of unit genesis and/or interpretation.</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Aeromagnetic data for Entiat region</enttypl>
+        <enttypd>Aeromagnetic data for Entiat region</enttypd>
+        <enttypds>Data delivered in GeoSoft grids from contractor</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Magnetic field</attrlabl>
+        <attrdef>A numeric identifier for the intensity of the Earth's magnetic field.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Data consists of magnetic field intensity readings measured from an aircraft</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Trench Photo Mosaics and Logs (images)</enttypl>
+        <enttypd>Images of paleoseismic trench photomosaics and logs</enttypd>
+        <enttypds>N/A</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>N/A</attrlabl>
+        <attrdef>Data consists of images of trench walls and logs</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Data consists of images.</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>Brian Sherrod</cntper>
+          <cntorg>USGS</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>USGS @ Dept of Earth and Space Sciences, University of Washington, Box 351310</address>
+          <city>Seattle</city>
+          <state>WA</state>
+          <postal>98001</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>253-653-8358</cntvoice>
+        <cntemail>bsherrod@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Provided as is.</distliab>
+    <techpreq>None.</techpreq>
+  </distinfo>
+  <metainfo>
+    <metd>20210719</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Brian Sherrod</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Research Geologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>Dept. of Earth and Space Sciences, University of Washington, Room 70, Johnson Hall, Box 351310</address>
+          <city>Seattle</city>
+          <state>WA</state>
+          <postal>98001</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>253-653-8358</cntvoice>
+        <cntemail>bsherrod@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>
