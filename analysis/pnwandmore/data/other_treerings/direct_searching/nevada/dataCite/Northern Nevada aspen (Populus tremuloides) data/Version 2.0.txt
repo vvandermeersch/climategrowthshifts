@@ -1,0 +1,19 @@
+Version history for:
+
+Shinneman, D.J., and McIlroy, S.K., 2019, Northern Nevada aspen (Populus tremuloides) data (2010-2011) (ver. 2.0, January 2024): U.S. Geological Survey data release, https://doi.org/10.5066/F7HX1BM5.
+
+_____________________________________________
+
+Version 1.0 posted online May 13, 2019
+_____________________________________________
+
+Version 2.0 revised and reposted online January 3, 2024.
+_____________________________________________
+
+
+Changes in Version 2.0
+
+1. Additional data tables were added to data release. New tables include tree ring data from Phase II of survey.
+2. Metadata record was updated to reflect new data.
+3. Title was changed to reflect revision status.
+

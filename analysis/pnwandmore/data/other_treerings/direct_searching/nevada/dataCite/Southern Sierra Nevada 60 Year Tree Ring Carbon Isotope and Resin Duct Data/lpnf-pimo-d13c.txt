@@ -1,0 +1,339 @@
+# Southern Sierra Nevada 60 Year Tree Ring Carbon Isotope and Resin Duct Data
+#----------------------------------------------------------------------- 
+#                World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#             National Centers for Environmental Information (NCEI)
+#----------------------------------------------------------------------- 
+# Template Version 3.0
+# Encoding: UTF-8
+# NOTE: Please cite Publication, and Online_Resource and date accessed when using these data. 
+# If there is no publication information, please cite Investigators, Title, and Online_Resource and date accessed. 
+#
+# Online_Resource: https://www.ncdc.noaa.gov/paleo/study/30872 
+#       Description: NOAA Landing Page 
+# Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/isotope/northamerica/usa/california/lpnf-pimo-d13c.txt 
+#       Description: NOAA location of the template
+#
+# Original_Source_URL:  
+#       Description:
+# 
+# Description/Documentation lines begin with #
+# Data lines have no #
+#
+# Data Type: Tree Ring
+#
+# Dataset DOI: 
+#
+# Parameter_Keywords: carbon isotopes 
+#--------------------
+# Contribution_Date
+#	Date: 2020-07-28
+#--------------------
+# File_Last_Modified_Date
+#	Date: 2020-07-28
+#--------------------
+# Title
+#	Study_Name: Southern Sierra Nevada 60 Year Tree Ring Carbon Isotope and Resin Duct Data
+#--------------------
+# Investigators
+#	Investigators: Reed, C.C.; Hood, S.M. 
+#--------------------
+# Description_Notes_and_Keywords
+#	Description: Tree ring carbon isotope (d13C) and resin duct data from trees in southern California (Los Padres and Sierra National Forests) that died and those that survived the 2012-2016 California drought. 
+#	Samples were analyzed for delta 13C from 4 tree species (ABCO-Abies concolor, CADE-Calocedrus decurrens, PIPO-Pinus ponderosa, and PIMO-Pinus monophylla). Resin duct data were measured on the two Pinus species. 
+#	Total ring width measurements are archived separately in the International Tree-Ring Data Bank, Site Codes CA699-CA702.
+#--------------------
+# Publication 
+#	Authors: Charlotte C. Reed, Sharon M. Hood 
+#	Published_Date_or_Year: 2020-08-02      
+#	Published_Title: Few generalizable patterns of tree-level mortality during extreme drought and concurrent bark beetle outbreaks
+#	Journal_Name: Science of The Total Environment
+#	Volume: 
+#	Edition: 141306
+#	Issue: 
+#	Pages:
+#	Report_Number: 
+#	DOI: 10.1016/j.scitotenv.2020.141306
+#	Online_Resource: https://www.sciencedirect.com/science/article/abs/pii/S004896972034835X
+#	Full_Citation: 
+#	Abstract: Tree mortality associated with drought and concurrent bark beetle outbreaks is expected to increase with further climate change. When these two types of disturbance occur in concert it complicates our ability to accurately predict future forest mortality. The recent extreme California USA drought and bark beetle outbreaks resulted in extensive tree mortality and provides a unique opportunity to examine questions of why some trees die while others survive these co-occurring disturbances. We use plot-level data combined with a three-proxy tree-level approach using radial growth, carbon isotopes, and resin duct metrics to evaluate 1) whether variability in stand structure, tree growth or size, carbon isotope discrimination, or defenses precede mortality, 2) how relationships between these proxies differ for surviving and now-dead trees, and 3) whether generalizable risk factors for tree mortality exist across pinyon pine (Pinus monophylla), ponderosa pine (P. ponderosa), white fir (Abies concolor), and incense cedar (Calocedrus decurrens) affected by the combination of drought and beetle outbreaks. We find that risk factors associated with mortality differ between species, and that few generalizable patterns exist when bark beetle outbreaks occur in concert with a particularly long, hot drought. We see evidence that both long-term differences in physiology and shorter-term beetle-related selection and variability in defenses influence mortality susceptibility for ponderosa pine, whereas beetle dynamics may play a more prominent role in mortality patterns for white fir and pinyon pine. In contrast, incense cedar mortality appears to be attributable to long-term effects of growth suppression. Risk factors that predispose some trees to drought and beetle-related mortality likely reflect species-specific strategies for dealing with these particular disturbance types. The combined influence of beetles and drought necessitates the consideration of multiple, species-specific risk factors to more accurately model forest mortality in the face of similar extreme events more likely under future climates.
+#------------------
+# Funding_Agency 
+#	Funding_Agency_Name: US Department of Agriculture Forest Service
+#	Grant: Forest Health Protection EM-18-WC-03
+#------------------
+# Site_Information 
+#	Site_Name: Los Padres National Forest
+#	Location: North America>United States Of America>California
+#	Country: United States Of America
+#	Northernmost_Latitude: 34.8485670636933
+# 	Southernmost_Latitude: 34.8252308632429
+# 	Easternmost_Longitude: -119.008327124388
+# 	Westernmost_Longitude: -119.087616124613
+# 	Elevation: 1817
+#------------------
+# Data_Collection   
+#	Collection_Name: LPNF-PIMO-d13C
+#	Earliest_Year: 1956
+#	Most_Recent_Year: 2015
+#	Time_Unit: Year CE
+#	Core_Length: 
+#	Notes: Samples were processed to remove extractives such as waxes, oils, resins via Leavitt and Danzer 1993; 6 trees that survived (L) and 6 that died (D) during the AD 2012-2016 drought were included; samples were pooled by year and status (L or D) except for every 5th year for which samples were separated by individual tree
+#------------------
+# Species 
+#	Species_Name: Pinus monophylla Torr. & Frem.
+#	Common_Name: singleleaf pinyon
+#	Tree_Species_Code: PIMO 
+#------------------
+# Chronology_Information
+#	Chronology: 
+# 	
+#----------------
+# Variables 
+#
+# Data variables follow are preceded by "##" in columns one and two.
+# Data line variables format:  one per line, shortname-tab-variable components (what, material, error, units, seasonality, data type,detail, method, C or N for Character or Numeric data, free text) 
+#
+## age_CE	age, , , year Common Era, , tree ring,, , ,N, Dendrochronologically dated
+## status	notes,,,,,tree ring,,,C,tree status post-drought; L = tree living post-drought; D = tree died during drought
+## repID	sample identification,,,,,tree ring,,,N,replicate coresponding to individual tree ID number; non-pooled sample; every 5th year samples were processed by individual tree rather than pooled
+## d13C	delta 13C, wood, , per mil, annual,tree ring, ,isotope ratio mass spectrometry,N, extractive-free wood material pooled from 6 trees of the same tree status unless noted by replicate number
+#
+#----------------
+# Data:
+# Data lines follow (have no #)
+# Data line format - tab-delimited text, variable short name as header
+# Missing Values: NA
+#
+age_CE	status	repID	d13C
+1956	D	NA	-21.19
+1957	D	NA	-21.22
+1958	D	NA	-21.59
+1959	D	NA	-20.92
+1960	D	3	-19.61
+1960	D	71	-21.69
+1960	D	417	-19.8
+1960	D	423	-21.46
+1960	D	441	-20.24
+1960	D	443	-21.07
+1961	D	NA	-20.58
+1962	D	NA	-21.68
+1963	D	NA	-21.03
+1964	D	NA	-20.95
+1965	D	3	-20.1
+1965	D	71	-22.17
+1965	D	417	-20.07
+1965	D	423	-20.53
+1965	D	441	-20.48
+1965	D	443	-21.76
+1966	D	NA	-20.92
+1967	D	NA	-21.37
+1968	D	NA	-19.8
+1969	D	NA	-21.84
+1970	D	3	-20.8
+1970	D	71	-22.19
+1970	D	417	-20.85
+1970	D	423	-20.77
+1970	D	441	-20.98
+1970	D	443	-21.98
+1971	D	NA	-21.7
+1972	D	NA	-21.48
+1973	D	NA	-21.92
+1974	D	NA	-21.82
+1975	D	3	-21.19
+1975	D	71	NA
+1975	D	417	-20.73
+1975	D	423	-21.35
+1975	D	441	-21.33
+1975	D	443	-22.75
+1976	D	NA	-21.29
+1977	D	NA	-21.56
+1978	D	NA	-22.08
+1979	D	NA	-22.16
+1980	D	3	-22.43
+1980	D	71	-22.98
+1980	D	417	NA
+1980	D	423	-21.4
+1980	D	441	-20.99
+1980	D	443	-22.46
+1981	D	NA	-21.55
+1982	D	NA	-22.13
+1983	D	NA	-22.39
+1984	D	NA	-21.51
+1985	D	3	-21.63
+1985	D	71	-21.66
+1985	D	417	-21.1
+1985	D	423	-21.95
+1985	D	441	-21.25
+1985	D	443	-22.13
+1986	D	NA	-22.18
+1987	D	NA	-21.86
+1988	D	NA	-22.51
+1989	D	NA	-21.67
+1990	D	3	-21.33
+1990	D	71	-22.04
+1990	D	417	-21.33
+1990	D	423	NA
+1990	D	441	-21.26
+1990	D	443	-21.74
+1991	D	NA	-21.76
+1992	D	NA	-22.5
+1993	D	NA	-23.08
+1994	D	NA	-22.36
+1995	D	3	-21.94
+1995	D	71	-23.31
+1995	D	441	-21.89
+1995	D	417	-23.23
+1995	D	423	-21.95
+1995	D	443	-23.26
+1996	D	NA	-21.81
+1997	D	NA	-21.9
+1998	D	NA	-23.31
+1999	D	NA	-22.99
+2000	D	3	-22.22
+2000	D	71	-22.87
+2000	D	417	-22.05
+2000	D	423	-22.12
+2000	D	441	-22.29
+2000	D	443	-23.15
+2001	D	NA	-22.89
+2002	D	NA	-21.66
+2003	D	NA	-22.59
+2004	D	NA	-22.91
+2005	D	3	-22.88
+2005	D	71	-24.09
+2005	D	417	-23.83
+2005	D	423	-22.96
+2005	D	441	-23.49
+2005	D	443	-23.31
+2006	D	NA	-23.46
+2007	D	NA	-23.24
+2008	D	NA	-22.49
+2009	D	NA	-22.54
+2010	D	3	-21.87
+2010	D	71	-23.33
+2010	D	417	-22.64
+2010	D	423	-22.59
+2010	D	441	-22.96
+2010	D	443	-22.89
+2011	D	NA	-23.02
+2012	D	NA	-22.12
+2013	D	NA	-21.52
+2014	D	NA	NA
+2015	D	NA	NA
+1956	L	NA	-21.31
+1957	L	NA	-21.55
+1958	L	NA	-21.71
+1959	L	NA	-21.19
+1960	L	45	-22.81
+1960	L	49	-21.31
+1960	L	67	-20.31
+1960	L	75	-20.6
+1960	L	437	-20.65
+1960	L	477	-20.24
+1961	L	NA	-20.44
+1962	L	NA	-21.48
+1963	L	NA	-21.36
+1964	L	NA	-21.02
+1965	L	45	-22.23
+1965	L	49	-21.42
+1965	L	67	-20.67
+1965	L	75	-22.5
+1965	L	437	-21.01
+1965	L	477	-20.99
+1966	L	NA	-21.71
+1967	L	NA	-21.73
+1968	L	NA	-20.84
+1969	L	NA	-21.79
+1970	L	45	-22.27
+1970	L	49	-20.87
+1970	L	67	-20.73
+1970	L	75	-22.97
+1970	L	437	-21.41
+1970	L	477	NA
+1971	L	NA	-21.75
+1972	L	NA	-21.59
+1973	L	NA	-21.74
+1974	L	NA	-21.87
+1975	L	45	-22.54
+1975	L	49	NA
+1975	L	67	-21.08
+1975	L	75	-21.56
+1975	L	437	-21.69
+1975	L	477	-21.49
+1976	L	NA	-21.54
+1977	L	NA	-21.76
+1978	L	NA	-22.38
+1979	L	NA	-22.44
+1980	L	45	-23.82
+1980	L	49	-21.84
+1980	L	67	-21.25
+1980	L	75	-22.96
+1980	L	437	-22.16
+1980	L	477	-22.67
+1981	L	NA	-21.99
+1982	L	NA	-22.17
+1983	L	NA	-22.6
+1984	L	NA	-22.1
+1985	L	45	-22.79
+1985	L	49	-21.8
+1985	L	67	-20.68
+1985	L	75	-22.3
+1985	L	437	NA
+1985	L	477	NA
+1986	L	NA	-22.43
+1987	L	NA	-21.89
+1988	L	NA	-22.75
+1989	L	NA	-21.92
+1990	L	45	-21.91
+1990	L	49	-22.41
+1990	L	67	-21.12
+1990	L	75	-21.5
+1990	L	437	-21.87
+1990	L	477	-20.73
+1991	L	NA	-22.12
+1992	L	NA	-22.86
+1993	L	NA	-23.29
+1994	L	NA	-23.15
+1995	L	45	-24.38
+1995	L	49	-22.5
+1995	L	67	-22.17
+1995	L	75	NA
+1995	L	437	-22.94
+1995	L	477	-22.12
+1996	L	NA	-22.57
+1997	L	NA	-22.27
+1998	L	NA	-23.52
+1999	L	NA	-23.75
+2000	L	45	-23.02
+2000	L	49	NA
+2000	L	67	-21.5
+2000	L	75	-22.47
+2000	L	437	-22.74
+2000	L	477	-22.54
+2001	L	NA	-22.91
+2002	L	NA	-22.24
+2003	L	NA	-22.79
+2004	L	NA	-22.47
+2005	L	45	-24.12
+2005	L	49	-23.5
+2005	L	67	-22.48
+2005	L	75	NA
+2005	L	437	-23.37
+2005	L	477	-23.11
+2006	L	NA	-23.31
+2007	L	NA	-22.23
+2008	L	NA	-22.31
+2009	L	NA	-22.48
+2010	L	45	-23.9
+2010	L	49	-22.55
+2010	L	67	-22.65
+2010	L	75	NA
+2010	L	437	-23.31
+2010	L	477	NA
+2011	L	NA	-23.55
+2012	L	NA	-21.75
+2013	L	NA	-21.98
+2014	L	NA	-21.41
+2015	L	NA	-22.13
