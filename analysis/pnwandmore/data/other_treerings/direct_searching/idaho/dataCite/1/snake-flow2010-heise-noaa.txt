@@ -1,0 +1,540 @@
+# Upper Snake River 415 Year Streamflow Reconstructions 
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/9890
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-9890.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/nvkf-xr37
+#
+# Science_Keywords: hydrology
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/usa/idaho/snake-flow2010-heise-noaa.txt
+#   Data_Download_Description: NOAA Template File; Streamflow Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2010-12-07
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-16
+#-------------------
+# Title
+#   Study_Name: Upper Snake River 415 Year Streamflow Reconstructions 
+#-------------------
+# Investigators
+#   Investigators: Wise, E.K.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Wise 2010 tree-ring reconstruction of streamflow at three gages in the upper Snake River.  Reconstruction is of total annual (water year) flow in acre-feet. 
+# The reconstructed gage records are for the following gages: 
+# (1) Jackson Lake at Dam on Snake River near Moran, WY: 43.8575N,-110.59W, 2065M
+# (2) south fork of the Snake River at Palisades Dam, ID: 43.3327N, -111.2025W, 1708M
+# (3) Snake River near Heise, ID: 43.6419N, -111.6844W, 1525M
+# 
+# Reconstruction is based on 3 tree-ring chronologies: 
+# FMT Douglas fir (S. Gray): 42.96°N, 109.77°W, 2300m, 1507-2006AD 
+# HRI Limber pine (Teton Science School): 43.30°N, 110.67°W, 2000m 1505-2006AD 
+# RDH Limber pine (E. Wise): 43.62°N, 110.44°W, 2300m, 1322-2006AD 
+# 
+# The RDH chronology is archived in the International Tree Ring Data Bank (ITRDB): 
+# https://www.ncei.noaa.gov/products/paleoclimatology
+# 
+# Instrumental data was supplied by the U.S. Bureau of Reclamation. See Wise (2010) for more complete description of data and methods. 
+#-------------------
+# Publication
+#   Authors: Wise, E.K.
+#   Journal_Name: Water Resources Research
+#   Published_Title: Tree ring record of streamflow and drought in the upper Snake River
+#   Published_Date_or_Year: 2010-11-17
+#   Volume: 46
+#   Pages: 
+#   Issue: 11
+#   Report_Number: 
+#   DOI: 10.1029/2010WR009282 
+#   Full_Citation: Wise, E.K. 2010. Tree ring record of streamflow and drought in the upper Snake River. Water Resources Research, Vol. 46 (W11529). doi:10.1029/2010WR009282. 
+#   Abstract: Tree ring samples collected near the Snake River headwaters were augmented with preexisting tree ring chronologies to create a 415 year reconstruction of upper Snake River streamflow, extending the short instrumental record and providing the first description of multicentury water supply variability in this river. Results indicate that the region's early 21st century drought is severe even in the context of long-term climatic variability and that the instrumental record is representative of low-flow individual years. In terms of overall magnitude, droughts of the recent past are eclipsed by a sustained low-flow period lasting for over 30 years in the early to mid-1600s. A comparison of reconstructed Snake River flow with streamflow reconstructions of the Colorado, Sacramento, and Verde rivers suggests that changes in the predominance of zonal versus meridional atmospheric flow may have influenced drought patterns in the western United States through time. 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Society for Women Geographers 
+#   Grant_Number: Pruitt National Fellowship
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Association of Pacific Coast Geographers
+#   Grant_Number: Margaret Trussell Scholarship
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Association of American Geographers 
+#   Grant_Number: Dissertation award
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US Environmental Protection Agency (EPA)
+#   Grant_Number: STAR Graduate Fellowship
+#-------------------
+# Site_Information
+#   Site_Name: Snake River near Heise, ID
+#   Location: Idaho
+#   Northernmost_Latitude: 43.6419
+#   Southernmost_Latitude: 43.6419
+#   Easternmost_Longitude: -111.6844
+#   Westernmost_Longitude: -111.6844
+#   Elevation_m: 1525
+#-------------------
+# Data_Collection
+#   Collection_Name: Heise Streamflow Wise2010
+#   First_Year: 1591
+#   Last_Year: 2008
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: streamflow
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age_CE	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## HEII_recon	streamflow,,,acre foot,Oct-Sep,climate reconstructions;tree ring,,,N,Snake River near Heise ID
+## HEII_inst	streamflow,,,acre foot,Oct-Sep,instrumental,,,N,Snake River near Heise ID
+#-------------------------------
+# DATA: 
+# Missing_Values: NA
+age_CE	HEII_recon	HEII_inst
+1591	5034285	NA
+1592	4169814	NA
+1593	5031026	NA
+1594	4246268	NA
+1595	5481898	NA
+1596	7424297	NA
+1597	4816890	NA
+1598	4143565	NA
+1599	4553512	NA
+1600	4990336	NA
+1601	6854630	NA
+1602	4350771	NA
+1603	5700140	NA
+1604	5816389	NA
+1605	5182835	NA
+1606	3896315	NA
+1607	4566787	NA
+1608	6019895	NA
+1609	5935816	NA
+1610	4172586	NA
+1611	5640491	NA
+1612	4701159	NA
+1613	4067949	NA
+1614	5280817	NA
+1615	5331457	NA
+1616	5740418	NA
+1617	6002409	NA
+1618	4573481	NA
+1619	4448439	NA
+1620	5204775	NA
+1621	4825443	NA
+1622	5364895	NA
+1623	6491290	NA
+1624	5462025	NA
+1625	5600108	NA
+1626	3735981	NA
+1627	4934226	NA
+1628	4900122	NA
+1629	4389905	NA
+1630	3624714	NA
+1631	2987221	NA
+1632	3254448	NA
+1633	6489732	NA
+1634	5441088	NA
+1635	3390011	NA
+1636	3978717	NA
+1637	5318815	NA
+1638	4176726	NA
+1639	3361040	NA
+1640	5157098	NA
+1641	6108584	NA
+1642	4465326	NA
+1643	4933707	NA
+1644	4325038	NA
+1645	4562949	NA
+1646	3976917	NA
+1647	3786646	NA
+1648	5119717	NA
+1649	4655567	NA
+1650	5963194	NA
+1651	4257833	NA
+1652	2932608	NA
+1653	5846384	NA
+1654	5381588	NA
+1655	5358019	NA
+1656	3912445	NA
+1657	3692126	NA
+1658	4569313	NA
+1659	4566918	NA
+1660	5708567	NA
+1661	4173549	NA
+1662	5518075	NA
+1663	5579633	NA
+1664	6240338	NA
+1665	5649653	NA
+1666	4432544	NA
+1667	4198029	NA
+1668	4701396	NA
+1669	5147490	NA
+1670	5694896	NA
+1671	3553386	NA
+1672	6210779	NA
+1673	5475789	NA
+1674	5377640	NA
+1675	6267748	NA
+1676	6336866	NA
+1677	4653021	NA
+1678	3975837	NA
+1679	5033121	NA
+1680	4862796	NA
+1681	4676336	NA
+1682	6083826	NA
+1683	6203779	NA
+1684	4270350	NA
+1685	3420273	NA
+1686	4496466	NA
+1687	5853068	NA
+1688	6134215	NA
+1689	5277446	NA
+1690	5961967	NA
+1691	5558495	NA
+1692	5076200	NA
+1693	6070909	NA
+1694	4084105	NA
+1695	3023383	NA
+1696	5355901	NA
+1697	5609042	NA
+1698	5598778	NA
+1699	5379462	NA
+1700	6482597	NA
+1701	5732958	NA
+1702	4473976	NA
+1703	4171639	NA
+1704	4145820	NA
+1705	4764906	NA
+1706	4766649	NA
+1707	4816056	NA
+1708	4845222	NA
+1709	5278534	NA
+1710	3363193	NA
+1711	4817997	NA
+1712	4669696	NA
+1713	5674232	NA
+1714	5051398	NA
+1715	5838379	NA
+1716	4531023	NA
+1717	5225359	NA
+1718	5480722	NA
+1719	4706621	NA
+1720	5681851	NA
+1721	2583920	NA
+1722	5883168	NA
+1723	4297153	NA
+1724	4486471	NA
+1725	6141580	NA
+1726	6191834	NA
+1727	7162135	NA
+1728	4435660	NA
+1729	4029867	NA
+1730	5638505	NA
+1731	5068482	NA
+1732	5808299	NA
+1733	5710818	NA
+1734	5562500	NA
+1735	4380133	NA
+1736	3892611	NA
+1737	4585466	NA
+1738	4290962	NA
+1739	4712417	NA
+1740	4599483	NA
+1741	5660136	NA
+1742	4651273	NA
+1743	4620235	NA
+1744	5162106	NA
+1745	5982771	NA
+1746	5937966	NA
+1747	6417789	NA
+1748	5065109	NA
+1749	4440333	NA
+1750	5461948	NA
+1751	5360001	NA
+1752	5436748	NA
+1753	4573721	NA
+1754	5190622	NA
+1755	3260058	NA
+1756	4439121	NA
+1757	5627381	NA
+1758	4449427	NA
+1759	3834922	NA
+1760	5338478	NA
+1761	5122562	NA
+1762	4727824	NA
+1763	5223604	NA
+1764	5947870	NA
+1765	4652692	NA
+1766	5458290	NA
+1767	5916208	NA
+1768	5391822	NA
+1769	4975201	NA
+1770	3823778	NA
+1771	5117184	NA
+1772	4891540	NA
+1773	4755232	NA
+1774	5572867	NA
+1775	5528454	NA
+1776	5212040	NA
+1777	3954192	NA
+1778	5138078	NA
+1779	6265303	NA
+1780	3566763	NA
+1781	5874142	NA
+1782	5335440	NA
+1783	3859525	NA
+1784	5652721	NA
+1785	5496238	NA
+1786	5575136	NA
+1787	6044944	NA
+1788	5193357	NA
+1789	5265774	NA
+1790	6251527	NA
+1791	5332555	NA
+1792	4659404	NA
+1793	5293928	NA
+1794	2462386	NA
+1795	4906646	NA
+1796	5674475	NA
+1797	5737086	NA
+1798	6250265	NA
+1799	5990314	NA
+1800	2621335	NA
+1801	5596076	NA
+1802	5505870	NA
+1803	4541674	NA
+1804	3519610	NA
+1805	4915051	NA
+1806	4282896	NA
+1807	4031862	NA
+1808	4338059	NA
+1809	5121357	NA
+1810	5723958	NA
+1811	5905079	NA
+1812	5033916	NA
+1813	4809364	NA
+1814	2918946	NA
+1815	5778951	NA
+1816	4781911	NA
+1817	5012831	NA
+1818	4052799	NA
+1819	5792750	NA
+1820	6037305	NA
+1821	4879369	NA
+1822	4250742	NA
+1823	4570803	NA
+1824	4534946	NA
+1825	5235058	NA
+1826	5238582	NA
+1827	5944307	NA
+1828	5547858	NA
+1829	3985540	NA
+1830	4779178	NA
+1831	4474367	NA
+1832	5095073	NA
+1833	4520744	NA
+1834	4867597	NA
+1835	5002136	NA
+1836	5873603	NA
+1837	5828142	NA
+1838	6278471	NA
+1839	3874451	NA
+1840	5790060	NA
+1841	4408684	NA
+1842	5352712	NA
+1843	5303698	NA
+1844	4480873	NA
+1845	5200795	NA
+1846	2896083	NA
+1847	5118639	NA
+1848	4537563	NA
+1849	5597696	NA
+1850	5151805	NA
+1851	4311259	NA
+1852	5530907	NA
+1853	6571227	NA
+1854	5921256	NA
+1855	3659298	NA
+1856	3773195	NA
+1857	4473460	NA
+1858	4537388	NA
+1859	4726208	NA
+1860	5100915	NA
+1861	5491731	NA
+1862	5397458	NA
+1863	3372781	NA
+1864	4340817	NA
+1865	5886070	NA
+1866	6478397	NA
+1867	6094178	NA
+1868	5671092	NA
+1869	5151243	NA
+1870	4564300	NA
+1871	4336628	NA
+1872	5444303	NA
+1873	5766949	NA
+1874	5605711	NA
+1875	5402790	NA
+1876	5211392	NA
+1877	4232417	NA
+1878	4168530	NA
+1879	3985760	NA
+1880	5391584	NA
+1881	5119015	NA
+1882	5346972	NA
+1883	5495771	NA
+1884	6570994	NA
+1885	5341192	NA
+1886	4693527	NA
+1887	5182463	NA
+1888	3823483	NA
+1889	2336193	NA
+1890	6506660	NA
+1891	4673098	NA
+1892	4505180	NA
+1893	4668381	NA
+1894	6014737	NA
+1895	4318419	NA
+1896	5176148	NA
+1897	4978491	NA
+1898	4497127	NA
+1899	5305551	NA
+1900	3196399	NA
+1901	4148377	NA
+1902	4061829	NA
+1903	4852136	NA
+1904	4702914	NA
+1905	4046523	NA
+1906	5391394	NA
+1907	6584916	NA
+1908	5521581	NA
+1909	5874587	NA
+1910	5546863	NA
+1911	5816661	5720021.007
+1912	5123372	6091206.879
+1913	6556383	6403432.212
+1914	5921446	5849917.422
+1915	3742627	3977138.511
+1916	6363604	5924228.364
+1917	6181567	6487624.443
+1918	6213184	6658134.681
+1919	4253494	3917559.276
+1920	4848882	5183456.901
+1921	5107580	5955650.982
+1922	5648405	5324011.941
+1923	5638430	5060009.202
+1924	3634384	3623393.124
+1925	4676621	5913272.289
+1926	4554370	3908929.26
+1927	6767049	6292653.9
+1928	6224536	6268084.53
+1929	5114407	4309419.906
+1930	4588712	4268451.126
+1931	3266359	2988841.056
+1932	4775218	4695099.525
+1933	3844969	4150353.561
+1934	3289559	2781692.91
+1935	5544168	4110786.762
+1936	5105349	5349654.114
+1937	5111546	3811377.558
+1938	5743797	5159706.51
+1939	3708344	4319541.138
+1940	4211924	3418091.151
+1941	4744161	3694033.533
+1942	5818719	4313272.875
+1943	5070503	6511029.792
+1944	4580635	3969908.493
+1945	4573527	4689469.788
+1946	5262376	5299563.534
+1947	4576666	5285123.328
+1948	4672638	4784126.31
+1949	4644674	4879266.684
+1950	6220366	6054981.435
+1951	4961485	6336977.916
+1952	5604438	5692126.146
+1953	4830194	4581925.749
+1954	4308218	5076275.751
+1955	3402725	3966120.963
+1956	5909769	6695918.763
+1957	4675170	5517181.92
+1958	4912422	4343010.459
+1959	4569770	4413384.908
+1960	4275212	3845612.586
+1961	4140946	3555203.406
+1962	5539297	5401213.145
+1963	5535988	4471087.511
+1964	5671798	5190494.885
+1965	5891369	6505347.03
+1966	5242036	4224580.801
+1967	5813425	5166103.113
+1968	5495225	4936494.022
+1969	4895198	4939871.725
+1970	4649505	5086937.906
+1971	6392614	7442866.339
+1972	5826782	6867931.778
+1973	4114900	4364582.088
+1974	6343161	6824680.386
+1975	5902625	5788136.859
+1976	4980764	6243236.35
+1977	2759784	2583092.029
+1978	7714814	6046014.487
+1979	4781894	4569141.764
+1980	5853350	4943158.131
+1981	4898644	3996734.874
+1982	6336404	6894577.428
+1983	5315762	6549185.508
+1984	5137015	6748743.146
+1985	4880542	4912796.101
+1986	7038187	7541644.269
+1987	4359748	3897678.789
+1988	3497239	3600218.814
+1989	4742876	4851569.964
+1990	3846206	3886203.426
+1991	4731735	4385227.259
+1992	3526119	3047888.768
+1993	5483647	5055048.192
+1994	4593354	3444727.858
+1995	5702034	5554960.707
+1996	5758422	6959181.526
+1997	6097017	8600461.15
+1998	6169391	6000895.11
+1999	5512972	6303495.278
+2000	4193591	4399973.165
+2001	2600937	2992533.303
+2002	3761091	3655096.515
+2003	4233128	3939244.412
+2004	4619490	3858117.364
+2005	4608938	4283152.771
+2006	NA	5253930.103
+2007	NA	3510590.367
+2008	NA	5312209.026

@@ -1,0 +1,540 @@
+# Upper Snake River 415 Year Streamflow Reconstructions 
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/9890
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-9890.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/nvkf-xr37
+#
+# Science_Keywords: hydrology
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/usa/idaho/snake-flow2010-jacksonlake-noaa.txt
+#   Data_Download_Description: NOAA Template File; Streamflow Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2010-12-07
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-16
+#-------------------
+# Title
+#   Study_Name: Upper Snake River 415 Year Streamflow Reconstructions 
+#-------------------
+# Investigators
+#   Investigators: Wise, E.K.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Wise 2010 tree-ring reconstruction of streamflow at three gages in the upper Snake River.  Reconstruction is of total annual (water year) flow in acre-feet. 
+# The reconstructed gage records are for the following gages: 
+# (1) Jackson Lake at Dam on Snake River near Moran, WY: 43.8575N,-110.59W, 2065M
+# (2) south fork of the Snake River at Palisades Dam, ID: 43.3327N, -111.2025W, 1708M
+# (3) Snake River near Heise, ID: 43.6419N, -111.6844W, 1525M
+# 
+# Reconstruction is based on 3 tree-ring chronologies: 
+# FMT Douglas fir (S. Gray): 42.96°N, 109.77°W, 2300m, 1507-2006AD 
+# HRI Limber pine (Teton Science School): 43.30°N, 110.67°W, 2000m 1505-2006AD 
+# RDH Limber pine (E. Wise): 43.62°N, 110.44°W, 2300m, 1322-2006AD 
+# 
+# The RDH chronology is archived in the International Tree Ring Data Bank (ITRDB): 
+# https://www.ncei.noaa.gov/products/paleoclimatology
+# 
+# Instrumental data was supplied by the U.S. Bureau of Reclamation. See Wise (2010) for more complete description of data and methods. 
+#-------------------
+# Publication
+#   Authors: Wise, E.K.
+#   Journal_Name: Water Resources Research
+#   Published_Title: Tree ring record of streamflow and drought in the upper Snake River
+#   Published_Date_or_Year: 2010-11-17
+#   Volume: 46
+#   Pages: 
+#   Issue: 11
+#   Report_Number: 
+#   DOI: 10.1029/2010WR009282 
+#   Full_Citation: Wise, E.K. 2010. Tree ring record of streamflow and drought in the upper Snake River. Water Resources Research, Vol. 46 (W11529). doi:10.1029/2010WR009282. 
+#   Abstract: Tree ring samples collected near the Snake River headwaters were augmented with preexisting tree ring chronologies to create a 415 year reconstruction of upper Snake River streamflow, extending the short instrumental record and providing the first description of multicentury water supply variability in this river. Results indicate that the region's early 21st century drought is severe even in the context of long-term climatic variability and that the instrumental record is representative of low-flow individual years. In terms of overall magnitude, droughts of the recent past are eclipsed by a sustained low-flow period lasting for over 30 years in the early to mid-1600s. A comparison of reconstructed Snake River flow with streamflow reconstructions of the Colorado, Sacramento, and Verde rivers suggests that changes in the predominance of zonal versus meridional atmospheric flow may have influenced drought patterns in the western United States through time. 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Society for Women Geographers 
+#   Grant_Number: Pruitt National Fellowship
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Association of Pacific Coast Geographers
+#   Grant_Number: Margaret Trussell Scholarship
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Association of American Geographers 
+#   Grant_Number: Dissertation award
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US Environmental Protection Agency (EPA)
+#   Grant_Number: STAR Graduate Fellowship
+#-------------------
+# Site_Information
+#   Site_Name: Jackson Lake at Dam on Snake River
+#   Location: Idaho
+#   Northernmost_Latitude: 43.8575
+#   Southernmost_Latitude: 43.8575
+#   Easternmost_Longitude: -110.59
+#   Westernmost_Longitude: -110.59
+#   Elevation_m: 2065
+#-------------------
+# Data_Collection
+#   Collection_Name: Jackson Lake Streamflow Wise2010
+#   First_Year: 1591
+#   Last_Year: 2008
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: streamflow
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource:  https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age_CE	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## JCK_recon	streamflow,,,acre foot,Oct-Sep,climate reconstructions;tree ring,,,N,Jackson Lake at Dam on Snake River near Moran WY
+## JCK_inst	streamflow,,,acre foot,Oct-Sep,instrumental,,,N,Jackson Lake at Dam on Snake River near Moran WY
+#-------------------------------
+# DATA: 
+# Missing_Values: NA
+age_CE	JCK_recon	JCK_inst
+1591	1040017	NA
+1592	849148	NA
+1593	1055277	NA
+1594	886212	NA
+1595	1092973	NA
+1596	1553750	NA
+1597	965465	NA
+1598	875478	NA
+1599	898880	NA
+1600	1064750	NA
+1601	1438806	NA
+1602	896917	NA
+1603	1207853	NA
+1604	1196718	NA
+1605	1057712	NA
+1606	810127	NA
+1607	945723	NA
+1608	1252319	NA
+1609	1215472	NA
+1610	868968	NA
+1611	1139980	NA
+1612	968244	NA
+1613	833677	NA
+1614	1081817	NA
+1615	1076694	NA
+1616	1181418	NA
+1617	1215104	NA
+1618	946782	NA
+1619	918725	NA
+1620	1078808	NA
+1621	1020868	NA
+1622	1100520	NA
+1623	1331287	NA
+1624	1112046	NA
+1625	1123923	NA
+1626	797159	NA
+1627	1017557	NA
+1628	1017231	NA
+1629	885249	NA
+1630	736995	NA
+1631	584928	NA
+1632	697100	NA
+1633	1340103	NA
+1634	1108623	NA
+1635	722527	NA
+1636	801887	NA
+1637	1089069	NA
+1638	867488	NA
+1639	712298	NA
+1640	1083282	NA
+1641	1272706	NA
+1642	927130	NA
+1643	1011214	NA
+1644	862837	NA
+1645	908959	NA
+1646	855463	NA
+1647	758795	NA
+1648	1068962	NA
+1649	962431	NA
+1650	1252396	NA
+1651	886411	NA
+1652	611673	NA
+1653	1218918	NA
+1654	1119710	NA
+1655	1083607	NA
+1656	772440	NA
+1657	752504	NA
+1658	927415	NA
+1659	946057	NA
+1660	1188146	NA
+1661	871947	NA
+1662	1132243	NA
+1663	1135977	NA
+1664	1264742	NA
+1665	1197606	NA
+1666	906788	NA
+1667	875927	NA
+1668	949930	NA
+1669	1075926	NA
+1670	1161367	NA
+1671	765389	NA
+1672	1295975	NA
+1673	1141565	NA
+1674	1097738	NA
+1675	1309232	NA
+1676	1318331	NA
+1677	942129	NA
+1678	806603	NA
+1679	1069599	NA
+1680	997538	NA
+1681	966178	NA
+1682	1266381	NA
+1683	1271230	NA
+1684	877068	NA
+1685	709990	NA
+1686	949696	NA
+1687	1217584	NA
+1688	1251548	NA
+1689	1059363	NA
+1690	1232720	NA
+1691	1178517	NA
+1692	1049895	NA
+1693	1261034	NA
+1694	811082	NA
+1695	648101	NA
+1696	1118803	NA
+1697	1140279	NA
+1698	1171112	NA
+1699	1124329	NA
+1700	1344635	NA
+1701	1199007	NA
+1702	897095	NA
+1703	835233	NA
+1704	860614	NA
+1705	978679	NA
+1706	970582	NA
+1707	971206	NA
+1708	995396	NA
+1709	1077178	NA
+1710	710099	NA
+1711	985082	NA
+1712	973857	NA
+1713	1195021	NA
+1714	1036089	NA
+1715	1206590	NA
+1716	904039	NA
+1717	1068588	NA
+1718	1145150	NA
+1719	974960	NA
+1720	1131213	NA
+1721	544703	NA
+1722	1226201	NA
+1723	887305	NA
+1724	919579	NA
+1725	1282763	NA
+1726	1287598	NA
+1727	1492151	NA
+1728	891892	NA
+1729	859525	NA
+1730	1149844	NA
+1731	1046262	NA
+1732	1218025	NA
+1733	1197215	NA
+1734	1102071	NA
+1735	900797	NA
+1736	804627	NA
+1737	933339	NA
+1738	869753	NA
+1739	970608	NA
+1740	947712	NA
+1741	1158903	NA
+1742	949089	NA
+1743	929470	NA
+1744	1070133	NA
+1745	1256045	NA
+1746	1226478	NA
+1747	1326382	NA
+1748	1063115	NA
+1749	935018	NA
+1750	1148218	NA
+1751	1096608	NA
+1752	1135751	NA
+1753	936032	NA
+1754	1068019	NA
+1755	651713	NA
+1756	918640	NA
+1757	1159026	NA
+1758	905389	NA
+1759	788289	NA
+1760	1109256	NA
+1761	1046297	NA
+1762	977461	NA
+1763	1082404	NA
+1764	1220324	NA
+1765	969356	NA
+1766	1138846	NA
+1767	1214544	NA
+1768	1102810	NA
+1769	1036345	NA
+1770	812966	NA
+1771	1045718	NA
+1772	1009255	NA
+1773	957093	NA
+1774	1157060	NA
+1775	1150239	NA
+1776	1089033	NA
+1777	821146	NA
+1778	1056313	NA
+1779	1305129	NA
+1780	755609	NA
+1781	1161861	NA
+1782	1091739	NA
+1783	802601	NA
+1784	1148641	NA
+1785	1134265	NA
+1786	1158958	NA
+1787	1233415	NA
+1788	1086920	NA
+1789	1097924	NA
+1790	1293978	NA
+1791	1115116	NA
+1792	950387	NA
+1793	1105589	NA
+1794	489758	NA
+1795	1026173	NA
+1796	1162890	NA
+1797	1152376	NA
+1798	1300964	NA
+1799	1205891	NA
+1800	542420	NA
+1801	1165755	NA
+1802	1125544	NA
+1803	920071	NA
+1804	715976	NA
+1805	1012601	NA
+1806	876754	NA
+1807	816821	NA
+1808	886146	NA
+1809	1071718	NA
+1810	1190728	NA
+1811	1223260	NA
+1812	1041185	NA
+1813	1004139	NA
+1814	624204	NA
+1815	1202481	NA
+1816	977738	NA
+1817	1024761	NA
+1818	837572	NA
+1819	1199310	NA
+1820	1255598	NA
+1821	984281	NA
+1822	897529	NA
+1823	936076	NA
+1824	932996	NA
+1825	1083405	NA
+1826	1097658	NA
+1827	1261519	NA
+1828	1141168	NA
+1829	819966	NA
+1830	971765	NA
+1831	932749	NA
+1832	1067036	NA
+1833	926636	NA
+1834	1003699	NA
+1835	1039482	NA
+1836	1236828	NA
+1837	1210205	NA
+1838	1315219	NA
+1839	801376	NA
+1840	1196121	NA
+1841	879654	NA
+1842	1115263	NA
+1843	1094759	NA
+1844	908901	NA
+1845	1060912	NA
+1846	604899	NA
+1847	1037335	NA
+1848	950936	NA
+1849	1157991	NA
+1850	1059185	NA
+1851	884977	NA
+1852	1156181	NA
+1853	1378514	NA
+1854	1201560	NA
+1855	755687	NA
+1856	785373	NA
+1857	936784	NA
+1858	918755	NA
+1859	954842	NA
+1860	1062528	NA
+1861	1138516	NA
+1862	1106532	NA
+1863	695093	NA
+1864	892182	NA
+1865	1238077	NA
+1866	1329742	NA
+1867	1270367	NA
+1868	1158076	NA
+1869	1056457	NA
+1870	918871	NA
+1871	905603	NA
+1872	1129649	NA
+1873	1200267	NA
+1874	1178337	NA
+1875	1106314	NA
+1876	1065801	NA
+1877	889323	NA
+1878	849009	NA
+1879	819640	NA
+1880	1112296	NA
+1881	1040250	NA
+1882	1101344	NA
+1883	1118996	NA
+1884	1359766	NA
+1885	1099578	NA
+1886	962891	NA
+1887	1067795	NA
+1888	778507	NA
+1889	513237	NA
+1890	1335610	NA
+1891	967095	NA
+1892	903020	NA
+1893	971429	NA
+1894	1250014	NA
+1895	887768	NA
+1896	1058186	NA
+1897	1039981	NA
+1898	911275	NA
+1899	1077925	NA
+1900	668687	NA
+1901	854927	NA
+1902	836572	NA
+1903	1004940	NA
+1904	975384	NA
+1905	838672	NA
+1906	1136343	NA
+1907	1367895	NA
+1908	1158080	NA
+1909	1213807	NA
+1910	1134632	1236227.979
+1911	1204416	1349060.679
+1912	1079982	1213552.374
+1913	1364325	1435985.484
+1914	1213164	1152626.682
+1915	797707	779588.688
+1916	1294898	1224978.42
+1917	1273124	1237901.631
+1918	1241277	1265064.765
+1919	844153	700121.946
+1920	1004638	994803.678
+1921	1039293	1067783.095
+1922	1165814	1008235.945
+1923	1143913	944796.2254
+1924	776692	652710.6171
+1925	990100	1327424.523
+1926	947859	773605.283
+1927	1402097	1414942.047
+1928	1279898	1329988.086
+1929	1061494	864743.7052
+1930	929819	793193.3966
+1931	661085	574639.8675
+1932	968919	992741.7546
+1933	758926	874181.5954
+1934	694847	630603.5184
+1935	1126392	933931.3089
+1936	1054863	1072396.544
+1937	1056557	779279.9746
+1938	1190192	1155373.355
+1939	758263	893154.2651
+1940	874313	788406.8312
+1941	1002378	779958.7356
+1942	1200134	886924.6508
+1943	1053372	1431726.833
+1944	944149	809264.8779
+1945	954137	899843.7768
+1946	1106534	1067383.263
+1947	966905	1129351.537
+1948	985223	1034505.48
+1949	966903	1107322.152
+1950	1292539	1171610.417
+1951	1018278	1217708.524
+1952	1148958	1232742.381
+1953	1008377	970655.7947
+1954	872935	1181792.468
+1955	716276	897895.5785
+1956	1216753	1483493.325
+1957	953134	1174607.959
+1958	1005179	786524.1314
+1959	935746	906407.1499
+1960	868877	769464.9772
+1961	874241	825621.4749
+1962	1146784	1158241.705
+1963	1130190	925150.1684
+1964	1177988	1016854.202
+1965	1210054	1327237.843
+1966	1083592	870278.3573
+1967	1199225	1110850.781
+1968	1139467	997703.1611
+1969	985315	1009621.209
+1970	966583	1064670.301
+1971	1301524	1501972.942
+1972	1187533	1377139.067
+1973	873509	875306.234
+1974	1296625	1472694.185
+1975	1215554	1129758.012
+1976	1005925	1253849.631
+1977	609877	474553.951
+1978	1547482	1124291.754
+1979	1007386	919810.4849
+1980	1203745	930447.4753
+1981	1013724	824375.4767
+1982	1313803	1375451.811
+1983	1110710	1183248.783
+1984	1056564	1296256.542
+1985	1005353	982629.3073
+1986	1441299	1500908.131
+1987	887756	698237.6003
+1988	711373	684963.6957
+1989	977048	1024713.921
+1990	807384	828453.7938
+1991	969926	968787.0948
+1992	740515	710230.9032
+1993	1123823	1038941.748
+1994	977376	681320.9247
+1995	1178164	1197343.471
+1996	1169696	1533216.376
+1997	1275286	1869440.709
+1998	1278378	1241803.263
+1999	1120357	1363709.635
+2000	875886	894886.5148
+2001	529034	629014.1637
+2002	774652	909995.3487
+2003	877759	905839.2187
+2004	986895	904269.119
+2005	927311	827791.7098
+2006	NA	1060650.284
+2007	NA	701640.6067
+2008	NA	1178435.863
