@@ -1,0 +1,205 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Six, Diana</origin>
+        <pubdate>20190801</pubdate>
+        <title>Tree growth data, ISSR tree genetics data, and monotorpene concentration data relating to mountain pine beetle attacks on whitebark pine at Vipond Park, Montana, 2017-2018</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.21429/wskx-4b92</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This record contains three zip files of data.  First, for the file treeGeneticISSRData, the data consists of genetic ISSR band scores. Two sets of trees were sampled for genetic analyses - large trees surviving mountain pine beetle and 'general population' trees that we just a little to small to be attacked that served as a proxy for the population without beetle selection. Second, for the file Treegrowthdata_, this dataset includes files that record tree ring widths of trees by year from two sites, Vipond Park and Lacey Creek, in Montana. Third, the file monoterpeneConcentrationsData contains spreadsheets of monoterpene concentrations from surviving and susceptible whitebark pine after a mountain pine beetle outbreak at Vipond Park, Montana.  All data takes the form of Excel spreadsheets.</abstract>
+      <purpose>Growth data was to compare growth rates of trees selected by mountain pine beetle with those that survived.  Monoterpene concentrations were collected to determine if pines that are not attacked by mountain pine beetle differ in defensive chemistry. For comparisons of pine defenses within and among populations.  Genetic data was collected to assess whether survivors are genetically different than those selected by mountain pine beetle indicating a capacity for adaptation over time to beetle presence and increasing drought.</purpose>
+      <supplinf>These are raw data reported in millimeters</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20170701</begdate>
+          <enddate>20180701</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Montana</descgeog>
+      <bounding>
+        <westbc>-113.1207</westbc>
+        <eastbc>-112.9285</eastbc>
+        <northbc>44.9181</northbc>
+        <southbc>44.7155</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Dendroctonus ponderosae</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Montana</placekey>
+        <placekey>Vipond Park</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>Integrated Taxonomic Information System</taxonkt>
+        <taxonkey>Pinus albicaulis</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <common>Pine</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>Whitebark Pine</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>Do not release before 06/01/2020by year</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+      </cntinfo>
+    </ptcontac>
+    <native>Excel, Windows 10</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>See data-specific metadata files for details.</attraccr>
+    </attracc>
+    <logic>See data-specific metadata files for details.</logic>
+    <complete>See data-specific metadata files for details.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>See data-specific metadata files for details.</procdesc>
+        <procdate>20200728</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <overview>
+      <eaover>Two data sets are not included in the details. VPD17_AVE_VAR is too large but it follows the same format as the others. First is a Year column which is the date for each tree ring. All other columns are for individual sample trees with units in mm. 
+The spread sheet titled Key to VIpond datasets provides other data for each tree that was sampled such as diameter at breast height. </eaover>
+      <eadetcit>Six, Diana. 2018. Tree growth data (ring widths) for trees surviving and killed by mountain pine beetle at Vipond Park, Montana.</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://doi.org/10.21429/wskx-4b92</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20190908</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

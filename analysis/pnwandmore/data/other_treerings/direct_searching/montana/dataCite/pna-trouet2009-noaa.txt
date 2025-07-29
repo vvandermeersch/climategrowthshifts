@@ -1,0 +1,378 @@
+# Trouet and Taylor 2009 Winter PNA Reconstruction
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/8697
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-8697.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+# 
+# Dataset_DOI: 10.25921/btbf-y606
+#
+# Science_Keywords: Atmospheric and Oceanic Circulation Patterns Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/pna-trouet2009-noaa.txt
+#   Data_Download_Description: NOAA Template File; Winter Pacific North American Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2009-07-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-16
+#-------------------
+# Title
+#   Study_Name: Trouet and Taylor 2009 Winter PNA Reconstruction
+#-------------------
+# Investigators
+#   Investigators: Trouet, V.; Taylor, A.H.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Winter Pacific North American (PNA) pattern reconstruction 1725-1999, based on three tree ring chronologies from the International Tree Ring Data Bank (ITRDB): North Fork Ridge (ITRDB MT111) 45N 111W, Mount Everts (ITRDB WY027) 44N 110W, Fish Trap (ITRDB AK086) 60N 154W
+#-------------------
+# Publication
+#   Authors: Trouet, V. and A.H. Taylor
+#   Journal_Name: Climate Dynamics
+#   Published_Title: Multi-century variability in the Pacific North American circulation pattern reconstructed from tree rings.
+#   Published_Date_or_Year: 2009-06-16
+#   Volume: 35
+#   Issue: 
+#   Pages: 953-963
+#   Report_Number: 
+#   DOI: 10.1007/s00382-009-0605-9
+#   Full_Citation: 
+#   Abstract: We here present a reconstruction (1725–1999) of the winter Pacific North American (PNA) pattern based on three winter climate sensitive tree ring records from the western USA. Positive PNA phases in our record are associated with warm phases of ENSO and PDO and the reorganization of the PNA pattern towards a positive mode is strongest when ENSO and PDO are in phase. Regime shifts in our PNA record correspond to climatic shifts in other proxies of Pacific climate variability, including two well-documented shifts in the instrumental period (1976 and 1923). The correspondence breaks down in the early 19th century, when our record shows a prolonged period of positive PNA, with a peak in 1800–1820. This period corresponds to a period of low solar activity (Dalton Minimum), suggesting a ‘positive PNA like’ response to decreased solar irradiance. The distinct 30-year periodicity that dominates the PNA reconstruction in the 18th century and again from 1875 onwards is disrupted during this period.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US Forest Service
+#   Grant_Number: Pacific Southwest Research Station, 04-JV-11272162-407
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: USA Joint Fire Science Program
+#   Grant_Number: 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: The Pennsylvania State University
+#   Grant_Number: George S. Deike Research Grant (College of Earth and Mineral Sciences)
+#-------------------
+# Site_Information
+#   Site_Name: Mount Everts, Fish Trap, North Fork Ridge
+#   Location: Alaska
+#   Northernmost_Latitude: 60.48
+#   Southernmost_Latitude: 44.98
+#   Easternmost_Longitude: -110.67
+#   Westernmost_Longitude: -154.33
+#   Elevation_m:
+#-------------------
+# Data_Collection
+#   Collection_Name: PNA_trouet2009
+#   First_Year: 1725
+#   Last_Year: 1999
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: reconstructions
+#   Notes: 
+#-------------------
+# Chronology_Information
+#    Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## pna	Pacific-North American Pattern,,,dimensionless,winter,climate reconstructions;tree ring,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	pna
+1725	-1.5730
+1726	-1.6160
+1727	-0.4069
+1728	-0.8515
+1729	-0.1654
+1730	0.3466
+1731	-1.7634
+1732	-2.4174
+1733	-3.0226
+1734	-1.3324
+1735	-2.0147
+1736	-0.4174
+1737	-1.9181
+1738	-0.4809
+1739	-1.6715
+1740	-0.5079
+1741	-0.7659
+1742	-0.4452
+1743	-0.0125
+1744	0.2120
+1745	-0.7155
+1746	-1.8320
+1747	0.1206
+1748	0.5368
+1749	-2.9154
+1750	-0.3837
+1751	1.1198
+1752	-0.0487
+1753	-0.6286
+1754	1.0091
+1755	1.6063
+1756	1.1597
+1757	2.0138
+1758	0.1625
+1759	1.0755
+1760	0.0334
+1761	-1.1503
+1762	0.2871
+1763	0.8749
+1764	-0.5368
+1765	-0.7544
+1766	-1.5594
+1767	-1.2526
+1768	-1.4446
+1769	-0.9778
+1770	-0.6508
+1771	0.2912
+1772	-0.3694
+1773	-0.5975
+1774	0.5722
+1775	-1.6186
+1776	-0.0595
+1777	0.8524
+1778	-0.3761
+1779	-1.0622
+1780	0.8356
+1781	1.0966
+1782	1.6194
+1783	0.2058
+1784	0.5090
+1785	1.3165
+1786	1.2060
+1787	-0.8185
+1788	0.5643
+1789	0.9653
+1790	-0.1456
+1791	0.0370
+1792	0.5293
+1793	0.6770
+1794	0.3643
+1795	0.4894
+1796	0.6243
+1797	-0.2354
+1798	3.2095
+1799	1.1285
+1800	3.0812
+1801	1.5060
+1802	1.6106
+1803	0.7117
+1804	2.3944
+1805	2.3581
+1806	1.1654
+1807	1.6920
+1808	2.2234
+1809	1.4701
+1810	1.7565
+1811	2.4224
+1812	1.0566
+1813	2.1658
+1814	1.9544
+1815	2.4838
+1816	3.1314
+1817	2.6140
+1818	1.5262
+1819	0.1958
+1820	0.8550
+1821	-1.2022
+1822	0.7722
+1823	1.6126
+1824	0.1636
+1825	0.1311
+1826	0.4833
+1827	1.0641
+1828	0.1396
+1829	1.5421
+1830	0.0476
+1831	0.5886
+1832	-3.2406
+1833	-0.1490
+1834	0.1355
+1835	2.2013
+1836	-1.1644
+1837	-0.4225
+1838	-2.9178
+1839	0.0025
+1840	1.0945
+1841	1.6940
+1842	1.5095
+1843	0.7013
+1844	-1.8710
+1845	1.2295
+1846	1.4293
+1847	-0.0270
+1848	-0.2546
+1849	-0.2905
+1850	0.3512
+1851	0.0415
+1852	-0.4881
+1853	-1.3714
+1854	-0.5175
+1855	0.4685
+1856	0.3174
+1857	-0.2047
+1858	-1.4017
+1859	-0.9575
+1860	-0.6274
+1861	-1.0332
+1862	-0.3433
+1863	-0.2414
+1864	-2.8757
+1865	0.3113
+1866	0.0701
+1867	-0.4453
+1868	-0.0914
+1869	1.0377
+1870	-0.3126
+1871	1.4314
+1872	-1.6353
+1873	-1.5919
+1874	0.5008
+1875	0.0150
+1876	0.0369
+1877	-1.1690
+1878	-0.9419
+1879	-1.1360
+1880	0.3719
+1881	-1.9562
+1882	-0.6251
+1883	-2.0805
+1884	-1.5604
+1885	-2.6040
+1886	-0.2809
+1887	-2.3328
+1888	-2.1722
+1889	-1.4104
+1890	-1.6277
+1891	-1.1870
+1892	-0.3444
+1893	1.6540
+1894	-0.2220
+1895	0.7053
+1896	0.8420
+1897	-0.1288
+1898	0.2568
+1899	-0.9255
+1900	0.3335
+1901	1.7741
+1902	0.0836
+1903	0.9520
+1904	0.1274
+1905	0.0065
+1906	-0.4758
+1907	-0.6196
+1908	-0.1321
+1909	0.1813
+1910	0.3929
+1911	-0.6735
+1912	-0.0220
+1913	-1.5606
+1914	-0.1286
+1915	-1.6070
+1916	-3.1078
+1917	-2.9382
+1918	-2.5898
+1919	-0.9112
+1920	-2.7236
+1921	-2.1338
+1922	1.0525
+1923	1.3048
+1924	0.4455
+1925	-1.7492
+1926	-0.5167
+1927	-0.8678
+1928	-2.9268
+1929	0.6081
+1930	0.6695
+1931	0.1117
+1932	0.4041
+1933	0.4971
+1934	-0.8192
+1935	-0.9844
+1936	0.0458
+1937	0.7777
+1938	-0.0760
+1939	-0.9432
+1940	0.5424
+1941	-0.1660
+1942	-1.1474
+1943	-2.5217
+1944	-1.6343
+1945	-1.6280
+1946	-2.5364
+1947	-2.0033
+1948	-1.5860
+1949	-1.4129
+1950	-0.9482
+1951	-1.7646
+1952	-1.9548
+1953	-0.3041
+1954	0.5473
+1955	1.3856
+1956	-1.8636
+1957	-0.4976
+1958	-0.8211
+1959	1.3683
+1960	0.9332
+1961	2.0259
+1962	-0.6967
+1963	0.0630
+1964	0.0918
+1965	0.2094
+1966	1.0194
+1967	-0.5003
+1968	-1.5608
+1969	-3.1739
+1970	1.1022
+1971	-1.9709
+1972	-1.6353
+1973	0.5672
+1974	-0.7179
+1975	-0.2732
+1976	-0.7455
+1977	1.2868
+1978	-0.5851
+1979	0.7615
+1980	-0.3097
+1981	0.4824
+1982	-0.0450
+1983	0.6913
+1984	1.8484
+1985	0.6289
+1986	1.5102
+1987	1.7700
+1988	1.0523
+1989	0.8249
+1990	0.2242
+1991	0.2190
+1992	-0.3784
+1993	-2.3454
+1994	0.9057
+1995	0.7933
+1996	-0.3155
+1997	-0.2859
+1998	0.9402
+1999	-0.1747

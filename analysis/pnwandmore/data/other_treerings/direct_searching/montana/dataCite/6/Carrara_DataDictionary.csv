@@ -1,0 +1,16 @@
+Carrara_DataDictionary,,,,
+"Data dictionary for Brice and others (2024), Preserving Tree-Ring Datasets for Climate and Hazard Research and Understanding Societal Impacts: Carrara career samples, U.S. Geological Survey Data Release, https://doi.org/10.5066/PIV9CNVA",,,,
+,,,,
+"Note: Not all samples have complete data. The abbreviation ""NA"" (not available) was used when it was not applicable to record data in a cell.",,,,
+,,,,
+File Name,Field Name,Description,Units,Valid values or range of valid values
+Carrara_Spreadsheet Template for Item Level Metadata.csv,localID,Unique identifier assigned in the field to sampled tree,NA,NA
+,title,Unique identifier assigned to the sample collection,NA,NA
+,alternateTitle,Unique identifier assigned to the archiving Science Center,NA,NA
+,abstract,Brief description of what the data are and their collection location,NA,NA
+,dataType,The form of the data,NA,NA
+,coordinateLon_WGS84,Geographic coordinates of the sample: longitude,Decimal degrees,-105.96 to -144.94
+,coordinateLat_WGS84,Geographic coordinates of the sample: latitude,Decimal degrees,39.42 to 63.82
+,publicationDate,The date of the NGGDPP archive publication,Calendar year,2024
+,largerWorkCitation,"If applicable, the publication citation for published work using the data.",NA,NA
+,attachmentFileName,"Name of the compressed folder containing raw (ARW) and composited (JPG, TIF) image files.","RAW, ARW, JPG, TIF, RWL",NA

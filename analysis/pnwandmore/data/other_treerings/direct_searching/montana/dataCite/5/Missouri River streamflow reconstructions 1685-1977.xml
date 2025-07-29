@@ -1,0 +1,3521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Justin T. Martin</origin>
+        <origin>Gregory T. Pederson</origin>
+        <pubdate>2019</pubdate>
+        <title>Paleohydrologic reconstructions of water-year streamflow for 31 stream gaging sites in the Missouri River Basin with complete data for 1685 through 1977</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Reston, VA</pubplace>
+          <publish>U.S. Geological Survey</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.5066/P9OYY6DN</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Tree-ring reconstructions of water-year (Oct 1 through Sep 30th) flow for 31 gaging sites in Missouri River basin, with complete data for 1685 through 1977 (n = 293 water years). The complete 105 tree-ring reconstructions of streamflow used in the Nature Scientific Reports paper were obtained from various sources; 74 flow reconstructions were obtained from the web resource, TreeFlow (http://www.treeflow.info/), and an additional 31 flow reconstructions (provided here) for the Missouri River basin were obtained from the U.S. Geological Survey in Bozeman, Montana.</abstract>
+      <purpose>The tree-ring based reconstructions of streamflow represent plausible water-year flow estimates, and no one reconstruction is considered absolutely correct due to a variety of statistical procedures required to convert stand-level, climate sensitive tree-growth variability into estimates of streamflow. Thus, we consider the reconstructions included in this study as reasonable estimates and as representative of the variability in streamflow at each site. However, it should be noted that, streamflow reconstructions can be developed using several different methods and techniques (e.g., biological growth curve detrending choices, pre-whitening chronologies before integration into multivariate regression, and variance rescaling of nested reconstructions) that carry potential implications relative to the preservation of inter-annual to decada to multidecadal modes of variability. Though within the dendrochronology discipline it is well understood, tree-ring records can capture these modes of variability and individual investigators often seek to utilize methods that reliably preserve these frequencies in the streamflow reconstructions. Thus, it is important to verify that the reconstructions are consistent in preserving the temporal modes of variability spatially. This assumption was verified in the Nature Scientific data paper by comparing the power spectra of the reconstructed streamflows for the 31 sites provided here.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>16851001</begdate>
+          <enddate>19770930</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>observed</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-114.521484375</westbc>
+        <eastbc>-102.216796875</eastbc>
+        <northbc>49.38237278700955</northbc>
+        <southbc>36.94989178681327</southbc>
+      </bounding>
+      <descgeog>Missouri River Headwaters</descgeog>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>inlandWaters</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>streamflow</themekey>
+        <themekey>datasets</themekey>
+        <themekey>water resources</themekey>
+        <themekey>hydrology</themekey>
+      </theme>
+      <theme>
+        <themekt>Marine Realms Information Bank (MRIB) keywords</themekt>
+        <themekey>dendrochronology</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:5c994278e4b0b8a7f628903e</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Missouri River Basin</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Gregory T. Pederson</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Research Ecologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2327 University Way</address>
+          <city>Bozeman</city>
+          <state>MT</state>
+          <postal>59715</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-994-7390</cntvoice>
+        <cntfax>406-994-6556</cntfax>
+        <cntemail>gpederson@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <native>This dataset was produced on a Mac running the High Sierra Operating System version 10.13.6</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Data accuracy varies for each reconstruction.  Accuracies can vary through time.  See published uncertainties associated with the individual reconstructions.</attraccr>
+    </attracc>
+    <logic>Yes the dataset is logically consistent and has been quality checked for the accuracy of reported values.</logic>
+    <complete>This dataset includes 31 annual water-year reconstructions of streamflow for specific stream gage locations in the Missouri River Basin.  The reconstructions are annually complete from 1685 to 1997 and are provided in volumetric units of million cubic meters (MCM).</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>NA</horizpar>
+      </horizpa>
+      <vertacc>
+        <vertaccr>NA</vertaccr>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <procstep>
+        <procdesc>Obtain Naturalized streamflow data 
+
+For the purpose of this study, the Upper Missouri River Basin (UMRB) is defined as the region ranging east to west from roughly 105° W longitude to the continental divide, and from north to south from the Milk River in Canada to the South Platte River in Colorado.  
+
+An initial collection of 374 raw, estimated unregulated, and naturalized streamflow records were compiled from 252 gaging locations within Missouri River Hydrologic Region 10 and were subsequently screened to produce a set including only the naturalized flow records, or records deemed to reasonably represent natural flow with limited impacts from human activity. The final network of streamflow records used in generating the paleohydrologic reconstructions contains a total of 31 streamflow records.</procdesc>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Process Raw Tree-ring data 
+
+A network of hydroclimatically sensitive tree-ring data exists for the Missouri River basin and surrounding regions that has previously been used to reconstruct snowpack, the summer Palmer Drought Severity Index, and streamflow in other basins.  The network contains trees with a diversity of seasonal hydroclimatic sensitivities that are typically related to tree species, elevation, and topographic setting.  The diversity of climate-growth responses makes this network of tree-ring chronologies suitable for reconstructing streamflow for a network of gages located in a basin that exhibits complex climate and streamflow responses due to a range of factors related to geography, soils, and climate dynamics.
+For inclusion in further analyses, all tree-ring records were required to extend prior to the year 1800 Common Era (CE), which resulted in a final dataset of 374 chronologies, 116 of which are new, updated, or were not previously publicly available. Chronologies were constructed by first removing the non-climatic biological growth curve from the individual ring-width records (i.e. a process known as “detrending”). Detrending and production of the standardized ring-width indices was performed in program “RCSsigFree47b_batch.app” using an age-dependent spline of unconstrained slope with initial spine stiffness set to 20-years.  This individual-series detrending method should preserve low-frequency climate signals in a similar fashion to detrending with a negative exponential curve, but with some advantages over the juvenile growth years.  However, the unconstrained slope of the detrending spline will remove positive monotonic growth trends if present.  The iterative “signal-free” method of reprocessing the chronology would, in theory, add a positive growth trend back into a chronology if it’s a common feature in the majority of ring-width records.  The final ring-width index (RWI) chronologies were constructed by calculating a bi-weight robust mean from the power-transformed residuals of the individually detrended ring-width series, reducing the potential for trend distortion from end effects that can result from the ratio method of chronology calculation.  Variance stabilization was performed using the Rbar method with correction of trend in variance provided by an age-dependent spline.  All chronologies were truncated when sample size fell below five series.</procdesc>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Development of modeled water balance dataset for screening growth-climate relationships 
+
+The climate data used were the 4-kilometer (km) by 4-km gridded monthly temperature and precipitation data from the Precipitation-elevation Regression on Independent Slopes Model (PRISM) dataset for water years (October-September) 1900 through 2014.   The gridded monthly temperature and precipitation data were used as inputs to a monthly time-step water balance model (MWBM) to generate additional hydrologic variables related to streamflow.  All hydroclimatic variables were then aggregated to the HUC 8 basin scale based on U.S. Geological Survey Hydrologic Units (HU).  Water balance model parameters used for this study were taken from parameter sets developed in previous studies, and soil-moisture-storage capacity for each HU was computed using the available water-capacity values from the State Soil Geographic Data Base (STATSGO) dataset by assuming a one-meter rooting depth.</procdesc>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Climate screening of tree-ring chronologies
+
+Streamflow is controlled by a diversity of season-specific climate factors. Thus, a network of tree-ring records that each contain some portion of the hydroclimatic information required to estimate water year average flows is ideal in a regression modeling framework if the records are integrated optimally into the reconstruction framework.  In this “climate-informed” modeling approach, we first screened all tree-ring chronologies for their sensitivity to any of nine climate variables known to influence seasonal streamflow including precipitation, temperature, actual evapotranspiration, potential evapotranspiration, soil moisture, precipitation minus potential evapotranspiration, and potential evapotranspiration minus actual evapotranspiration, observed April 1 snow water equivalent (SWE), and modeled April 1 SWE.  This procedure allowed us to create subsets of chronologies particularly sensitive to each climate variable on an annual basis.
+
+To determine the three-month period of each water-year over which each climate variable was most closely correlated with mean annual streamflow at each gage, we used the “seascorr” function in R package “treeclim”.  This provided an evaluation of the correlation between streamflow and climate for a range of seasonal windows all within the HU 8 and upstream watershed regions containing the target gage.  The three-month climatic period that best correlated with annual streamflow over the length of the streamflow record was extracted for each of the nine climate variables over the period of 1900-2014.  A ‘seasonal’ average, or total in the case of precipitation, was then calculated for this three-month period known to most strongly influence streamflow from each year of data comprising the full length (115 years) of each climate record.  April 1 SWE was used as the annual value for both modeled and observed SWE.  
+
+For each tree ring chronology included in the potential predictor database, the ring width index for 1900-2014 (or whatever portion of that period was available) was regressed against these 115 years of ‘seasonal’ climate records for each climate variable.  Any chronology that was not significantly correlated (p ≤ 0.05) to a particular climate variable was removed from the potential predictor pool associated with that specific climate variable.  The chronologies that passed this initial climate screening were then ordered in a descending fashion by their correlation with each climate variable and the climate screened chronology lists were saved for use in the model building process.  The result was nine lists (one for each climate variable) of chronologies significantly correlated to the three-month season that most influenced streamflow at each target gage for each climate variable over the length of the gage record, and ordered by absolute correlation strength.</procdesc>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Streamflow reconstruction model development
+
+In developing regression models for reconstructing streamflow, we first transformed all streamflow records to be approximately normal using a Box-Cox transformation and then used a best-subsets approach to model selection made possible by the “regsubsets” function in R package “leaps”.  The function performed an exhaustive search of a pool of potential predictor chronologies, and aided in selection of the best model of each possible number of predictors up to a specified maximum number (n = 12).  The nine lists of climate-screened chronologies served as the regression predictor pool for the best-subsets algorithm for each of the 31 target streamflow records. To guide in the selection of a skillful and parsimonious model, the Mallows’s Cp statistic was used to identify the model with the lowest difference between the statistic and parameter number.  Then, selection between models with similar number of predictors was informed by identifying the model with the highest adjusted R2 statistic.  In selecting the final model, both metrics were weighed evenly, which balanced the potential for over fitting the model with the increased predictive power of multiple predictors.  
+
+Once the model was selected, we fit the generic model: μ{streamflow | RWI}=β0 + β1 chronology1 + β2 chronology2 + ......+ βn chronologyn + ε, to the transformed streamflow data, and back-transformed the predicted values.  Ninety percent confidence bounds were estimated using the delta method and back transformed in the same way.  To extend the length of the streamflow reconstructions we then nested successive “best” fit models forward and backward in time.  This was done by successively dropping any chronologies from the predictor pool that did not extend as far back in time as the predicted values of the previous fitted model.  These chronologies were then replaced by the next best-correlated chronology in each of the climate screened chronology lists that had sufficient length to extend the next model either forward or backward in time.  This procedure of nesting successively longer reconstructions by fitting the best model and then removing any reconstruction length-limiting chronologies was repeated until no chronologies remained in the potential predictor pool.  All model nests were then statistically cross-validated using standard dendroclimate methods.</procdesc>
+        <procdate>20190101</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Point</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>Point</sdtstype>
+        <ptvctcnt>31</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>0.0197118958</latres>
+        <longres>0.0293615662</longres>
+        <geogunit>Decimal seconds</geogunit>
+      </geograph>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS_84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Missouri River streamflow reconstructions 1685-1977.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Latitude</attrlabl>
+        <attrdef>Gage location Latitude</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>40.936638</rdommin>
+            <rdommax>48.305962</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Longitude</attrlabl>
+        <attrdef>Gage Location Longitude</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-112.76171000000001</rdommin>
+            <rdommax>-104.15541</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Gage or Reconstruction Name</attrlabl>
+        <attrdef>The name of the USGS stremgage that was reconstructed</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Name incorporating local drainage and location information</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>USGS Gage ID</attrlabl>
+        <attrdef>USGS Gage ID number</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>6016000</rdommin>
+            <rdommax>6707500</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Year(row) /Id(col)</attrlabl>
+        <attrdef>Water Year of reconstruction in the columns that follow and numeric ID below.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Alphanumeric comprised of the letter R and a 1 or 2 digit number</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1685</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>16.865316</rdommin>
+            <rdommax>9944.993</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1686</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>39.795334000000004</rdommin>
+            <rdommax>11576.623</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1687</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>86.81111</rdommin>
+            <rdommax>16314.492</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1688</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>112.52711000000001</rdommin>
+            <rdommax>14815.785</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1689</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>100.0611</rdommin>
+            <rdommax>14040.406</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1690</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>66.9479</rdommin>
+            <rdommax>11789.023000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1691</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>218.71542000000002</rdommin>
+            <rdommax>16567.693</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1692</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>165.62628</rdommin>
+            <rdommax>14092.606000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1693</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>217.29733</rdommin>
+            <rdommax>16057.638</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1694</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>115.09987</rdommin>
+            <rdommax>13513.892</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1695</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>99.88221</rdommin>
+            <rdommax>10756.62</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1696</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>38.5603</rdommin>
+            <rdommax>7731.491999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1697</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>82.55195</rdommin>
+            <rdommax>11158.401000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1698</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>166.46548</rdommin>
+            <rdommax>15316.048999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1699</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>130.56367</rdommin>
+            <rdommax>17467.75</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1700</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>117.34351000000001</rdommin>
+            <rdommax>14971.938</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1701</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>95.50081</rdommin>
+            <rdommax>13627.776000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1702</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>138.53616</rdommin>
+            <rdommax>20115.69</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1703</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.858727</rdommin>
+            <rdommax>13149.66</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1704</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>44.164913</rdommin>
+            <rdommax>10851.81</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1705</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>51.18963</rdommin>
+            <rdommax>12011.513</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1706</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>19.329773</rdommin>
+            <rdommax>6708.3369999999995</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1707</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>71.54782</rdommin>
+            <rdommax>10777.483999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1708</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>69.41128</rdommin>
+            <rdommax>11084.968</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1709</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.033264</rdommin>
+            <rdommax>13178.323999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1710</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>144.36356</rdommin>
+            <rdommax>17672.385</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1711</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>143.57553000000001</rdommin>
+            <rdommax>9671.134</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1712</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>59.508423</rdommin>
+            <rdommax>10507.918</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1713</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>116.35111</rdommin>
+            <rdommax>16144.542</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1714</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>53.650875</rdommin>
+            <rdommax>21330.912</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1715</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>162.91765</rdommin>
+            <rdommax>17846.43</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1716</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>218.91269</rdommin>
+            <rdommax>16796.258</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1717</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>26.664907</rdommin>
+            <rdommax>10914.906</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1718</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>33.648563</rdommin>
+            <rdommax>10255.049</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1719</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>72.47683</rdommin>
+            <rdommax>11554.776000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1720</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>26.9862</rdommin>
+            <rdommax>14035.78</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1721</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>9769.984</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1722</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>64.51219</rdommin>
+            <rdommax>14860.508999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1723</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>61.91398</rdommin>
+            <rdommax>15913.377</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1724</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>81.18665</rdommin>
+            <rdommax>14055.708</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1725</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>84.31488</rdommin>
+            <rdommax>15054.623</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1726</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>223.46577000000002</rdommin>
+            <rdommax>16142.534</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1727</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>141.62726999999998</rdommin>
+            <rdommax>18794.217</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1728</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>113.92071000000001</rdommin>
+            <rdommax>17566.018</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1729</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>73.8614</rdommin>
+            <rdommax>17668.705</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1730</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>75.176346</rdommin>
+            <rdommax>13040.528</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1731</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>118.3652</rdommin>
+            <rdommax>18591.723</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1732</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>130.17853</rdommin>
+            <rdommax>17322.365</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1733</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>194.30875</rdommin>
+            <rdommax>17909.808999999997</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1734</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>144.82103999999998</rdommin>
+            <rdommax>17338.256</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1735</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>56.377334999999995</rdommin>
+            <rdommax>12462.146</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1736</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>66.5108</rdommin>
+            <rdommax>10237.305</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1737</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>110.10585</rdommin>
+            <rdommax>14141.021</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1738</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>84.13542</rdommin>
+            <rdommax>13997.059</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1739</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>121.65395</rdommin>
+            <rdommax>16704.395</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1740</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>101.92866</rdommin>
+            <rdommax>15007.072</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1741</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>101.83322</rdommin>
+            <rdommax>15890.73</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1742</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>83.75365</rdommin>
+            <rdommax>13831.232</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1743</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>155.97679</rdommin>
+            <rdommax>14608.898000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1744</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>42.004954999999995</rdommin>
+            <rdommax>13141.095</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1745</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>57.943027</rdommin>
+            <rdommax>15265.678999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1746</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>79.48671999999999</rdommin>
+            <rdommax>18497.996</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1747</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>17050.523</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1748</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>42.643032</rdommin>
+            <rdommax>11880.396</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1749</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>79.60585</rdommin>
+            <rdommax>11239.781</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1750</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>46.67657</rdommin>
+            <rdommax>19376.355</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1751</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.169968</rdommin>
+            <rdommax>13612.188999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1752</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>107.81302</rdommin>
+            <rdommax>14179.447</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1753</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>157.9452</rdommin>
+            <rdommax>17874.256</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1754</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>201.80504</rdommin>
+            <rdommax>14684.952</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1755</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>26.439709000000004</rdommin>
+            <rdommax>13938.889</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1756</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.55954</rdommin>
+            <rdommax>8928.461</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1757</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>134.68507</rdommin>
+            <rdommax>10786.437</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1758</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>13659.48</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1759</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>49.42569</rdommin>
+            <rdommax>11757.492</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1760</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>73.54264</rdommin>
+            <rdommax>14888.27</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1761</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>168.0165</rdommin>
+            <rdommax>14562.913999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1762</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>7.652402400000001</rdommin>
+            <rdommax>13043.793</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1763</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>45.744896000000004</rdommin>
+            <rdommax>12522.163</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1764</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>57.318592</rdommin>
+            <rdommax>16297.943000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1765</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>39.774822</rdommin>
+            <rdommax>13523.889</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1766</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>108.8428</rdommin>
+            <rdommax>13952.062</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1767</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>188.51628</rdommin>
+            <rdommax>13737.271</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1768</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>230.17189</rdommin>
+            <rdommax>21429.082000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1769</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>52.1017</rdommin>
+            <rdommax>13859.438</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1770</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>96.10387</rdommin>
+            <rdommax>10024.445</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1771</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>184.85225</rdommin>
+            <rdommax>15057.193000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1772</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>89.92978000000001</rdommin>
+            <rdommax>16394.37</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1773</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>43.58999</rdommin>
+            <rdommax>14940.72</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1774</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>124.73618</rdommin>
+            <rdommax>13430.624</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1775</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>139.43294</rdommin>
+            <rdommax>15788.188</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1776</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>150.71296999999998</rdommin>
+            <rdommax>11791.68</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1777</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>66.46741999999999</rdommin>
+            <rdommax>12738.241000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1778</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>63.029680000000006</rdommin>
+            <rdommax>14812.201000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1779</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>200.19888</rdommin>
+            <rdommax>15137.722</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1780</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.432903</rdommin>
+            <rdommax>14126.675</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1781</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>88.85336</rdommin>
+            <rdommax>16997.951</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1782</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>130.6852</rdommin>
+            <rdommax>16709.086</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1783</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>24.582527</rdommin>
+            <rdommax>12625.536</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1784</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>61.165684</rdommin>
+            <rdommax>14562.864</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1785</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.4775</rdommin>
+            <rdommax>14882.662</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1786</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>103.63235999999999</rdommin>
+            <rdommax>12748.417</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1787</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>156.36815</rdommin>
+            <rdommax>16444.346</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1788</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>120.66941000000001</rdommin>
+            <rdommax>15723.636999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1789</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>76.90045</rdommin>
+            <rdommax>13743.585</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1790</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>156.89879</rdommin>
+            <rdommax>20604.451</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1791</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>144.56375</rdommin>
+            <rdommax>17718.117</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1792</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>207.04395</rdommin>
+            <rdommax>17408.875</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1793</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>55.33133</rdommin>
+            <rdommax>15767.7</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1794</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>10697.235</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1795</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.432903</rdommin>
+            <rdommax>14938.546</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1796</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>64.62411999999999</rdommin>
+            <rdommax>15951.755</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1797</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>94.42229</rdommin>
+            <rdommax>19037.56</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1798</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>37.234466999999995</rdommin>
+            <rdommax>10387.325</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1799</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>149.90044</rdommin>
+            <rdommax>17438.041</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1800</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>9714.514000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1801</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>181.48723999999999</rdommin>
+            <rdommax>16078.588</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1802</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>91.12015</rdommin>
+            <rdommax>12403.44</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1803</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>131.15456</rdommin>
+            <rdommax>13814.246000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1804</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>76.91441</rdommin>
+            <rdommax>12775.907</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1805</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>120.10546000000001</rdommin>
+            <rdommax>11499.695</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1806</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>126.64153999999999</rdommin>
+            <rdommax>10311.382</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1807</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>96.98447</rdommin>
+            <rdommax>13040.972</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1808</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>49.01998</rdommin>
+            <rdommax>12016.094</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1809</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>102.9608</rdommin>
+            <rdommax>13194.294</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1810</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>256.3259</rdommin>
+            <rdommax>16731.084</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1811</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>232.57752999999997</rdommin>
+            <rdommax>16988.058999999997</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1812</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>157.5674</rdommin>
+            <rdommax>13988.646</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1813</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>181.60933</rdommin>
+            <rdommax>17309.436</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1814</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>94.7314</rdommin>
+            <rdommax>10902.646</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1815</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>120.50105</rdommin>
+            <rdommax>11496.702</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1816</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>141.93974</rdommin>
+            <rdommax>10253.177</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1817</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>82.66669</rdommin>
+            <rdommax>8943.275</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1818</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.14293</rdommin>
+            <rdommax>7797.9365</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1819</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>145.37993</rdommin>
+            <rdommax>14984.851</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1820</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>190.45051999999998</rdommin>
+            <rdommax>13066.548999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1821</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>126.94926000000001</rdommin>
+            <rdommax>15575.208999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1822</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>46.927498</rdommin>
+            <rdommax>11353.46</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1823</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>42.938763</rdommin>
+            <rdommax>11000.857</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1824</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.004670000000004</rdommin>
+            <rdommax>12598.288999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1825</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>45.40712</rdommin>
+            <rdommax>14091.77</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1826</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>159.94107</rdommin>
+            <rdommax>18823.299</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1827</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>173.24272</rdommin>
+            <rdommax>13371.898000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1828</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>172.51091</rdommin>
+            <rdommax>22647.19</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1829</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>134.1475</rdommin>
+            <rdommax>17454.18</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1830</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>180.07312</rdommin>
+            <rdommax>17790.979</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1831</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>80.38087</rdommin>
+            <rdommax>14522.741000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1832</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>84.94449</rdommin>
+            <rdommax>19348.418</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1833</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>62.362933999999996</rdommin>
+            <rdommax>14299.313</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1834</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.138577000000005</rdommin>
+            <rdommax>12875.981000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1835</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>185.56513999999999</rdommin>
+            <rdommax>20856.816000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1836</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>104.51156999999999</rdommin>
+            <rdommax>14779.056</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1837</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>19.214392</rdommin>
+            <rdommax>14947.239</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1838</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>63.322193000000006</rdommin>
+            <rdommax>14802.788</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1839</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>197.08098</rdommin>
+            <rdommax>17103.14</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1840</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>108.42837</rdommin>
+            <rdommax>14449.399</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1841</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>120.08742</rdommin>
+            <rdommax>15263.7</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1842</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>22.53738</rdommin>
+            <rdommax>10042.002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1843</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>31.770931</rdommin>
+            <rdommax>19266.084</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1844</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>33.090652</rdommin>
+            <rdommax>15904.011999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1845</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>43.840435</rdommin>
+            <rdommax>14283.666000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1846</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>33.448883</rdommin>
+            <rdommax>10849.538999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1847</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>43.618652000000004</rdommin>
+            <rdommax>13296.496000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1848</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.432903</rdommin>
+            <rdommax>11331.558</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1849</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>52.701668000000005</rdommin>
+            <rdommax>17892.338</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1850</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>41.540157</rdommin>
+            <rdommax>14372.867</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1851</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>37.513126</rdommin>
+            <rdommax>12153.008999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1852</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>34.196796</rdommin>
+            <rdommax>11668.095</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1853</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.41369</rdommin>
+            <rdommax>19940.555</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1854</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>90.320984</rdommin>
+            <rdommax>18153.244</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1855</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>71.652084</rdommin>
+            <rdommax>11558.806999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1856</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>62.893257</rdommin>
+            <rdommax>12060.069</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1857</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>104.21777</rdommin>
+            <rdommax>13553.46</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1858</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>102.23044</rdommin>
+            <rdommax>13456.758999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1859</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>12732.413999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1860</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>221.16374</rdommin>
+            <rdommax>16156.242</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1861</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>71.1223</rdommin>
+            <rdommax>12702.415</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1862</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>87.56416</rdommin>
+            <rdommax>14037.86</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1863</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.278717</rdommin>
+            <rdommax>7419.299</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1864</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>111.04836</rdommin>
+            <rdommax>12119.206</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1865</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>114.87567</rdommin>
+            <rdommax>9297.81</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1866</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>250.67825</rdommin>
+            <rdommax>16314.638</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1867</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>167.31319</rdommin>
+            <rdommax>18306.613</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1868</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>47.124184</rdommin>
+            <rdommax>12073.877</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1869</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>96.791565</rdommin>
+            <rdommax>13410.481000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1870</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>33.723927</rdommin>
+            <rdommax>12946.569</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1871</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>74.89875</rdommin>
+            <rdommax>10981.517</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1872</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>131.60928</rdommin>
+            <rdommax>14155.591999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1873</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>95.38823000000001</rdommin>
+            <rdommax>14585.586000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1874</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>107.60229</rdommin>
+            <rdommax>10996.096000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1875</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>65.08292</rdommin>
+            <rdommax>16196.718</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1876</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>195.29338</rdommin>
+            <rdommax>14347.768999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1877</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>84.350075</rdommin>
+            <rdommax>15416.633999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1878</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>39.31265</rdommin>
+            <rdommax>14508.938999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1879</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>47.054604</rdommin>
+            <rdommax>16795.393</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1880</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>31.224163</rdommin>
+            <rdommax>15467.288999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1881</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>73.712906</rdommin>
+            <rdommax>14194.413</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1882</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>50.380783</rdommin>
+            <rdommax>13793.313</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1883</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>161.27473</rdommin>
+            <rdommax>16552.277</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1884</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>117.14996000000001</rdommin>
+            <rdommax>15830.737</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1885</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>97.50661</rdommin>
+            <rdommax>19506.84</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1886</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>116.91672</rdommin>
+            <rdommax>14146.597</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1887</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>109.50403999999999</rdommin>
+            <rdommax>18412.246</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1888</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>98.119225</rdommin>
+            <rdommax>17729.268</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1889</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>8889.006</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1890</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>6.1831484</rdommin>
+            <rdommax>12950.162</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1891</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>96.69060999999999</rdommin>
+            <rdommax>10393.935</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1892</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>57.87198299999999</rdommin>
+            <rdommax>12945.308</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1893</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>57.113631999999996</rdommin>
+            <rdommax>10855.746000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1894</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>68.77719</rdommin>
+            <rdommax>12968.028999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1895</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>115.26852</rdommin>
+            <rdommax>14133.878999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1896</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.00403</rdommin>
+            <rdommax>10880.705</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1897</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>86.16682</rdommin>
+            <rdommax>13271.954</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1898</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>154.05424</rdommin>
+            <rdommax>12618.101</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1899</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>146.741</rdommin>
+            <rdommax>13827.863000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1900</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>158.04346</rdommin>
+            <rdommax>13807.732</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1901</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>119.24381000000001</rdommin>
+            <rdommax>12143.12</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1902</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>31.951459999999997</rdommin>
+            <rdommax>12414.954</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1903</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>53.626957</rdommin>
+            <rdommax>13400.687</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1904</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>115.00317</rdommin>
+            <rdommax>12527.979</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1905</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>9.118836</rdommin>
+            <rdommax>10908.628999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1906</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>17.344065</rdommin>
+            <rdommax>11969.01</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1907</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>54.593872</rdommin>
+            <rdommax>16930.072</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1908</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>97.53508000000001</rdommin>
+            <rdommax>13631.489</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1909</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>176.73956</rdommin>
+            <rdommax>16569.88</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1910</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>80.25928</rdommin>
+            <rdommax>15498.636999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1911</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>147.52261000000001</rdommin>
+            <rdommax>16562.283</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1912</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>132.5507</rdommin>
+            <rdommax>19126.1</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1913</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>94.72683</rdommin>
+            <rdommax>16624.861</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1914</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>99.37188</rdommin>
+            <rdommax>15082.368</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1915</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>46.312428000000004</rdommin>
+            <rdommax>14039.628</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1916</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>176.19585</rdommin>
+            <rdommax>18089.188000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1917</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>83.79937</rdommin>
+            <rdommax>20713.593999999997</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1918</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>38.791686999999996</rdommin>
+            <rdommax>19598.648</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1919</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4679666</rdommin>
+            <rdommax>10985.988000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1920</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>72.72447</rdommin>
+            <rdommax>18048.445</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1921</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>52.46219</rdommin>
+            <rdommax>16917.947</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1922</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>52.028572</rdommin>
+            <rdommax>15524.841</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1923</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>94.45988</rdommin>
+            <rdommax>16609.773</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1924</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>75.87649499999999</rdommin>
+            <rdommax>18784.572</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1925</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>59.878136</rdommin>
+            <rdommax>16794.18</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1926</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>105.30185</rdommin>
+            <rdommax>13885.452</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1927</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>141.06836</rdommin>
+            <rdommax>18036.314</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1928</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>124.71591000000001</rdommin>
+            <rdommax>20991.137000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1929</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>152.13783</rdommin>
+            <rdommax>17085.44</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1930</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>58.436684</rdommin>
+            <rdommax>13692.184</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1931</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.314636</rdommin>
+            <rdommax>10969.611</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1932</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>137.13928</rdommin>
+            <rdommax>13759.143999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1933</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>61.976513</rdommin>
+            <rdommax>11845.018</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1934</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>66.53477</rdommin>
+            <rdommax>8347.805</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1935</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>63.505930000000006</rdommin>
+            <rdommax>10297.332</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1936</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>97.7798</rdommin>
+            <rdommax>8646.181999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1937</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>84.61843</rdommin>
+            <rdommax>11179.197</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1938</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>151.08598</rdommin>
+            <rdommax>13541.393999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1939</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>95.391235</rdommin>
+            <rdommax>11184.396</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1940</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>9.726832</rdommin>
+            <rdommax>11413.406</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1941</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>43.610640000000004</rdommin>
+            <rdommax>12709.607</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1942</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>179.09673</rdommin>
+            <rdommax>14846.105</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1943</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>131.82298</rdommin>
+            <rdommax>16234.348</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1944</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>148.8883</rdommin>
+            <rdommax>16219.593</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1945</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>152.11856</rdommin>
+            <rdommax>15647.923999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1946</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>88.71307</rdommin>
+            <rdommax>12575.591999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1947</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>231.47983</rdommin>
+            <rdommax>17347.7</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1948</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>253.96245</rdommin>
+            <rdommax>16312.577</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1949</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>146.74414</rdommin>
+            <rdommax>13327.508999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1950</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>178.44505</rdommin>
+            <rdommax>13435.033000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1951</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>205.03159</rdommin>
+            <rdommax>15072.243</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1952</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>198.0745</rdommin>
+            <rdommax>14170.062</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1953</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>124.53058999999999</rdommin>
+            <rdommax>14269.38</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1954</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>96.7233</rdommin>
+            <rdommax>10661.348999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1955</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>131.8987</rdommin>
+            <rdommax>10997.746000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1956</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>91.11007</rdommin>
+            <rdommax>12889.548</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1957</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>107.23997</rdommin>
+            <rdommax>14399.471000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1958</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>85.65278</rdommin>
+            <rdommax>13436.493</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1959</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>142.27686</rdommin>
+            <rdommax>11145.095</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1960</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>90.53934</rdommin>
+            <rdommax>10734.975</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1961</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>47.68897</rdommin>
+            <rdommax>7852.857</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1962</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>155.76692</rdommin>
+            <rdommax>15232.618999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1963</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>131.46274</rdommin>
+            <rdommax>14701.886</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1964</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>176.34665</rdommin>
+            <rdommax>14236.653999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1965</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>250.90016</rdommin>
+            <rdommax>18167.154</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1966</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>134.59046999999998</rdommin>
+            <rdommax>12313.844</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1967</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>229.9727</rdommin>
+            <rdommax>16179.511999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1968</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>169.14919</rdommin>
+            <rdommax>15543.015</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1969</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>173.38881</rdommin>
+            <rdommax>14829.337</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1970</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>207.9244</rdommin>
+            <rdommax>15431.346000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1971</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>171.8578</rdommin>
+            <rdommax>16623.582</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1972</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>140.97868</rdommin>
+            <rdommax>16878.244</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1973</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>89.46791999999999</rdommin>
+            <rdommax>15451.736</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1974</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>172.00705</rdommin>
+            <rdommax>16423.808999999997</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1975</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>216.05415</rdommin>
+            <rdommax>18237.941000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1976</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>239.51619</rdommin>
+            <rdommax>14782.319</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>1977</attrlabl>
+        <attrdef>Streamflow during Gregorian calendar year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>87.02804</rdommin>
+            <rdommax>10564.171999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>The 31 Missouri Headwaters streamflow reconstructions and the associated USGS gage name and ID number along with geospatial information for each reconstruction.  All columns after row E contain the reconstructed water year (1 October - 30 September) streamflow values in units of million cubic meters (MCM).</eaover>
+      <eadetcit>Producer defined</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+          <cntper>GS ScienceBase</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P9OYY6DN</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20200826</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Gregory T. Pederson</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Research Ecologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2327 University Way</address>
+          <city>Bozeman</city>
+          <state>MT</state>
+          <postal>59715</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-994-7390</cntvoice>
+        <cntfax>406-994-6556</cntfax>
+        <cntemail>gpederson@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

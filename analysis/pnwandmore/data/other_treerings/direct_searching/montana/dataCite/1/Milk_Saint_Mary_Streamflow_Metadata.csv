@@ -1,0 +1,9 @@
+USGS_gage_No.,river,site_name,latitude,longitude,HUC,start_year,end_year,units
+5016000,Swiftcurrent Creek,Swiftcurrent Creek at Sherburne MT,48.8299083,-113.517211,9040001,1025,1998,cfs
+5017500,St. Mary River,St. Mary River near Babb MT,48.83303718,-113.4206533,9040001,1025,1998,cfs
+5020500,St. Mary River,St. Mary River at International Boundary,49.0114083,-113.2995472,9040001,1025,1998,cfs
+6133500,Milk River,North Fork Milk River above St. Mary Canal near Browning MT,48.9707833,-113.0559694,10050001,1346,1998,cfs
+6133000,Milk River,Milk River at Western Crossing of International Boundary,49.00751667,-112.5452583,10050001,1017,1998,cfs
+6164000,Frenchman Creek,Frenchman River at international boundary,49.0000194,-107.3028639,10050013,1740,1998,cfs
+6144500,Lodge Creek,Lodge Creek at international boundary,49.01665278,-109.7512,10050007,1580,1998,cfs
+6149500,Battle Creek,Battle Creek at international boundary,49.00155,-109.4224944,10050008,1729,1998,cfs

@@ -1,0 +1,613 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Justin T. Martin</origin>
+        <origin>Gregory T. Pederson</origin>
+        <pubdate>20211103</pubdate>
+        <title>A network of eight naturalized streamflow reconstructions for the Milk and St Mary Rivers spanning years 1017 – 1998 CE</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Reston, VA</pubplace>
+          <publish>U.S. Geological Survey</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.5066/P95HTCJM</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Paleohydrologic records provide a valuable perspective on the variability of streamflow and hydroclimate that is critical for water resource planning and placing present day and future conditions into a long-term context.  Until now, key insights gained from streamflow reconstructions in the other river basins across the Western U.S. have been lacking in the Milk and St. Mary River Basin.  Here we utilize a new database of naturalized streamflow records for the Milk and St. Mary Rivers and an expanded network of tree-ring records from the region to reconstruct streamflow at eight gaging locations located in the mountains, foothills, and plains reaches of the basins.  The network of streamflow reconstructions presented here were generated for use by the Bureau of Reclamation and Montana Department of Natural Resources and Conservation in the Basin Study update for the Milk and St. Mary Rivers, and provides important data resources to water managers balancing increasing water demands for hydropower, irrigation, and ecological resources with increasing drought and flood risk in the basin.</abstract>
+      <purpose>The data were generated to provide annual water-year (Oct-Sep) streamflow values spanning a variable range of years over the 1017-1998 CE time frame for a network of eight water manager selected stream gages in the Milk and St. Mary Rivers.  The data was specifically developed to be used in water management and drought planning work.  For this project, the reconstructed annual naturalized (i.e. the affect of human modifications, irrigation, and diversions are accounted and adjusted for in the annual streamflow records) streamflow time series were disaggregated to daily flow estimates and used to drive RiverWare operatins models developed by the U.S. Bureau of Reclamation to test current operational rules under periods of severe drought or high flow conditions.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>10171001</begdate>
+          <enddate>19980930</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>publication date</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>St. Mary and Milk river basins</descgeog>
+      <bounding>
+        <westbc>-114.6973</westbc>
+        <eastbc>-106.4136</eastbc>
+        <northbc>50.2613</northbc>
+        <southbc>47.3686</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>inlandWaters</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>streamflow</themekey>
+        <themekey>datasets</themekey>
+        <themekey>surface water (non-marine)</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:6171a379d34ea36449a80dba</themekey>
+      </theme>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>Upper Missouri</placekey>
+        <placekey>Missouri Headwaters</placekey>
+        <placekey>Milk</placekey>
+        <placekey>St. Mary</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Gregory T Pederson</cntper>
+          <cntorg>U.S. Geological Survey, MIDCONTINENT REGION</cntorg>
+        </cntperp>
+        <cntpos>Research Ecologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2327 University Way</address>
+          <city>Bozeman</city>
+          <state>MT</state>
+          <postal>59715</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>406-994-7390</cntvoice>
+        <cntfax>406-994-6556</cntfax>
+        <cntemail>gpederson@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>U.S. Geological Survey North Central Climate Adaptation Science Center, and the U.S. Bureau of Reclamation</datacred>
+    <native>Computer: Mac OS X 10.15.7
+Software: R 4.0.5
+File Names: Milk_Saint_Mary_Streamflow_Metadata.csv; Milk_Saint_Mary_Streamflow_Reconstructions.csv; Milk_Staint_Mary_Streamflow_Reconstructions_Metadata.xml
+File Size: 1.8 MB</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Accuracy of streamflow values varies through time due to the nesting and variance rescaling of multiple streamflow reconstructions within individual gage records.  See the cross-validation statistics and 90% confidence intervals for estimates of uncertainty through time in reconstructed streamflow values.</attraccr>
+    </attracc>
+    <logic>Data is logically consistent and aligns with details we have provided about the expected streamflow ranges through time.</logic>
+    <complete>This dataset provides reconstructed estimates of annual water year (prior October-September) streamflow for a selected set of eight naturalized stream gage records in the Milk and St. Mary River Basins in units of Cubic Feet Per Second (CFS).  The reconstructions cover a range of dates for water years spanning 1017 Common Era (CE) to 1998 CE.  The statistical quality of the reconstructions through time is provided by upper and lower 90% confidence intervals for the average amount of uncertainty in a reconstructed streamflow value in units of Cubic Feet Per Second (CFS) as well as the R^2 values of each nested model relative to the observed flows.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>NA</horizpar>
+      </horizpa>
+      <vertacc>
+        <vertaccr>NA</vertaccr>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <procstep>
+        <procdesc>Tree-ring data 
+
+A network of hydroclimatically sensitive tree-ring data exists for the Milk and St. Mary River basins and surrounding regions that have previously been used to reconstruct snowpack, the summer Palmer Drought Severity Index, and streamflow in other basins.  The network contains trees with a diversity of seasonal hydroclimatic sensitivities that are typically related to tree species, elevation, and topographic setting.  The diversity of climate-growth responses makes this network of tree-ring chronologies suitable for reconstructing streamflow for a network of gages located in a basin that exhibits complex climate and streamflow responses due to a range of factors related to geography, soils, and climate dynamics.  For inclusion in further analyses, all tree-ring records were required to extend prior to the year 1800 Common Era (CE), which resulted in a final dataset of 116 chronologies, 116 of which are new, updated, or were not previously publicly available prior to this research effort. The individual raw ring-width records are now available on the International Tree-Ring Data Bank (ITRDB) hosted by the National Oceanic and Atmospheric Administration (NOAA) National Climatic and Data Center (NCDC) at https://www.ncdc.noaa.gov/paleo-search/study/26831.  
+
+Potential predictor chronologies were constructed from these raw ring-width records by first removing the non-climatic biological growth curve from the individual records (i.e. a process known as “detrending”). Detrending and production of the standardized ring-width indices was performed in program “RCSsigFree47b_batch.app” using an age-dependent spline of unconstrained slope with initial spine stiffness set to 20-years.  This individual-series detrending method should preserve low-frequency climate signals in a similar fashion to detrending with a negative exponential curve, but with some advantages over the juvenile growth years.  However, the unconstrained slope of the detrending spline will remove positive monotonic growth trends if present.  The final ring-width index (RWI) chronologies were constructed by calculating a bi-weight robust mean from the power-transformed residuals of the individually detrended ring-width series, reducing the potential for trend distortion from end effects that can result from the ratio method of chronology calculation.  Variance stabilization was performed using the Rbar method with correction of trend in variance provided by an age-dependent spline.  All chronologies were truncated when sample size fell below five series.</procdesc>
+        <srcused>https://www.ncdc.noaa.gov/paleo-search/study/26831</srcused>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Climate data 
+
+The climate data used were the 1/16° gridded monthly temperature and precipitation data for Mexico, the United States, and southern Canada, produced by Livneh et al. 2015 for 1950 through 2013. The gridded monthly temperature and precipitation data were used as inputs to a monthly time-step water balance model (MWBM) to generate additional hydrologic variables related to streamflow.  These data are publicly available at https://doi.org/10.7289/v5x34vf6</procdesc>
+        <srcused>https://doi.org/10.7289/v5x34vf6</srcused>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Climate screening of tree-ring chronologies
+
+Streamflow is controlled by a diversity of season-specific climate factors. Thus, a network of tree-ring records that each contain some portion of the hydroclimatic information required to estimate water year average flows is ideal in a regression modeling framework if the records are integrated optimally by their dominant climate-growth response into the reconstruction framework.  In this “climate-informed” modeling approach, we screened all tree-ring chronologies for their sensitivity to any of nine climate variables known to influence seasonal streamflow including precipitation, temperature, actual evapotranspiration, potential evapotranspiration, soil moisture, annual water balance (precipitation minus potential evapotranspiration), growing season moisture deficit (potential evapotranspiration minus actual evapotranspiration), and cool season accumulated snowpack using observed April 1 snow water equivalent (SWE) (original Natural Resource Conservation Service data), and MWBM April 1 SWE.
+
+Next, we determined the three-month period of each water-year over which each climate variable was most closely correlated with observed mean annual streamflow at each gaging location using the “seascorr” function in R package “treeclim”.  This provided an evaluation of the correlation between streamflow and climate for a range of seasonal windows all within the HU 8 and upstream watershed regions containing the target gage.  The three-month period that best correlated with annual streamflow over the length of the streamflow record was extracted for each of the nine climate variables over the period of 1900-2014.  A seasonal average for each hydroclimatic variable, or total in the case of precipitation, was calculated for the length of record and then used to screen for potential predictor chronologies.  April 1 SWE was used as the annual value for both modeled and observed SWE.  
+
+To build subsets of potential predictor chronologies for each streamflow reconstruction, chronologies were screened and grouped by strength of correlation to each of the above nine hydroclimatic variables. For each tree-ring chronology in the database, the RWI for 1900-2014 (or whatever portion of that period was available) was regressed against these 115 years of ‘seasonalized’ climate values for each climate variable.  Any chronology that was not significantly correlated (p ≤ 0.05) to a particular climate variable was removed from the potential predictor pool associated with that specific climate variable.  This then left a subset of predictor chronologies arranged by variable and strength of seasonal climatic influence on streamflow for each target gage record.</procdesc>
+        <srcused>https://doi.org/10.5066/F71V5CWN</srcused>
+        <srcused>https://www.wcc.nrcs.usda.gov/snow/</srcused>
+        <procdate>20190101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Climate informed reconstruction model development
+
+Streamflow is controlled by a diversity of season-specific climate factors (e.g. precipitation, temperature, snow accumulation and melt). Thus, a network of tree-ring records that each contain some portion of the hydroclimatic information required to estimate water year average flows is needed in a regression modeling framework if the records are integrated optimally by their dominant climate-growth response into the reconstruction framework.  In this “climate-informed” modeling approach, we screened all tree-ring chronologies for sensitivity to any of nine climate variables known to influence seasonal streamflow: precipitation, temperature, actual evapotranspiration, potential evapotranspiration, soil moisture, annual water balance (precipitation minus potential evapotranspiration), growing season moisture deficit (potential evapotranspiration minus actual evapotranspiration), and cool season accumulated snowpack using observed April 1 snow water equivalent (SWE), and MWBM April 1 SWE.  Any chronology that was not significantly correlated (at a 95 percent confidence level (p ≤ 0.05)) to a particular climate variable was removed from the potential predictor pool associated with that specific climate variable.  This approach allowed us to produce subsets of predictor chronologies significantly correlated with each climate variable and arranged by correlation strength.
+
+In developing regression models for reconstructing streamflow, we first transformed all streamflow records to be approximately normally distributed using a maximum likelihood estimated power transformation and then used a best-subsets approach to model selection using the “regsubsets” function in R package “leaps”.  The function performed an exhaustive search of a pool of potential predictor chronologies and aided in selection of the best model of each possible number of predictors.  The potential predictor pool consisted of a set of up to 45 (computational limit) chronologies representing the most climatically sensitive records with respect to each of the 9 climate variables tested in the screening process.  This helped to ensure that the set of tree-ring predictors resulting from the model selection for each model contained a diversity of climate signals important for streamflow.  However, a maximally diverse set of predictors could not be explicitly constrained in the models because progressively longer models relied on fewer chronologies and thus, a narrower range of available tree-ring information.  To guide the selection of a skillful and parsimonious model, the Mallows’ Cp statistic was used to identify the model with the lowest difference between the statistic and parameter number.  Then, selection between models with similar number of predictors was informed by identifying the model with the highest adjusted coefficient of determination (R2).  In selecting the final model, both metrics (i.e. the Cp and R2) were weighed evenly, which balanced the potential for over fitting the model with the increased predictive power of multiple predictors.  
+
+Once the model was selected, we fit the generic model: μ{streamflow | RWI}=β0 + β1 chronology1 + β2 chronology2 + ......+ βn chronology + ε, to the transformed streamflow data, and back-transformed the predicted values.  Ninety percent confidence bounds were estimated using the delta method and back transformed in the same way.  To extend the length of the streamflow reconstructions we then nested successive “best” fit models forward and backward in time.  This was done by successively dropping any chronologies from the predictor pool that did not extend as far back in time as the predicted values of the previous fitted model.  These chronologies then were replaced by the next best-correlated chronology in each of the climate screened chronology lists that had sufficient length to extend the next model either forward or backward in time.  This procedure of nesting successively longer reconstructions by fitting the best model and then removing any reconstruction length-limiting chronologies was repeated until no chronologies remained in the potential predictor pool.  
+Because a regression reconstruction inherently underestimates the variability of the past due to a certain amount of unexplained variance in each regression model, we adapted the standard approach to restoring variance in a nested reconstruction by scaling the mean and variance of each progressively longer and less skillful model to match that of the best model over the period common to the two.  We then similarly scaled the fully nested reconstruction to the target streamflow record over the calibration period of the best model. This approach maximized the length of record over which variance loss in progressively weaker models could be assessed and scaled the full nested reconstruction to the target record using the estimates of the best reconstruction model.  All streamflow reconstructions were developed in units of CFS (cubic feet per second).  
+
+Cross-validation of modeled streamflow
+
+For each nested model used to reconstruct each gage record, we performed cross validation of model performance using both a leave-one-out and split-sample approach with a calibration period consisting of the earlier half of the available observed record and a verification period consisting of the latter half for the split sample method.  We first generated full estimates of verification period streamflow from the model fitting process such that each annual value of observed streamflow was not included in the training data used to predict streamflow for that year.  Then, based on the leave-one-out approach and using each nested model in each reconstruction, we calculated the R2 for the observed record explained by the model parameterized only on training data (VRSQ) and did the same for the predictions made using all observed data in the calibration of the model (CRSQ).  Following standard methods, and based on the split-sample calibration and verification approach, we also calculated the reduction of error statistic (RE) and the coefficient of efficiency (CE) for each nested model in each reconstruction.</procdesc>
+        <procdate>20190101</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Gregory T Pederson</cntper>
+              <cntorg>U.S. Geological Survey, MIDCONTINENT REGION</cntorg>
+            </cntperp>
+            <cntpos>Research Ecologist</cntpos>
+            <cntaddr>
+              <addrtype>mailing address</addrtype>
+              <address>2327 University Way</address>
+              <city>Bozeman</city>
+              <state>MT</state>
+              <postal>59715</postal>
+              <country>US</country>
+            </cntaddr>
+            <cntvoice>406-994-7390</cntvoice>
+            <cntfax>406-994-6556</cntfax>
+            <cntemail>gpederson@usgs.gov</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <direct>Point</direct>
+    <ptvctinf>
+      <sdtsterm>
+        <sdtstype>Point</sdtstype>
+        <ptvctcnt>8</ptvctcnt>
+      </sdtsterm>
+    </ptvctinf>
+  </spdoinfo>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>0.0197335362</latres>
+        <longres>0.0270158805</longres>
+        <geogunit>Decimal seconds</geogunit>
+      </geograph>
+      <geodetic>
+        <horizdn>North_American_Datum_1983</horizdn>
+        <ellips>GRS_1980</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257222101</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Milk_Saint_Mary_Streamflow_Reconstructions.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>gage</attrlabl>
+        <attrdef>U.S. Geological Survey Stream Gage Number</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>5016000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5017500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5020500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6133500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6133000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6164000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6144500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6149500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>year</attrlabl>
+        <attrdef>Water Year (October - September)</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1017</rdommin>
+            <rdommax>2017</rdommax>
+            <attrunit>Water Year</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>variable</attrlabl>
+        <attrdef>Reconstruction variable provided</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>observed_flow</edomv>
+            <edomvd>Water-Year (Oct-Sep) Naturalized Flow at a USGS Gage in Cubic Feet Per Second (CFS)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>reconstructed_flow</edomv>
+            <edomvd>Reconstructed Streamflow at a USGS Gage in Cubic Feet Per Second (CFS)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>lower_90_CI</edomv>
+            <edomvd>Lower 90% Confidence Interval of Reconstructed Streamflow in Cubic Feet Per Second (CFS)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>upper_90_CI</edomv>
+            <edomvd>Upper 90% Confidence Interval of Reconstructed Streamflow in Cubic Feet Per Second (CFS)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>CV_Rsquared</edomv>
+            <edomvd>Cross Validation Verification R^2 value</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>value</attrlabl>
+        <attrdef>Values associated with the variable column</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Value</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>1793.986587</rdommax>
+            <attrunit>See "units" column</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>units</attrlabl>
+        <attrdef>Units of "value" column.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>R^2 value</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Cubic Feet per Second</edomv>
+            <edomvd>Cubic Feet per Second (CFS)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Milk_Saint_Mary_Streamflow_Metadata.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>USGS_gage_no.</attrlabl>
+        <attrdef>U.S. Geological Survey Stream Gage Number</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>5016000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5017500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5020500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6133500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6133000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6164000</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6144500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6149500</edomv>
+            <edomvd>U.S. Geological Survey Stream Gage Number</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>river</attrlabl>
+        <attrdef>River Name</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>River Name</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>site_name</attrlabl>
+        <attrdef>U.S. Geological Survey Stream Gage Name</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Geographic description of USGS gage location</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>latitude</attrlabl>
+        <attrdef>Latitude of Gage Location</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.8299083</rdommin>
+            <rdommax>49.01665278</rdommax>
+            <attrunit>Decimal Degrees</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>longitude</attrlabl>
+        <attrdef>Longitude of Gage Location</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-113.517211</rdommin>
+            <rdommax>-107.3028639</rdommax>
+            <attrunit>Decimal Degrees</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>HUC</attrlabl>
+        <attrdef>U.S. Geological Survey 8 digit Hydrologic Unit Code (HUC) the Stream Gage is located within.</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>9040001</edomv>
+            <edomvd>hydrologic unit code</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>10050001</edomv>
+            <edomvd>hydrologic unit code</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>10050013</edomv>
+            <edomvd>hydrologic unit code</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>10050007</edomv>
+            <edomvd>hydrologic unit code</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>10050008</edomv>
+            <edomvd>hydrologic unit code</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>start_year</attrlabl>
+        <attrdef>start year of the reconstructed streamflow record</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1017</rdommin>
+            <rdommax>1740</rdommax>
+            <attrunit>Water Year</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>end_year</attrlabl>
+        <attrdef>end year of the reconstructed streamflow record</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1998</rdommin>
+            <rdommax>1998</rdommax>
+            <attrunit>Water Year</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>units</attrlabl>
+        <attrdef>Units the flow record is provided in</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>CFS</edomv>
+            <edomvd>Cubic Feet Per Second</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>The 8 tree-ring based water year (October - September) streamflow reconstructions for the St. Mary and Milk rivers provided here are based on estimated natural flows for each of the USGS gages identified in the spatial metadata sheet "Milk_Saint_Mary_Streamflow_Metadata.csv". Units, variables, and values are all provided and defined in the detailed section of this metadata file and within the .csv files themselves.</eaover>
+      <eadetcit>Martin, J.T. and Pederson, G.T. 2021, A network of eight naturalized streamflow reconstructions for the Milk and St Mary Rivers spanning years 1017 – 1998 CE: U.S. Geological Survey data release, https://doi.org/10.5066/P95HTCJM</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+          <cntper>GS ScienceBase</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P95HTCJM</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20211103</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Gregory T Pederson</cntper>
+          <cntorg>U.S. Geological Survey, NORTHWEST REGION</cntorg>
+        </cntperp>
+        <cntpos>Research Ecologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>2327 University Way</address>
+          <city>Bozeman</city>
+          <state>MT</state>
+          <postal>59715</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>406-994-7390</cntvoice>
+        <cntfax>406-994-6556</cntfax>
+        <cntemail>gpederson@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Erich H. Peitzsch</origin>
+        <origin>Daniel K. Stahle</origin>
+        <origin>Daniel B. Fagre</origin>
+        <origin>Adam M. Clark</origin>
+        <origin>Gregory T. Pederson</origin>
+        <origin>Jordy Hendrikx</origin>
+        <origin>Karl W. Birkeland</origin>
+        <pubdate>20191219</pubdate>
+        <title>Tree ring dataset for a regional avalanche chronology in northwest Montana, 1636-2017</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Reston, VA</pubplace>
+          <publish>U.S. Geological Survey</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.5066/P9TLHZAI</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset includes processed tree ring data from avalanche paths in Glacier National Park and the Flathead National Forest in northwest Montana. The data were processed in three distinct phases that resulted in this dataset: collection, processing, and avalanche signal analysis. This dataset consists of samples from 647 trees with 2304 growth disturbances identified from 12 avalanche paths.</abstract>
+      <purpose>These data were collected as part of the Western Mountain Initiative - Northern Rockies project of the U.S. Geological Survey Land Resources Mission Area. Understanding avalanche processes and associated large magnitude avalanche return intervals is critical for local and regional avalanche forecasting operations, transportation agencies, and planners. These data can be used to examine large magnitude avalanche patterns on both temporal and spatial scales. This dataset ultimately serves to enhance public and worker safety, and understand landscape disturbance processes and change in mountain ecosystems.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>1636</begdate>
+          <enddate>2017</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>observed</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-114.5748</westbc>
+        <eastbc>-113.4729</eastbc>
+        <northbc>48.7827</northbc>
+        <southbc>48.2348</southbc>
+      </bounding>
+      <descgeog>NW Montana, Glacier National Park, Flathead National Forest</descgeog>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>climatologyMeteorologyAtmosphere</themekey>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>climatology</themekey>
+        <themekey>tree ring analysis</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>avalanche</themekey>
+        <themekey>landscape disturbance</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:5de7eef9e4b02caea0ec3d8b</themekey>
+      </theme>
+      <place>
+        <placekt>Common Geographic Areas</placekt>
+        <placekey>Montana</placekey>
+      </place>
+      <place>
+        <placekt>Geographic Names Information System</placekt>
+        <placekey>Glacier National Park</placekey>
+        <placekey>Flathead National Forest</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Erich H. Peitzsch</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Physical Scientist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>215 Mather Dr</address>
+          <city>West Glacier</city>
+          <state>MT</state>
+          <postal>59936</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-888-7993</cntvoice>
+        <cntfax>406-888-7923</cntfax>
+        <cntemail>epeitzsch@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Morgan Voss (field work)</datacred>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>USGS Biocomplexity Thesaurus</taxonkt>
+        <taxonkey>plants</taxonkey>
+      </keywtax>
+      <taxonsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>Integrated Taxonomic Information System (ITIS)</origin>
+              <pubdate>2020</pubdate>
+              <title>Integrated Taxonomic Information System (ITIS)</title>
+              <geoform>ONLINE_REFERENCE</geoform>
+              <pubinfo>
+                <pubplace>Washington, D.C.</pubplace>
+                <publish>Integrated Taxonomic Information System (ITIS)</publish>
+              </pubinfo>
+              <onlink>http://itis.gov</onlink>
+            </citeinfo>
+          </classcit>
+        </classsys>
+        <taxonpro>expert knowledge, keys and key characteristics</taxonpro>
+      </taxonsys>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Picea</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Picea engelmannii</taxonrv>
+                              <common>TSN: 183291</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Abies</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Abies lasiocarpa</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Variety</taxonrn>
+                                <taxonrv>Abies lasiocarpa var. lasiocarpa</taxonrv>
+                                <common>TSN: 181832</common>
+                              </taxoncl>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pseudotsuga</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pseudotsuga menziesii</taxonrv>
+                              <common>TSN: 183424</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus flexilis</taxonrv>
+                              <common>TSN: 183343</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>TSN: 183311</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus contorta</taxonrv>
+                              <common>TSN: 183327</common>
+                            </taxoncl>
+                          </taxoncl>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Larix</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Larix occidentalis</taxonrv>
+                              <common>TSN: 183417</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Cupressaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Thuja</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Thuja plicata</taxonrv>
+                              <common>TSN: 18044</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Magnoliopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Superorder</taxonrn>
+                      <taxonrv>Rosanae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Malpighiales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Salicaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Populus</taxonrv>
+                            <common>TSN: 22444</common>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Fagales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Betulaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Betula</taxonrv>
+                            <common>TSN: 19478</common>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>The sampled tree-rings were dated to the exact calendar year of formation using the traditional pattern matching method of skeleton plot cross-dating (Stokes and Smiley 1995).  The annual growth rings were then measured to 0.001 precision and the measurements were submitted to the quality control dating program COFECHA (Holmes 1983) for statistical verification.  The accuracy of the tree-ring dating is verified through statistical tests that express the positive association between the measured time series and positively dated reference regional tree-ring chronology time series that have been subjected to peer-review and available on the International Tree-Ring Database (ITRDB website). Most measured series exhibited the interseries correlation coefficient or Pearson coefficient (i.e. r-value) widely accepted as significant (p-value &lt; 0.05) and verifiably dated.  R-value correlations for each sample and each site master chronology exceeded the 99% confidence level of r = 0.3281 for the 50 year segment length (Grissino-Mayer 2001). The dated tree-ring measurement series were then combined to compute a master dating series for each site. A list of marker growth years was recorded from the master series, i.e. years when multiple trees experienced exceptionally stressed or narrow growth and years of exceptionally wide or productive growth.  Some samples were too young to pass the COFECHA program r-value test (i.e. samples containing less than 50 rings).  Therefore, the master series in the form of skeleton plots and marker year lists was used to visually cross-date those samples that did not contain a sufficient amount of tree-rings.  The young and complacent samples unable to pass statistical tests were also confidently dated using observed mortality events (i.e. the outermost ring is known because the tree was killed in an observed avalanche event).  In some cases samples may contain distinct early wood growth on the outermost ring, which is commonly observed in trees killed in the early growing season by spring avalanches.  This visual dating method for young or very complacent tree-ring series can be replicated and verified through expert analysis by trained dendrochronologists.  The samples that were not successfully dated using statistical verification or confident visual dating were omitted from the study, therefore the dated tree-rings and the calendar dates assigned to the traumatic event signals presented in the dataset are considered “true” values.   
+
+Grissino-Mayer, H.D. 2001. Evaluating crossdating accuracy: a manual and tutorial for the computer program COFECHA. Tree-Ring Research. 57. 
+Holmes, R.L. 1983. Computer-assisted quality control in tree-ring dating and measurement. Tree Ring Bulletin 44: 69–78.  
+Stokes, M.A., and T.L. Smiley. 1995. An introduction to tree-ring dating. Tucson: University Arizona Press.</attraccr>
+    </attracc>
+    <logic>The data match with the details provided in the methods as based on previous literature. The data have been checked for duplicates and omissions.</logic>
+    <complete>The dataset represents avalanche reconstructions from these specific avalanche paths only. Our study site consists of 12 avalanche paths in northwest Montana, Rocky Mountains, USA. We sampled three avalanche paths in four distinct sub-regions within three mountain ranges: Whitefish Range (WF, Red Meadow Creek) and Swan Range (Swan, Lost Johnny Creek) on the Flathead National Forest and two sub-regions within the Lewis Range in Glacier National Park (GNP), Montana. The avalanche paths in each sub-region encompass a range of spatial extents from adjacent to ~10 km apart. The sites in GNP are along two major transportation corridors through the park: the Going-to-the-Sun Road (GTSR) and U.S. Highway 2 in John F. Stevens (JFS) Canyon. The other two sites, WF and Swan, are popular backcountry recreation areas with access via snowmachine in the winter along a U.S. Forest Service road. The cross sections were collected from dead (both downed and standing dead) trees, and the cores were collected from live trees. We emphasized the selection of quality trees and consideration of location, size, and potential age of tree samples. A limitation of all dendrochronology studies in avalanche paths is that large magnitude events cause extensive damage and high tree mortality, thereby reducing subsequent potential tree-ring records. We utilized cross-sections in this study for a more robust analysis as signals can be lost or misidentified in cores.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Cross-sectional wood samples were taken at the location of an external scar or just above the root buttress from downed and dead tree stems, standing dead trees and from stumps of trees that suffered topping from avalanche-damage.  Tree-ring core samples were taken non-destructively from live trees using a 5mm diameter increment borer. Core samples were extracted from live trees with obvious scaring or flagging along the avalanche path margins and run-out zone.  Metadata including photographs, GPS coordinates and notes regarding the amount of scarring, relative location of the tree in the path and upslope direction were recorded along with other field notes . The characteristics that identified the tree to be in-place vs. transported from it’s original growth position were recorded (i.e. presence or absence of roots attached to the ground or the distance from an obvious excavated area where the tree was uprooted).  The sampling strategy targeted an even number of samples collected from both margins at varying elevations, trees located anywhere in the main path and trees in the run out zone.</procdesc>
+        <procdate>2018</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Cross-sections were dried and stabilized to prevent radial cracking and further rot.  Samples were sanded to a fine polish to expose the anatomy of each growth ring.  Cores and cross-sections were cross-dated with each other using the skeleton plot method to account for missing and false-rings (Stokes and Smiley 1995).  A site composite chronology was developed using live-tree core samples and dead tree cross-sections. The site composite was successfully cross-dated with preexisting regional chronologies to confirm the exact calendar dating of each tree-ring (International Tree-Ring Database).  The widths of the dated tree-rings were measured to 0.001mm precision using a sliding stage micrometer.  The ring-width measurements for each sample were submitted to the dating quality control COFECHA for statistical verification (Holmes 1983).</procdesc>
+        <procdate>2019</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>The dated cross-sections were analyzed for signs of traumatic impact events that could be associated to snow avalanche activity.  A system of classification ratings ranked 1 through 5 was designed and adapted from previous dendrogeomorphological studies to qualify the severity of the trauma and tree growth response (Reardon et al 2008).  A range of anatomical markers were recorded  The 1 through 5 debris impact trauma classification ratings are defined as follows: Class 1 (C-1) Clear impact scar associated with well-defined reaction wood, growth suppression or major traumatic resin duct development.  And/or the strong presence of some combination of these major anatomical markers of trauma and growth response recorded in multiple years of growth and occurring at a year that multiple samples at the site record similar trauma and scaring. C-1 events are also assigned to the death date of trees killed by observed avalanche mortality at the collection site; the presence of earlywood indicates an early season avalanche killed the tree.  Class 2 (C-2) Scar or small scar recorded in the first ten years of tree growth without associated reaction wood, growth suppression or traumatic resin ducts. Or, obvious reaction wood, growth suppression or significant presence of traumatic resin ducts that occurs abruptly after normal growth that lasts for 3 or more years.  Class 3 (C-3) The presence of reaction wood, growth suppression or traumatic resin ducts recorded in less than 3 successive growth years.  Class 4 (C-4) Poorly defined reaction wood, growth suppression or minimal presence of traumatic resin ducts lasting 1-2 years or a C-3 class event occurring in the first 10 years of tree growth where the cause of damage could result from various biological and environmental conditions.  Class 5 (C-5) Very poorly defined reaction wood, growth suppression or minimal presence of traumatic resin ducts isolated in one growth year or a C-4 class event occurring in the first 10 years of tree growth where the cause of damage could result from various biological and environmental conditions.</procdesc>
+        <procdate>2019</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Erich H Peitzsch</cntper>
+              <cntorg>U.S. Geological Survey</cntorg>
+            </cntperp>
+            <cntpos>Physical Scientist</cntpos>
+            <cntaddr>
+              <addrtype>mailing address</addrtype>
+              <address>215 Mather Dr</address>
+              <city>West Glacier</city>
+              <state>MT</state>
+              <postal>59936</postal>
+              <country>USA</country>
+            </cntaddr>
+            <cntvoice>406-888-7925</cntvoice>
+            <cntfax>406-888-7923</cntfax>
+            <cntemail>epeitzsch@usgs.gov</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spref>
+    <horizsys>
+      <geograph>
+        <latres>0.0197102498</latres>
+        <longres>0.0295615538</longres>
+        <geogunit>Decimal seconds</geogunit>
+      </geograph>
+      <geodetic>
+        <horizdn>WGS_1984</horizdn>
+        <ellips>WGS_84</ellips>
+        <semiaxis>6378137.0</semiaxis>
+        <denflat>298.257223563</denflat>
+      </geodetic>
+    </horizsys>
+  </spref>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Tree ring dataset for a regional avalanche chronology in northwest Montana, 1636-2017.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Avalanche Path</attrlabl>
+        <attrdef>Name of location sample was taken</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>54-3</edomv>
+            <edomvd>Path 54-3 (along Going-to-the-Sun Road)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1163</edomv>
+            <edomvd>Path 1163 (along Hwy. 2 in John F. Stevens Canyon)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>JGO</edomv>
+            <edomvd>Jackson Glacier Overlook path (along Going-to-the-Sun Road)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>LGP</edomv>
+            <edomvd>Little Granite Path (along Going-to-the-Sun Road)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>LJA</edomv>
+            <edomvd>Lost Johnny A (Swan Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>LJB</edomv>
+            <edomvd>Lost Johnny B (Swan Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>LJC</edomv>
+            <edomvd>Lost Johnny C (Swan Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>RMA</edomv>
+            <edomvd>Red Meadow A (Whitefish Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>RMB</edomv>
+            <edomvd>Red Meadow B (Whitefish Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>RMC</edomv>
+            <edomvd>Red Meadow C (Whitefish Range)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>S7</edomv>
+            <edomvd>Shed 7 (along Hwy. 2 in John F. Stevens Canyon)</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>ID</attrlabl>
+        <attrdef>Number identifier for the tree a sample was taken from</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1</rdommin>
+            <rdommax>136</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Sample</attrlabl>
+        <attrdef>Type of sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>X</edomv>
+            <edomvd>cross section from non-living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>AX</edomv>
+            <edomvd>first cross section of non living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>BX</edomv>
+            <edomvd>second cross section of non living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>L</edomv>
+            <edomvd>core sample from living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>AL</edomv>
+            <edomvd>first core from living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>BL</edomv>
+            <edomvd>second core from living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>ABL</edomv>
+            <edomvd>both first and second cores of specific living tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Species</attrlabl>
+        <attrdef>species the sample was taken from</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PIEN</edomv>
+            <edomvd>Picea engelmannii Parry ex Engelm.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>ABLA</edomv>
+            <edomvd>Abies lasiocarpa (Hook.) Nutt.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PSME</edomv>
+            <edomvd>Pseudotsuga menziesii (Mirb.) Franco</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>THPL</edomv>
+            <edomvd>Thuja plicata Donn ex D. Don</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PIFL? PIAL?</edomv>
+            <edomvd>unsure which of these two species sample is; Pinus flexilis E. James or Pinus albicaulis Engelm.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PIFL</edomv>
+            <edomvd>Pinus Flexilis E. James</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>LAOC</edomv>
+            <edomvd>Larix occidentalis Nutt.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PICO</edomv>
+            <edomvd>Pinus contorta Douglas ex Loudon</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Populus sp.</edomv>
+            <edomvd>species of Populus (cottonwood) genus unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Betula sp.</edomv>
+            <edomvd>species of Betula (birch) genus unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>TransInPlace</attrlabl>
+        <attrdef>description of the placement of the tree the sample was taken from</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>INPLACE</edomv>
+            <edomvd>This field indicates if the sample (tree) This field indicates that the sample is in-place given surrounding evidence (i.e. nearby hole in ground where root bole used to be),</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>CORE</edomv>
+            <edomvd>This indicates if the sample was a core (see Collection) taken from a live tree</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>TRANSPORT</edomv>
+            <edomvd>This indicates if the sample (tree) was suspected or known to have been transported by an avalanche from its original location</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>INPLACE?</edomv>
+            <edomvd>This field indicates that is it highly likely that the sample is in-place given surrounding evidence (i.e. nearby hole in ground where root bole used to be), but there is uncertainty.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Outer_yr</attrlabl>
+        <attrdef>year of the outer ring of the core or cross section</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1936</rdommin>
+            <rdommax>2017</rdommax>
+            <attrunit>year</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Inner_yr</attrlabl>
+        <attrdef>year of the inner ring of the core or cross section</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1636</rdommin>
+            <rdommax>2002</rdommax>
+            <attrunit>year</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Age</attrlabl>
+        <attrdef>age of tree the core or cross section was taken from</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>15</rdommin>
+            <rdommax>367</rdommax>
+            <attrunit>years</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Pith</attrlabl>
+        <attrdef>whether or not the pith is present in the sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Y</edomv>
+            <edomvd>yes, pith is present in sample</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>no, pith is not present in sample</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Event</attrlabl>
+        <attrdef>year the avalanche event occurred</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1655</rdommin>
+            <rdommax>2017</rdommax>
+            <attrunit>year</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Class</attrlabl>
+        <attrdef>The 1 through 5 debris impact trauma classification ratings</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>3</edomv>
+            <edomvd>Class 3 (C-3) The presence of reaction wood, growth suppression or traumatic resin ducts recorded in less than 3 successive growth years.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Class 1 (C-1) Clear impact scar associated with well-defined reaction wood, growth suppression or major traumatic resin duct development.  And/or the strong presence of some combination of these major anatomical markers of trauma and growth response recorded in multiple years of growth and occurring at a year that multiple samples at the site record similar trauma and scaring. C-1 events are also assigned to the death date of trees killed by observed avalanche mortality at the collection site; the presence of earlywood indicates an early season avalanche killed the tree.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>2</edomv>
+            <edomvd>Class 2 (C-2) Scar or small scar recorded in the first ten years of tree growth without associated reaction wood, growth suppression or traumatic resin ducts. Or, obvious reaction wood, growth suppression or significant presence of traumatic resin ducts that occurs abruptly after normal growth that lasts for 3 or more years.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>5</edomv>
+            <edomvd>Class 5 (C-5) Very poorly defined reaction wood, growth suppression or minimal presence of traumatic resin ducts isolated in one growth year or a C-4 class event occurring in the first 10 years of tree growth where the cause of damage could result from various biological and environmental conditions.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>4</edomv>
+            <edomvd>Class 4 (C-4) Poorly defined reaction wood, growth suppression or minimal presence of traumatic resin ducts lasting 1-2 years or a C-3 class event occurring in the first 10 years of tree growth where the cause of damage could result from various biological and environmental conditions.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Y</attrlabl>
+        <attrdef>UTM northing</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>48.23962804</rdommin>
+            <rdommax>48.77794404</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>X</attrlabl>
+        <attrdef>UTM easting</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>-114.572101</rdommin>
+            <rdommax>-113.476726</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Z</attrlabl>
+        <attrdef>Elevation</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1065.303467</rdommin>
+            <rdommax>1703.575562</rdommax>
+            <attrunit>meters</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Lab Notes</attrlabl>
+        <attrdef>Comments of observations from lab processing</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <udom>Comments of observations from lab processing</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Field Notes</attrlabl>
+        <attrdef>Comments of observations from the field</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <udom>Comments of observations from the field</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P9TLHZAI</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20200826</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Erich H Peitzsch</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Physical Scientist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>215 Mather Dr</address>
+          <city>West Glacier</city>
+          <state>MT</state>
+          <postal>59936</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406-888-7993</cntvoice>
+        <cntfax>406-888-7923</cntfax>
+        <cntemail>epeitzsch@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
