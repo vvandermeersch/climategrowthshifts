@@ -41,6 +41,10 @@ datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <-
   unique(datasets[datasets$species_code == 'ABLA', c('species_name', 'species_code')])
 
 source(file.path(wd, 'getphylo.R'))
+phy.plants.here$tip.label <- sppfull[match(phy.plants.here$tip.label, sppfull$phylo.name),'shortname']
+
+
+
 
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_all.rds'))
 raw_data <- data.frame()
@@ -205,3 +209,4 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
 data$years <- as.numeric(data$years)
 saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025.rds'))
 saveRDS(datasets, file.path(wd, 'output/model', 'datasets_11july2025.rds'))
+saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
