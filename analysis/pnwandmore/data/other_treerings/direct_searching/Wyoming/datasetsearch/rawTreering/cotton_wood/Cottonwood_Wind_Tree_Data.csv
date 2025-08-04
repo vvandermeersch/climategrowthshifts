@@ -1,0 +1,151 @@
+﻿tree,date,reach,random,species,center year,dbh,height,vigor,status
+BOC01,7/17/2017,boysen,r,PODE,2003,24,11.5,95,L
+BOC12,7/17/2017,boysen,r,POAN,2001,29,8.3,100,L
+BOC14,8/1/2017,boysen,r,POAN,1995,24,10.3,95,L
+BOC19,8/1/2017,boysen,r,Hybrid,1849,87,8.9,10,L
+BOC24,7/18/2017,boysen,r,PODE,1864,85,18.5,30,L
+BOC25,7/29/2017,boysen,r,PODE,1933,75,13.9,65,L
+BOC44,7/17/2017,boysen,r,PODE,1913,81,20.9,65,L
+BOC45,7/31/2017,boysen,r,PODE,1988,35,19.4,85,L
+BOC47,8/1/2017,boysen,r,POAN,1911,62,13.5,20,L
+BOC49,7/31/2017,boysen,r,POAN,1863,62,14.1,35,L
+BOC52,7/29/2017,boysen,r,PODE,1864,90,19.7,20,L
+BOC55,8/2/2017,boysen,r,PODE,1862,66,11.7,75,L
+BOC56,8/1/2017,boysen,r,PODE,1941,61,15.9,15,L
+BOC57,8/1/2017,boysen,r,PODE,1848,81,16.9,30,L
+BOC63,8/1/2017,boysen,r,PODE,1885,97,19.9,75,L
+BOC70,7/17/2017,boysen,r,POAN,1989,21,8.9,70,L
+BOC71,8/1/2017,boysen,r,POAN,1974,40,12.3,90,L
+BOC78,7/18/2017,boysen,r,PODE,1933,48,14.5,35,L
+BOC81,7/18/2017,boysen,r,PODE,2003,18,5.9,95,L
+BOC86,8/1/2017,boysen,r,PODE,1936,54,18.7,85,L
+BOC89,7/18/2017,boysen,r,PODE,1871,103,15.9,15,L
+BOC90,7/29/2017,boysen,r,PODE,1933,59,10.5,40,L
+BOC92,7/18/2017,boysen,r,PODE,1864,73,15.5,30,L
+BOC109,7/29/2017,boysen,r,PODE,1874,115,15.3,45,L
+BOC110,8/2/2017,boysen,r,PODE,1832,83,16.5,75,L
+BOC112,7/31/2017,boysen,r,PODE,1871,78,18.1,20,L
+BOC116,7/31/2017,boysen,r,Hybrid,1888,77,18.7,70,L
+BOC124,7/29/2017,boysen,r,PODE,1939,41,10.7,75,L
+BOC127,7/31/2017,boysen,r,POAN,1850,56,13.9,40,L
+BOC129,7/31/2017,boysen,r,PODE,1861,66,13.9,30,L
+BOC130,7/29/2017,boysen,r,PODE,1997,31,12.9,90,L
+BOC132,7/29/2017,boysen,r,PODE,1993,45,13.5,100,L
+BOC135,7/18/2017,boysen,r,POAN,1982,31,11.7,85,L
+BOC138,8/1/2017,boysen,r,POAN,1992,20,8.1,85,L
+BOC140,8/1/2017,boysen,r,POAN,1995,16,6.9,95,L
+BOD01,10/11/2018,boysen east,nr,UNK,1867,58,UNK,0,C
+BOD02,10/11/2018,boysen east,nr,UNK,UNK,87,UNK,0,S
+BOD03,10/11/2018,boysen east,nr,UNK,UNK,62,UNK,0,S
+BOD04,10/11/2018,boysen east,nr,UNK,UNK,54,UNK,0,S
+BOD05,10/11/2018,boysen east,nr,UNK,UNK,70,UNK,0,S
+BOD06,10/11/2018,boysen east,nr,UNK,1866,61,UNK,0,S
+BOD07,10/11/2018,boysen east,nr,UNK,1885,61,UNK,0,S
+BOD08,10/11/2018,boysen east,nr,UNK,1872,61,UNK,0,C
+BOD09,10/11/2018,boysen east,nr,UNK,1858,94,UNK,0,C
+BOD10,10/11/2018,boysen east,nr,UNK,1857,84,UNK,0,C
+BOD12,10/11/2018,boysen east,nr,UNK,1854,70,UNK,0,C
+BOD13,10/11/2018,boysen east,nr,UNK,UNK,75,UNK,0,S
+BOD15,10/11/2018,boysen east,nr,UNK,1870,85,UNK,0,S
+BOD16,10/11/2018,boysen east,nr,UNK,1929,30,UNK,0,S
+BOD17,10/11/2018,boysen east,nr,UNK,1863,56,UNK,0,S
+BOD19,10/12/2018,boysen west,nr,UNK,1834,57,UNK,0,S
+BOD20,10/12/2018,boysen west,nr,UNK,UNK,58,UNK,0,S
+BOD21,10/12/2018,boysen west,nr,UNK,1854,55,UNK,0,S
+BOD22,10/12/2018,boysen west,nr,UNK,1850,52,UNK,0,S
+BOD23,10/12/2018,boysen west,nr,UNK,UNK,42,UNK,0,S
+BOD24,10/12/2018,boysen west,nr,UNK,UNK,60,UNK,0,S
+BOD25,10/12/2018,boysen west,nr,UNK,1922,51,UNK,0,S
+BOD26,10/12/2018,boysen west,nr,UNK,1884,63,UNK,0,S
+BOD27,10/12/2018,boysen west,nr,UNK,1846,57,UNK,0,S
+BOD28,10/12/2018,boysen west,nr,UNK,1899,49,UNK,0,S
+BOD29,10/12/2018,boysen west,nr,UNK,1900,58,UNK,0,S
+BOD30,10/12/2018,boysen west,nr,UNK,1871,40,UNK,0,S
+BOD31,10/12/2018,boysen west,nr,UNK,UNK,80,UNK,0,S
+BOD32,10/12/2018,boysen west,nr,UNK,1911,41,UNK,0,S
+BOD33,10/12/2018,boysen west,nr,UNK,UNK,UNK,UNK,0,S
+BOD34,10/12/2018,boysen west,nr,UNK,1916,40,UNK,0,F
+BOD35,10/12/2018,boysen west,nr,UNK,1891,37,UNK,0,S
+BOD36,10/12/2018,boysen west,nr,UNK,1880,59,UNK,0,S
+BOD37,10/12/2018,boysen west,nr,UNK,1930,46,UNK,0,S
+BOD38,10/12/2018,boysen west,nr,UNK,1934,25,UNK,0,S
+BOD39,10/12/2018,boysen west,nr,UNK,1847,62,UNK,0,S
+BOD40,10/12/2018,boysen west,nr,UNK,1874,65,UNK,0,F
+BOD41,10/13/2018,boysen east,nr,UNK,1880,50,UNK,0,S
+BOD43,10/13/2018,boysen east,nr,UNK,1924,57,UNK,0,S
+BOD44,10/13/2018,boysen east,nr,UNK,1879,39,UNK,0,S
+BOQ01,7/17/2017,boysen,nr,PODE,1884,93,22.7,45,L
+BOQ02,7/17/2017,boysen,nr,PODE,1883,92,20.3,60,L
+BOQ03,7/18/2017,boysen,nr,PODE,1835,95,20.9,65,L
+BOQ04,7/18/2017,boysen,nr,PODE,1861,126,19.9,55,L
+BOQ05,7/30/2017,boysen,nr,PODE,1927,63,14.9,70,L
+BOQ07,7/30/2017,boysen,nr,Hybrid,1870,118,17.5,70,L
+BOQ08,7/30/2017,boysen,nr,PODE,1865,87,16.9,40,L
+BOQ09,7/31/2017,boysen,nr,PODE,1854,98,18.3,25,L
+BOQ10,8/2/2017,boysen,nr,Hybrid,1842,77,16.3,35,L
+BOQ11,10/11/2018,boysen,nr,PODE,1829,94,22.7,30,L
+BOQ12,10/11/2018,boysen,nr,PODE,1832,97,17.9,60,L
+BOQ16,7/29/2017,boysen,nr,PODE,1818,80,15.1,30,L
+BOQ17,5/17/2017,boysen,nr,UNK,1867,74,11.9,65,L
+LDC01,7/11/2017,lower diversion dam,r,POAN,1861,56,13.6,65,L
+LDC02,8/2/2017,lower diversion dam,r,POAN,1915,51,11.7,70,L
+LDC03,7/12/2017,lower diversion dam,r,POAN,1761,86,19.5,65,L
+LDC04,8/3/2017,lower diversion dam,r,POAN,1869,74,14.1,80,L
+LDC05,7/12/2017,lower diversion dam,r,POAN,1925,64,20.5,75,L
+LDC06,7/11/2017,lower diversion dam,r,POAN,1974,29,10.3,85,L
+LDC09,UNK,lower diversion dam,r,POAN,1866,76,14.1,75,L
+LDC13,7/11/2017,lower diversion dam,r,UNK,1850,64,15.9,UNK,L
+LDC15,7/14/2017,lower diversion dam,r,POAN,2004,12,6.1,95,L
+LDC16,8/3/2017,lower diversion dam,r,POAN,1925,40,10.3,85,L
+LDC18,7/11/2017,lower diversion dam,r,Hybrid,1932,37,10.1,70,L
+LDC21,UNK,lower diversion dam,r,POAN,1863,65,15.7,60,L
+LDC22,7/13/2017,lower diversion dam,r,POAN,1811,82,16.5,50,L
+LDC25,7/13/2017,lower diversion dam,r,POAN,1858,59,13.7,70,L
+LDC26,7/14/2017,lower diversion dam,r,POAN,1863,69,15.3,75,L
+LDC28,8/2/2017,lower diversion dam,r,POAN,1930,50,13.5,65,L
+LDC29,7/13/2017,lower diversion dam,r,POAN,1929,41,12.9,65,L
+LDC30,7/11/2017,lower diversion dam,r,POAN,1984,21,8.3,80,L
+LDC31,7/10/2017,lower diversion dam,r,POAN,1984,34,14.1,65,L
+LDC33,7/13/2017,lower diversion dam,r,UNK,1783,104,20.3,55,L
+LDC34,7/12/2017,lower diversion dam,r,POAN,1853,66,15.7,70,L
+LDC35,7/13/2017,lower diversion dam,r,POAN,1986,30,10.5,90,L
+LDC36,7/13/2017,lower diversion dam,r,UNK,1992,27,11.7,85,L
+LDC39,8/3/2017,lower diversion dam,r,POAN,1859,69,14.3,75,L
+LDC40,7/13/2017,lower diversion dam,r,POAN,1893,78,17.9,80,L
+LDC41,7/12/2017,lower diversion dam,r,POAN,1927,97,20,80,L
+LDC43,7/12/2017,lower diversion dam,r,POAN,1925,41,9.1,80,L
+LDC45,7/12/2017,lower diversion dam,r,Hybrid,1919,56,13.5,80,L
+LDC46,8/2/2017,lower diversion dam,r,POAN,1904,70,9.1,15,L
+LDC47,8/2/2017,lower diversion dam,r,POAN,1904,56,16.7,55,L
+LDC48,7/14/2017,lower diversion dam,r,POAN,1991,18,8.9,95,L
+LDC49,7/13/2017,lower diversion dam,r,POAN,1859,87,16.3,65,L
+LDC50,7/12/2017,lower diversion dam,r,POAN,1927,53,15.5,65,L
+LDC53,7/10/2017,lower diversion dam,r,UNK,1880,52,14.5,55,L
+LDC54,7/11/2017,lower diversion dam,r,POAN,1941,52,13.3,75,L
+LDC55,7/14/2017,lower diversion dam,r,POAN,1977,31,12.1,85,L
+LDC56,7/10/2017,lower diversion dam,r,POAN,1975,35,12.9,90,L
+LDC57,7/10/2017,lower diversion dam,r,UNK,1848,70,17.9,30,L
+LDC58,7/14/2017,lower diversion dam,r,PODE,1978,49,17.7,80,L
+LDC59,8/2/2017,lower diversion dam,r,POAN,1942,63,13.1,80,L
+LDC60,7/13/2017,lower diversion dam,r,UNK,1933,48,11.1,30,L
+LDC62,7/13/2017,lower diversion dam,r,POAN,1880,54,11.9,60,L
+LDC63,7/14/2017,lower diversion dam,r,POAN,1970,25,8.9,85,L
+LDQ01,7/11/2017,lower diversion dam,nr,POAN,1775,108,20.9,75,L
+LDQ03,7/12/2017,lower diversion dam,nr,Hybrid,1866,89,19.5,70,L
+LDQ04,7/12/2017,lower diversion dam,nr,POAN,1849,89,UNK,UNK,L
+LDQ05,7/14/2017,lower diversion dam,nr,POAN,1744,98,20,75,L
+LDQ06,7/14/2017,lower diversion dam,nr,POAN,1722,125,18.5,65,L
+LDQ07,8/3/2017,lower diversion dam,nr,POAN,1899,76,15.5,70,L
+LDQ08,5/17/2017,lower diversion dam,nr,UNK,1892,44,9.7,50,L
+LDQ09,5/17/2017,lower diversion dam,nr,UNK,1920,49,9.1,45,L
+LDQ10,5/17/2017,lower diversion dam,nr,UNK,1932,36,10.7,80,L
+LDQ11,5/17/2017,lower diversion dam,nr,UNK,1882,71,12.9,50,L
+LDQ12,5/17/2017,lower diversion dam,nr,UNK,1842,112,19.2,85,L
+LDQ13,5/17/2017,lower diversion dam,nr,UNK,1856,67,15.3,70,L
+LDQ14,5/17/2017,lower diversion dam,nr,UNK,1779,85,17.7,45,L
+OWL01,10/15/2018,owl creek,nr,POAN,UNK,125,22,75,L
+OWL02,10/15/2018,owl creek,nr,POAN,1782,97,21.8,85,L
+OWL03,10/15/2018,owl creek,nr,POAN,1885,80,19,55,L
+OWL04,10/15/2018,owl creek,nr,POAN,UNK,87,16,50,L
+OWL05,10/15/2018,owl creek,nr,POAN,UNK,74,19.8,50,L
+OWL06,10/15/2018,owl creek,nr,Hybrid,1907,78,15.2,55,L

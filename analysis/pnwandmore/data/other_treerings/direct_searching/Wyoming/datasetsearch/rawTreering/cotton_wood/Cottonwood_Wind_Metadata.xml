@@ -1,0 +1,489 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Jonathan M. Friedman</origin>
+        <origin>Richard D. Thaxton</origin>
+        <pubdate>20200827</pubdate>
+        <title>Tree-Ring Data Collected in 2017 and 2018 From Cottonwood Trees Along the Wind River in Wind River Indian Reservation, Wyoming</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.5066/P9S1UIAL</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This dataset contains tree-ring data from plains cottonwood (Populus deltoides subsp. monilifera), narrowleaf cottonwood (Populus angustifolia) and their hybrids collected from floodplains within the Wind River Indian Reservation, Wyoming in 2017 and 2018. Samples were collected from trees at three sites: the Wind River upstream of Boysen Reservoir (latitude 43.127 N, longitude -108.232 W), the Wind River downstream of Diversion Dam (latitude 43.219 N, longitude -108.940 W) and Owl Creek near Arapaho Ranch, latitude 43.725 N, longitude -108.570 W. There are 3 files. Cottonwood_Wind_Tree_Data.csv contains descriptive information about each of the sampled trees, Cottonwood_Wind_Ring_Widths contains the tree-ring widths in Tucson format, and Cottonwod_Wind_READ_Me.txt duplicates some of the metadata in this metadata file in a format that is easy to read.</abstract>
+      <purpose>The data were collected to learn how annual cottonwood growth relates to flow, precipitation and temperature. Because ring width at the Boysen Site is strongly correlated with flow, the ring width data can be used to reconstruct flow in the Wind River before the beginning of the instrumental record. Ring width data can be compared to recollections of Tribal Members to better understand the history of drought on the Wind River Reservation and to develop response plans for future droughts.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>17220101</begdate>
+          <enddate>20161231</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-108.9871</westbc>
+        <eastbc>-108.1302</eastbc>
+        <northbc>43.7592</northbc>
+        <southbc>42.9765</southbc>
+      </bounding>
+      <descgeog>Wind River Indian Reservation, Wyoming</descgeog>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>inlandWaters</themekey>
+        <themekey>environment</themekey>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>droughts</themekey>
+        <themekey>USGS-EMA-LOW-MR Riparian/wetland</themekey>
+        <themekey>USGS-EMA-LOW-SS Ecological Flows/WaterSMART</themekey>
+        <themekey>streamflow</themekey>
+        <themekey>tree ring analysis</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:5e1cfaa0e4b0ecf25c5f0cd9</themekey>
+      </theme>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>Wind River</placekey>
+        <placekey>Wyoming</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Jonathan M. Friedman</cntper>
+          <cntorg>US Geological Survey, Fort Collins Science Center</cntorg>
+        </cntperp>
+        <cntpos>Hydrologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>Building C</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>970-226-9318</cntvoice>
+        <cntfax>970-226-9230</cntfax>
+        <cntemail>friedmanj@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Colorado State University, Eastern Shoshone Tribe, Northern Arapaho Tribe</datacred>
+    <native>Operating System Windows 10. Software: Excel Version 1902, Word Version 1902. Cores digitized on a Velmex sliding stage micrometer using software J2X Version 5.03 and cross-dating checked with software COFECHA Version 6.06P.</native>
+    <crossref>
+      <citeinfo>
+        <origin>Shannon M. McNeeley, Jonathan M. Friedman, Tyler A. Beeton, and Richard D. Thaxton</origin>
+        <pubdate>20200301</pubdate>
+        <title>Cottonwoods, Water and People: Integrating Observations of Eastern Shoshone and Northern Arapaho Elders with Analysis of Tree Rings</title>
+        <geoform>US Geological Survey Open-File Report</geoform>
+        <othercit>In review</othercit>
+      </citeinfo>
+    </crossref>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>None</taxonkt>
+        <taxonkey>Populus deltoides ssp. monilifera</taxonkey>
+        <taxonkey>Populus angustifolia</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Magnoliopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Superorder</taxonrn>
+                      <taxonrv>Rosanae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Malpighiales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Salicaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Populus</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Populus deltoides</taxonrv>
+                              <taxoncl>
+                                <taxonrn>Subspecies</taxonrn>
+                                <taxonrv>Populus deltoides ssp. monilifera</taxonrv>
+                                <common>TSN: 22447</common>
+                              </taxoncl>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Populus angustifolia</taxonrv>
+                              <common>TSN: 22452</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Cores were visually cross-dated using the skeleton-plot method and digitized on a Velmex sliding stage micrometer using software J2X. Accuracy of the sliding-stage micrometer was checked by measuring a scale with standard lengths. Operator error was assessed by comparing digitized ring widths of the same core by two different operators. Dating accuracy was checked by submission of data to program COFECHA.</attraccr>
+    </attracc>
+    <logic>Program COFECHA was used to identify and remove duplicate values and values falling outside expected ranges.</logic>
+    <complete>Cores that could not be confidently dated were excluded.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>No positional data</horizpar>
+      </horizpa>
+      <vertacc>
+        <vertaccr>No positional data</vertaccr>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <procstep>
+        <procdesc>We focused on the lower Wind River Basin, where higher temperature and evaporation should make trees more reliant on streamflow. We selected study sites that contained old trees and were of importance to the Eastern Shoshone and Northern Arapaho tribes.  At the Boysen and Diversion Dam sites, we cored one cottonwood at each of 50 randomly selected locations in July and August of 2017. We discarded 15 points from the Boysen Site and 5 points from the Diversion Dam Site because these points were located within the river or an unforested part of the floodplain or because the cores were not readable.  The randomly selected trees were used to analyze the age distribution of the forest. For the purpose of flow reconstruction, we added 12 more trees at the Boysen Site and 19 more trees at the Diversion Dam Site to increase representation of older trees.  In October 2018 we collected 11 cores from six trees along Owl Creek to explore how growth of these trees differ from those along the Wind River. Those data were not analyzed by McNeeley et al. We used Haglof increment borers to collect at least two cores from each tree 1.2 m above the ground. Because many trees at the Boysen Site have recently died, we collected samples from an additional 36 dead trees by cutting a slab with a chainsaw in October 2018. Tree diameters were measured with a diameter tape. Tree heights were measured with a Nikon Forestry Pro laser range finder. Tree canopy vigor was estimated by eye on a scale from 0 (completely dead) to 100 (completely alive). We mounted all cores on wooden boards and then sanded all cores and slabs with progressively finer sand paper from 100 to 600 grit. We cross-dated cores using the skeleton-plot method, digitized ring widths using a sliding-stage micrometer, and submitted data to program COFECHA for quality control. If a core or slab did not include the center year, the number of additional years to the center was estimated by dividing the radius of curvature of the innermost ring boundary by the average width of the four innermost measured rings.</procdesc>
+        <procdate>20200108</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Cottonwood_Wind_Tree_Data.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>tree</attrlabl>
+        <attrdef>The name of each tree included in the analysis.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The first two letters designate the study reach. "BO" are trees near Boysen Reservoir, "LD" are trees downstream of Diversion Dam, and "OW" are trees near Owl Creek. The third letter refers to any special status of the tree ("C" refers to a cored, living tree that was part of the random sample, "D" refers to a sampled dead tree,  "Q" refers to a cored live tree that was not part of the random sample, and “L” refers to nonrandom living trees cored at Owl Creek. The last two to three numbers are the specific ID of the tree in its reach.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>date</attrlabl>
+        <attrdef>Date tree was sampled</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Date unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <udom>Date tree was sampled MM/DD/YYYY</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>reach</attrlabl>
+        <attrdef>Location where tree is found.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>boysen</edomv>
+            <edomvd>The Boysen Site, see McNeeley et al.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>boysen east</edomv>
+            <edomvd>The east area of dead trees at the Boysen Site, see McNeeley et al.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>boysen west</edomv>
+            <edomvd>The west area of dead trees at the Boysen Site, see McNeeley et al.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>lower diversion dam</edomv>
+            <edomvd>The Diversion Dam Site, see McNeeley et al.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>owl creek</edomv>
+            <edomvd>Owl Creek</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>random</attrlabl>
+        <attrdef>Indicates whether tree was located a randomly selected point</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>r</edomv>
+            <edomvd>located at a randomly selected point</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>nr</edomv>
+            <edomvd>not located at a randomly selected point</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>species</attrlabl>
+        <attrdef>Species of Cottonwood</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Unknown species</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>PODE</edomv>
+            <edomvd>Populus deltoides subspecies monilifera</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>POAN</edomv>
+            <edomvd>Populus angustifolia</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Hybrid</edomv>
+            <edomvd>Populus deltoides X Populus angustifolia</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>center year</attrlabl>
+        <attrdef>Estimated center year of the tree at coring height</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Center year unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1722</rdommin>
+            <rdommax>2004</rdommax>
+            <attrunit>calendar year</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>dbh</attrlabl>
+        <attrdef>Tree diameter 1.2 m above ground</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Diameter  unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>12</rdommin>
+            <rdommax>126</rdommax>
+            <attrunit>cm</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>height</attrlabl>
+        <attrdef>Height of tree in meters</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Height unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>5.9</rdommin>
+            <rdommax>22.7</rdommax>
+            <attrunit>meters</attrunit>
+            <attrmres>0.1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>vigor</attrlabl>
+        <attrdef>Percentage of tree canopy that is alive</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>UNK</edomv>
+            <edomvd>Unknown vigor</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>100</rdommax>
+            <attrunit>unitless</attrunit>
+            <attrmres>5</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>status</attrlabl>
+        <attrdef>Indicates whether tree is living, dead and standing, dead and fallen, or cut down</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>L</edomv>
+            <edomvd>Tree is living</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>C</edomv>
+            <edomvd>Tree has been cut down and is now dead</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>S</edomv>
+            <edomvd>Tree is dead but still standing</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>F</edomv>
+            <edomvd>Tree is dead and has fallen on the ground</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>This dataset contains 2 data files. Cottonwood_Wind_Tree_Data.csv contains descriptive information about each of the sampled trees, and is catalogued in the Detailed Section. Cottonwood_Wind_Ring_Widths is a text file containing the tree-ring widths in Tucson Format with measurements in thousandths of millimeters. Tucson Format is the standard format used in the International Tree Ring Data Bank. In this file, Column 1 includes the tree name (5 to 6 characters) followed by the core name (A, B or C).  Column 2  is the calendar year of the ring width given in Column 3. Columns 3-12 give widths in thousandths of millimeters of rings formed in successive years beginning with the year given in column 2. The end of the ring-width series is delimited by -9999. Tucson Format is described in more detail in the url below. File Cottonwod_Wind_READ_Me.txt duplicates some of the metadata in this metadata file in a format that is easy to read.</eaover>
+      <eadetcit>http://www.cybis.se/wiki/index.php?title=Tucson_format</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P9S1UIAL</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20200827</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Jonathan M. Friedman</cntper>
+          <cntorg>US Geological Survey Fort Collins Science Center</cntorg>
+        </cntperp>
+        <cntpos>Hydrologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>Building C</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>970-226-9318</cntvoice>
+        <cntfax>970-226-9230</cntfax>
+        <cntemail>friedmanj@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
