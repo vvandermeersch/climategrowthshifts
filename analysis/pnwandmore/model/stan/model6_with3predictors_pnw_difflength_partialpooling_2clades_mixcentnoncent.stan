@@ -105,16 +105,20 @@ transformed data {
   real sm0 = 25;
   real vpd0 = 8;
   
-  // No. of Angiosperm species
+  // No. of Gymnosperm/Angiosperm species, and indices of them within each group
+  int N_sp_clade1 = 0;
   int N_sp_clade2 = 0;
-  array[N_species] int<lower=0, upper=N_sp_clade2> species_clade2_idxs = rep_array(0, N_species);
+  array[N_species] int<lower=0, upper=N_species> sp_clade1_idxs = rep_array(0, N_species);
+  array[N_species] int<lower=0, upper=N_species> sp_clade2_idxs = rep_array(0, N_species);
   for (sp in 1:N_species) {
     if(clade_idxs[sp] == 2){
       N_sp_clade2 += 1;
-      species_clade2_idxs[sp] = N_sp_clade2;
+      sp_clade2_idxs[sp] = N_sp_clade2;
     }
-      
-      
+    else{
+      N_sp_clade1 += 1;
+      sp_clade1_idxs[sp] = N_sp_clade1;
+    }
   }
   
 }
@@ -125,20 +129,20 @@ parameters {
   // GDD slope (1/100degC)
   vector[N_clades] mu_gdd;
   vector<lower=0>[N_clades] tau_gdd;
-  //vector[N_species] beta_gdd_tilde;
-  //vector[N_species] beta_gdd;
+  vector[N_sp_clade1] beta_gdd_cp;
+  vector[N_sp_clade2] beta_gdd_ncp;
   
   // SM slope (1/%)
   vector[N_clades] mu_sm;
   vector<lower=0>[N_clades] tau_sm;
-  //vector[N_species] beta_sm_tilde;
-  //vector[N_species] beta_sm;
+  vector[N_sp_clade1] beta_sm_cp;
+  vector[N_sp_clade2] beta_sm_ncp;
   
   // VPD slope (1/hPa)
   vector[N_clades] mu_vpd;
   vector<lower=0>[N_clades] tau_vpd;
-  //vector[N_species] beta_vpd_tilde;
-  //vector[N_species] beta_vpd;
+  vector[N_sp_clade1] beta_vpd_cp;
+  vector[N_sp_clade2] beta_vpd_ncp;
   
   // Lifetime proportional growth scale
   // array[N_species] real<lower=0> rho_sp;
@@ -178,15 +182,16 @@ transformed parameters {
   vector[N_species] beta_sm;
   vector[N_species] beta_vpd;
   
-  vector[N_sp_clade2] beta_gdd_tilde;
-  vector[N_sp_clade2] beta_sm_tilde;
-  vector[N_sp_clade2] beta_vpd_tilde;
-  
   for (sp in 1:N_species) {
     if(clade_idxs[sp] == 2){
-      beta_gdd[sp] = mu_gdd[clade_idxs[sp]] + tau_gdd[clade_idxs[sp]] * beta_gdd_tilde[species_clade2_idxs[sp]];
-      beta_sm[sp] = mu_sm[clade_idxs[sp]] + tau_sm[clade_idxs[sp]] * beta_sm_tilde[species_clade2_idxs[sp]];
-      beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[species_clade2_idxs[sp]];
+      beta_gdd[sp] = mu_gdd[clade_idxs[sp]] + tau_gdd[clade_idxs[sp]] * beta_gdd_ncp[sp_clade2_idxs[sp]];
+      beta_sm[sp] = mu_sm[clade_idxs[sp]] + tau_sm[clade_idxs[sp]] * beta_sm_ncp[sp_clade2_idxs[sp]];
+      beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_ncp[sp_clade2_idxs[sp]];
+    }
+    else{
+      beta_gdd[sp] = beta_gdd_cp[sp_clade1_idxs[sp]];
+      beta_sm[sp] = beta_sm_cp[sp_clade1_idxs[sp]];
+      beta_vpd[sp] = beta_vpd_cp[sp_clade1_idxs[sp]];
     }
   }
   
@@ -215,14 +220,14 @@ model {
   for (sp in 1:N_species) {
     
     if(clade_idxs[sp] == 2){
-      beta_gdd_tilde[species_clade2_idxs[sp]] ~ normal(0, 1);
-      beta_sm_tilde[species_clade2_idxs[sp]] ~ normal(0, 1);
-      beta_vpd_tilde[species_clade2_idxs[sp]] ~ normal(0, 1);
+      beta_gdd_ncp[sp_clade2_idxs[sp]] ~ normal(0, 1);
+      beta_sm_ncp[sp_clade2_idxs[sp]] ~ normal(0, 1);
+      beta_vpd_ncp[sp_clade2_idxs[sp]] ~ normal(0, 1);
     }
     else{
-      beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
-      beta_sm[sp] ~ normal(mu_sm[clade_idxs[sp]] , tau_sm[clade_idxs[sp]]);
-      beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+      beta_gdd_cp[sp_clade1_idxs[sp]] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
+      beta_sm_cp[sp_clade1_idxs[sp]]  ~ normal(mu_sm[clade_idxs[sp]] , tau_sm[clade_idxs[sp]]);
+      beta_vpd_cp[sp_clade1_idxs[sp]]  ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
     }
     
   }
