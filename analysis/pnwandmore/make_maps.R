@@ -22,7 +22,7 @@ datasets <- datasets[datasets$dataset != 'co689',] # temporary
 datasets <- datasets[datasets$dataset != 'co690',] # temporary
 datasets <- datasets[datasets$dataset != 'co691',] # temporary
 
-# datasets <- datasets[datasets$dataset != 'can673',] # temporary
+datasets <- datasets[datasets$dataset != 'ca736',] # temporary, PISA??
 
 # toremove <- c("az589","ca681","ca682","ca683","ca684","ca685","ca736","mexi060","mexi063","mt130","ut576")
 # datasets <- datasets[!(datasets$dataset %in% toremove),]
@@ -37,7 +37,7 @@ datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <-
   unique(datasets[datasets$species_code == 'ABLA', c('species_name', 'species_code')])
 
 # Get shapefile name
-temp <- str_split_fixed(datasets$species_name, " ", 3)
+temp <- stringr::str_split_fixed(datasets$species_name, " ", 3)
 datasets$species_name_simplified <- paste(temp[,1], temp[,2], sep=" ")
 species_treerings <- data.frame(species = unique(datasets$species_name_simplified))
 
@@ -55,7 +55,7 @@ for(i in 1:nrow(species_treerings)){
   crs(rangemap) <- 'EPSG:4267'
   plotmap_ext <- ggplot() +
     geom_spatvector(data = westam, color = 'white', fill = 'grey90') +
-    geom_spatvector(data = rangemap, color = 'white', fill = '#51ba69') +
+    geom_spatvector(data = rangemap, color = '#51ba69', fill = '#51ba69') +
     annotate('rect', xmin = -124.925, xmax = -89.025, ymin = 25.065, ymax = 52.925,
              fill = NA, color = 'grey30', linewidth = 0.5) +
     ggplot2::theme_minimal() +
