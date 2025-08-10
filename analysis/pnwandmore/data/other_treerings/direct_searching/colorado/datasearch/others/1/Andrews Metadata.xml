@@ -1,0 +1,964 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--Record created using version 2.0.8 of the USGS Metadata Wizard tool. (https://github.com/DOI-USGS/fort-pymdwizard)-->
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Lesleigh Anderson USGS Geoscience and Environmental Change Science Center</origin>
+        <origin>M. Alisa Mast USGS Colorado Water Science Center</origin>
+        <pubdate>20250114</pubdate>
+        <title>Loch Vale Watershed hydroclimate and isotopes of tree-ring cellulose and source-water isotope model</title>
+        <edition>1</edition>
+        <geoform>spreadsheet</geoform>
+        <pubinfo>
+          <pubplace>USGS Science Base</pubplace>
+          <publish>USGS</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.5066/P13DMY4G</onlink>
+        <lworkcit>
+          <citeinfo>
+            <origin>Anderson, Lesleigh</origin>
+            <origin>Mast, Alisa M.</origin>
+            <pubdate>20250106</pubdate>
+            <title>Testing tree-ring cellulose d18O with water isotopes for Holocene lake d18O interpretations in the central Rocky Mountains USA</title>
+            <geoform>publication</geoform>
+            <pubinfo>
+              <pubplace>The Holocene</pubplace>
+              <publish>Sage</publish>
+            </pubinfo>
+            <othercit>Anderson, L., Mast, A., Brice, B., Berkelhammer, M.B. (2025) Testing tree-ring cellulose d18O with water isotopes for Holocene lake d18O interpretations in the central Rocky Mountains USA. The Holocene 35(1):18-28.</othercit>
+            <onlink>https://doi.org/10.1177/09596836241286007</onlink>
+          </citeinfo>
+        </lworkcit>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Stable isotopes of water preserved in geologic archives, primarily as oxygen (d18O), have proven critical for documenting Earth’s climatic and hydrologic systems past and present. However, timescale differences of water isotope inputs to proxy systems and the signal embedded in long paleorecords often confound translation to observed hydroclimatic metrics. Here, a unique 20-year dataset of meteorology, hydrology, and the isotopic composition of weekly meteoric and surface water samples (d18O, d2H) are combined with paleoclimate d18O data from tree-ring cellulose and lake carbonate to better understand proxy signals of Upper Colorado river basin drought. Annual tree-ring cellulose d18O from Picea engelmannii growing within a glacier-fed creek and a spring discharge area were used to derive annual source water d18O using a cellulose source-water isotope model. Comparisons with the monitoring record indicates that tree-ring cellulose d18O tracks variations in wet and dry hydroclimatic extremes. The data release contains the annual tree-cellulose isotope data with hydroclimate and water isotope annual averages, including those used for the cellulose source-water isotope model.</abstract>
+      <purpose>The data were collected to better understand proxy signals of Upper Colorado River basin drought and is appropriate for use with related climate reconstruction techniques and scientific objectives.</purpose>
+      <supplinf>https://journals.sagepub.com/doi/suppl/10.1177/09596836241286007/suppl_file/sj-docx-1-hol-10.1177_09596836241286007.docx</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>19910101</begdate>
+          <enddate>20191230</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>-105.68340</westbc>
+        <eastbc>-105.65000</eastbc>
+        <northbc>40.31660</northbc>
+        <southbc>40.28330</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>climatologyMeteorologyAtmosphere</themekey>
+        <themekey>geoscientificInformation</themekey>
+        <themekey>inlandWaters</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Climatology</themekey>
+        <themekey>Meteorology</themekey>
+        <themekey>Atmospheres</themekey>
+        <themekey>Inland waters</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:6686e3ded34ebb7843398bab</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Colorado</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty. Acknowledgement of the U.S. Geological Survey and U.S. Bureau of Reclamation would be appreciated in products derived from these data.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Lesleigh Anderson</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Research Geologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing</addrtype>
+          <address>Box 25046 MS-980</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>0-303-236-1296</cntvoice>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Methods include accuracy report</attraccr>
+    </attracc>
+    <logic>Methods include consistency report</logic>
+    <complete>Methods include completeness report</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>Loch Vale Watershed</horizpar>
+      </horizpa>
+      <vertacc>
+        <vertaccr>Loch Vale Watershed</vertaccr>
+      </vertacc>
+    </posacc>
+    <lineage>
+      <procstep>
+        <procdesc>The Andrews Creek and Loch Vale watershed environmental and water collections began in various years in the 1990s and by 1998 all the datasets are continuous through 2017. Weekly collections include Andrews Creek, the spring, and precipitation samples from a station located at Loch Vale (Scholl et al., 2023). Integrated snowpack in Andrews Meadow and adjacent forest was sampled near April 1 (Anderson et al., 2016b). Hydrologic and meteorological observations in the Andrews Creek and Loch Vale watershed  include hourly temperature data from three stations at 2885m (Bear Lake SNOTEL; USDA NRCS, 2014), 3160 m (Loch Vale Main), and 3206 m (Loch Vale Andrews) (USGS NWIS, 2024). Bear Lake temperatures were corrected for sensor upgrade in 2005 (Mast and Ingersoll, 2011; Oyler et al., 2015). Weekly precipitation amounts are from Loch Vale. Andrews Creek discharge is measured daily. 
+
+Over the 20-yr period that water samples were collected and analyzed for stable oxygen and hydrogen isotopes, different laboratories and methods were used. Detailed information is available for each sample from the U.S. Geological Survey National Water Information Systems web interface (USGS NWIS, 2024) and is summarized here. Analytical methods include use of laser cavity ring-down analyzers at the U.S. Geological Survey Boulder National Research Program Laboratory (Los Gatos), the Colorado School of Mines Isotope Laboratory (Picarro), and the University of Utah SIRFER Laboratory (Picarro) by injecting 1microliter into a heated vaporization chamber and the vapor stream carried into the cavity of the laser absorption spectrometer. All samples were measured six times and the first three injections rejected due to the influence of carryover. Additional residual memory corrections are applied to the last three injections, which are then averaged to generate the reported value. Uncertainty is reported as the absolute range of the three injections and is &lt;0.2‰ and &lt;0.5‰ for oxygen and hydrogen, respectively. Secondary water isotope standards are run intermittently to assess drift and in-house span standards were analyzed at the end of each run to correct results to the VSMOW (Vienna Standard Mean Ocean Water) scale. The methods closely follow those previously described by Gupta et al., (2009) and Brand et al., (2009). All mass spectrometry analyses were carried out at the USGS Reston Stable Isotope Laboratory by automated constant temperature equilibration with CO2 for oxygen and automated H/D preparation by chromium reduction. The 2-sigma uncertainty of 0.2‰ and 2‰ for oxygen and hydrogen, respectively, with normalization to Standard Light Antarctic Precipitation (SLAP) values of -428‰ and -55.5‰ for oxygen and hydrogen, respectively. All water results are reported in per mil (‰) as the relative difference of isotope ratios (d,delta) from the international measurement standard VSMOW defined by
+d18OH2O = ([18O/16O]H2O /[18O/16O]VSMOW) -1 and d2HH2O = ([2H/1H]H2O /[2H/1H]VSMOW) -1. Annual amount weighted precipitation values (calendar or water year) were calculated from annual isotope averages and precipitation amounts. To calculate weighted monthly values, weekly measurements were used to calculate monthly isotope averages weighted by monthly precipitation as an annual fraction. Within season precipitation amount weighting was found to have an insignificant effect on seasonal isotope averages.
+
+Tree-ring sampling was conducted in September 2016 and targeted mature and healthy P. engelmannii growing in and immediately adjacent to Andrews Creek and within the spring discharge area. From a total of 9 trees, eighteen tree cores were obtained (2 cores per tree) using a large diameter borer (12 mm). To achieve a stand average, 5 cores were selected for isotope analyses based on wide well-defined annual rings of 50 to 80 years in length without regard to tree location. This resulted in 3 cores from Andrews Creek and 2 cores from the spring. Visual cross dating followed standard methods although statistical verification was not possible due to the short core lengths and small interannual ring width variation. For each of the 5 cores, whole annual rings for years from 1994 to 2015 were individually sampled by a razor blade for cellulose extraction by a Brendel extraction method modified for small sample sizes (Anchukaitis et al., 2008). Purified cellulose of ~2 microgram weight was packed in silver capsules and analyzed by TC-EA coupled with a mass spectrometer at the University of Illinois at Chicago. Results are reported in per mil (‰) as the relative difference of isotope ratios (d, delta) from the international measurement standard VSMOW defined by d18OCELL = ([18O/16O]CELL /[18O/16O]VSMOW) -1. Pure cellulose and in-house sucrose standards (n=40) regularly interspersed throughout the samples (n=115) indicated analytical uncertainty of ± 0.3‰. 
+
+References in citation order:
+
+Scholl MA, Anderson L, Bern C, et al. (2023) Stable hydrogen and oxygen isotopic compositions of precipitation samples from selected Colorado and Utah National Atmospheric Deposition Program (NADP) sites. U.S. Geological Survey data release doi:10.5066/P9S5ZTS0.
+
+Anderson L, Berkelhammer MB, Mast AM (2106) Isotopes in North American Rocky Mountain Snowpack 1993-2014. Quaternary Science Reviews 131, 262-273 doi:10.1016/j.quascirev.2015.03.023
+
+USDA NRCS (2024) U.S. Department of Agriculture, National Resource Service, National Water and Climate Center data portal https://www.nrcs.usda.gov/programs-initiatives/sswsf-snow-survey-and-water-supply-forecasting-program/national-water-and (accessed July 2, 2024).
+
+USGS NWIS (2024) U.S. Geological Survey National Water Information System database https://waterdata.usgs.gov/nwis (accessed July 2, 2024).
+
+Mast AM, Ingersoll GP (2011) Trends in lake chemistry in response to atmospheric deposition and climate in selected Class I wilderness areas in Colorado, Idaho, Utah, and Wyoming, 1993-2009. U.S. Geological Survey Scientific Investigations Report 2011-5123 doi:10.3133/sir20115123.
+
+Oyler JW, Dobrowski SZ, Ballantyne AP, et al. (2015) Artificial amplification of warming trends across the mountains of the western United States Geophysical Research Letters, 42, 153–161 doi:10.1002/2014GL062803.
+
+Gupta P, Noone D, Galewsky J, et al., (2009) Demonstration of high precision continuous measurements of water vapor isotopologues in laboratory and remote field deployments using wavelength-scanned cavity ring-down spectroscopy (WS-CRDS) technology. Rapid Communications in Mass Spectrometry 23, 2531-2542 doi:10.1002/rcm.4100
+
+Brand WA, Geilmann H, Crosson ER et al., (2009). Cavity ring-down spectroscopy versus high-temperature conversion isotope ratio mass spectrometry: a case study of d2H and d18O of pure water samples and alcohol/water mixtures. Rapid Communications in Mass Spectrometry 23, 1879-1884 doi:10.1002/rcm.4083. 
+
+Anchukaitis KJ, Evans NE, Lange T, et al. (2008). Consequences of a Rapid Cellulose Extraction	 Technique for Oxygen Isotope and Radiocarbon Analyses. Analytical Chemistry, 80, 2035–2041 doi: 10.1021/ac7020272.
+
+Disclaimer: Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</procdesc>
+        <procdate>20241023</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Measured_Cellulose_delta_18O.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Calender year (Jan to Dec)</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1994</rdommin>
+            <rdommax>2016</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Spring-6b</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.7</rdommin>
+            <rdommax>31.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Spring-7a</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.7</rdommin>
+            <rdommax>33.7</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-1b</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.5</rdommin>
+            <rdommax>29.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-8a</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.0</rdommin>
+            <rdommax>28.3</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-9a</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.7</rdommin>
+            <rdommax>27.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_Spring</attrlabl>
+        <attrdef>Average measured cellulose d18O value of Andrews Meadow trees 6b and 7a in spring area versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.9</rdommin>
+            <rdommax>32.1</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_Creek</attrlabl>
+        <attrdef>Average measured cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.3</rdommin>
+            <rdommax>27.5</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_ALL</attrlabl>
+        <attrdef>Average measured cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.6</rdommin>
+            <rdommax>29.3</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Modeled_Cellulose_delta_18O.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Calender year (Jan to Dec)</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1994</rdommin>
+            <rdommax>2016</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Spring-6b</attrlabl>
+        <attrdef>Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.7</rdommin>
+            <rdommax>-10.7</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Spring-7a</attrlabl>
+        <attrdef>Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-18.9</rdommin>
+            <rdommax>-8.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-1b</attrlabl>
+        <attrdef>Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.9</rdommin>
+            <rdommax>-11.3</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-8a</attrlabl>
+        <attrdef>Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-19.0</rdommin>
+            <rdommax>-14.1</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AM_Creek-9a</attrlabl>
+        <attrdef>Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.7</rdommin>
+            <rdommax>-12.5</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_Spring</attrlabl>
+        <attrdef>Average modeled cellulose d18O value of Andrews Meadow trees 6b and 7a in spring discharge area versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.7</rdommin>
+            <rdommax>-10.5</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_Creek</attrlabl>
+        <attrdef>Average modeled cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.8</rdommin>
+            <rdommax>-13.4</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AVG_ALL</attrlabl>
+        <attrdef>Average modeled cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-17.4</rdommin>
+            <rdommax>-12.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Precipitation_isotope_averages.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Calender year (Jan to Dec)</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1993</rdommin>
+            <rdommax>2020</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Precipitation_delta_18O</attrlabl>
+        <attrdef>Average annual precipitation amount weighted d18O versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-17.68</rdommin>
+            <rdommax>-13.99</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Precipitation_delta_2H</attrlabl>
+        <attrdef>Annual average precipitation amount weighted d2H versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-130.35</rdommin>
+            <rdommax>-102.9</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Precipitation_dexcess</attrlabl>
+        <attrdef>Annual average precipitation amount weighted d-excess versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>9.06</rdommin>
+            <rdommax>13.18</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Snowpack_delta_18O</attrlabl>
+        <attrdef>Integrated snowpack d18O versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-22.3</rdommin>
+            <rdommax>-18.37</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Snowpack_delta_2H</attrlabl>
+        <attrdef>Integrated snowpack d2H versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-167.2</rdommin>
+            <rdommax>-137.77</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Snowpack_dexcess</attrlabl>
+        <attrdef>Integrated  snowpack d-excess versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>3.03</rdommin>
+            <rdommax>20.16</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Snowpack_depth_cm</attrlabl>
+        <attrdef>Snowpack depth</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>152</rdommin>
+            <rdommax>348</rdommax>
+            <attrunit>cm</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Surface_water_isotope_averages.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Site</attrlabl>
+        <attrdef>Andrews Creek and Andrews Spring</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>Andrews Creek and Andrews Spring</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Calender (Jan to Dec) or water year (Oct-Sept)</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>1992</rdommin>
+            <rdommax>2019</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>delta_18O_flow-weighted_water_year</attrlabl>
+        <attrdef>Average annual water year flow weighted d18O value versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-18.42</rdommin>
+            <rdommax>-15.2</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>delta_18O_calendar_year</attrlabl>
+        <attrdef>Average annual calendar year d18O value versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-18.02</rdommin>
+            <rdommax>-13.88</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>delta_2H_calendar_year</attrlabl>
+        <attrdef>Average annual calendar year d2H value versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-130.56</rdommin>
+            <rdommax>-102.48</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>dexcess_calendar_year</attrlabl>
+        <attrdef>Average annual calendar year deuterium excess value versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>1.78</rdommin>
+            <rdommax>20.03</rdommax>
+            <attrunit>per_mil_VSMOW</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Climate_averages.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Calender year</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1992</rdommin>
+            <rdommax>2019</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Loch_Vale_Precipitation_cm</attrlabl>
+        <attrdef>Annual calendar year average precipitation amount at National Atmospheric Deposition Program CO98 Loch Vale Station</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>70.87</rdommin>
+            <rdommax>145.26</rdommax>
+            <attrunit>cm</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Loch_Vale_Andrews_Temp</attrlabl>
+        <attrdef>Annual calendar year average temperature at USGS Loch Vale Andrews weather station</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>-0.41</rdommin>
+            <rdommax>2.2</rdommax>
+            <attrunit>degree centigrade</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Loch_Vale_Andrews_Relative_Humidity</attrlabl>
+        <attrdef>Annual calendar year average percent relative humidity at USGS Loch Vale Andrews weather station</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>54.55</rdommin>
+            <rdommax>70.63</rdommax>
+            <attrunit>percent</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Loch_Vale_Main_Temp</attrlabl>
+        <attrdef>Annual calendar year average temperature at USGS Loch Vale Main weather station</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>0.35</rdommin>
+            <rdommax>2.52</rdommax>
+            <attrunit>degree centigrade</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Loch_Vale_Main_Relative_Humidity</attrlabl>
+        <attrdef>Annual calendar year average percent relative humidity at USGS Loch Vale Main weather station</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>52.25</rdommin>
+            <rdommax>69.23</rdommax>
+            <attrunit>percent</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Bear_Lake_SensorUncorrected_Temp</attrlabl>
+        <attrdef>Annual calendar year average temperature at SNOTEL Bear Lake station UNCORRECTED for extended sensor change on 2005-08-26</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>1.0</rdommin>
+            <rdommax>5.11</rdommax>
+            <attrunit>degree centigrade</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Bear_Lake_SensorCorrected_Temp</attrlabl>
+        <attrdef>Annual calendar year average temperature at SNOTEL Bear Lake station CORRECTED for extended sensor change on 2005-08-26</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+  <edomv>NA</edomv>
+  <edomvd>No Data</edomvd>
+  <edomvds>Producer defined</edomvds>
+</edom>
+        </attrdomv>
+        <attrdomv><rdom>
+            <rdommin>1.0</rdommin>
+            <rdommax>3.9</rdommax>
+            <attrunit>degree centigrade</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Andrews_Creek_discharge_7daymax</attrlabl>
+        <attrdef>Annual calendar year average of Andrews Creek 7-day maximum discharge</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>4.35</rdommin>
+            <rdommax>14.21</rdommax>
+            <attrunit>cubic feet per second</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Andrews_Creek_Discharge_Annual</attrlabl>
+        <attrdef>Annual calendar year average Andrews Creek discharge</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>1.11</rdommin>
+            <rdommax>2.43</rdommax>
+            <attrunit>cubic feet per second</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Andrews_LatLong.Revised 010825.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Data field name</attrlabl>
+        <attrdef>Name of data labels in fields used within the data files</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>Name of data labels in fields used within the data files</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Site name</attrlabl>
+        <attrdef>Names individual trees and observational data stations</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><udom>Names individual trees and observational data stations</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Source Files</attrlabl>
+        <attrdef>Name of data files including the sites and data fields</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><udom>Name of data files including the sites and data fields</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Lat</attrlabl>
+        <attrdef>Latitude</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>40.288</rdommin>
+            <rdommax>40.316</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Long</attrlabl>
+        <attrdef>Longitude</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>-105.66726</rdommin>
+            <rdommax>-105.65</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>treeiso.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>year</attrlabl>
+        <attrdef>Calendar year</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1994</rdommin>
+            <rdommax>2016</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AMS06B</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.7</rdommin>
+            <rdommax>31.9</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AMS07A</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.7</rdommin>
+            <rdommax>33.7</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AMC01B</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.5</rdommin>
+            <rdommax>29.9</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AMC08A</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.0</rdommin>
+            <rdommax>28.3</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>AMC09A</attrlabl>
+        <attrdef>Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.7</rdommin>
+            <rdommax>28.1</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Spring</attrlabl>
+        <attrdef>Average measured cellulose d18O value of Andrews Meadow trees 6b and 7a in spring area versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>23.9</rdommin>
+            <rdommax>32.1</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Creek</attrlabl>
+        <attrdef>Average measured cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.3</rdommin>
+            <rdommax>27.5</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>ALL</attrlabl>
+        <attrdef>Average measured cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>24.6</rdommin>
+            <rdommax>29.3</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>There are 7 total attributes: 
+
+1. Andrews_LatLong.csv
+2. Climate_averages.csv
+3. Measured_Cellulose_delta_18O.csv
+4. Modeled_water_delta_18O
+5. Precipitation_isotope_averages.csv
+6. Surface_water_isotope_averages.csv
+
+7. treeiso.csv
+This data in this file is the same as 3 but must be in this format to use in the R code in 'SourceWaterCalc.R'</eaover>
+      <eadetcit>Anderson, L., Mast, A., Brice, B., Berkelhammer, M.B. (2025) Testing tree-ring cellulose d18O with water isotopes for Holocene lake d18O interpretations in the central Rocky Mountains USA. The Holocene 35(1):18-28.</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey - ScienceBase</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://doi.org/10.5066/P13DMY4G</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20250114</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Lesleigh Anderson</cntper>
+          <cntorg>USGS - ROCKY MOUNTAIN REGION</cntorg>
+        </cntperp>
+        <cntpos>Research Geologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>Denver Federal Center,DFC Bldg 25</address>
+          <city>Lakewood</city>
+          <state>CO</state>
+          <postal>80225</postal>
+        </cntaddr>
+        <cntvoice>303-236-1296</cntvoice>
+        <cntemail>land@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001-1998</metstdv>
+  </metainfo>
+</metadata>

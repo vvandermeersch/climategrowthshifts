@@ -1,0 +1,533 @@
+FILE NAME: Colofrlr.txt
+STATE OR COUNTRY: Colorado, U.S.A.
+SITE NAMES: Almagre Mountain, Black Mountain, Mount Princeton, North Peak, Stanley Mountain
+SITE CODES: AM, BM, MP, NP, SM
+ELEVATION: 3353-3700 meters (AM), 3380-3540 (BM), 3585-3700 (MP), 3540-3570 (NP), 3430-3550 
+(SM)
+LATITUDE: 38 46 N (AM), 38 43 N (BM), 38 44 N (MP), 37 53 N (NP), 39 47 N (SM)
+LONGITUDE: 104 59 W (AM), 105 41 W (BM), 106 13 W (MP), 105 2 W (NP), 105 48 (SM)
+SPECIES: PIAR
+COMMON NAME: Rocky Mountain bristlecone pine
+CHRONOLOGY TYPE: latewood frost ring, light ring, and earlywood frost ring
+FIRST AND LAST YEAR: 569 B.C. to A.D. 1993 (AM), A.D. 152-1992 (BM), 359 B.C. to A.D. 1992 
+(MP), A.D. 1536-1993 (NP), A.D. 1380-1993 (SM)
+PRINCIPAL INVESTIGATOR(S): F. Craig Brunstein
+
+
+
+
+Latewood frost rings and light rings in bristlecone pines sampled on Almagre Mountain, Black Mountain, 
+Mount Princeton, North Peak, and Stanley Mountain from 569 B.C. to A.D. 1993, and comparison to 
+reported frost rings at other bristlecone pine sites (data from Brunstein, 1995)
+
+[L, light-ring; other dates are latewood frost-rings.  Underlined years indicate events recorded in multiple 
+trees.  Indented years indicate co-occurrence of latewood frost rings and light rings. Under each site 
+heading, first number is number of sampled trees; second number is number of sampled trees that record 
+event; third number is percent of sampled trees that record event.  B, Mount Bross-Windy Ridge, Colo. 
+(Krebs, 1972); G, Mount Goliath, Colo. (Krebs, 1972); S, Snake Range, Nev. (LaMarche, 1970); W, White 
+Mountains, Calif. (LaMarche and Hirschboeck, 1984); X, both Great Basin and southern Rocky Mountains 
+(sites not specified; LaMarche and Hirschboeck, 1984); Y, Great Basin or southern Rocky Mountains 
+(site(s) not specified; LaMarche and Hirschboeck, 1984).  Start and end dates for chronologies:  Almagre 
+Mountain, 569 B.C.-A.D. 1993; Black Mountain, A.D. 152-1992; Mount Princeton, 359 B.C.-A.D. 1992; 
+North Peak, A.D. 1536-1993; Stanley Mountain, A.D. 1380-1993.]
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+B.C.
+
+512      1-1-100                                               
+501L    1-1-100                                               
+467      2-1-50                                               
+445L    2-1-50                                               
+417L    2-1-50                                               
+396      2-1-50                                               
+387      2-1-50                                               
+357L    2-1-50                                               
+356      2-1-50                                               
+354L    3-1-33                                               
+349      3-1-33                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+345L    3-1-33                                               
+341      3-1-33                                               
+327      3-1-33                                               
+323L    3-1-33                                               
+296      3-1-33                                               
+294L    3-1-33                                               
+269      3-1-33                        2-1-50                         
+259      3-1-33                                               
+256L    3-2-66                         2-1-50                                       
+248      3-1-33                        2-1-50                                        
+228L    3-1-33                                               
+225L    3-1-33                                               
+203      4-1-25                        2-1-50                                      
+186L    5-1-20                                               
+  186    5-1-20                                               
+177      6-1-17                                               
+  177L  6-1-17                                               
+161      6-1-17                                               
+152      7-1-14                                               
+143L    8-2-25                                               
+139      9-9-100                       2-1-50                                      
+127      9-8 -89                       2-1-50                                      
+  127L  9-2-22                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+124      9-2-22                                               
+  124L  9-2-22                                               
+119L    9-1-11                                               
+92      12-1-8                                               
+44L      17-2-12                                               
+43L      17-3-18                                               
+42      17-12-71                       2-2-100                                    W
+37L      17-4-24                                               
+33      18-3-17                                               
+  33L    18-3-17                                               
+27L      18-7-39                                               
+24L      18-4-22                                               
+21L      18-3-17                                               
+10      16-6-38                                               
+  10L    16-1-6                                               
+
+A.D.
+
+43L      21-1-5                                                 
+52L      22-1-5                                               
+53      23-1-4                                               
+54      23-11-48                                             
+58      23-8-35                                               
+  58L    23-1-4                                               
+62      24-3 -12                                             
+  62L    24-2-8                                               
+63L      24-2-8                                               
+78      24-11-46                                             
+  78L    24-1-4                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+84L      24-2-8                                               
+86L      24-2-8                                               
+94      23-12-52                                             
+  94L    23-1-4                                               
+103L    23-1-4                                               
+105L    24-4-17                                               
+  105    24-2-8                                               
+112L    24-12-50                                             
+  112    24-3-12                                               
+114L    24-4-17                                               
+114    24-1-4                                               
+124L    24-2-8                                               
+128      24-2-8                                               
+  128L  24-2-8                                               
+132L    24-5-21                                               
+  132    24-1-4                                               
+142      24-11-46                                             
+144      23-1-4                                               
+158L    23-3-13                                               
+  158    23-1-4                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+164L    23-1-4                                               
+177L    22-1-5                                               
+180      22-1-5                                               
+204L    21-2-10                                               
+227L    18-4-22                                               
+230      18-2-11                                               
+234L    18-1-6                                               
+241L    18-3-17                          4-1-25                                       
+  241    18-1-6                                               
+243L    18-3-17                                               
+  243    18-1-6                                               
+247L    18-1-6                                               
+253      18-1-6                                               
+259      18-1-6                                               
+  259L  18-1-6                                               
+263      18-2-11                                               
+267      18-1 6                                               
+  267L  18-1 6                                               
+268      18-6-33                                               
+273      18-2-11                                               
+280      18-1-6                                               
+  280L  18-1-6                                               
+285L    18-2-11                                               
+287L    18-1-6                                               
+303L    18-3-17                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+304      18-2-11                                               
+323      18-1-6                                               
+325      18-4-22                                               
+337L    18-1-6                                               
+338      18-1-6                                               
+342L    18-2-11                                               
+343      18-3-17                                               
+357L    19-3-16                                               
+358L    19-1-5                                               
+370L    20-3-15                                               
+378L    19-2-11                                               
+  378    19-1-5                                               
+393L    19-2-11                                               
+  393    19-1-5                                               
+416L    20-1-5                                               
+437L    21-2-10                                               
+447L    21-1-5                                               
+461L    21-2-10                                               
+471      21-2-10                                               
+473L    21-1-5                                               
+477L    21-1-5                                               
+484      21-2-10                                               
+494L    21-1-5                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+503L    21-1-5                                               
+504L    21-1-5                                               
+508L    21-2-10                                               
+527      24-1-4                                               
+536      25-7 -28                      4-1-25                                       
+  536L  25-3-12                                               
+544      27-1-4                                               
+  544L  27-1-4                                               
+553      27-23 -85      2-1-50         4-4-100                                     
+574      26-6-23                                               
+577L    26-3-12                                               
+583L    26-1-4                                               
+591L    27-2-7                                               
+626      29-1-3                                               
+  626L  29-1-3                                               
+627      29-24 -83      2-1-50          4-2-50                                       
+630L    29-1-3                                               
+631L    29-2-7                                               
+632L    29-2-7                                               
+634L    29-1-3                                               
+640L    29-1-3                                               
+650      29-5-17                                               
+655L    29-2-7                                               
+656      29-3-10                                               
+670L    29-1-3                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+686L    29-1-3                                               
+687L    29-4-14                                                                       W
+689      29-1-3                                               
+699      29-2-7                                               
+710      28-2-7                                               
+718      28-2-7                                               
+719L    28-1-4                                               
+721      28-2-7                                               
+727L    28-2-7                                               
+730L    28-1-4                                               
+746      28-1-4                                               
+747      28-1-4                                               
+767      29-1-4                                               
+772      29-3-10                                               
+783      28-7-25                                               
+804      29-1-3                                               
+809      27-3-11                                               
+821L    27-1-4                                               
+832      26-2-8                                               
+858      25-6-24                                               
+877      28-3 -11                                             
+886      28-20-71                                             
+890      28-14-50                                             
+  890L  28-1-4                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+895L    28-3-11                                               
+895    28-1-4                                               
+903      28-11-39                                             
+916      28-6-21                                               
+918L    28-1-4                                               
+923L    28-1-4                                               
+925      28-3 -11                                             
+930L    28-1-4                                               
+942L    29-8-28                                               
+945      29-7 -24                                             
+  945L  29-5-17                                               
+952L    29-1-3                                               
+964      30-3-10                                               
+973      30-4-13                                               
+976L    30-4-13                                               
+984      30-7-23                                               
+985      30-6 -20                                             
+993L    30-6-20                                               
+993    30-2-7                                               
+994L    30-10-33                       3-1-33                                       
+1008    28-10 -36                      2-2-100                                      
+1020L    30-1-3                                               
+1024L    31-1-3                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1029    31-16 -52        2-1-50        2-1-50                                       W
+1051    32-2-6                                                     
+1058    32-1-3                                               
+1066    31-1-3                                                     
+1076L    30-1-3                                               
+1079    30-1-3                                               
+  1079L  30-1-3                                               
+1080    29-2-7                                               
+1136    28-2-7                                                     
+1139    28-1-4                                               
+1171    28-3 -11         2-1-50        2-2-100                                       W
+  1171L  28-2-7                                                                      W
+1179L    28-1-4                                               
+1187L    28-4-14                                               
+1192L    29-7-24                                                                     B
+  1192  29-5 -17                                                                             B    
+1199    29-4-14                                                     
+1208    28-3-11                                                     
+1214L    28-2-7         2-1-50                                                              
+  1214  28-1-4                                               
+1225    29-16 -55                      2-1-50                                          
+  1225L  29-4-14                                               
+1237    29-1-3                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1260    29-5 -17                                                 
+1275    30-3-10                                                     
+1293    30-2-7           4-1-25                                          
+  1293L  30-1-3                                               
+1298    31-4-13                                                     
+  1298L  31-2-6                                               
+1311L    31-3-10                                               
+1329    27-10 -37       5-2-40                                        
+  1329L  27-1-4         5-1-20                                    
+1336L    27-1-4                                               
+1337L    27-10-37       5-1-20       4-1-25                         
+1341    27-1-4                                               
+1383    28-1-4                                               
+1406    30-15 -50                                                 
+1408    30-22-73        6-2-33        7-3-43                      3-1-33           
+1420                                  7-1-14                         
+  1420L                                                           3-1-33     
+1429L    31-1-3                                               
+1442L    33-1-3                                               
+1443    33-1-3                                               
+1450L    33-4-12                                               
+1453    33-25-75        6-4-66       7-6-87                                    B-G-S-W
+1473L    33-3-9                                               
+1481    33-5-15                      8-1-13                       6-1-17           
+1484    33-19-57        6-1-17       8-6-75                       6-1-17       G    
+1490    33-3-9          6-2-33       9-6-67                       6-2-33       B-G    
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1521                                                               8-5-63           
+1526L    33-1-3                                               
+1536L    33-4-12                                                   9-3-33     
+  1536                                                             9-2-22           
+1539                                                               9-1-11     
+1540L    33-1-3                                               
+1543L    33-2-6                                               
+1546    33-1-3                                               
+  1546L  33-1-3                                               
+1549                                                               9-2-22           
+1556    33-4-12                       10-1-10                                      G      
+1570                                                               9-2-22           
+1572                                                               9-2-22           
+  1572L  33-4-12                                               
+1588L    33-2-6                                               
+  1588  33-1-3                                               
+1595    33-1-3                                               
+1596    33-1-3                                                                      B      
+1601L    33-1-3                                                    10-1-10          W
+1609L    34-5-15                                               
+  1609  34-1-3                                               
+1613L    35-1-3                                               
+1615    35-1-3                                               
+1626    36-2-6                                                     
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1639                                                              13-2-15           
+1643    40-1-3                                               
+1646L    40-1-3                                               
+1648    40-9-23         8-2-25                         6-1-17                  
+  1648L                                                6-1-17              
+1651L                                                  6-1-17              
+1654L                                                  6-1-17              
+1657L                                                  6-1-17              
+1658    42-5-12                                                   14-1-7         
+  1658L  42-1-2                                               
+1660    42-2-5                                                                     X      
+1663    42-4-10                                        7-1-14     14-1-7           
+1671    43-6-14                                                     
+1677    43-1-2                                               
+  1677L  43-1-2                                               
+1680    43-2-5                                                                     X      
+1683    43-2-5                                                     
+1687L    43-3-7                                               
+  1687  43-1-2                                               
+1692    44-1-2                                               
+1697    44-2-5                                                     
+1700    46-1-2                                               
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1706    47-4-9                                                     
+1717L    48-2-4                                        7-1-14              
+1718    48-3-6                                                     
+1719L    48-1-2                                               
+1721L    48-4-8                                               
+1725L    48-10-21                                      7-1-14      15-1-7     
+  1725  48-1-2                                               
+1728    48-1-2                                               
+1730    48-1-2                                               
+1734L    49-3-6                                               
+1740    49-1-2                                               
+1748L                                                  7-2-29              
+  1748                                21-1-5                         
+1752L    51-10-20      9-2-22                          7-2-29              
+  1752  51-1-2                                               
+1761    54-15 -28      9-2-22         24-8-33          12-2-17                 B-X  
+  1761L  54-2-4        9-2-22         24-4-17                     17-1-6       B-X
+1766    55-11 -20                                                 
+1786L    54-2-4                                               
+1790    54-1-2                                               
+1793L                                 26-1-4                         
+1805    53-34 -64       9-4-44        29-15-52      13-4 -31      19-1-5       B-G-X
+  1805L                                             13-2-15       19-2-11      B-G-X
+1816L    53-1-2                       29-1-3                                     
+1817    53-11 -21       11-1-9        29-1-3        14-4 -29      21-1-5        X    
+  1817L                                             14-1-7                      X
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1828    52-23 -44      13-4-31        29-15-52      16-5-31       21-1-5       G-X
+1831    51-9-18        13-1-8         29-1-3                      21-1-5       Y      
+  1831L                               29-1-3                                   Y
+1835    51-10 -20      13-2-15                      17-1-6        21-1-5         
+1837    51-3 -6         13-1-8                                                 X      
+1843                                                              23-2-9           
+1847    51-2-4                                                     
+1852    51-3-6                                                     
+1854L                                 29-1-3                         
+1866    53-16-30        13-2-15       30-2-7                      25-2-8       Y    
+  1866L  53-2-4                       30-1-3                                   Y
+1869    53-6-11                                                     
+1878    53-3-6                                                    27-2-7           
+1882    53-1-2          15-1-7                       21-1-5       27-1-4           
+1884L                                 30-2-7         21-1-5                    W
+1893L                                                21-3-14              
+1900L                   15-2-13                                    
+1901L    56-2-4                                               
+1903    56-13-23        15-1-7        30-2-7                             
+1905L                   15-2-13                                    
+1912    57-7-12         15-2-13                                   27-3-11      X      
+1915L                   15-2-13                                    
+1917L    57-2-7         15-3-20                      21-1-5              
+1920L    58-10-17       15-2-13                      21-2-10      27-2-7     
+1923L    59-7-12        15-2-13       30-1-3         21-2-10      27-1-4     
+
+Year        AM             BM            MP             NP          SM         Other sites? 
+
+1925L    59-3-5                                               
+1941    61-12-20                                                                   S-Y    
+  1941L                                30-2-7                                      S-Y
+1952L                                                  21-1-5              
+1957L    62-9-14                                                    27-1-4     
+1961    62-7-11                                                     
+  1961L                                                21-1-5              
+1965    62-8 -13                                                                             S-X    
+  1965L                                30-1-3                                      S-X
+1967L    62-4-6                        30-6-20         21-4-19              
+1972L    62-3-5                                               
+1978L                    15-2-13       30-3-10         21-1-5       27-1-5     
+1981L    62-4-6                                        21-1-5              
+1984L    62-3-5          15-1-7                        27-1-4     
+
+
+
+Earlywood frost rings in bristlecone pines sampled on Almagre Mountain, Black Mountain, 
+Mount Princeton, North Peak, and Stanley Mountain from 569 B.C. to A.D. 1993. (Data from 
+Brunstein, 1995.)
+
+[*,  one or  more core samples have frost ring 100-400 years from pith; **, one or  more 
+core samples have frost ring more than 400 years from pith.  Underlined years indicate 
+events recorded in multiple trees.  Under each site heading, first number is number of 
+sampled trees; second number is number of sampled trees that record event; third number 
+is percent of sampled trees that record event.  Start and end dates for chronologies are 
+the same as in previous table.]
+
+Year      AM            BM             MP              NP           SM
+
+B.C.
+181E    6-1-17                                               
+121E    9-1-11                                               
+60E      15-1-7                                               
+A.D.
+1E      19-1-5                                               
+3E      19-2-11                                               
+17E*     17-1-6                                               
+204E*    21-1-5                                               
+732E    28-1-4                                               
+735E    28-1-4                                               
+875E    28-1-4                                               
+1060E*   32-2-6                                                     
+1261E*   29-1-3                                               
+1269E**  29-7-24      3-1-33                                        
+1275E    30-1-3                                               
+1483E                                                             6-1-17     
+1485E                                                             6-1-17     
+1509E                                                             6-1-17     
+
+Year        AM             BM            MP             NP          SM        
+
+1515E*    33-2-6                       9-1-11                               
+1518E                                                              8-1-13     
+1520E                                                              8-4-50           
+1550E                                                              9-1-11     
+1619E    36-1-3        7-1-14                                          
+1673E    43-1-2                                               
+1676E*                                14-1-7          7-1-17                    
+1711E    47-1-2                       18-1-6                               
+1720E    48-1-2                       19-2-11                               
+1723E                                 19-1-5                         
+1749E    50-2-4                                                     
+1751E                                 22-1-5                         
+1764E                                 24-1-4                         
+1791E                                 26-2-8                               
+1801E                                 29-2-7                               
+1808E                                 29-1-3                         
+1820E                                 29-1-3                         
+
+Year        AM             BM          MP             NP           SM        
+
+1842E    51-1-2                                                   22-1-5           
+1853E                                                             24-1-4     
+1865E**  53-4-8         12-1-8       29-1-3                       25-3-12         
+1888E                                                             27-3-11         
+1894E**  54-4-7                                                   
+1912E    57-1-2                                     21-1-5                    
+1925E    59-1-2                                               
+1927E    59-1-2                                               
+1928E    59-2-4                                                     
+1943E    62-1-2                                               
+1945E    62-1-2                                               
+1947E    62-1-2                                               
+
+
+REFERENCES
+
+Brunstein, F. C., 1995: Bristlecone pine frost-ring and light-ring chronologies, from 569 B.C. to A.D. 
+1993, Colorado. U.S. Geological Survey Open-File Report 95-63. 25 pp.
+
+Krebs, P. H., 1972: Dendrochronology and the distribution of bristlecone pine in Colorado. Ph.D. 
+dissertation, University of Colorado. 211 pp.
+
+LaMarche, V. C., Jr., 1970: Frost-damage rings in subalpine conifers and their application to tree-ring 
+dating problems, In Smith, J. H. G. and Worrall, J., (eds.), Tree-ring analysis with special reference 
+to Northwest America. The University of British Columbia Faculty of Forestry Bulletin, 7: 99-100.
+
+LaMarche, V. C., Jr., and Hirschboeck, K. K., 1984: Frost rings in trees as records of major volcanic 
+eruptions. Nature, 307: 121-126.
+
+

@@ -1,0 +1,136 @@
+Columbine_DataDictionary,,,,
+,,,,
+File Name,Field Name,Description,Units,Valid values or range of valid values
+Columbine_UpdateTreeLevelData,Site,Unique identifier assigned in the field to sampling site,NA,NA
+,Sample ID,Unique identifier assigned in the field to sampled tree,NA,NA
+,Lat,Plot center geographic coordinates: latitude,Decimal degrees,39.88 to 40.11
+,Lon,Plot center geographic coordinates: longitude,Decimal degrees,-106.13 to -105.04
+,Elevation,Plot center elevation in meters,Meters,2558 to 3200
+,DBH,Tree diameter at breast height in centimeters,Centimeters,44.0 to 86.5
+,Start,Earliest calendar year measured,Calendar year,1417 to 1910
+,End,Last calendar year measured,Calendar year,2020 to 2021
+,Species,Latin name for the tree species,NA,NA
+ColumbineRingWidths_UpdateRaw,Year,Absolute year assignment to ring,Calendar year,
+,HSU(#),"Measured ring width of annual ring  growth_ Core sample identification HSU for first collection, two per tree denoted A or B",Millimeters,0.209 to 4.131
+,LCU(#),"Measured ring width  of annual ring  wood growth_ Core sample identification LCU for second collection, two per tree denoted A or B",Millimeters,0 to 3.402
+,MLU(#),"Measured ring width of annual ring  growth_ Core sample identification MLU for first collection, two per tree denoted A or B",Millimeters,0 to 2.903
+,VMU(#),"Measured ring width of annual ring  growth_ Core sample identification VMU for first collection, two per tree denoted A or B",Millimeters,0 to 5.085
+Columbine_ChronologyStatistics,Site Code,Three-letter code assigned to each chronology update site,NA,NA
+,Detrending,Type of detrending treatment for each series_ Isolates site level signal and is first-level prepartaion for site chronology development,NA,NA
+,n_cores,The number of cores,Number,39 to 49
+,rbar_wt,The mean of the correlations between series from the same tree over all trees,Number,0.47 to 0.746
+,rbar_bt,The mean interseries correlation between all series from different trees,Number,0.265 to 0.527
+,rbar_eff,The effective signal calculated as rbar_bt / (rbar_wt + (1-rbar_wt) / c_eff) ,Number,0.35 to 0.593
+,eps,The expressed population signal calculated using the average number of trees as n * rbar_eff / ((n - 1) * rbar_eff + 1),Number,0.919 to  0.974
+,snr,The signal to noise ratio calculated using the average number of trees as n * rbar_eff / (1-rbar_eff),Number,11.286 to 37.935
+Columbine_ TWChronologies,Year,Absolute year assignment to ring,Calendar year,1070 to 2021
+,HSUs,"Standardized HSU update PSME chronology, includes original collection raw data (Woodhouse; ITRDB CO606)_ Individual series detrended, averaged and standardized",Unitless,0.168872824 to 2.139120575
+,HSUr,"Residual HSU update PSME chronology, includes original collection raw data (Woodhouse; ITRDB CO606)_ Individual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.189358443 to 1.925696924
+,HSUsamp,Sample Depth: Number of HSU samples contributing to chronology update in a given year,Number,1 to 39
+,LCUs,"Standardized LCU update PCEN chronology, includes original collection raw data (Brown; ITRDB CO587)_ Individual series detrended, averaged and standardized",Unitless,0.374627983 to 1.767529024
+,LCUr,"Residual LCU update PCEN chronology, includes original collection raw data (Brown; ITRDB CO587)_ Individual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.590385323 to 1.548054798
+,LCUsamp,Sample Depth: Number of LCU samples contributing to update chronology in a given year,Number,2 to 39
+,MLUs,"Standardized MLU PIPO chronology, includes original collection raw data (Graybill; ITRDB CO544)_ Individual series detrended, averaged and standardized",Unitless,0.204529484 to 2.340921804
+,MLUr,"Residual MLU PIPO chronology, includes original collection raw data (Graybill; ITRDB CO544)_ Individual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.054001366 to 1.943607042
+,MLUsamp,Sample Depth: Number of MLU samples contributing to update chronology in a given year,Number,1 to 38
+,VMUs,"Standardized VMU PSME chronology, includes original collection raw data (Woodhouse; ITRDB CO630)_ Individual series detrended, averaged and standardized",Unitless,0.166147858 to 2.841535385
+,VMUr,"Residual VMU PSME chronology, includes original collection raw data (Woodhouse; ITRDB CO630)_ Individual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.313939673 to 2.214736907
+,VMUsamp,Sample Depth: Number of VMU samples contributing to update chronology in a given year,Number,1 to 49
+,CO635s,"Standardized Cameron Pass ABLA chronology (Bigler; ITRDB CO635)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,706 to 1505
+,CO635r,"Residual Cameron Pass ABLA chronology (Bigler; ITRDB CO635)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,705 to 1414
+,CO634s,"Standardized Cameron Pass PICO chronology (Bigler; ITRDB CO634)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,745 to 1232
+,CO634r,"Residual Cameron Pass PICO chronology (Bigler; ITRDB CO634)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,734 to 1212
+,CO633s,"Standardized Cameron Pass PCEN chronology (Bigler; ITRDB CO633)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,615 to 1431
+,CO633r,"Residual Cameron Pass PCEN chronology (Bigler; ITRDB CO633)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,608 to 1389
+,CO622s,"Standardized Rustic PIPO chronology (Woodhouse; ITRDB CO622)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,98 to 2111
+,CO622r,"Residual Rustic PIPO chronology (Woodhouse; ITRDB CO622)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,14 to 1977
+,CO586s,"Standardized Fool Creek PCEN chronology (Brown; ITRDB CO586)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,391 to 1691
+,CO586r,"Residual Fool Creek PCEN chronology (Brown; ITRDB CO586)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.632185164 to 1.454359924
+,CO581s,"Standardized Seedhouse PSME chronology (Woodhouse; ITRDB CO581)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,338 to 1820
+,CO581r,"Residual Seedhouse PSME chronology (Woodhouse; ITRDB CO581)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,437 to 1613
+,CO613s,"Standardized New North Park PSME chronology (Woodhouse; ITRDB CO613)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,92 to 2322
+,CO613r,"Residual New North Park PSME chronology (Woodhouse; ITRDB CO613)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,49 to 2238
+,CO598s,"Standardized Deer Mountain Update PIPO chronology (Woodhouse; ITRDB CO598)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,2 to 1796
+,CO598r,"Residual Deer Mountain Update PIPO chronology (Woodhouse; ITRDB CO598)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,113 to 1785
+,CO563s,"Standardized Dark Mountain PICO chronology (Janssen; ITRDB CO563)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,517 to 1467
+,CO563r,"Residual Dark Mountain PICO chronology (Janssen; ITRDB CO563)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,490 to 1396
+,CO549s,"Standardized Timberline Pass PCEN chronology (Graybill; ITRDB CO549)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,482 to 1847
+,CO549r,"Residual Timberline Pass PCEN chronology (Graybill; ITRDB CO549)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.562761769 to 1.565222185
+,CO547s,"Standardized Rainbow Curve PIFL chronology (Graybill; ITRDB CO547)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,385 to 2347
+,CO547r,"Residual Rainbow Curve PIFL chronology (Graybill; ITRDB CO547)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.213251695 to 1.714067317
+,CO546s,"Standardized Onahu Creek PICO chronology (Graybill; ITRDB CO546)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized",Unitless,691 to 1485
+,CO546r,"Residual Onahu Creek PICO chronology (Graybill; ITRDB CO546)_ Raw data obtained from the International Tree-Ring Database_ Indivdual series detrended, averaged and standardized with autocorrelation removed",Unitless,0.790182505 to 1.349463021
+Columbine_ClimateData,year,Year of data collection,Calendar year,1946 to 2021
+,month,Monthly average for each year of record,Calendar month,1 to 12
+,tmax,Average of maximum temperature,Degrees F,23.80645161 to 83.25806452
+,tmin,Average of minimum temperature,Degrees F,-10.48387097 to 43.64516129
+,prec,Sum of precipitation amount,Millimeters,0 to 163.7
+Columbine_SPEI,year,Calendar year,Calendar year,1947 to 2020
+,month,Calendar month,Calendar month,1 to 12
+,PET,Computed potential evapotranspiration following Thornthwaite function,Unitless,0.000000000000879 to 1.43224E+15
+,BAL,Computed climate water balance,Unitless,-1.43224E+15 to 150.5873768
+,FIT1,Unbiased Probability Weighted Moments to parameterize SPEI index in one-month intervals,Unitless,-4.215409087 to 1.495453815
+,FIT3,Unbiased Probability Weighted Moments to parameterize SPEI index in three-month intervals,Unitless,-3.503680746 to 0.944283103 
+,FIT6,Unbiased Probability Weighted Moments to parameterize SPEI index in six-month intervals,Unitless,-3.209418754 to 1.176947555
+,FIT12,Unbiased Probability Weighted Moments to parameterize SPEI index in twelve-month intervals,Unitless,-2.608543456 to 1.227609033
+,FIT24,Unbiased Probability Weighted Moments to parameterize SPEI index in 24-month intervals,Unitless,-2.573523997 to 1.367409911
+,FIT48,Unbiased Probability Weighted Moments to parameterize SPEI index in 48-month intervals,Unitless,-2.300214504 to 1.729514122
+Columbine_ClimateGrowth_acorr,crn,Updated and existing Columbine network site chronologies,NA,NA
+,prec,Chronology correlation with annual sum of precipitation amount (mm),Coefficient,-0.148347747 to 0.485937908
+,pSignicance_p,P-value correlation significance for chronologies with annual precpitation,Number,0.0000607 to 0.940080986
+,Tmax,Chronology correlation with annual mean of maximum temperature (F),Coefficient,-0.456098018 to 0.232798611
+,tmxSignicance_p,P-value correlation significance for chronologies with maximum temperature,Number,0.000358439 to 0.975086151
+,Tmin,Chronology correlation with annual mean of minimum temperature (F),Coefficient,-0.434624222 to 0.528211965
+,tmnSignicance_p,P-value correlation significance for chronologies with minimum temperature,Number,0.000045 to 0.968125445
+,summerP,Chronology correlation with annual sum of summer (May-July) precipitation amount (mm),Coefficient,-0.136250549 to 0.4897936
+,sumpSignicance_p,P-value correlation significance for chronologies with minimum summer precipitation,Number,0.0000082 to 0.247058007
+,springP,Chronology correlation with annual sum of summer (March-May) precipitation amount (mm),Coefficient,-0.286502538 to 0.453783496
+,sppSignicance_p,P-value correlation significance for chronologies with minimum spring precipitation,Number,0.0000433 to 0.026862775
+,wsP,Chronology correlation with annual sum of summer (December-June) precipitation amount (mm),Coefficient,-0.206230691 to 0.59851711
+,wspSignicance_p,P-value correlation significance for chronologies with minimum winter-spring precipitation,Number,1.42E-08 to 0.077923391
+,FIT6,Chronology correlation with SPEI index in six-month interval,Coefficient,-0.242082612 to 0.376641391
+,6Signicance_p,P-value correlation significance for chronologies with six-month SPEI,Number,0.004592933 to 0.862304959
+,FIT12,Chronology correlation with SPEI index in twelve-month interval,Coefficient,-0.198852951 to 0.409359454
+,12Signicance_p,P-value correlation significance for chronologies with twelve-month SPEI,Number,0.002114277 to 0.765344158
+,FIT24,Chronology correlation with SPEI index in 24-month interval,Coefficient,-0.284903083 to 0.465282904
+,24Signicance_p,P-value correlation significance for chronologies with 24-month SPEI,Number,0.000447286 to 0.577950353
+,FIT48,Chronology correlation with SPEI index in 48-month interval,Coefficient,-0.479100038 to 0.457400261
+,48Signicance_p,P-value correlation significance for chronologies with 48-month SPEI,Number,0.0000687 to 0.796471396
+Columbine_ClimateGrowth_mcorr,crn,Updated site chronologies,NA,NA
+,moclim,Monthly designation for moving correlation beginning in June of the previous year through september of the current year and separated by climate variable (prec or temp),NA,NA
+,1956-1990,Correlation coefficient for 35-year crn period 1956-1990 and monthly climate variable,Coefficient,-0.508502603 to 0.515704015
+,1956-1990signif,Correlation significance for 35-year crn period 1956-1990 and monthly climate variable,NA,TRUE or FALSE
+,1961-1995,Correlation coefficient for 35-year crn period 1961-1995 and monthly climate variable,Coefficient,-0.47801758 to 0.504157586
+,1961-1995signif,Correlation significance for 35-year crn period 1961-1995 and monthly climate variable,NA,TRUE or FALSE
+,1966-2000,Correlation coefficient for 35-year crn period 1966-2000 and monthly climate variable,Coefficient,-0.533549114 to 0.54054071
+,1966-2000signif,Correlation significance for 35-year crn period 1966-2000 and monthly climate variable,NA,TRUE or FALSE
+,1971-2005,Correlation coefficient for 35-year crn period 1971-2005 and monthly climate variable,Coefficient,-0.608515179 to 0.463837338
+,1971-2005signif,Correlation significance for 35-year crn period 1971-2005 and monthly climate variable,NA,TRUE or FALSE
+,1976-2010,Correlation coefficient for 35-year crn period 1976-2010 and monthly climate variable,Coefficient,-0.382450926 to 0.50162556
+,1976-2010signif,Correlation significance for 35-year crn period 1976-2010 and monthly climate variable,NA,TRUE or FALSE
+,1981-2015,Correlation coefficient for 35-year crn period 1981-2015 and monthly climate variable,Coefficient,-0.384246552 to 0.546579928
+,1981-2015signif,Correlation significance for 35-year crn period 1981-2015 and monthly climate variable,NA,TRUE or FALSE
+,1986-2020,Correlation coefficient for 35-year crn period 1986-2020 and monthly climate variable,Coefficient,-0.475289813 to 0.534308105
+,1986-2020signif,Correlation significance for 35-year crn period 1986-2020 and monthly climate variable,NA,TRUE or FALSE
+Columbine_ClimateGrowth_scorr,crn,Updated site chronologies,NA,NA
+,primary_coef,Chronology correlation with monthly sum of precipitation amount (mm) averaged over period of record,Coefficient,-0.261131706 to 0.439771477
+,primary_significant,Correlation significance for monthly precipitation correlations,NA,TRUE or FALSE
+,secondary_coef,Chronology correlation with monthly mean of minimum temperature (F) averaged over period of record,Coefficient,-0.204222498 to 0.178915858
+,secondary_significant,Correlation significance for monthly temperature correlations,NA,TRUE or FALSE
+,primary_coef_1,Chronology correlation with 3-month sum of precipitation amount (mm) averaged over period of record,Coefficient,-0.284833013 to 0.519364173
+,primary_significant_1,Correlation significance for 3-month precipitation correlations,NA,TRUE or FALSE
+,secondary_coef_1,Chronology correlation with 3-month mean of minimum temperature (F) averaged over period of record,Coefficient,-0.206002716 to 0.253325193
+,secondary_significant_1,Correlation significance for 3-month temperature correlations,NA,TRUE or FALSE
+,primary_coef_2,Chronology correlation with 6-month sum of precipitation amount (mm) averaged over period of record,Coefficient,-0.207404434 to 0.586447722
+,primary_significant_2,Correlation significance for 6-month precipitation correlations,NA,TRUE or FALSE
+,secondary_coef_2,Chronology correlation with 6-month mean of minimum temperature (F) averaged over period of record,Coefficient,-0.193527288 to 0.321566094
+,secondary_significant_2,Correlation significance for 6-month temperature correlations,NA,TRUE or FALSE
+Columbine_ClimateGrowth_sea,SPEI,24-month SPEI index ending in October,NA,NA
+,lag,The number of lag years prior to (-) or after (+) the fire event year,Number,-6 to 4
+,mean,Mean composite SPEI value at lag,Number,-0.709 to 0.268
+,lower_95,Lower bounds of significance set at the 95% confidence interval,Number,-0.675 to -0.616
+,upper_95,Upper bounds of significance set at the 95% confidence interval,Number,0.616 to 0.675
+,lower_99,Lower bounds of significance set at the 99% confidence interval,Number,-0.886 to -0.809
+,upper_99,Upper bounds of significance set at the 99% confidence interval,Number,0.809 to 0.886
+,lower_99_9,Lower bounds of significance set at the 99.9% confidence interval,Number,-1.134 to -1.035
+,upper_99_9,Upper bounds of significance set at the 99.9% confidence interval,Number,1.035 to 1.134

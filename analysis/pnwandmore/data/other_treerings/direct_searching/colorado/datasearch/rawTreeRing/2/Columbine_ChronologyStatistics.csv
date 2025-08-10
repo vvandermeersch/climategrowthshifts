@@ -1,0 +1,5 @@
+Site Code,Detrending,n_cores,rbar_wt,rbar_bt,rbar_eff,eps,snr
+HSU,Interactive detrending: spline and/or negative exponential,39,0.746,0.484,0.537,0.962,25.512
+LCU,Interactive detrending: spline and/or negative exponential,39,0.612,0.364,0.403,0.946,17.531
+VMU,Interactive detrending: spline and/or negative exponential,49,0.74,0.527,0.593,0.974,37.935
+MLU,Interactive detrending: spline and/or negative exponential,42,0.47,0.265,0.35,0.919,11.286

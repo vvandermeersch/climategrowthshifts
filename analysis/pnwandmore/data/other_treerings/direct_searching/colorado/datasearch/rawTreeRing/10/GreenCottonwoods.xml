@@ -1,0 +1,638 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Richard D Thaxton, University of Idaho</origin>
+        <origin>Jonathan M Friedman, U.S. Geological Survey, Fort Collins Science Center</origin>
+        <pubdate>20240705</pubdate>
+        <title>Height, live canopy volume and annual ring widths of cottonwood trees along the Yampa and Green rivers in Dinosaur National Monument and Canyonlands National Park, Colorado and Utah</title>
+        <geoform>tabular digital data</geoform>
+        <onlink>https://doi.org/10.5066/P136LUQB</onlink>
+        <lworkcit>
+          <citeinfo>
+            <origin>Richard Thaxton</origin>
+            <origin>Michael L Scott</origin>
+            <origin>John T Kemper</origin>
+            <origin>Sara L Rathburn</origin>
+            <origin>Sabrina Butzke</origin>
+            <origin>Jonathan M Friedman</origin>
+            <pubdate>20240801</pubdate>
+            <title>Downstream decreases in water availability, tree height, canopy volume and growth rate in cottonwood forests along the Green River, southwestern USA</title>
+            <geoform>publication</geoform>
+            <pubinfo>
+              <pubplace>Ecohydrology</pubplace>
+              <publish>
+              </publish>
+            </pubinfo>
+            <othercit>Ecohydrology</othercit>
+            <onlink>https://doi.org/10.1002/ECO.2693</onlink>
+          </citeinfo>
+        </lworkcit>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>We measured the percent live canopy and height of randomly-selected cottonwood trees at three sites: Deerlodge Park on the Yampa River (DLP), Island Park on the upper Green (ILP), and Canyonlands National Park on the lower Green (CAN). From these same trees we took increment cores to understand differences in tree growth in each forest over time. This dataset includes four tabular digital files. The file "cottonwood_characteristics_dlp_ilp_can.csv" includes data on location, age, height, live canopy cover, and fire history. The files "dlp.txt", "ilp.txt", and "can.txt" contain annual tree ring width for trees at DLP, ILP and CAN.</abstract>
+      <purpose>Hydrologic stress is increasing in Fremont cottonwood (Populus fremontii) forests across the southwestern United States because of increased streamflow diversion coupled with climatic- and drought-induced flow reductions. The spatial variability of this stress is large yet poorly understood. Along the Yampa and Green Rivers in Colorado and Utah vapor pressure deficit and flow diversions increase downstream. We collected the data presented here to investigate effects of this gradient on cottonwood forests. This data was related to local water availability, streamflow, and climatic data as described in Thaxton et al., (2024, cross-referenced below) to understand how riparian forests along the Yampa and Green River are being affected by drought, climate and flow diversion.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>17570101</begdate>
+          <enddate>20190630</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>Timespan of ages of cottonwood trees estimated using tree-ring dating</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Yampa and Green rivers in Dinosaur National Monument and Canyonlands National Park, Colorado and Utah, USA</descgeog>
+      <bounding>
+        <westbc>-110.2094</westbc>
+        <eastbc>-108.4351</eastbc>
+        <northbc>40.6890</northbc>
+        <southbc>38.1389</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>inlandWaters</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>droughts</themekey>
+        <themekey>climate change</themekey>
+      </theme>
+      <theme>
+        <themekt>Marine Realms Information Bank (MRIB) keywords</themekt>
+        <themekey>dam</themekey>
+        <themekey>dendrochronology</themekey>
+        <themekey>forest</themekey>
+        <themekey>floodplain</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:6670aad5d34e89718fa3f95b</themekey>
+      </theme>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>Canyonlands National Park</placekey>
+        <placekey>Dinosaur National Monument</placekey>
+        <placekey>Utah</placekey>
+        <placekey>Colorado</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>ITIS</taxonkt>
+        <taxonkey>Populus fremontii</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <common>plants</common>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <common>green plants</common>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <common>land plants</common>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <common>vascular plants</common>
+                <common>tracheophytes</common>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <common>spermatophytes</common>
+                  <common>seed plants</common>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Magnoliopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Superorder</taxonrn>
+                      <taxonrv>Rosanae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Malpighiales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Salicaceae</taxonrv>
+                          <common>willows</common>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Populus</taxonrv>
+                            <common>cottonwood</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Populus fremontii</taxonrv>
+                              <common>cottonwood</common>
+                              <common>Fremont's cottonwood</common>
+                              <common>TSN: 22459</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Jonathan M Friedman</cntper>
+          <cntorg>U. S. Geological Survey, Fort Collins Science Center</cntorg>
+        </cntperp>
+        <cntpos>Hydrologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>2150 Centre Avenue Bldg C</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>303-727-0368</cntvoice>
+        <cntemail>friedmanj@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <native>Microsoft Windows 11 Home, Version 10.0.22621 Build 22621. Software R version 3.6.3</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Tree-ring years have been verified using skeleton plots, cross-dating among cores and trees and software COFECHA.  Center years may underestimate the germination year of the tree by a decade or more because of the time necessary for the tree to grow to coring height. Tree diameter was measured to the nearest millimeter with typical accuracy of 5 millimeters. Tree height was measured to the nearest 10 centimeters with typical accuracy of 50 centimeters. Percent live canopy was measured to the nearest 5 percent with typical accuracy of 10 percent.</attraccr>
+    </attracc>
+    <logic>All values fall within expected ranges and data have been checked for accuracy by multiple people. The program COFECHA was used to find and correct errors in tree-ring dating.</logic>
+    <complete>Sampled trees are a representative (random) sample of cottonwood trees along the Yampa River at Deerlodge Park, the Green River at Island Park, both within Dinosaur National Monument and the Green River in Canyonlands National Park. Limits of sampled reaches are shown in Thaxton et al. (2024). The Valentine Fire in 2005 affected growth and vigor of trees at CAN, obscuring influence of flow. Therefore, we excluded the diameter, height, and percent live canopy of all trees within the fire perimeter (Utah DNR 2022) from the analysis. Ring width data from these trees was retained, but only until 2004, the year before the fire.</complete>
+    <posacc>
+      <horizpa>
+        <horizpar>Tree location was measured with a handheld gps with typical precision of 6m.</horizpar>
+      </horizpa>
+    </posacc>
+    <lineage>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Utah Department of Natural Resources</origin>
+            <pubdate>20220502</pubdate>
+            <title>Historic Utah Wildfire Perimeters: 1999-2020</title>
+            <geoform>tabular digital data</geoform>
+            <onlink>https://opendata.gis.utah.gov/datasets/utahDNR::historic-utah-wildfire-perimeters-1999-to-2020</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>Digital and/or Hardcopy</typesrc>
+        <srctime>
+          <timeinfo>
+            <sngdate>
+              <caldate>20050629</caldate>
+            </sngdate>
+          </timeinfo>
+          <srccurr>ground condition</srccurr>
+        </srctime>
+        <srccitea>Valentine Fire Perimeter</srccitea>
+        <srccontr>Perimeter of the 2005 Valentine Bottom Fire</srccontr>
+      </srcinfo>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>John T. Kemper, Colorado State University</origin>
+            <origin>Richard D. Thaxton, University of Arizona</origin>
+            <origin>Sara L. Rathburn, Colorado State University</origin>
+            <origin>Jonathan M. Friedman, U.S. Geological Survey Fort Collins Science Center</origin>
+            <origin>Erich R. Mueller, Southern Utah University</origin>
+            <origin>Michael L. Scott, Colorado State University</origin>
+            <pubdate>20220101</pubdate>
+            <title>Sediment-ecological connectivity in a large river network</title>
+            <geoform>tabular digital data</geoform>
+            <othercit>Kemper JT, Thaxton RD, Rathburn SL, et al (2022) Sediment-ecological connectivity in a large river network. Earth Surface Processes and Landforms 47:639–657. https://doi.org/10.1002/ESP.5277</othercit>
+            <onlink>https://doi.org/10.1002/esp.5277</onlink>
+          </citeinfo>
+        </srccite>
+        <typesrc>Digital and/or Hardcopy</typesrc>
+        <srctime>
+          <timeinfo>
+            <sngdate>
+              <caldate>20220101</caldate>
+            </sngdate>
+          </timeinfo>
+          <srccurr>publication date</srccurr>
+        </srctime>
+        <srccitea>Selection of Random Points</srccitea>
+        <srccontr>Selection of Random points and coring of trees</srccontr>
+      </srcinfo>
+      <srcinfo>
+        <srccite>
+          <citeinfo>
+            <origin>Marvin A  Stokes</origin>
+            <origin>Terah L Smiley</origin>
+            <pubdate>19680101</pubdate>
+            <title>An introduction to tree-ring dating</title>
+            <geoform>publication</geoform>
+            <othercit>University of Chicago Press</othercit>
+          </citeinfo>
+        </srccite>
+        <typesrc>Digital and/or Hardcopy</typesrc>
+        <srctime>
+          <timeinfo>
+            <sngdate>
+              <caldate>19680101</caldate>
+            </sngdate>
+          </timeinfo>
+          <srccurr>publication date</srccurr>
+        </srctime>
+        <srccitea>Dendrochronology primer</srccitea>
+        <srccontr>Documents standard tree-ring analysis procedures used in this study</srccontr>
+      </srcinfo>
+      <procstep>
+        <procdesc>At each site, at least 50 points were randomly selected on the floodplain and located with a handheld gps. The closest cottonwood tree to each point on the same geomorphic surface was sampled (Kemper et al. 2022). We measured the diameter 1.2 meters above ground, height, and percent of live canopy of all selected trees. Height was measured in meters with a Nikon Forestry Pro II Laser Range Finder. Percent of live canopy was the proportion of the potential canopy volume that was alive at the time of sampling based on estimates by at least two observers. In all we sampled 50 trees at DLP in September 2018, 50 trees at ILP in early June 2019, and 52 trees at CAN in late June 2019. Of the 152 trees originally sampled, 114 were retained in the analysis of tree diameter, height and percent live canopy: 48 trees at DLP (median age = 98), 44 trees at ILP (median age = 99.5), and 22 trees at CAN (median age = 69). The primary reason for the lower sample depth at CAN is occurrence of fire on the floodplain that affected tree survival and growth. Within the Valentine Bottom Fire perimeter at CAN (Utah DNR 2022), many trees appeared to have been killed by the fire, while many survivors appeared to be vigorous resprouts experiencing competitive release because of mortality of neighbors. Because vigor within this fire perimeter was strongly influenced by disturbance not directly related to changes in streamflow, we excluded the diameter, height, and percent live canopy of all trees within the fire perimeter from the analysis. Ring width data from these trees was retained, but only until 2004, the year before the fire. To quantify growth over longer time scales, we used either a 5.15-millimeter or 12-millimeter diameter Haglof increment borer to collect at least 2 cores from each of the selected trees. Cores from the same tree were taken 90-180 degrees apart from each other. To ensure pathogens were not spread between trees we cleaned increment borers with alcohol wipes between trees. Tree cores were returned to the FORT Science Center in Fort Collins, CO and prepared using traditional techniques in dendrochronology (Stokes and Smiley 1968). Cores were mounted on pine boards and then sanded with progressively finer grits from 180 grit - 1400 micron. Samples were visually cross-dated via microscope and measured using a Velmex Manual UniSlide micrometer and the MeasureJ2X software (v.5.03). Measurements were then quality controlled using the program COFECHA and trees whose cores could not be reliably cross-dated were excluded from the analysis. For trees where center rings were not captured by either core, the number of missing rings was approximated by dividing the radius of curvature of the innermost ring boundary by the average width of the four innermost complete rings.</procdesc>
+        <srcused>Valentine Fire Perimeter</srcused>
+        <srcused>Selection of Random Points</srcused>
+        <procdate>20190630</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>cottonwood_characteristics_dlp_ilp_can.csv</enttypl>
+        <enttypd>Comma Separated Value (CSV) file containing data.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>park</attrlabl>
+        <attrdef>National Park Service unit where tree was cored. There are two possible values, canyonlands np (Canyon lands National Park) and dinosaur nm (Dinosaur National Monument).</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>canyonlands np</edomv>
+            <edomvd>Canyonlands National Park</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>dinosaur nm</edomv>
+            <edomvd>Dinosaur National Monument</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>tree</attrlabl>
+        <attrdef>Unique alphanumeric identifier for each tree.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The first three characters indicate one of three sites: CNY is Canyonlands National Park, DLP is Deerlodge Park within Dinosaur National Monument, and ILP is Island Park within Dinosaur National Monument. Characters 4 and 5 are a number unique to the site that identifies the tree.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>oldest_rng</attrlabl>
+        <attrdef>Calendar year of oldest ring digitized for the tree.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>-999</edomv>
+            <edomvd>No data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1757</rdommin>
+            <rdommax>2011</rdommax>
+            <attrunit>calendar years</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>center_yr</attrlabl>
+        <attrdef>Calendar year of center ring for the tree</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>-999</edomv>
+            <edomvd>no data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1757</rdommin>
+            <rdommax>2011</rdommax>
+            <attrunit>Calendar years</attrunit>
+            <attrmres>1</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>lat_dd</attrlabl>
+        <attrdef>latitude of tree in decimal degrees (WGS 1984)</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>38.34137279</rdommin>
+            <rdommax>40.52616895</rdommax>
+            <attrunit>decimal degrees</attrunit>
+            <attrmres>0.00007</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>lon_dd</attrlabl>
+        <attrdef>longitude of tree in decimal degrees (WGS 1984).</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-110.0145666</rdommin>
+            <rdommax>-108.502949</rdommax>
+            <attrunit>decimal degrees</attrunit>
+            <attrmres>0.00007</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>date</attrlabl>
+        <attrdef>Date tree was sampled month/day/year</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>6/2/2019</edomv>
+            <edomvd>June 2, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/3/2019</edomv>
+            <edomvd>June 3, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/4/2019</edomv>
+            <edomvd>June 4, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/5/2019</edomv>
+            <edomvd>June 5, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9/1/2018</edomv>
+            <edomvd>September 1, 2018</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9/2/2018</edomv>
+            <edomvd>September 2, 2018</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9/3/2018</edomv>
+            <edomvd>September 3, 2018</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>9/4/2018</edomv>
+            <edomvd>September 4, 2018</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/20/2019</edomv>
+            <edomvd>June 20, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/21/2019</edomv>
+            <edomvd>June 21, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/23/2019</edomv>
+            <edomvd>June 23, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>6/22/2019</edomv>
+            <edomvd>June 22, 2019</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>dbh_cm</attrlabl>
+        <attrdef>tree diameter in centimeters measured at 1.2 meters above the ground</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>-999</edomv>
+            <edomvd>no data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>13</rdommin>
+            <rdommax>183.2</rdommax>
+            <attrunit>centimeters</attrunit>
+            <attrmres>0.5</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>height_m</attrlabl>
+        <attrdef>tree height in meters</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>-999</edomv>
+            <edomvd>no data</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>4.4</rdommin>
+            <rdommax>23.2</rdommax>
+            <attrunit>meters</attrunit>
+            <attrmres>0.5</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>std_dead</attrlabl>
+        <attrdef>Indicates whether tree was standing and dead.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Tree was dead and standing when sampled.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>Tree was either alive or dead and fallen when sampled.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>fall_dead</attrlabl>
+        <attrdef>Indicates whether tree was fallen and dead.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Tree was dead and fallen when sampled.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>Tree was either alive or dead and standing when sampled.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>vigor_pct</attrlabl>
+        <attrdef>Percent of tree canopy that is alive</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0</rdommin>
+            <rdommax>100</rdommax>
+            <attrunit>percent</attrunit>
+            <attrmres>10</attrmres>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>fire</attrlabl>
+        <attrdef>Indicates whether tree was within the Valentine Bottom Fire Perimeter.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>Tree was not within the Valentine Bottom Fire Perimeter.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Tree was within the Valentine Bottom Fire Perimeter</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>This dataset includes 4 tabular files. File "cottonwood_characteristics_dlp_ilp_can.csv" includes data on the location, age, height and condition of all sampled cottonwood trees. Files "dlp.txt", "ilp.txt" and "can.txt" contain tree-ring data for Deerlodge Park, Island Park and Canyonlands National Park in Tucson Format, the standard format for machine readable tree-ring data. Tucson Format consists of fixed-width delimited columns of data. The first column (8 characters left justified) contains a unique name for each tree core.  The core name begins with three letters indicating the site: CNY for Canyonlands National Park, ILP for Island Park within Dinosaur National Monument, and DLP for Deerlodge Park within Dinosaur National Monument. The next two characters (both numbers) give a unique identifier for the tree within the site. The next one to three characters (numbers and letters) uniquely identify the core within the tree. The second column (4 characters) gives the calendar year of the ring whose width is listed in the third column. Columns three through twelve are all six characters (all numbers and right justified). Entries in columns three through twelve (where present) are annual ring widths for successive years in thousandths of millimeters. Thus column twelve, where present, is the ring width in the tenth year of a decade (e.g. 1939). The value -9999 indicates the end of a core.</eaover>
+      <eadetcit>Height, live canopy volume and annual ring widths of cottonwood trees along the Yampa and Green rivers in Dinosaur National Monument and Canyonlands National Park, Colorado and Utah</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data for other purposes, nor on all computer systems, nor shall the act of distribution constitute any such warranty. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P136LUQB</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20240705</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>FORT Data Management</cntper>
+          <cntorg>U.S. Geological Survey, Fort Collins Science Center</cntorg>
+        </cntperp>
+        <cntpos>FORT Data Management</cntpos>
+        <cntaddr>
+          <addrtype>mailing</addrtype>
+          <address>2150 Centre Avenue Bldg C</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>970-226-9100</cntvoice>
+        <cntemail>fortdatamanagement@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

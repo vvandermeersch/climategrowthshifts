@@ -1,0 +1,40 @@
+Site,Sample ID,Lat,Lon,Elevation,DBH,Start,End,Species
+Hot Sulphur Springs Update,HSU01,40.07,-106.13,2558,NA,1883,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU02,40.07,-106.13,2558,NA,1901,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU03,40.07,-106.13,2558,NA,1889,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU04,40.07,-106.13,2558,NA,1892,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU05,40.07,-106.13,2558,NA,1833,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU06,40.07,-106.13,2558,NA,1865,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU07,40.07,-106.13,2558,NA,1844,2020,Pseudotsuga menziessii
+Hot Sulphur Springs Update,HSU08,40.07,-106.13,2558,NA,1846,2020,Pseudotsuga menziessii
+Lexan Creek Update,LCU01,39.88,-105.93,3200,NA,1417,2020,Picea engelmannii
+Lexan Creek Update,LCU02,39.88,-105.93,3200,NA,1436,2020,Picea engelmannii
+Lexan Creek Update,LCU03,39.88,-105.93,3200,NA,1725,2020,Picea engelmannii
+Lexan Creek Update,LCU04,39.88,-105.93,3200,NA,1795,2020,Picea engelmannii
+Lexan Creek Update,LCU05,39.88,-105.93,3200,NA,1801,2020,Picea engelmannii
+Lexan Creek Update,LCU06,39.88,-105.93,3200,NA,1871,2020,Picea engelmannii
+Lexan Creek Update,LCU07,39.88,-105.93,3200,NA,1491,2020,Picea engelmannii
+Lexan Creek Update,LCU08,39.88,-105.93,3200,NA,1737,2020,Picea engelmannii
+Lexan Creek Update,LCU09,39.88,-105.93,3200,NA,1492,2020,Picea engelmannii
+Lexan Creek Update,LCU10,39.88,-105.93,3200,NA,1477,2020,Picea engelmannii
+Monarch Lake Update,MLU01,40.11,-105.73,2670,55,1850,2021,Pinus ponderosa
+Monarch Lake Update,MLU02,40.11,-105.73,2670,45,1693,2021,Pinus ponderosa
+Monarch Lake Update,MLU03,40.11,-105.73,2670,44,1850,2021,Pinus ponderosa
+Monarch Lake Update,MLU04,40.11,-105.73,2670,55,1617,2021,Pinus ponderosa
+Monarch Lake Update,MLU05,40.11,-105.73,2670,53,1669,2021,Pinus ponderosa
+Monarch Lake Update,MLU06,40.11,-105.73,2670,63,1630,2021,Pinus ponderosa
+Monarch Lake Update,MLU07,40.11,-105.73,2670,77,1762,2021,Pinus ponderosa
+Monarch Lake Update,MLU08,40.11,-105.73,2670,47,1900,2021,Pinus ponderosa
+Monarch Lake Update,MLU09,40.11,-105.73,2670,86.5,1763,2021,Pinus ponderosa
+Monarch Lake Update,MLU10,40.11,-105.73,2670,77,1796,2021,Pinus ponderosa
+,,,,,,,,
+Vasquez Mountain Update,VMU01,40.02,-105.04,2835,NA,1840,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU02,40.02,-105.04,2835,NA,1910,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU03,40.02,-105.04,2835,NA,1883,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU04,40.02,-105.04,2835,NA,1879,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU05,40.02,-105.04,2835,NA,1704,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU06,40.02,-105.04,2835,NA,1780,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU07,40.02,-105.04,2835,NA,1774,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU08,40.02,-105.04,2835,NA,1887,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU09,40.02,-105.04,2835,NA,1791,2021,Pseudotsuga menziessii
+Vasquez Mountain Update,VMU10,40.02,-105.04,2835,NA,1744,2021,Pseudotsuga menziessii
