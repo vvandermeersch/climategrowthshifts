@@ -1,0 +1,95 @@
+### ----------------------------------------------------------------------- ###
+### This code performs the quantile mapping that Robeson et al. (2020)      ###
+### used to bias correct the Meko et al. (2007) reconstruction of           ###
+### Upper Colorado streamflow from 762 to 2005.                             ###
+###                                                                         ###
+### For additional information, see Robeson et al. (2020) Bias correction   ###
+### of paleoclimatic reconstructions: A new look at 1200+ years of Upper    ###
+### Colorado River flow, Geophysical Research Letters, 46,                  ###
+### https://doi.org/10.1029/2019GL086689.                                   ###
+###                                                                         ###
+###                  S. Robeson, 5 January 2020                             ###
+### ------------------------------------------------------------------------###
+
+# set working directory for script and nested model input file
+setwd("D:/Papers/Tree_Ring_Bias_Correction/NOAA")
+
+# required packages, install if needed
+if (!require("data.table")) install.packages("data.table")
+if (!require("forecast"))   install.packages("forecast")
+if (!require("qmap"))       install.packages("qmap")
+
+# load packages for current session
+library("data.table")   # for reading remote data source
+library("forecast")     # for moving average
+library("qmap")         # for bias correction
+
+# data source 
+fn <- "ftp://ftp.ncdc.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/usa/upper-colorado-flow2007.txt"
+
+# read recon file from web, skipping 173 lines of comments 
+dat <- fread(fn, skip = 173, na.strings = "NULL")
+
+# read complete recons for four nested models; data provided by Dr. David Meko 
+datmods <- read.table("meko2007_nested_models.txt", header = T)
+datmods[,2:6] <- datmods[,2:6] * 1.23348185532  # convert from MAF to BCM
+
+# calibration periods for four nested models (Table 1; Meko et al., 2007)
+i1 <- which(datmods$Year >= 1906 & datmods$Year <= 2003)
+i2 <- which(datmods$Year >= 1906 & datmods$Year <= 2002)
+i3 <- which(datmods$Year >= 1906 & datmods$Year <= 2002)
+i4 <- which(datmods$Year >= 1906 & datmods$Year <= 2004)
+
+# bias corrections for 4 nested models
+qm1.fit <- fitQmap(datmods$Obs[i1], datmods$Mod1[i1],
+                   method = "RQUANT", type = "linear", wet.day = F)
+dat$Mod1_bc <- doQmap(dat$RecBCM, qm1.fit)
+qm2.fit <- fitQmap(datmods$Obs[i2], datmods$Mod2[i2],
+                   method = "RQUANT", type = "linear", wet.day = F)
+dat$Mod2_bc <- doQmap(dat$RecBCM, qm2.fit)
+qm3.fit <- fitQmap(datmods$Obs[i3], datmods$Mod3[i3],
+                   method = "RQUANT", type = "linear", wet.day = F)
+dat$Mod3_bc <- doQmap(dat$RecBCM, qm3.fit)
+qm4.fit <- fitQmap(datmods$Obs[i4], datmods$Mod4[i4],
+                   method = "RQUANT", type = "linear", wet.day = F)
+dat$Mod4_bc <- doQmap(dat$RecBCM, qm4.fit)
+
+# indexing for nested models in original recon
+imod1 <- dat$Model == 1
+imod2 <- dat$Model == 2
+imod3 <- dat$Model == 3
+imod4 <- dat$Model == 4
+
+# composite bias-corrected recon (initialize using original and overwrite)
+dat$RecBCM_bc <- dat$RecBCM  
+dat$RecBCM_bc[imod1] <- dat$Mod1_bc[imod1]
+dat$RecBCM_bc[imod2] <- dat$Mod2_bc[imod2]
+dat$RecBCM_bc[imod3] <- dat$Mod3_bc[imod3]
+dat$RecBCM_bc[imod4] <- dat$Mod4_bc[imod4]
+
+# centered 25-year moving averages (as percent of observed mean)
+i <- complete.cases(dat$ObsBCM)  # non-missing observed data
+obar <- mean(dat$ObsBCM[i])
+dat$ObsBCM_ma <- 100 * ma(dat$ObsBCM, 25) / obar
+dat$RecBCM_ma <- 100 * ma(dat$RecBCM, 25) / obar
+dat$RecBCM_bc_ma <- 100 * ma(dat$RecBCM_bc, 25) / obar
+ 
+# write selected columns to file
+write.csv(dat[, c(1:3,5,9:16)], 
+          file = "upper_co_flow_nested_RQUANT.csv",
+          row.names = F)
+
+# base graphics plot of three time series over the calibration period
+par(ps = 12, cex = 1, cex.main = 1, mgp = c(2.5,1,0), pty = "m")
+plot(dat$Year[i], dat$ObsBCM[i], col = "black", type = "l", lwd = 2,
+     xlab = "",
+     ylab = expression(paste("Flow (10"^" 9"," m"^"3",")")),
+     ylim = c(5,31) )
+title("Upper Colorado River Flow", line = 0.75)
+axis(1, at = seq(1900,2010,10))
+lines(dat$Year[i], dat$RecBCM[i], col = "blue", lty = 2, lwd = 2)
+lines(dat$Year[i], dat$RecBCM_bc[i], col = "magenta", lty = 2, lwd = 2)
+legend("bottomleft", bty = "n", 
+       legend = c("Observed", "Recon", "QM Recon"),
+       col = c("black", "blue", "magenta"),
+       lty = c(1,2,2), lwd = 2)

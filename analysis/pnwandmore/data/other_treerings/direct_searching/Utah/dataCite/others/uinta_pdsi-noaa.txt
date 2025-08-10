@@ -1,0 +1,715 @@
+# Gray 2003 Northeastern Utah Palmer Drought Severity Index Reconstruction
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6303
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6303.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/ers9-pz56
+#
+# Science_Keywords: Palmer Drought Index Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/usa/utah/uinta_pdsi-noaa.txt
+#   Data_Download_Description: NOAA Template File; Utah PDSI Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2003-06-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Gray 2003 Northeastern Utah Palmer Drought Severity Index Reconstruction
+#-------------------
+# Investigators
+#   Investigators: Gray, S.T.; Jackson, S.T.; Betancourt, J.L.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Northeastern Utah June Palmer Drought Severity Index reconstruction based on tree ring chronologies in and around the Uinta Basin. 
+#-------------------
+# Publication
+#   Authors: Gray, S.T.
+#   Journal_Name: Dissertation
+#   Published_Title: Long-term climate variability and its implications for ecosystems and natural resource management in the Central Rocky Mountains.
+#   Published_Date_or_Year: 2003-01-01
+#   Volume: 
+#   Issue: 
+#   Pages: 
+#   Report_Number: 
+#   DOI: 
+#   Full_Citation: 
+#   Abstract: These data are reconstructed Palmer Drought Severity Index (PDSI) values for the Uinta Basin region (Utah Climate Division 6) of northeastern Utah from 1405-2000 AD.  Estimates for PDSI values prior to the instrumental period (1895-Present) were derived from the measurement of pinyon pine (Pinus edulis) tree-rings at four sites in the Uinta Basin.  Samples from 144 trees (both living and dead) are included in the reconstruction.  Comparison of the instrumental and estimated values shows that the reconstruction provides a good estimate of both single-year drought events and multi-year wet/dry trends.  Droughts in the 1950s, 1930s and around the beginning of the 20th century are well represented.  While these 20th Century dry events were quite severe, at least two droughts prior to instrumental period (e.g. mid 1400s and ~1735-1755) likely equaled or exceeded their duration.  Several pre-instrumental droughts, particularly those in the 1500s through mid 1600s, were of greater magnitude or severity than any dry events after the early 1900s.  Overall, this reconstruction suggests that severe, long-duration (>10 year) droughts are a common feature of northeastern Utah's climate.
+#-------------------
+# Publication
+#   Authors: Gray, S.T., J.L. Betancourt, C.L. Fastie, and S.T. Jackson
+#   Journal_Name: Geophysical Research Letters
+#   Published_Title: Patterns and sources of multidecadal oscillations in drought-sensitive tree-ring records from the central and southern Rocky Mountains.
+#   Published_Date_or_Year: 2003-03-26
+#   Volume: 30
+#   Issue: 6
+#   Pages: 
+#   Report_Number: 
+#   DOI: 10.1029/2002GL016154
+#   Full_Citation: 
+#   Abstract: Tree-ring records spanning the past seven centuries from the central and southern Rocky Mountains were studied using wavelet analysis to examine multidecadal (>30–70 yr) patterns of drought variation. Fifteen tree-ring series were grouped into five regional composite chronologies based on shared low-frequency behavior. Strong multidecadal phasing of moisture variation was present in all regions during the late 16th century megadrought. Oscillatory modes in the 30–70 yr domain persisted until the mid-19th century in two regions, and wet-dry cycles were apparently synchronous at some sites until the 1950s drought. The 16th/17th century pattern of severe multidecadal drought followed by decades of wet conditions resembles the 1950s drought and post-1976 wet period. The 16th century megadrought, which may have resulted from coupling of a decadal (~20–30 yr) Pacific cool phase with a multidecadal warm phase in the North Atlantic, marked a substantial reorganization of climate in the Rocky Mountain region.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Science Foundation
+#   Grant_Number: 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US Geological Survey
+#   Grant_Number: 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: Wyoming Water Development Commission
+#   Grant_Number: 
+#-------------------
+# Site_Information
+#   Site_Name: Utah Climate Division 6 - Uinta Basin
+#   Location: Utah
+#   Northernmost_Latitude: 41
+#   Southernmost_Latitude: 40
+#   Easternmost_Longitude: -109
+#   Westernmost_Longitude: -111
+#   Elevation_m: 
+#-------------------
+# Data_Collection
+#   Collection_Name: Uinta_PDSI_Gray2003
+#   First_Year: 1405
+#   Last_Year: 2002
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: reconstructions
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## pdsirecon	Palmer Drought Severity Index,,,dimensionless,,climate reconstructions;tree ring,,,N,
+## pdsiobs	Palmer Drought Severity Index,,,dimensionless,,instrumental,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	pdsirecon	pdsiobs
+1405	-0.42	NA
+1406	-0.14	NA
+1407	-2.49	NA
+1408	-0.79	NA
+1409	-0.61	NA
+1410	-1.35	NA
+1411	-1.83	NA
+1412	-0.37	NA
+1413	-1.92	NA
+1414	1.86	NA
+1415	-2.43	NA
+1416	-0.93	NA
+1417	1.05	NA
+1418	2.25	NA
+1419	-2.47	NA
+1420	0.77	NA
+1421	-1.6	NA
+1422	-0.58	NA
+1423	-0.66	NA
+1424	3.02	NA
+1425	0.85	NA
+1426	-0.03	NA
+1427	1.95	NA
+1428	1.65	NA
+1429	-1.36	NA
+1430	0.91	NA
+1431	1.31	NA
+1432	-1.3	NA
+1433	-0.03	NA
+1434	-1.42	NA
+1435	-1.8	NA
+1436	0.28	NA
+1437	-2.55	NA
+1438	-4.24	NA
+1439	-3.07	NA
+1440	-0.79	NA
+1441	0.09	NA
+1442	-4.63	NA
+1443	-0.56	NA
+1444	-3.64	NA
+1445	-3.15	NA
+1446	-2.42	NA
+1447	0.22	NA
+1448	-2.92	NA
+1449	-1.56	NA
+1450	-3.79	NA
+1451	0.75	NA
+1452	0.02	NA
+1453	0.46	NA
+1454	-0.14	NA
+1455	-1.5	NA
+1456	-2.79	NA
+1457	-1.64	NA
+1458	-0.75	NA
+1459	-1.91	NA
+1460	-6.57	NA
+1461	-5.03	NA
+1462	-0.13	NA
+1463	0.64	NA
+1464	1.02	NA
+1465	-2.12	NA
+1466	-1.28	NA
+1467	0.43	NA
+1468	-0.71	NA
+1469	-0.94	NA
+1470	-0.72	NA
+1471	-3.05	NA
+1472	-3.91	NA
+1473	-2.6	NA
+1474	-5.02	NA
+1475	-6.87	NA
+1476	-0.65	NA
+1477	-0.98	NA
+1478	1.84	NA
+1479	-0.22	NA
+1480	-1.12	NA
+1481	-1.4	NA
+1482	1.6	NA
+1483	1.62	NA
+1484	4.26	NA
+1485	0.7	NA
+1486	3.49	NA
+1487	0.6	NA
+1488	1.14	NA
+1489	0.95	NA
+1490	1.87	NA
+1491	1.78	NA
+1492	0.92	NA
+1493	0	NA
+1494	0.47	NA
+1495	-3.3	NA
+1496	-5.22	NA
+1497	-3.78	NA
+1498	0.37	NA
+1499	-2.51	NA
+1500	-2.62	NA
+1501	-1.51	NA
+1502	-1.5	NA
+1503	-1.78	NA
+1504	-1.91	NA
+1505	-4.16	NA
+1506	-6.9	NA
+1507	-3.22	NA
+1508	-1.23	NA
+1509	0.09	NA
+1510	-2.86	NA
+1511	-0.31	NA
+1512	-0.47	NA
+1513	-2.24	NA
+1514	2.42	NA
+1515	-2.69	NA
+1516	-0.13	NA
+1517	0.66	NA
+1518	-1.93	NA
+1519	-0.11	NA
+1520	-0.81	NA
+1521	4.58	NA
+1522	-2.73	NA
+1523	2.52	NA
+1524	0.74	NA
+1525	0.62	NA
+1526	0.71	NA
+1527	2.13	NA
+1528	-0.83	NA
+1529	0.59	NA
+1530	-1.47	NA
+1531	-4.79	NA
+1532	-6.85	NA
+1533	-2.95	NA
+1534	-2.15	NA
+1535	-0.5	NA
+1536	1.64	NA
+1537	-0.5	NA
+1538	-2.52	NA
+1539	-1.97	NA
+1540	-1.85	NA
+1541	-1.06	NA
+1542	-5.19	NA
+1543	-2.82	NA
+1544	-4.7	NA
+1545	-4	NA
+1546	-1.92	NA
+1547	-3.17	NA
+1548	-0.88	NA
+1549	0.45	NA
+1550	2.9	NA
+1551	2.24	NA
+1552	-1.34	NA
+1553	2.32	NA
+1554	-0.49	NA
+1555	-0.06	NA
+1556	-1.67	NA
+1557	1.06	NA
+1558	-2.58	NA
+1559	-0.27	NA
+1560	-0.24	NA
+1561	0.27	NA
+1562	0.33	NA
+1563	-1.55	NA
+1564	1.47	NA
+1565	1.5	NA
+1566	-2.12	NA
+1567	-1.26	NA
+1568	-2.4	NA
+1569	-1.47	NA
+1570	-0.76	NA
+1571	-1.41	NA
+1572	-0.67	NA
+1573	-2.67	NA
+1574	-3.07	NA
+1575	-1.59	NA
+1576	-3.7	NA
+1577	1.8	NA
+1578	0.63	NA
+1579	-4.68	NA
+1580	-5.94	NA
+1581	-3.37	NA
+1582	-1.93	NA
+1583	-2.91	NA
+1584	-3.49	NA
+1585	-4.82	NA
+1586	-2.11	NA
+1587	-0.63	NA
+1588	-0.62	NA
+1589	0.47	NA
+1590	-1.62	NA
+1591	-1.99	NA
+1592	-4.54	NA
+1593	0.02	NA
+1594	1.47	NA
+1595	2.73	NA
+1596	3.62	NA
+1597	-0.66	NA
+1598	-2.61	NA
+1599	-0.66	NA
+1600	-4.04	NA
+1601	-0.46	NA
+1602	2.35	NA
+1603	2.63	NA
+1604	2.63	NA
+1605	3.37	NA
+1606	1.91	NA
+1607	-0.94	NA
+1608	0.3	NA
+1609	2.07	NA
+1610	0.86	NA
+1611	0.12	NA
+1612	0.26	NA
+1613	-1.26	NA
+1614	1.54	NA
+1615	0.86	NA
+1616	1.35	NA
+1617	0.6	NA
+1618	3.47	NA
+1619	0.38	NA
+1620	0.64	NA
+1621	3.4	NA
+1622	-1.73	NA
+1623	0.3	NA
+1624	-0.68	NA
+1625	-0.43	NA
+1626	-3.48	NA
+1627	-2.46	NA
+1628	-4.06	NA
+1629	-3.3	NA
+1630	-2.21	NA
+1631	-3.85	NA
+1632	-4.93	NA
+1633	0.57	NA
+1634	-1.75	NA
+1635	-3.81	NA
+1636	-2.46	NA
+1637	-4.81	NA
+1638	-4.53	NA
+1639	-3.09	NA
+1640	0.37	NA
+1641	-1.87	NA
+1642	1.07	NA
+1643	-0.5	NA
+1644	-0.21	NA
+1645	-2.42	NA
+1646	-1.67	NA
+1647	0.66	NA
+1648	-2.4	NA
+1649	1.23	NA
+1650	-1.85	NA
+1651	-0.28	NA
+1652	-0.68	NA
+1653	-4.37	NA
+1654	-1.75	NA
+1655	1.59	NA
+1656	-0.79	NA
+1657	0.17	NA
+1658	-1.27	NA
+1659	-2.69	NA
+1660	-2.72	NA
+1661	-2.86	NA
+1662	-1.96	NA
+1663	-0.76	NA
+1664	-2.16	NA
+1665	-3.2	NA
+1666	-2.52	NA
+1667	-4.02	NA
+1668	-4.5	NA
+1669	-1.43	NA
+1670	-4.47	NA
+1671	-1.46	NA
+1672	-2.34	NA
+1673	1.49	NA
+1674	2.01	NA
+1675	-1.03	NA
+1676	2.4	NA
+1677	-0.6	NA
+1678	-0.55	NA
+1679	-1.67	NA
+1680	3.05	NA
+1681	0.02	NA
+1682	-0.74	NA
+1683	1.58	NA
+1684	-0.26	NA
+1685	-5.17	NA
+1686	-6.7	NA
+1687	1.21	NA
+1688	1.27	NA
+1689	-0.46	NA
+1690	-1.06	NA
+1691	0.27	NA
+1692	3.39	NA
+1693	2.75	NA
+1694	1.17	NA
+1695	0.41	NA
+1696	-0.55	NA
+1697	-2.21	NA
+1698	-0.3	NA
+1699	-1.25	NA
+1700	-0.5	NA
+1701	2.81	NA
+1702	3.09	NA
+1703	-1.15	NA
+1704	-0.46	NA
+1705	-0.4	NA
+1706	-2.16	NA
+1707	-3.22	NA
+1708	-5.56	NA
+1709	-1.72	NA
+1710	-2.11	NA
+1711	-2.61	NA
+1712	-1.29	NA
+1713	-1.21	NA
+1714	-1.6	NA
+1715	-0.97	NA
+1716	-0.81	NA
+1717	-4.59	NA
+1718	0.31	NA
+1719	0.88	NA
+1720	2.12	NA
+1721	-0.58	NA
+1722	-1.87	NA
+1723	0.06	NA
+1724	-1.68	NA
+1725	-2.11	NA
+1726	2.08	NA
+1727	-0.26	NA
+1728	-2.65	NA
+1729	-2.2	NA
+1730	-1.7	NA
+1731	-0.32	NA
+1732	-1.75	NA
+1733	-1.21	NA
+1734	2.59	NA
+1735	-4.94	NA
+1736	-4.13	NA
+1737	-2.71	NA
+1738	-0.29	NA
+1739	-1.45	NA
+1740	-2.9	NA
+1741	-2.09	NA
+1742	-2.31	NA
+1743	-1.9	NA
+1744	-3.93	NA
+1745	-2.07	NA
+1746	0.72	NA
+1747	0.53	NA
+1748	-2.64	NA
+1749	-1.21	NA
+1750	-2.35	NA
+1751	-4.19	NA
+1752	-2.56	NA
+1753	-0.91	NA
+1754	-1.19	NA
+1755	-0.93	NA
+1756	-5.53	NA
+1757	-3.59	NA
+1758	-0.83	NA
+1759	-1.5	NA
+1760	-0.28	NA
+1761	0.54	NA
+1762	1.19	NA
+1763	-3.64	NA
+1764	0.77	NA
+1765	-3.23	NA
+1766	0.48	NA
+1767	0.92	NA
+1768	1.9	NA
+1769	2.33	NA
+1770	0.65	NA
+1771	0.65	NA
+1772	-3.27	NA
+1773	-6.14	NA
+1774	-5.46	NA
+1775	-0.55	NA
+1776	-3.54	NA
+1777	-1.07	NA
+1778	-3.11	NA
+1779	-1.07	NA
+1780	-4.55	NA
+1781	-2.04	NA
+1782	-4.79	NA
+1783	-2.44	NA
+1784	2.03	NA
+1785	-1.62	NA
+1786	-5.36	NA
+1787	0.89	NA
+1788	-3.74	NA
+1789	-3.36	NA
+1790	1.99	NA
+1791	1.06	NA
+1792	2.46	NA
+1793	-1.28	NA
+1794	-2.69	NA
+1795	-3.34	NA
+1796	-2.71	NA
+1797	1.79	NA
+1798	-2.94	NA
+1799	0.74	NA
+1800	-1.81	NA
+1801	-1.15	NA
+1802	0.16	NA
+1803	-0.89	NA
+1804	-2.2	NA
+1805	-2.53	NA
+1806	-2.63	NA
+1807	0.31	NA
+1808	-1.8	NA
+1809	-1.45	NA
+1810	2.35	NA
+1811	2.49	NA
+1812	0.04	NA
+1813	-3.82	NA
+1814	-1.7	NA
+1815	-0.05	NA
+1816	0.98	NA
+1817	1.2	NA
+1818	-3.23	NA
+1819	2.33	NA
+1820	0.08	NA
+1821	2.96	NA
+1822	-3.06	NA
+1823	-2.9	NA
+1824	-5.63	NA
+1825	-1.51	NA
+1826	-0.81	NA
+1827	-2.34	NA
+1828	2.27	NA
+1829	-2.17	NA
+1830	-0.32	NA
+1831	-2.45	NA
+1832	1.48	NA
+1833	-0.78	NA
+1834	-1.13	NA
+1835	-0.47	NA
+1836	-4.06	NA
+1837	0.9	NA
+1838	2.32	NA
+1839	0.94	NA
+1840	0.5	NA
+1841	0.32	NA
+1842	-3.81	NA
+1843	1.34	NA
+1844	0.53	NA
+1845	-4.55	NA
+1846	-1.79	NA
+1847	-1.47	NA
+1848	-1	NA
+1849	5.43	NA
+1850	1.03	NA
+1851	-0.69	NA
+1852	-0.45	NA
+1853	3.68	NA
+1854	1.6	NA
+1855	-0.94	NA
+1856	1.26	NA
+1857	-0.96	NA
+1858	0.9	NA
+1859	-1.27	NA
+1860	1.55	NA
+1861	-3.73	NA
+1862	2.11	NA
+1863	-0.45	NA
+1864	0.96	NA
+1865	0.3	NA
+1866	2.04	NA
+1867	1.75	NA
+1868	2.29	NA
+1869	-0.68	NA
+1870	-1.84	NA
+1871	-5.98	NA
+1872	0.49	NA
+1873	-3.65	NA
+1874	-1.92	NA
+1875	-0.85	NA
+1876	-0.87	NA
+1877	-1.91	NA
+1878	-2.71	NA
+1879	-2.9	NA
+1880	-2	NA
+1881	-3.03	NA
+1882	-3.12	NA
+1883	-1.47	NA
+1884	0.46	NA
+1885	1.91	NA
+1886	-0.49	NA
+1887	-2.48	NA
+1888	-0.27	NA
+1889	-1.23	NA
+1890	-1.82	NA
+1891	-0.06	NA
+1892	-1.22	NA
+1893	-4.14	NA
+1894	-4.64	NA
+1895	-1.05	NA
+1896	-2.81	-2.21
+1897	-0.54	-1.85
+1898	3.5	-0.05
+1899	-1.56	-2.3
+1900	-3.94	-5.07
+1901	-3.78	-4.76
+1902	-4.11	-5.57
+1903	0.66	-2.23
+1904	-1.24	-2.77
+1905	-1.05	-3.93
+1906	0.57	1.1
+1907	2.97	1.93
+1908	0.41	0.52
+1909	1.56	3.55
+1910	-0.26	-2.5
+1911	0.75	-1.35
+1912	0.93	-0.28
+1913	0.47	0.54
+1914	1.84	2.57
+1915	-1.32	-1.61
+1916	-0.65	-1.06
+1917	1.92	2.56
+1918	-0.64	-0.45
+1919	-1.94	-2.84
+1920	2.22	2.93
+1921	2.45	3.84
+1922	0.82	3.19
+1923	1.12	3.1
+1924	-0.39	-1.77
+1925	-2.52	1.07
+1926	-0.84	-1.79
+1927	-0.38	0.81
+1928	-0.8	-1.15
+1929	1.05	1.15
+1930	-1.45	-2.34
+1931	-0.9	-0.93
+1932	-1.2	1.08
+1933	-0.69	-0.85
+1934	-5.74	-4.82
+1935	-2.79	-1.11
+1936	-3.97	-3.04
+1937	1.28	3.32
+1938	0.13	3.16
+1939	-1.06	-0.99
+1940	-0.1	-1.84
+1941	2.74	2.89
+1942	2.03	-0.22
+1943	-1.7	0.58
+1944	0.52	3.93
+1945	0.36	0.83
+1946	-4.28	-3.66
+1947	1.36	2.02
+1948	-0.45	-0.73
+1949	3.23	1.77
+1950	0.77	-0.51
+1951	-1.34	-2.48
+1952	3.08	4.23
+1953	-2.63	-1.44
+1954	-1.58	-3.17
+1955	-1.45	-1.92
+1956	-3.19	-2.69
+1957	-0.27	1.83
+1958	-1.24	-0.6
+1959	-4.12	-2.63
+1960	-2.27	-2.45
+1961	-4.19	-4.22
+1962	0.7	-0.63
+1963	-1.87	-4.15
+1964	-1.99	-2.52
+1965	2.51	6.13
+1966	1.02	2.31
+1967	3.39	3.08
+1968	0.4	2.36
+1969	2.12	2.5
+1970	0.54	1.49
+1971	-0.51	-0.87
+1972	-0.27	-2.37
+1973	1.93	4.34
+1974	-2.78	-2.69
+1975	2.99	2.77
+1976	-0.69	-1.09
+1977	-5.31	-4.18
+1978	-1.11	-0.28
+1979	0.57	2.78
+1980	0.72	2.1
+1981	0.82	-2.69
+1982	1.3	1.16
+1983	4.32	4.79
+1984	2.53	3.08
+1985	1.38	-0.74
+1986	1.46	0.43
+1987	0.57	-1.09
+1988	0.44	-0.63
+1989	-1.94	-3.98
+1990	-1.4	-3.79
+1991	0.46	-2.38
+1992	-1.33	-3.13
+1993	-0.65	2.78
+1994	-1.4	-3.11
+1995	1.74	4.14
+1996	0.28	-1.57
+1997	1.96	2.48
+1998	3.09	2.89
+1999	0.17	0.91
+2000	-2.64	-3.14
+2001	NA	-3.05
+2002	NA	-5.85
