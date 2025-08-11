@@ -213,14 +213,14 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
 
 # Posterior Quantification
 if(runmodel){
-  fit <- stan(file=file.path('stan/model6_with3predictorsClimateNAspp.stan'),
+  fit <- stan(file=file.path('stan/model6_with3predictorsClimateNAspp_reparam.stan'),
               data=data, seed=5838299, cores = 4,
               warmup=1000, iter=2024, refresh=10)
-  saveRDS(fit, "output/model6_with3predictorsClimateNAspp.rds")
+  saveRDS(fit, "output/model6_with3predictorsClimateNAspp_reparam2.rds")
 }
 
 if(!runmodel){
-  fit <- readRDS("output/model6_with3predictorsClimateNA.rds")
+  fit <- readRDS("output/model6_with3predictorsClimateNAspp_reparam2.rds")
   samples <- readRDS("output/model6_with3predictorsClimateNAsamples.rds")
 }
 
@@ -230,13 +230,59 @@ util$check_all_hmc_diagnostics(diagnostics)
 samples <- util$extract_expectand_vals(fit)
 base_samples <- util$filter_expectands(samples,
                                        c('alpha', 
-                                         'rho', 'gamma',
+                                         'rho_sp', 'gamma_sp',
                                          'f_tilde_sh',
-                                         'rho_sh', 'gamma_sh',
-                                         'kappa_sh_free',
+                                         'rho_sh', 
+                                         'kappa_sh_sp',
                                          'sigma'),
                                        check_arrays=TRUE)
 util$check_all_expectand_diagnostics(base_samples)
+
+samples <- util$extract_expectand_vals(fit)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'rho_sp', 'gamma_sp',
+                                         'f_tilde_sh',
+                                         'rho_sh', 
+                                         'sigma'),
+                                       check_arrays=TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+
+phylo_samples <- util$filter_expectands(samples,
+                                       c('beta_ffp_sp', 
+                                         'beta_gdd_sp',
+                                         'beta_pas_sp',
+                                         'kappa_sh_sp',
+                                         'lambda_beta_ffp',
+                                         'lambda_beta_pas',
+                                         'lambda_beta_gdd',
+                                         'lambda_rho',
+                                         'lambda_gamma',
+                                         'rho_sp'),
+                                       check_arrays=TRUE)
+util$check_all_expectand_diagnostics(phylo_samples)
+
+par(mfrow=c(2, 2))
+util$plot_div_pairs(c('beta_ffp'), c('lambda_beta_ffp'), samples, diagnostics)
+util$plot_div_pairs(c('beta_gdd'), c('lambda_beta_gdd'), samples, diagnostics)
+util$plot_div_pairs(c('beta_pas'), c('lambda_beta_pas'), samples, diagnostics)
+util$plot_div_pairs(c('beta_pas'), c('sigma_beta_pas'), samples, diagnostics, transforms = list('sigma_beta_pas' = 1))
+util$plot_div_pairs(c('beta_gdd'), c('sigma_beta_gdd'), samples, diagnostics, transforms = list('sigma_beta_gdd' = 1))
+util$plot_div_pairs(c('rho'), c('sigma_rho'), samples, diagnostics, transforms = list('sigma_rho' = 1))
+util$plot_div_pairs(c('gamma'), c('sigma_gamma'), samples, diagnostics, transforms = list('sigma_gamma' = 1))
+util$plot_div_pairs(c('kappa_sh'), c('sigma_kappa_sh'), samples, diagnostics, transforms = list('sigma_kappa_sh' = 1))
+
+util$plot_pairs_by_chain(samples[['beta_gdd']], 'beta_gdd', samples[['lambda_beta_gdd']], 'lambda_beta_gdd')
+util$plot_pairs_by_chain(samples[['beta_ffp']], 'beta_ffp', samples[['lambda_beta_ffp']], 'lambda_beta_ffp')
+util$plot_pairs_by_chain(samples[['beta_pas']], 'beta_pas', samples[['lambda_beta_pas']], 'lambda_beta_pas')
+
+util$plot_pairs_by_chain(samples[['beta_gdd']], 'beta_gdd', samples[['rho']], 'rho')
+
+util$plot_pairs_by_chain(samples[['rho']], 'rho', samples[['lambda_beta_gdd']], 'lambda_beta_gdd')
+util$plot_pairs_by_chain(samples[['gamma']], 'gamma', samples[['lambda_beta_gdd']], 'lambda_beta_gdd')
+util$plot_pairs_by_chain(samples[['gamma_sh']], 'gamma_sh', samples[['lambda_beta_gdd']], 'lambda_beta_gdd')
+util$plot_pairs_by_chain(samples[['rho_sh']], 'rho_sh', samples[['lambda_beta_gdd']], 'lambda_beta_gdd')
+util$plot_pairs_by_chain(samples[['rho_sh']], 'rho_sh', samples[['sigma_beta_pas']], 'sigma_beta_pas')
 
 saveRDS(samples, "output/model6_with3predictorsClimateNAsamples.rds")
 

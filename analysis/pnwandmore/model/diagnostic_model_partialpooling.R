@@ -10,7 +10,7 @@ setwd(wd)
 data <- readRDS(file.path(wd, 'output/model', 'data_11july2025.rds'))
 
 # Posterior quantification
-fit <- readRDS(file.path(wd, 'output/model', 'fit_11july2025_partialpooling_2clades_centered.rds')) # run on Margot
+fit <- readRDS(file.path(wd, 'output/model', 'fit_11july2025_partialpooling_2clades_mixcentnoncent.rds')) # run on Margot
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
 gc()
