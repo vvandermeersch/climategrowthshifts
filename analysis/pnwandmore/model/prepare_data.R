@@ -89,7 +89,7 @@ raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = '
 
 # Load climate data
 clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_04july2025.rds"))
-clim_pred$soilmoist_mjj <- clim_pred$soilmoist_1m_mjj*100 # in percentage
+clim_pred$soilmoist_mjj <- clim_pred$soilmoist_2m_mjj*100 # in percentage
 clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
 clim_pred$vpd_mjj <- clim_pred$vpd_mjj # in hPa?
 clim_pred <- na.omit(clim_pred)
@@ -207,6 +207,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
                ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025_soilmoisture2m.rds'))
 saveRDS(datasets, file.path(wd, 'output/model', 'datasets_11july2025.rds'))
 saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
