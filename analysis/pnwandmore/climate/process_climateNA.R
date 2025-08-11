@@ -24,7 +24,9 @@ ClimateNAr(
 clim <- data.frame()
 for(y in years){
   clim_y <- read.csv(file.path(wd, 'data', 'climate', 'climatena', paste0('clim_Year_',y,'.csv')))
-  clim_y <- merge(sites[, c('id1', 'id2', 'dataset')], clim_y)
+  sites_y <- sites[, c('id1', 'id2', 'dataset')]
+  sites_y$year <- y
+  clim_y <- merge(sites_y, clim_y)
   clim <- rbind(clim, clim_y)
 }
 saveRDS(clim, file.path(wd, 'output', 'climate', 'climatena', 'climpredictors_11august2025.rds'))
