@@ -81,23 +81,27 @@ plot_disc_pushforward_quantiles_2clades <- function(samples, names,
   if (is.null(xticklabs)) {
     plot(1, type="n", main=main,
          xlim=c(bin_min, bin_max), xlab=xlab,
-         ylim=display_ylim, ylab=ylab)
+         ylim=display_ylim, ylab=ylab,  frame.plot=F)
   } else {
     if (length(xticklabs) == N & is.null(yticklabs)) {
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
-           ylim=display_ylim, ylab=ylab)
+           ylim=display_ylim, ylab=ylab,  frame.plot=F)
       axis(1, at=1:N, labels=xticklabs)
+    } else if(is.na(xticklabs)  & is.null(yticklabs)){
+      plot(1, type="n", main=main,
+           xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
+           ylim=display_ylim, ylab=ylab,  frame.plot=F)
     } else if(is.na(xticklabs)  & is.na(yticklabs) ){
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
-           ylim=display_ylim, ylab=ylab,  yaxt = "n")
+           ylim=display_ylim, ylab=ylab,  yaxt = "n",  frame.plot=F)
     } else {
       warning(paste0('The list of x labels tick has the wrong',
                      ' dimension and baselines will not be plotted.'))
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab,
-           ylim=display_ylim, ylab=ylab)
+           ylim=display_ylim, ylab=ylab,  frame.plot=F)
     }
   }
   
@@ -136,5 +140,113 @@ plot_disc_pushforward_quantiles_2clades <- function(samples, names,
               col=baseline_col, lwd=2)
       }
     }
+  }
+}
+
+
+
+plot_expectand_pushforward_reverse <- function(expectand_vals, B,
+         display_name="f",
+         flim=NULL, ylim=NULL,
+         col=c_dark, border="#DDDDDD",
+         add=FALSE, main="", 
+         baseline=NULL,
+         baseline_col="black") {
+  validate_array(expectand_vals, 'expectand_vals')
+  
+  # Automatically adjust histogram range to range of expectand values
+  # if range is not already set as an input variable
+  if (is.null(flim)) {
+    min_f <- min(expectand_vals)
+    max_f <- max(expectand_vals)
+    delta <- (max_f - min_f) / B
+    
+    # Add bounding bins
+    B <- B + 2
+    min_f <- min_f - delta
+    max_f <- max_f + delta
+    flim <- c(min_f, max_f)
+    
+    bins <- seq(min_f, max_f, delta)
+  } else {
+    min_f <- flim[1]
+    max_f <- flim[2]
+    
+    delta <- (max_f - min_f) / B
+    bins <- seq(min_f, max_f, delta)
+  }
+  
+  # Check value containment
+  S <- dim(expectand_vals)[1] * dim(expectand_vals)[2]
+  
+  S_low <- sum(c(expectand_vals, recursive=TRUE) < min_f)
+  if (S_low == 1)
+    warning(sprintf('%i value (%.1f%%) fell below the histogram binning.',
+                    S_low, 100 * S_low / S))
+  else if (S_low > 1)
+    warning(sprintf('%i values (%.1f%%) fell below the histogram binning.',
+                    S_low, 100 * S_low / S))
+  
+  S_high <- sum(max_f < c(expectand_vals, recursive=TRUE))
+  if (S_low == 1)
+    warning(sprintf('%i value (%.1f%%) fell above the histogram binning.',
+                    S_high, 100 * S_high / S))
+  else if (S_low > 1)
+    warning(sprintf('%i values (%.1f%%) fell above the histogram binning.',
+                    S_high, 100 * S_high / S))
+  
+  # Compute bin heights
+  mean_p <- rep(0, B)
+  delta_p <- rep(0, B)
+  
+  for (b in 1:B) {
+    # Estimate bin probabilities
+    bin_indicator <- function(x) {
+      ifelse(bins[b] <= x & x < bins[b + 1], 1, 0)
+    }
+    indicator_vals <- util$eval_uni_expectand_pushforward(expectand_vals,
+                                                     bin_indicator)
+    est <- util$ensemble_mcmc_est(indicator_vals)
+    
+    # Normalize bin probabilities by bin width to allow
+    # for direct comparison to probability density functions
+    width = bins[b + 1] - bins[b]
+    mean_p[b] = est[1] / width
+    delta_p[b] = est[2] / width
+  }
+  
+  # Plot histogram
+  idx <- rep(1:B, each=2)
+  x <- sapply(1:length(idx), function(b) if(b %% 2 == 1) bins[idx[b]]
+              else bins[idx[b] + 1])
+  lower_inter <- sapply(idx, function (n)
+    max(mean_p[n] - 2 * delta_p[n], 0))
+  upper_inter <- sapply(idx, function (n)
+    min(mean_p[n] + 2 * delta_p[n], 1 / width))
+  
+  if (add) {
+    polygon(c(lower_inter, rev(upper_inter)), c(x, rev(x)),
+            col=border, border=NA)
+    lines(mean_p[idx], x,  col=col, lwd=2)
+  } else {
+    if (is.null(ylim)) {
+      ylim=c(0, max(1.05 * upper_inter))
+    }
+    
+    plot(1, type="n", main=main,
+         xlim=ylim, xlab=display_name, 
+         ylim=flim, ylab="", xaxt="n", frame.plot=F)
+    # title(ylab="Estimated Bin\nProbabilities / Bin Width",
+    #       mgp=c(1, 1, 0))
+    
+    polygon(c(lower_inter, rev(upper_inter)), c(x, rev(x)),
+            col=border, border=NA)
+    lines(mean_p[idx], x,  col=col, lwd=2)
+  }
+  
+  # Plot baseline if applicable
+  if (!is.null(baseline)) {
+    abline(v=baseline, col="white", lty=1, lwd=4)
+    abline(v=baseline, col=baseline_col, lty=1, lwd=2)
   }
 }
