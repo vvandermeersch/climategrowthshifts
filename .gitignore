@@ -38,6 +38,7 @@ analysis/mountrainier/data/climate/wldas
 analysis/pnwandmore/output/model
 analysis/pnwandmore/data/srtm
 analysis/pnwandmore/data/ustreeatlas
+analysis/pnwandmore/data/climate
 
 docs/reports/examples/
 /notposting
