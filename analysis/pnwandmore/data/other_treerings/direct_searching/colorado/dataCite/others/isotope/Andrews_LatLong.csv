@@ -1,0 +1,26 @@
+﻿Data field name,Site name,Source Files,Lat,Long
+AM_Spring-6b,USGS Andrews Meadow spring tree 7a,Measured_Cellulose_delta_18O.csv; Modeled_water_delta180.csv,40.29062,-105.66696
+AM_Spring-7a,USGS Andrews Meadow spring tree 6b,Measured_Cellulose_delta_18O.csv; Modeled_water_delta180.csv,40.2907,-105.66692
+AM_Creek-1b,Andrews Meadow creek tree 1b,Measured_Cellulose_delta_18O.csv; Modeled_water_delta180.csv,40.29,-105.66667
+AM_Creek-8a,Andrews Meadow creek tree 8a,Measured_Cellulose_delta_18O.csv; Modeled_water_delta180.csv,40.28989,-105.66689
+AM_Creek-9a,Andrews Meadow creek tree 9a,Measured_Cellulose_delta_18O.csv; Modeled_water_delta180.csv,40.28992,-105.66726
+Loch_Vale_Precipitation_cm,USGS Loch Vale Main Weather station,Climate_averages.csv,40.288,-105.663
+Loch_Vale_Andrews_Temp,USGS Loch Vale Main Weather station,Climate_averages.csv,40.291,-105.667
+Loch_Vale_Andrews_Relative_Humidity,USGS Loch Vale Main Weather station,Climate_averages.csv,40.291,-105.667
+Loch_Vale_Main_Temp,USGS Loch Vale Main Weather station,Climate_averages.csv,40.288,-105.663
+Loch_Vale_Main_Relative_Humidity,USGS Loch Vale Main Weather station,Climate_averages.csv,40.288,-105.663
+Bear_Lake_SensorUncorrected_Temp,SNOTEL Bear Lake station,Climate_averages.csv,40.316,-105.65
+Bear_Lake_SensorCorrected_Temp,SNOTEL Bear Lake station,Climate_averages.csv,40.316,-105.65
+Andrews_Creek_discharge_7daymax,USGS Andrews Creek discharge station,Climate_averages.csv,40.29,-105.667
+Andrews_Creek_Discharge_Annual,USGS Andrews Creek discharge station,Climate_averages.csv,40.29,-105.667
+d18O_flow-weighted_water_year,USGS Andrews Creek discharge station,Surface_water_isotope_averages.csv,40.29,-105.667
+d18O_calendar_year,USGS Andrews Creek discharge station,Surface_water_isotope_averages.csv,40.29,-105.667
+d2H_calendar_year,USGS Andrews Creek discharge station,Surface_water_isotope_averages.csv,40.29,-105.667
+dexcess_calendar_year,USGS Andrews Creek discharge station,Surface_water_isotope_averages.csv,40.29,-105.667
+Precipitation_d18O,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.288,-105.663
+Precipitation_d2H,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.288,-105.663
+Precipitation_dexcess,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.288,-105.663
+Snowpack_d18O,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.289,-105.667
+Snowpack_d2H,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.289,-105.667
+Snowpack_dexcess,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.289,-105.667
+Snowpack_depth_cm,NADP Loch Vale CO98,Precipitation_isotope_averages.csv,40.289,-105.667

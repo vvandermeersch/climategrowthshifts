@@ -1,0 +1,401 @@
+# Woodhouse and Lukas 2004 TreeFlow Colorado Streamflow Reconstructions
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6316
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6316.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/jrak-de20
+#
+# Science_Keywords: Streamflow Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/colorado/treeflow/arkansas1-noaa.txt
+#   Data_Download_Description: NOAA Template File; Arkansas River at Canon City Streamflow Reconstruction
+#
+# Original_Source_URL: 
+#   Original_Source_Description: 
+#
+#-------------------
+# Contribution_Date
+#   Date: 2005-10-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Woodhouse and Lukas 2004 TreeFlow Colorado Streamflow Reconstructions
+#-------------------
+# Investigators
+#   Investigators: Woodhouse, C.A.(https://orcid.org/0000-0003-0545-9753); Lukas, J.J.; Webb, R.S.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Tree-ring-based reconstructions of streamflow at 22 gaging stations in the South Platte River, Arkansas River, Colorado River , and Rio Grande basins of Colorado, USA. For details see the TreeFlow website at: http://treeflow.info/ To calculate the confidence intervals around the reconstructed streamflows, obtain the root mean squared error (RMSE) provided in the Validation Statistics table on the reconstruction page from which this data file was linked. To calculate the 95% confidence intervals, multiply the RMSE by 1.960, and add the result to each reconstructed flow to generate the upper interval, and subtract it from each reconstructed flow to generate the lower interval. To calculate the 80% confidence intervals, multiply the RMSE by 1.282, and then add and subtract the result as described above.
+#-------------------
+# Publication
+#   Authors: Woodhouse, C.A. and J.J. Lukas
+#   Journal_Name: Climatic Change
+#   Published_Title: Multi-Century Tree-Ring Reconstructions of Colorado Streamflow for Water Resource Planning.
+#   Published_Date_or_Year: 2006-10-01
+#   Volume: 78
+#   Issue: 2-4
+#   Pages: 293-315
+#   Report_Number: 
+#   DOI: 10.1007/s10584-006-9055-0
+#   Full_Citation: 
+#   Abstract: Water resource management requires knowledge of the natural variability in streamflow over multiple time scales. Reconstructions of streamflow derived from moisture-sensitive trees extend, in both time and magnitude, the variability provided by relatively short gage records. In this study, we present a network of 14 annual streamflow reconstructions, 300–600 years long, for gages in the Upper Colorado and South Platte River basins in Colorado generated from new and existing tree-ring chronologies. Gages for the reconstruction were selected on the basis of their importance to two of the largest Colorado Front Range water providers, who provided the natural flow data for the calibration with tree-ring data. The reconstruction models explain 63–76% of the variance in the gage records and capture low flows particularly well. Analyses of the reconstructions indicate that the 20th century gage record does not fully represent the range of streamflow characteristics seen in the prior two to five centuries. Multi-year drought events more severe than the 1950s drought have occurred, notably in the 19th century, and the distribution of extreme low flow years is markedly uneven over the past three centuries. When the 14 reconstructions are grouped into Upper Colorado, northern South Platte, and southern South Platte regional flow reconstructions, the three time series show a high degree of coherence, but also time-varying divergences that may reflect the differential influence of climatic features operating in the western U.S. These reconstructions are currently being used by water managers to assess the reliability of water supply systems under a broader range of conditions than indicated by the gage records alone.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Oceanic and Atmospheric Administration (NOAA)
+#   Grant_Number: Office of Global Programs, GC02-046, Regional Integrated Sciences and Assessment Program
+#-------------------
+# Site_Information
+#   Site_Name: Arkansas River at Canon City
+#   Location: Colorado
+#   Northernmost_Latitude: 38.43389
+#   Southernmost_Latitude: 38.43389
+#   Easternmost_Longitude: -105.2567
+#   Westernmost_Longitude: -105.2567
+#   Elevation_m: 1628
+#-------------------
+# Data_Collection
+#   Collection_Name: Arkansas R. at Canon City streamflow Woodhouse2006
+#   First_Year: 1685
+#   Last_Year: 1987
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: streamflow
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## sfr	streamflow,,,acre foot,Oct-Sep,climate reconstructions;tree ring,,,N,
+## sfi	streamflow,,,acre foot,Oct-Sep,instrumental,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	sfr	sfi
+1685	174885	NA
+1686	390869	NA
+1687	534770	NA
+1688	673610	NA
+1689	667176	NA
+1690	283775	NA
+1691	300280	NA
+1692	438817	NA
+1693	535621	NA
+1694	506049	NA
+1695	362945	NA
+1696	455265	NA
+1697	640565	NA
+1698	651343	NA
+1699	704882	NA
+1700	398617	NA
+1701	677145	NA
+1702	214823	NA
+1703	394228	NA
+1704	423184	NA
+1705	689594	NA
+1706	503043	NA
+1707	115316	NA
+1708	338496	NA
+1709	444291	NA
+1710	579757	NA
+1711	578680	NA
+1712	580127	NA
+1713	480078	NA
+1714	518315	NA
+1715	606496	NA
+1716	488262	NA
+1717	586071	NA
+1718	558766	NA
+1719	738049	NA
+1720	694263	NA
+1721	539614	NA
+1722	715722	NA
+1723	222902	NA
+1724	514897	NA
+1725	519490	NA
+1726	572100	NA
+1727	554120	NA
+1728	686489	NA
+1729	320516	NA
+1730	642919	NA
+1731	505135	NA
+1732	442898	NA
+1733	423726	NA
+1734	498793	NA
+1735	426632	NA
+1736	481732	NA
+1737	290923	NA
+1738	503492	NA
+1739	564561	NA
+1740	392146	NA
+1741	556664	NA
+1742	403635	NA
+1743	636557	NA
+1744	572366	NA
+1745	480485	NA
+1746	454821	NA
+1747	625441	NA
+1748	313744	NA
+1749	686881	NA
+1750	327206	NA
+1751	467484	NA
+1752	449109	NA
+1753	546217	NA
+1754	716735	NA
+1755	442311	NA
+1756	354130	NA
+1757	534714	NA
+1758	540112	NA
+1759	437450	NA
+1760	513760	NA
+1761	534414	NA
+1762	571772	NA
+1763	344008	NA
+1764	548708	NA
+1765	379705	NA
+1766	658915	NA
+1767	472877	NA
+1768	707050	NA
+1769	536513	NA
+1770	343163	NA
+1771	565049	NA
+1772	412685	NA
+1773	317670	NA
+1774	523275	NA
+1775	474941	NA
+1776	329736	NA
+1777	392967	NA
+1778	441128	NA
+1779	356141	NA
+1780	437346	NA
+1781	401869	NA
+1782	321019	NA
+1783	601109	NA
+1784	558479	NA
+1785	519270	NA
+1786	424756	NA
+1787	712496	NA
+1788	420062	NA
+1789	337164	NA
+1790	652784	NA
+1791	593411	NA
+1792	694034	NA
+1793	438227	NA
+1794	444118	NA
+1795	366963	NA
+1796	556537	NA
+1797	577619	NA
+1798	212244	NA
+1799	544860	NA
+1800	578332	NA
+1801	536790	NA
+1802	538669	NA
+1803	460893	NA
+1804	347156	NA
+1805	455212	NA
+1806	420067	NA
+1807	457312	NA
+1808	485159	NA
+1809	525370	NA
+1810	472995	NA
+1811	561651	NA
+1812	521850	NA
+1813	487894	NA
+1814	485904	NA
+1815	551511	NA
+1816	527729	NA
+1817	551437	NA
+1818	499345	NA
+1819	492240	NA
+1820	464937	NA
+1821	496920	NA
+1822	432709	NA
+1823	486288	NA
+1824	237581	NA
+1825	428408	NA
+1826	576462	NA
+1827	428693	NA
+1828	676779	NA
+1829	398175	NA
+1830	452400	NA
+1831	629497	NA
+1832	607065	NA
+1833	360616	NA
+1834	273139	NA
+1835	470112	NA
+1836	481677	NA
+1837	655676	NA
+1838	652741	NA
+1839	585820	NA
+1840	509798	NA
+1841	443414	NA
+1842	313842	NA
+1843	660995	NA
+1844	405359	NA
+1845	264512	NA
+1846	342601	NA
+1847	304092	NA
+1848	403784	NA
+1849	631970	NA
+1850	532997	NA
+1851	193674	NA
+1852	472688	NA
+1853	671420	NA
+1854	597275	NA
+1855	345328	NA
+1856	520981	NA
+1857	436711	NA
+1858	609408	NA
+1859	498336	NA
+1860	698626	NA
+1861	404051	NA
+1862	557914	NA
+1863	526998	NA
+1864	590799	NA
+1865	556850	NA
+1866	733173	NA
+1867	643481	NA
+1868	557978	NA
+1869	609058	NA
+1870	378393	NA
+1871	292351	NA
+1872	581199	NA
+1873	631793	NA
+1874	429059	NA
+1875	574538	NA
+1876	519792	NA
+1877	426185	NA
+1878	538860	NA
+1879	338556	NA
+1880	266968	NA
+1881	488358	NA
+1882	410874	NA
+1883	369630	NA
+1884	526416	NA
+1885	401826	NA
+1886	434112	NA
+1887	391084	NA
+1888	431432	NA
+1889	295159	261072
+1890	366654	624604
+1891	577527	709637
+1892	522121	647817
+1893	461974	631949
+1894	524939	649715
+1895	605669	NA
+1896	373335	325826
+1897	472226	505289
+1898	467548	489621
+1899	491123	665611
+1900	575980	596581
+1901	399673	461070
+1902	274107	251187
+1903	614613	505301
+1904	398493	384402
+1905	573937	613015
+1906	517936	564851
+1907	641819	713685
+1908	332813	359199
+1909	612191	613475
+1910	541424	535727
+1911	462974	561064
+1912	594848	682497
+1913	413835	420779
+1914	687701	645159
+1915	439283	497391
+1916	485199	605622
+1917	616701	644421
+1918	503641	568885
+1919	465480	570043
+1920	507707	627744
+1921	671441	659079
+1922	412884	535024
+1923	605141	595717
+1924	631061	654153
+1925	344341	359983
+1926	513933	500475
+1927	520628	517116
+1928	594492	526649
+1929	442288	547985
+1930	427645	483987
+1931	444437	278837
+1932	539017	441720
+1933	478415	380471
+1934	282133	247480
+1935	429091	421857
+1936	446594	544583
+1937	506034	368723
+1938	491975	448098
+1939	376244	377400
+1940	359241	205550
+1941	585237	439040
+1942	571341	696912
+1943	448785	555679
+1944	447662	474938
+1945	432618	371833
+1946	340004	413281
+1947	611368	554115
+1948	545288	648222
+1949	611688	602642
+1950	255309	370851
+1951	487451	389377
+1952	574898	558750
+1953	439787	431000
+1954	240383	251296
+1955	401621	284379
+1956	470076	376759
+1957	580573	836527
+1958	561332	596055
+1959	340899	345947
+1960	503811	467229
+1961	346287	387195
+1962	589509	637486
+1963	353515	294739
+1964	382445	333730
+1965	672164	670411
+1966	432945	466099
+1967	334355	316522
+1968	513484	476807
+1969	539149	424412
+1970	590454	659839
+1971	462820	484862
+1972	419875	377678
+1973	589269	471578
+1974	452740	376773
+1975	510623	449090
+1976	363535	395477
+1977	257723	148576
+1978	562316	373093
+1979	608182	493869
+1980	511087	583113
+1981	337252	250459
+1982	475041	390294
+1983	729389	692858
+1984	614220	816075
+1985	653349	691074
+1986	690034	516054
+1987	617725	694906

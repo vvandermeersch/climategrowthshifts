@@ -1,0 +1,63 @@
+﻿Tab Name,Field Name,Units,Valid values,Description
+Measured_Cellulose_d18O,Year,year,1994 to 2016,Calender year (Jan to Dec)
+,AM_Spring-6b,per_mil_VSMOW,23.7 to 31.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area
+,AM_Spring-7a,per_mil_VSMOW,23.7 to 33.7,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area
+,AM_Creek-1b,per_mil_VSMOW,24.5 to 29.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek
+,AM_Creek-8a,per_mil_VSMOW,23.0 to 28.3,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek
+,AM_Creek-9a,per_mil_VSMOW,24.7 to 27.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek
+,AVG Spring,per_mil_VSMOW,23.9 to 32.1,Average measured cellulose d18O value of Andrews Meadow trees 6b and 7a in spring area versus Vienna Standard Mean Ocean Water
+,AVG Creek,per_mil_VSMOW,24.3 to 27.5,"Average measured cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water"
+,AVG ALL,per_mil_VSMOW,24.6 to 29.3,Average measured cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water
+,,,,
+Modeled_water_d18O,Year,year,1994 to 2016,Calender year (Jan to Dec)
+,AM_Spring-6b,per_mil_VSMOW,-17.7 to -10.7,Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area
+,AM_Spring-7a,per_mil_VSMOW,-18.9 to -8.9,Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area
+,AM_Creek-1b,per_mil_VSMOW,-17.9 to-11.3,Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek
+,AM_Creek-8a,per_mil_VSMOW,-19.0 to -14.1,Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek
+,AM_Creek-9a,per_mil_VSMOW,-17.7 to -12.5,Modeled water d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek
+,AVG Spring,per_mil_VSMOW,-17.7 to -10.5,Average modeled cellulose d18O value of Andrews Meadow trees 6b and 7a in spring discharge area versus Vienna Standard Mean Ocean Water
+,AVG Creek,per_mil_VSMOW,-17.8 to -13.4,"Average modeled cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water"
+,AVG ALL,per_mil_VSMOW,-17.4 to -12.9,Average modeled cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water
+,,,,
+Precipitation_isotope_averages,Year,year,1993 to 2020,Calender year (Jan to Dec)
+,Precipitation_d18O,per_mil_VSMOW,-17.68 to -13.99,Average annual precipitation amount weighted d18O versus Vienna Standard Mean Ocean Water
+,Precipitation_d2H,per_mil_VSMOW,-130.35  to -102.90,Annual average precipitation amount weighted d2H versus Vienna Standard Mean Ocean Water
+,Precipitation_dexcess,per_mil_VSMOW,9.06 to 13.18,Annual average precipitation amount weighted d-excess versus Vienna Standard Mean Ocean Water
+,Snowpack_d18O,per_mil_VSMOW,-22.30 to -18.37,Integrated snowpack d18O versus Vienna Standard Mean Ocean Water
+,Snowpack_d2H,per_mil_VSMOW,-167.2 to -137.77,Integrated snowpack d2H versus Vienna Standard Mean Ocean Water
+,Snowpack_dexcess,per_mil_VSMOW,12.4 to 20.16,Integrated  snowpack d-excess versus Vienna Standard Mean Ocean Water
+,Snowpack_depth _cm,cm,152 to 348,Snowpack depth 
+,,,,
+Surface_water_isotope_averages,Site,NA,NA,Andrews Creek and Andrews Spring
+,Year,year,1992 to 2019,Calender (Jan to Dec) or water year (Oct-Sept)
+,d18O_flow-weighted_water_year,per_mil_VSMOW,-16.98 to-15.20,Average annual water year flow weighted d18O value versus Vienna Standard Mean Ocean Water
+,d18O_calendar_year,per_mil_VSMOW,-16.77 to -13.88,Average annual calendar year d18O value versus Vienna Standard Mean Ocean Water
+, d2H_calendar_year,per_mil_VSMOW,-120.63 to -102.48,Average annual calendar year d2H value versus Vienna Standard Mean Ocean Water
+,dexcess_calendar_year,per_mil_VSMOW,13.53 to 20.03,Average annual calendar year deuterium excess value versus Vienna Standard Mean Ocean Water
+,,,,
+Climate_averages,Year,year,1992 to 2019,Calender year
+,Loch_Vale_Precipitation_cm,cm,70.87 to 145.26,Annual calendar year average precipitation amount at National Atmospheric Deposition Program CO98 Loch Vale Station 
+,Loch_Vale_Andrews_Temp,degree centigrade,-0.41 to 2.20,Annual calendar year average temperature at USGS Loch Vale Andrews weather station
+,Loch_Vale_Andrews_Relative_Humidity,%,54.55 to 70.63,Annual calendar year average percent relative humidity at USGS Loch Vale Andrews weather station
+,Loch_Vale_Main_Temp,degree centigrade,0.35 to 2.52,Annual calendar year average temperature at USGS Loch Vale Main weather station
+,Loch_Vale_Main_Relative_Humidity,%,52.55 to 69.23,Annual calendar year average percent relative humidity at USGS Loch Vale Main weather station
+,Bear_Lake_SensorUncorrected_Temp,degree centigrade,1.00 to 5.11,Annual calendar year average temperature at SNOTEL Bear Lake station UNCORRECTED for extended sensor change on 2005-08-26
+,Bear_Lake_SensorCorrected_Temp,degree centigrade,1.00 to 3.90,Annual calendar year average temperature at SNOTEL Bear Lake station CORRECTED for extended sensor change on 2005-08-26
+,Andrews_Creek_discharge_7daymax,cubic feet per second,4.35 to 14.21,Annual calendar year average of Andrews Creek 7-day maximum discharge 
+,Andrews_Creek_Discharge_Annual,cubic feet per second,1.11 to 2.43,Annual calendar year average Andrews Creek discharge 
+,,,,
+Andrews_LatLong,Data field name,NA,NA,Name of data labels in fields used within the data files
+,Site name,NA,NA,Names individual trees and observational data stations
+,Source Files,NA,NA,Name of data files including the sites and data fields
+,Lat,decimal degrees,NA,Latitude
+,Long,decimal degrees,NA,Longitude
+,,,,
+treeiso,Year,year,1994 to 2016,Calender year (Jan to Dec)
+,AMS06B,per_mil_VSMOW,23.7 to 31.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 6b in spring discharge area
+,AMS07A,per_mil_VSMOW,23.7 to 33.7,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 7a in spring discharge area
+,AMC01B,per_mil_VSMOW,24.5 to 29.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 1b in Andrews Creek
+,AMC08A,per_mil_VSMOW,23.0 to 28.3,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 8a in Andrews Creek
+,AMC09A,per_mil_VSMOW,24.7 to 27.9,Andrews Meadow measured cellulose d18O value versus Vienna Standard Mean Ocean Water for tree 9a in Andrews Creek
+,Spring,per_mil_VSMOW,23.9 to 32.1,Average measured cellulose d18O value of Andrews Meadow trees 6b and 7a in spring area versus Vienna Standard Mean Ocean Water
+,Creek,per_mil_VSMOW,24.3 to 27.5,"Average measured cellulose d18O value of Andrews Meadow trees 1b, 8a, 9a in Andrews Creek versus Vienna Standard Mean Ocean Water"
+,ALL,per_mil_VSMOW,24.6 to 29.3,Average measured cellulose d18O value of all Andrews Meadow trees versus Vienna Standard Mean Ocean Water

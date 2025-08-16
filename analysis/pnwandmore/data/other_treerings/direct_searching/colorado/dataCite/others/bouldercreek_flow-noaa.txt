@@ -1,0 +1,380 @@
+# Woodhouse 2001 Middle Boulder Creek, Colorado Streamflow Reconstruction
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6367
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6367.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/42g7-df75
+#
+# Science_Keywords: Streamflow Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/colorado/bouldercreek_flow-noaa.txt
+#   Data_Download_Description: NOAA Template File; Streamflow Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2002-02-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Woodhouse 2001 Middle Boulder Creek, Colorado Streamflow Reconstruction
+#-------------------
+# Investigators
+#   Investigators: Woodhouse, C.A.(https://orcid.org/0000-0003-0545-9753)
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Middle Boulder Creek, Colorado mean annual streamflow reconstruction, 1703-1987. Reconstruction of mean annual flow, in cubic meters/second, of Middle Boulder Creek above Barker Reservoir, Nederland, Colorado, USA, 39 57' 42"N, 105 30' 14"W, based on tree ring chronologies. The USGS gage used for the calibration is Middle Boulder Creek at Nederland, CO (06725500). Gage record period 1912-1987.
+#-------------------
+# Publication
+#   Authors: Woodhouse, C.A.
+#   Journal_Name: Journal of the American Water Resources Association
+#   Published_Title: A tree-ring reconstruction of streamflow for the Colorado Front Range.
+#   Published_Date_or_Year: 2001-06-01
+#   Volume: 37
+#   Issue: 3
+#   Pages: 561-569
+#   Report_Number: 
+#   DOI: 10.1111/j.1752-1688.2001.tb05493.x
+#   Full_Citation: 
+#   Abstract:  Water resource planning is based primarily on 20th century instrumental records of climate and streamflow. These records are limited in length to approximately 100 years, in the best cases, and can reflect only a portion of the range of natural variability. The instrumental record neither can be used to gage the unusualness of 20th Century extreme low flow events, nor does it allow the detection of low-frequency variability that may underlie short-term variations in flow. In this study, tree rings are used to reconstruct mean annual streamflow for Middle Boulder Creek in the Colorado Front Range, a semi-arid region of rapid growth and development. The reconstruction is based on a stepwise regression equation that accounts for 70 percent of the variance in the instrumental record, and extends from 1703–1987. The reconstruction suggests that the instrumental record of streamflow for Middle Boulder Creek is not representative of flow in past centuries and that several low flow events in the 19th century were more persistent than any in the 20th century. The 1840s to early 1850s period of low flow is a particularly notable event and may have coincided with a period of low flow in the Upper Colorado River Basin.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Science Foundation
+#   Grant_Number: ATM-9729571
+#-------------------
+# Site_Information
+#   Site_Name: Middle Boulder Creek
+#   Location: Colorado
+#   Northernmost_Latitude: 39.961667
+#   Southernmost_Latitude: 39.961667
+#   Easternmost_Longitude: -105.503889
+#   Westernmost_Longitude: -105.503889
+#   Elevation_m: 
+#-------------------
+# Data_Collection
+#   Collection_Name: Woodhouse2001
+#   First_Year: 1703
+#   Last_Year: 1987
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: reconstructions
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## sfr	streamflow,,,cubic meter per second,annual,climate reconstructions;tree ring,,,N, streamflow reconstruction (sfr)
+## sfi	streamflow,,,cubic meter per second,annual,instrumental,,,N,streamflow instrumental (sfi)
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	sfr	sfi
+1703	1.206292507736	NA
+1704	1.723274256419	NA
+1705	2.388301440987	NA
+1706	1.670497759507	NA
+1707	0.410346482339	NA
+1708	0.995919752739	NA
+1709	1.387809952531	NA
+1710	1.802126060608	NA
+1711	1.453945484851	NA
+1712	1.407031476472	NA
+1713	1.717764859003	NA
+1714	2.757660726704	NA
+1715	2.324338083668	NA
+1716	1.815889163971	NA
+1717	1.658205134668	NA
+1718	2.031487897492	NA
+1719	2.480213307928	NA
+1720	2.138336231952	NA
+1721	1.995049157179	NA
+1722	2.489911450979	NA
+1723	0.797351274684	NA
+1724	1.567151662856	NA
+1725	1.400525701179	NA
+1726	1.716994449064	NA
+1727	1.786957627307	NA
+1728	2.095029376368	NA
+1729	1.701581958963	NA
+1730	2.078649034963	NA
+1731	1.708807574636	NA
+1732	1.470355609859	NA
+1733	1.445226674112	NA
+1734	1.523732401363	NA
+1735	1.423906734819	NA
+1736	1.405945985923	NA
+1737	1.583084868416	NA
+1738	1.804752705075	NA
+1739	1.251243012264	NA
+1740	1.399681636364	NA
+1741	1.405984931092	NA
+1742	1.194054366196	NA
+1743	1.745343945675	NA
+1744	1.802132173747	NA
+1745	1.928886177891	NA
+1746	1.947477275984	NA
+1747	1.541117871424	NA
+1748	1.237563589531	NA
+1749	2.050606336963	NA
+1750	1.209629597232	NA
+1751	1.542878749683	NA
+1752	1.193394678003	NA
+1753	1.828708277344	NA
+1754	2.506848876564	NA
+1755	1.595074687275	NA
+1756	1.387731802867	NA
+1757	1.366203211971	NA
+1758	1.3528253237	NA
+1759	1.819526347388	NA
+1760	1.428677420036	NA
+1761	2.101822944571	NA
+1762	1.291227142116	NA
+1763	1.590248351432	NA
+1764	1.887373601387	NA
+1765	1.387423660952	NA
+1766	2.221993875971	NA
+1767	1.722219182699	NA
+1768	1.888188013867	NA
+1769	1.590113341016	NA
+1770	0.987614322556	NA
+1771	1.666293402956	NA
+1772	1.424588686763	NA
+1773	1.8084119301	NA
+1774	1.656303271003	NA
+1775	1.586380421724	NA
+1776	1.604197635924	NA
+1777	1.678089759972	NA
+1778	1.586432773171	NA
+1779	1.515263619091	NA
+1780	1.504329438243	NA
+1781	1.539320431884	NA
+1782	1.552461508403	NA
+1783	1.971511876436	NA
+1784	1.746438127316	NA
+1785	1.288825811275	NA
+1786	1.824529876083	NA
+1787	2.237939661547	NA
+1788	1.578434033844	NA
+1789	1.119474243388	NA
+1790	2.121919541452	NA
+1791	1.863772732252	NA
+1792	2.136738801579	NA
+1793	1.438852516376	NA
+1794	1.827981035507	NA
+1795	1.507837735243	NA
+1796	1.900422223408	NA
+1797	1.293734219728	NA
+1798	1.174065443256	NA
+1799	1.702202801563	NA
+1800	1.969367360708	NA
+1801	1.600934032299	NA
+1802	1.818155189339	NA
+1803	1.641529950244	NA
+1804	1.015986282008	NA
+1805	1.418440767387	NA
+1806	1.730367262648	NA
+1807	1.475360216228	NA
+1808	1.972466356299	NA
+1809	1.631545921632	NA
+1810	1.625285967108	NA
+1811	1.502637873368	NA
+1812	1.364640775467	NA
+1813	1.533136572928	NA
+1814	1.850993644267	NA
+1815	1.761011268627	NA
+1816	1.608099411364	NA
+1817	1.642758325091	NA
+1818	1.365369113891	NA
+1819	1.592906620372	NA
+1820	1.549263720819	NA
+1821	1.592984613156	NA
+1822	1.722250560627	NA
+1823	1.164255421403	NA
+1824	1.126195226548	NA
+1825	1.825000729104	NA
+1826	1.669358300888	NA
+1827	1.866268648059	NA
+1828	2.207126437564	NA
+1829	1.511903866536	NA
+1830	1.783615763164	NA
+1831	1.560467020707	NA
+1832	1.731693791092	NA
+1833	1.764956909316	NA
+1834	1.066242114252	NA
+1835	1.688345997771	NA
+1836	1.678947937632	NA
+1837	2.000276038947	NA
+1838	1.959680543852	NA
+1839	1.893913985171	NA
+1840	1.319032584091	NA
+1841	1.670919669828	NA
+1842	0.759944414892	NA
+1843	1.854703788616	NA
+1844	1.204661804619	NA
+1845	1.101745387576	NA
+1846	1.383934726224	NA
+1847	1.061137597368	NA
+1848	1.172680931403	NA
+1849	1.698945515284	NA
+1850	1.515434074548	NA
+1851	0.992659369508	NA
+1852	1.330221176152	NA
+1853	1.932112463699	NA
+1854	1.711212424832	NA
+1855	1.361768461467	NA
+1856	1.612014036075	NA
+1857	1.738602862323	NA
+1858	2.081451645323	NA
+1859	1.636077176644	NA
+1860	2.215697373699	NA
+1861	1.458840879036	NA
+1862	1.410624857731	NA
+1863	1.270414074232	NA
+1864	1.977121102803	NA
+1865	1.470682261072	NA
+1866	1.940614440004	NA
+1867	1.791039670384	NA
+1868	2.032384300244	NA
+1869	2.182483485032	NA
+1870	1.220406544012	NA
+1871	1.378434200672	NA
+1872	1.907428286467	NA
+1873	1.625334831976	NA
+1874	1.703032990763	NA
+1875	2.114219791076	NA
+1876	1.769192065728	NA
+1877	1.208652601276	NA
+1878	1.730223256264	NA
+1879	1.217599116331	NA
+1880	0.672625234652	NA
+1881	1.630193165584	NA
+1882	1.586585365264	NA
+1883	1.629395823216	NA
+1884	1.547703244012	NA
+1885	1.082192282251	NA
+1886	1.131573274032	NA
+1887	1.038797292504	NA
+1888	1.115547090691	NA
+1889	1.464993131512	NA
+1890	1.455034764348	NA
+1891	1.722263294776	NA
+1892	1.515557051524	NA
+1893	1.303309468476	NA
+1894	2.1272537947	NA
+1895	1.474227212491	NA
+1896	1.442970212939	NA
+1897	1.880636207843	NA
+1898	1.770351391504	NA
+1899	1.502741377676	NA
+1900	1.789630175536	NA
+1901	1.681363771564	NA
+1902	1.223310770091	NA
+1903	1.845054563587	NA
+1904	1.850776414491	NA
+1905	1.869168559299	NA
+1906	1.663747059083	NA
+1907	2.325103896387	NA
+1908	1.298469095948	NA
+1909	2.134437561723	NA
+1910	1.240462761363	NA
+1911	1.445701399728	NA
+1912	2.1120149738	1.880448
+1913	1.549627708528	1.178112
+1914	2.084503546883	2.002224
+1915	1.508372849404	1.54344
+1916	1.581328147436	1.28856
+1917	1.653470667875	1.57176
+1918	1.603839638203	2.087184
+1919	1.308842563883	1.195104
+1920	1.648640838467	1.789824
+1921	1.947202476539	2.155152
+1922	1.207878065171	1.127136
+1923	2.088106696579	1.8408
+1924	1.980635610267	1.687872
+1925	0.8873238381	1.01952
+1926	2.125041230316	2.143824
+1927	1.686789381712	1.597248
+1928	2.201204637276	1.719024
+1929	1.699327220275	1.520784
+1930	1.390443735243	1.407504
+1931	1.657921088852	1.059168
+1932	1.586806422947	1.30272
+1933	1.388115325344	1.441488
+1934	1.418163789944	0.897744
+1935	1.361051215507	1.588752
+1936	1.532438860024	1.758672
+1937	1.787386977416	1.282896
+1938	1.819772653211	1.863456
+1939	1.268313619675	1.212096
+1940	1.356223560123	1.200768
+1941	1.906717022328	1.427328
+1942	1.848704812768	1.551936
+1943	1.751580974304	1.51512
+1944	1.791316119588	1.319712
+1945	2.018698791804	1.693536
+1946	1.285691919664	1.158288
+1947	2.039839779347	1.852128
+1948	1.314943039667	1.280064
+1949	2.017167266891	1.860624
+1950	1.239063452648	1.155456
+1951	1.616429471368	1.82664
+1952	1.798784992736	2.047536
+1953	1.331296582436	1.435824
+1954	0.959566127091	0.741984
+1955	1.478324557952	1.138464
+1956	1.312082556571	1.481136
+1957	2.085061948651	2.356224
+1958	1.718512644331	1.721856
+1959	1.665918319572	1.651056
+1960	1.804187677968	1.846464
+1961	1.660154731899	1.577424
+1962	1.635978387283	1.775664
+1963	1.025317055892	1.14696
+1964	1.528272212531	1.14696
+1965	2.017719662596	2.070192
+1966	0.950759104832	0.866592
+1967	1.375134566059	1.3452
+1968	1.427712403763	1.50096
+1969	1.751317088112	1.908768
+1970	1.860710986832	1.922928
+1971	1.713346855227	1.92576
+1972	1.440934005216	1.367856
+1973	2.062037847419	1.622736
+1974	1.479799087507	1.676544
+1975	2.058920914708	1.651056
+1976	1.346553699492	1.237584
+1977	1.109788240224	1.036512
+1978	1.439371360107	1.815312
+1979	1.780913370739	1.653888
+1980	1.739093158619	1.761504
+1981	1.414135538059	0.974208
+1982	1.516365927467	1.64256
+1983	2.228552089707	2.070192
+1984	1.660613668979	2.13816
+1985	1.436586171512	1.554768
+1986	1.856129636496	1.71336
+1987	1.723650104987	1.248912

@@ -1,0 +1,564 @@
+# Pederson et al. 2006 Glacier National Park Summer Drought Reconstruction
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6340
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6340.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/f2kn-8985
+#
+# Science_Keywords: Other Hydroclimate Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/montana/glacier-msd2006-noaa.txt
+#   Data_Download_Description: NOAA Template File; Drought Reconstruction Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2006-02-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Pederson et al. 2006 Glacier National Park Summer Drought Reconstruction
+#-------------------
+# Investigators
+#   Investigators: Pederson, G.T.; Gray, S.T.; Fagre, D.B.; Graumlich, L.J.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Reconstruction of Summer Drought based on tree-ring chronologies in Glacier National Park.  Reconstructed parameter is Mean Summer Deficit (precipitation - potential evapotranspiration [Thornthwaite, 1948] for June-August) at Kalispell, Montana on the boundary of Glacier National Park.  
+#-------------------
+# Publication
+#   Authors: Pederson, G.T., S.T. Gray, D.B. Fagre, and L.J. Graumlich
+#   Journal_Name: Earth Interactions
+#   Published_Title: Long-Duration Drought Variability and Impacts on Ecosystem Services: A Case Study from Glacier National Park, Montana.
+#   Published_Date_or_Year: 2006-01-01
+#   Volume: 10
+#   Issue: 4
+#   Pages: 1-28
+#   Report_Number: 
+#   DOI: 10.1175/EI153.1
+#   Full_Citation: 
+#   Abstract: Instrumental climate records suggest that summer precipitation and winter snowpack in Glacier National Park (Glacier NP), Montana, vary significantly over decadal to multidecadal time scales. Because instrumental records for the region are limited to the twentieth century, knowledge of the range of variability associated with these moisture anomalies and their impacts on ecosystems and physical processes are limited. The authors developed a reconstruction of summer (June–August) moisture variability spanning a.d. 1540–2000 from a multispecies network of tree-ring chronologies in Glacier NP. Decadal-scale drought and pluvial regimes were defined as any event lasting 10 yr or greater, and the significance of each potential regime was assessed using intervention analysis. Intervention analysis prevents single intervening years of average or opposing moisture conditions from ending what was otherwise a sustained moisture regime. The reconstruction shows numerous decadal-scale shifts between persistent drought and wet events prior to the instrumental period (before a.d. 1900). Notable wet events include a series of three long-duration, high-magnitude pluvial regimes spanning the end of the Little Ice Age (a.d. 1770–1840). Though the late-nineteenth century was marked by a series of >10 yr droughts, the single most severe dry event occurred in the early-twentieth century (a.d. 1917–41). These decadal-scale dry and wet events, in conjunction with periods of high and low snowpack, have served as a driver of ecosystem processes such as forest fires and glacial dynamics in the Glacier NP region. Using a suite of paleoproxy reconstructions and information from previous studies examining the relationship between climate variability and natural processes, the authors explore how such persistent moisture anomalies affect the delivery of vital goods and services provided by Glacier NP and surrounding areas. These analyses show that regional water resources and tourism are particularly vulnerable to persistent moisture anomalies in the Glacier NP area. Many of these same decadal-scale wet and dry events were also seen among a wider network of hydroclimatic reconstructions along a north–south transect of the Rocky Mountains. Such natural climate variability can, in turn, have enormous impacts on the sustainable provision of natural resources over wide areas. Overall, these results highlight the susceptibility of goods and services provided by protected areas like Glacier NP to natural climate variability, and show that this susceptibility will likely be compounded by the effects of future human-induced climate change.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Science Foundation
+#   Grant_Number: 0082376 
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US Geological Survey - Northern Rocky Mountain Science Center
+#   Grant_Number: 
+#-------------------
+# Site_Information
+#   Site_Name: Glacier National Park
+#   Location: Colorado
+#   Northernmost_Latitude: 49
+#   Southernmost_Latitude: 48.25
+#   Easternmost_Longitude: -113
+#   Westernmost_Longitude: -115
+#   Elevation_m: 
+#-------------------
+# Data_Collection
+#   Collection_Name: Pederson2006
+#   First_Year: 1540
+#   Last_Year: 2003
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: reconstructions
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## precipr	precipitation minus potential evapotranspiration,,,millimeter,Jun-Aug,climate reconstructions;tree ring,,,N,
+## precipi	precipitation minus potential evapotranspiration,,,millimeter,Jun-Aug,instrumental,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	precipr	precipi
+1540	-153.479	NA
+1541	-223.16	NA
+1542	-209.51	NA
+1543	-147.019	NA
+1544	-214.347	NA
+1545	-256.609	NA
+1546	-244.174	NA
+1547	-226.356	NA
+1548	-194.132	NA
+1549	-191.277	NA
+1550	-201.372	NA
+1551	-179.002	NA
+1552	-200.817	NA
+1553	-250.678	NA
+1554	-187.006	NA
+1555	-235.716	NA
+1556	-185.106	NA
+1557	-182.565	NA
+1558	-206.424	NA
+1559	-184.636	NA
+1560	-228.46	NA
+1561	-233.553	NA
+1562	-255.454	NA
+1563	-183.818	NA
+1564	-195.636	NA
+1565	-193.594	NA
+1566	-272.628	NA
+1567	-242.217	NA
+1568	-237.899	NA
+1569	-229.82	NA
+1570	-240.726	NA
+1571	-228.401	NA
+1572	-189.976	NA
+1573	-207.96	NA
+1574	-207.218	NA
+1575	-250.223	NA
+1576	-160.997	NA
+1577	-187.661	NA
+1578	-160.147	NA
+1579	-216.423	NA
+1580	-284.274	NA
+1581	-246.445	NA
+1582	-201.789	NA
+1583	-238.223	NA
+1584	-223.287	NA
+1585	-197.829	NA
+1586	-229.066	NA
+1587	-171.467	NA
+1588	-242.736	NA
+1589	-192.932	NA
+1590	-166.408	NA
+1591	-152.17	NA
+1592	-267.364	NA
+1593	-217.783	NA
+1594	-204.972	NA
+1595	-235.04	NA
+1596	-166.882	NA
+1597	-161.787	NA
+1598	-197.259	NA
+1599	-227.853	NA
+1600	-164.628	NA
+1601	-266.521	NA
+1602	-240.853	NA
+1603	-247.554	NA
+1604	-280.81	NA
+1605	-286.646	NA
+1606	-273.103	NA
+1607	-222.009	NA
+1608	-204.091	NA
+1609	-265.814	NA
+1610	-207.601	NA
+1611	-193.064	NA
+1612	-220.355	NA
+1613	-210.194	NA
+1614	-254.861	NA
+1615	-199.392	NA
+1616	-178.988	NA
+1617	-284.911	NA
+1618	-191.646	NA
+1619	-247.326	NA
+1620	-232.564	NA
+1621	-209.854	NA
+1622	-232.472	NA
+1623	-179.626	NA
+1624	-206.184	NA
+1625	-197.795	NA
+1626	-277.084	NA
+1627	-217.341	NA
+1628	-259.988	NA
+1629	-255.546	NA
+1630	-248.226	NA
+1631	-227.474	NA
+1632	-164.043	NA
+1633	-253.18	NA
+1634	-259.941	NA
+1635	-237.624	NA
+1636	-213.915	NA
+1637	-234.931	NA
+1638	-308.323	NA
+1639	-220.339	NA
+1640	-221.865	NA
+1641	-256.868	NA
+1642	-184.426	NA
+1643	-202.42	NA
+1644	-200.921	NA
+1645	-187.553	NA
+1646	-214.21	NA
+1647	-200.822	NA
+1648	-209.897	NA
+1649	-228.02	NA
+1650	-185.834	NA
+1651	-218.322	NA
+1652	-253.55	NA
+1653	-187.738	NA
+1654	-219.316	NA
+1655	-199.598	NA
+1656	-273.06	NA
+1657	-202.535	NA
+1658	-210.495	NA
+1659	-224.476	NA
+1660	-249.726	NA
+1661	-220.808	NA
+1662	-239.524	NA
+1663	-229.134	NA
+1664	-291.146	NA
+1665	-233.676	NA
+1666	-256.536	NA
+1667	-195.093	NA
+1668	-189.526	NA
+1669	-225.043	NA
+1670	-230.874	NA
+1671	-242.745	NA
+1672	-168.576	NA
+1673	-221.908	NA
+1674	-132.909	NA
+1675	-195.673	NA
+1676	-207.477	NA
+1677	-106.545	NA
+1678	-147.207	NA
+1679	-206.348	NA
+1680	-166.367	NA
+1681	-215.349	NA
+1682	-241.479	NA
+1683	-273.625	NA
+1684	-189.967	NA
+1685	-228.143	NA
+1686	-226.11	NA
+1687	-286.152	NA
+1688	-239.594	NA
+1689	-246.773	NA
+1690	-201.096	NA
+1691	-238.117	NA
+1692	-228.791	NA
+1693	-257.515	NA
+1694	-209.815	NA
+1695	-225.154	NA
+1696	-249.122	NA
+1697	-234.642	NA
+1698	-235.184	NA
+1699	-217.732	NA
+1700	-223.198	NA
+1701	-203.571	NA
+1702	-231.476	NA
+1703	-189.289	NA
+1704	-182.66	NA
+1705	-185.367	NA
+1706	-199.292	NA
+1707	-186.942	NA
+1708	-178.882	NA
+1709	-196.691	NA
+1710	-154.853	NA
+1711	-184.695	NA
+1712	-145.162	NA
+1713	-207.042	NA
+1714	-144.855	NA
+1715	-174.187	NA
+1716	-155.793	NA
+1717	-212.192	NA
+1718	-230.662	NA
+1719	-297.068	NA
+1720	-205.065	NA
+1721	-219.01	NA
+1722	-294.046	NA
+1723	-180.049	NA
+1724	-252.781	NA
+1725	-220.803	NA
+1726	-244.167	NA
+1727	-226.072	NA
+1728	-166.753	NA
+1729	-182.746	NA
+1730	-225.087	NA
+1731	-209.326	NA
+1732	-175.346	NA
+1733	-233.624	NA
+1734	-234.863	NA
+1735	-236.45	NA
+1736	-210.73	NA
+1737	-215.388	NA
+1738	-183.701	NA
+1739	-207.553	NA
+1740	-222.937	NA
+1741	-197.469	NA
+1742	-237.912	NA
+1743	-241.304	NA
+1744	-213.854	NA
+1745	-294.379	NA
+1746	-216.799	NA
+1747	-167.119	NA
+1748	-240.86	NA
+1749	-206.608	NA
+1750	-245.571	NA
+1751	-188.855	NA
+1752	-208.092	NA
+1753	-149.652	NA
+1754	-266.135	NA
+1755	-241.232	NA
+1756	-242.02	NA
+1757	-281.019	NA
+1758	-255.656	NA
+1759	-255.078	NA
+1760	-233.522	NA
+1761	-216.586	NA
+1762	-248.774	NA
+1763	-261.942	NA
+1764	-224.63	NA
+1765	-279.389	NA
+1766	-229.502	NA
+1767	-200.977	NA
+1768	-224.531	NA
+1769	-229.144	NA
+1770	-185.492	NA
+1771	-214.313	NA
+1772	-204.261	NA
+1773	-198.985	NA
+1774	-197.044	NA
+1775	-210.855	NA
+1776	-178.786	NA
+1777	-198.123	NA
+1778	-223.782	NA
+1779	-204.632	NA
+1780	-148.003	NA
+1781	-180.561	NA
+1782	-156.788	NA
+1783	-185.906	NA
+1784	-239.307	NA
+1785	-155.552	NA
+1786	-194.625	NA
+1787	-129.382	NA
+1788	-154.904	NA
+1789	-172.522	NA
+1790	-185.301	NA
+1791	-171.981	NA
+1792	-242.519	NA
+1793	-226.236	NA
+1794	-212.493	NA
+1795	-215.95	NA
+1796	-204.434	NA
+1797	-178.438	NA
+1798	-246.08	NA
+1799	-242.303	NA
+1800	-111.526	NA
+1801	-201.951	NA
+1802	-224.235	NA
+1803	-117.983	NA
+1804	-184.14	NA
+1805	-121.75	NA
+1806	-185.53	NA
+1807	-148.48	NA
+1808	-195.159	NA
+1809	-161.648	NA
+1810	-161.014	NA
+1811	-215.313	NA
+1812	-221.13	NA
+1813	-169.843	NA
+1814	-225.143	NA
+1815	-213.972	NA
+1816	-192.714	NA
+1817	-223.974	NA
+1818	-142.933	NA
+1819	-154.381	NA
+1820	-194.952	NA
+1821	-151.866	NA
+1822	-297.636	NA
+1823	-232.277	NA
+1824	-195.609	NA
+1825	-195.715	NA
+1826	-192.757	NA
+1827	-187.269	NA
+1828	-140.182	NA
+1829	-170.5	NA
+1830	-265.005	NA
+1831	-214.529	NA
+1832	-187.383	NA
+1833	-186.348	NA
+1834	-174.309	NA
+1835	-205.443	NA
+1836	-176.619	NA
+1837	-212.202	NA
+1838	-126.743	NA
+1839	-156.149	NA
+1840	-198.05	NA
+1841	-232.761	NA
+1842	-219.419	NA
+1843	-225.294	NA
+1844	-213.893	NA
+1845	-176.398	NA
+1846	-221.621	NA
+1847	-192.734	NA
+1848	-248.679	NA
+1849	-212.067	NA
+1850	-198.96	NA
+1851	-271.263	NA
+1852	-215.76	NA
+1853	-244.1	NA
+1854	-217.36	NA
+1855	-235.35	NA
+1856	-210.177	NA
+1857	-173.639	NA
+1858	-207.104	NA
+1859	-192.156	NA
+1860	-172.909	NA
+1861	-255.318	NA
+1862	-235.115	NA
+1863	-231.716	NA
+1864	-217.255	NA
+1865	-187.411	NA
+1866	-271.74	NA
+1867	-222.129	NA
+1868	-318.835	NA
+1869	-220.283	NA
+1870	-232.638	NA
+1871	-249.554	NA
+1872	-238.916	NA
+1873	-297.098	NA
+1874	-279.692	NA
+1875	-220.099	NA
+1876	-219.413	NA
+1877	-222.976	NA
+1878	-222.493	NA
+1879	-237.114	NA
+1880	-232.937	NA
+1881	-213.817	NA
+1882	-222.647	NA
+1883	-247.319	NA
+1884	-198.964	NA
+1885	-182.901	NA
+1886	-205.024	NA
+1887	-188.96	NA
+1888	-264.448	NA
+1889	-225.048	NA
+1890	-201.079	NA
+1891	-198.752	NA
+1892	-241.282	NA
+1893	-261.043	NA
+1894	-240.326	NA
+1895	-229.745	NA
+1896	-260.88	NA
+1897	-215.031	NA
+1898	-222.39	NA
+1899	-144.107	NA
+1900	-164.618	-233
+1901	-216.591	-233
+1902	-196.686	-178
+1903	-181.347	-230
+1904	-242.151	-258
+1905	-251.797	-239
+1906	-197.26	-245
+1907	-186.905	-134
+1908	-192.206	-198
+1909	-202.546	-161
+1910	-225.039	-279
+1911	-210.475	-169
+1912	-152.801	-186
+1913	-194.83	-221
+1914	-221.109	-213
+1915	-156.219	-189
+1916	-198.434	-119
+1917	-282.2	-245
+1918	-247.699	-254
+1919	-294.542	-284
+1920	-252.884	-224
+1921	-296.169	-280
+1922	-256.19	-297
+1923	-271.497	-236
+1924	-251.298	-192
+1925	-254.612	-245
+1926	-230.27	-252
+1927	-248.376	-247
+1928	-201.138	-186
+1929	-260.942	-309
+1930	-245.444	-248
+1931	-240.334	-296
+1932	-228.982	-267
+1933	-223.311	-265
+1934	-240.91	-250
+1935	-288.198	-262
+1936	-257.518	-293
+1937	-242.786	-239
+1938	-300.424	-273
+1939	-237.781	-215
+1940	-263.784	-274
+1941	-230.595	-264
+1942	-176.97	-125
+1943	-197.158	-207
+1944	-218.655	-238
+1945	-216.793	-242
+1946	-207.56	-246
+1947	-176.35	-111
+1948	-202.374	-119
+1949	-114.189	NA
+1950	-181.392	-145
+1951	-255.451	-185
+1952	-214.381	-197
+1953	-218.905	-204
+1954	-175.275	-138
+1955	-251.562	-230
+1956	-219.376	-150
+1957	-227.269	-255
+1958	-247.511	-274
+1959	-226.935	-275
+1960	-215.954	-270
+1961	-285.745	-321
+1962	-235.021	-276
+1963	-211.779	-188
+1964	-195.308	-144
+1965	-187.373	-156
+1966	-212.802	-162
+1967	-274.457	-289
+1968	-231.166	-191
+1969	-201.503	-221
+1970	-259.177	-246
+1971	-240.212	-186
+1972	-210.753	-240
+1973	-277.618	-295
+1974	-231.336	-278
+1975	-190.646	-197
+1976	-187.023	-145
+1977	-137.403	-239
+1978	-181.13	-208
+1979	-257.256	-293
+1980	-167.921	-179
+1981	-221.102	-184
+1982	-210.831	-173
+1983	-181.344	-183
+1984	-267.314	-264
+1985	-219.67	-262
+1986	-198.943	-243
+1987	-198.531	-166
+1988	-274.628	-279
+1989	-188.884	-190
+1990	-239.427	-197
+1991	-204.181	-212
+1992	-167.522	-165
+1993	-109.899	-20
+1994	-205.591	-283
+1995	-165.562	-113
+1996	-206.829	-263
+1997	-224.407	-188
+1998	-170.985	-187
+1999	-178.013	-234
+2000	-251.934	-277
+2001	NA	-210
+2002	NA	-230
+2003	NA	-323

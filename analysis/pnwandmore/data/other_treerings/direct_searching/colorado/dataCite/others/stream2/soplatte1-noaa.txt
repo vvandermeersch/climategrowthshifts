@@ -1,0 +1,467 @@
+# Woodhouse and Lukas 2004 TreeFlow Colorado Streamflow Reconstructions
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6316
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6316.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/jrak-de20
+#
+# Science_Keywords: Streamflow Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/colorado/treeflow/soplatte1-noaa.txt
+#   Data_Download_Description: NOAA Template File; South Platte River at South Platte Streamflow Reconstruction
+#
+# Original_Source_URL: 
+#   Original_Source_Description: 
+#
+#-------------------
+# Contribution_Date
+#   Date: 2005-10-01
+#-------------------
+# File_Last_Modified_Date
+#   Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Woodhouse and Lukas 2004 TreeFlow Colorado Streamflow Reconstructions
+#-------------------
+# Investigators
+#   Investigators: Woodhouse, C.A.(https://orcid.org/0000-0003-0545-9753); Lukas, J.J.; Webb, R.S.
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Tree-ring-based reconstructions of streamflow at 22 gaging stations in the South Platte River, Arkansas River, Colorado River , and Rio Grande basins of Colorado, USA. For details see the TreeFlow website at: http://treeflow.info/
+#-------------------
+# Publication
+#   Authors: Woodhouse, C.A. and J.J. Lukas
+#   Journal_Name: Climatic Change
+#   Published_Title: Multi-Century Tree-Ring Reconstructions of Colorado Streamflow for Water Resource Planning.
+#   Published_Date_or_Year: 2006-10-01
+#   Volume: 78
+#   Issue: 2-4
+#   Pages: 293-315
+#   Report_Number: 
+#   DOI: 10.1007/s10584-006-9055-0
+#   Full_Citation: 
+#   Abstract: Water resource management requires knowledge of the natural variability in streamflow over multiple time scales. Reconstructions of streamflow derived from moisture-sensitive trees extend, in both time and magnitude, the variability provided by relatively short gage records. In this study, we present a network of 14 annual streamflow reconstructions, 300–600 years long, for gages in the Upper Colorado and South Platte River basins in Colorado generated from new and existing tree-ring chronologies. Gages for the reconstruction were selected on the basis of their importance to two of the largest Colorado Front Range water providers, who provided the natural flow data for the calibration with tree-ring data. The reconstruction models explain 63–76% of the variance in the gage records and capture low flows particularly well. Analyses of the reconstructions indicate that the 20th century gage record does not fully represent the range of streamflow characteristics seen in the prior two to five centuries. Multi-year drought events more severe than the 1950s drought have occurred, notably in the 19th century, and the distribution of extreme low flow years is markedly uneven over the past three centuries. When the 14 reconstructions are grouped into Upper Colorado, northern South Platte, and southern South Platte regional flow reconstructions, the three time series show a high degree of coherence, but also time-varying divergences that may reflect the differential influence of climatic features operating in the western U.S. These reconstructions are currently being used by water managers to assess the reliability of water supply systems under a broader range of conditions than indicated by the gage records alone.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Oceanic and Atmospheric Administration (NOAA)
+#   Grant_Number: Office of Global Programs, GC02-046, Regional Integrated Sciences and Assessment Program
+#-------------------
+# Site_Information
+#   Site_Name: South Platte River at South Platte
+#   Location: Colorado
+#   Northernmost_Latitude: 39.40917
+#   Southernmost_Latitude: 39.40917
+#   Easternmost_Longitude: -105.1694
+#   Westernmost_Longitude: -105.1694
+#   Elevation_m: 1853
+#-------------------
+# Data_Collection
+#   Collection_Name: S Platte R. at S Platte streamflow Woodhouse2006
+#   First_Year: 1634
+#   Last_Year: 2002
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: streamflow
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+## Year	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## Recon	streamflow,,,acre foot,Oct-Sep,climate reconstructions;tree ring,,,N,
+## Gage	streamflow,,,acre foot,Oct-Sep,instrumental,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+Year	Recon	Gage
+1634	194142	NA
+1635	230151	NA
+1636	243103	NA
+1637	237369	NA
+1638	192470	NA
+1639	409455	NA
+1640	419725	NA
+1641	239659	NA
+1642	337801	NA
+1643	340653	NA
+1644	271420	NA
+1645	133640	NA
+1646	206835	NA
+1647	399574	NA
+1648	216139	NA
+1649	404354	NA
+1650	223212	NA
+1651	277347	NA
+1652	242038	NA
+1653	159823	NA
+1654	101088	NA
+1655	623753	NA
+1656	304071	NA
+1657	359844	NA
+1658	244368	NA
+1659	223335	NA
+1660	257620	NA
+1661	335531	NA
+1662	256663	NA
+1663	272496	NA
+1664	171613	NA
+1665	286023	NA
+1666	211278	NA
+1667	171942	NA
+1668	121753	NA
+1669	200818	NA
+1670	223293	NA
+1671	210437	NA
+1672	283227	NA
+1673	468135	NA
+1674	286859	NA
+1675	193695	NA
+1676	452162	NA
+1677	312189	NA
+1678	523565	NA
+1679	163192	NA
+1680	493520	NA
+1681	212557	NA
+1682	209750	NA
+1683	419040	NA
+1684	175723	NA
+1685	80127	NA
+1686	235488	NA
+1687	266258	NA
+1688	360378	NA
+1689	324602	NA
+1690	290227	NA
+1691	375192	NA
+1692	374276	NA
+1693	242514	NA
+1694	282274	NA
+1695	306652	NA
+1696	344403	NA
+1697	269604	NA
+1698	397194	NA
+1699	243001	NA
+1700	232896	NA
+1701	335249	NA
+1702	386352	NA
+1703	216763	NA
+1704	148787	NA
+1705	307917	NA
+1706	266303	NA
+1707	139494	NA
+1708	234681	NA
+1709	213656	NA
+1710	490469	NA
+1711	251546	NA
+1712	373987	NA
+1713	261815	NA
+1714	189146	NA
+1715	209890	NA
+1716	219968	NA
+1717	299607	NA
+1718	296496	NA
+1719	310945	NA
+1720	718058	NA
+1721	222839	NA
+1722	159510	NA
+1723	179544	NA
+1724	298841	NA
+1725	300695	NA
+1726	509294	NA
+1727	275722	NA
+1728	261323	NA
+1729	124341	NA
+1730	163763	NA
+1731	290467	NA
+1732	220620	NA
+1733	324344	NA
+1734	334209	NA
+1735	175193	NA
+1736	176211	NA
+1737	191579	NA
+1738	223721	NA
+1739	318618	NA
+1740	190348	NA
+1741	274472	NA
+1742	220584	NA
+1743	370849	NA
+1744	232585	NA
+1745	254137	NA
+1746	459884	NA
+1747	393114	NA
+1748	112041	NA
+1749	427544	NA
+1750	198768	NA
+1751	360697	NA
+1752	248118	NA
+1753	346638	NA
+1754	303841	NA
+1755	231532	NA
+1756	131956	NA
+1757	277929	NA
+1758	270123	NA
+1759	296100	NA
+1760	259703	NA
+1761	603448	NA
+1762	330582	NA
+1763	167565	NA
+1764	264860	NA
+1765	230782	NA
+1766	364140	NA
+1767	210289	NA
+1768	518731	NA
+1769	345922	NA
+1770	162198	NA
+1771	398545	NA
+1772	240053	NA
+1773	227064	NA
+1774	348762	NA
+1775	222306	NA
+1776	225559	NA
+1777	180287	NA
+1778	260383	NA
+1779	203216	NA
+1780	223157	NA
+1781	207559	NA
+1782	239166	NA
+1783	428163	NA
+1784	332867	NA
+1785	294635	NA
+1786	168498	NA
+1787	459065	NA
+1788	237292	NA
+1789	109665	NA
+1790	520428	NA
+1791	289502	NA
+1792	522719	NA
+1793	261815	NA
+1794	305694	NA
+1795	208915	NA
+1796	334781	NA
+1797	381082	NA
+1798	126485	NA
+1799	376801	NA
+1800	349097	NA
+1801	264409	NA
+1802	335955	NA
+1803	333068	NA
+1804	197257	NA
+1805	177717	NA
+1806	214382	NA
+1807	249103	NA
+1808	271486	NA
+1809	203281	NA
+1810	276136	NA
+1811	242771	NA
+1812	329281	NA
+1813	261349	NA
+1814	300564	NA
+1815	333421	NA
+1816	399295	NA
+1817	310441	NA
+1818	181465	NA
+1819	232609	NA
+1820	162290	NA
+1821	248678	NA
+1822	233773	NA
+1823	276317	NA
+1824	140678	NA
+1825	258611	NA
+1826	316483	NA
+1827	287858	NA
+1828	487537	NA
+1829	319498	NA
+1830	239075	NA
+1831	452744	NA
+1832	404028	NA
+1833	290317	NA
+1834	166579	NA
+1835	391159	NA
+1836	346836	NA
+1837	438740	NA
+1838	378247	NA
+1839	443119	NA
+1840	256908	NA
+1841	353580	NA
+1842	96065	NA
+1843	454074	NA
+1844	345422	NA
+1845	122409	NA
+1846	180492	NA
+1847	107892	NA
+1848	250294	NA
+1849	379162	NA
+1850	337958	NA
+1851	79444	NA
+1852	226958	NA
+1853	368330	NA
+1854	274139	NA
+1855	159546	NA
+1856	218896	NA
+1857	290635	NA
+1858	379544	NA
+1859	228493	NA
+1860	368335	NA
+1861	151797	NA
+1862	278071	NA
+1863	164933	NA
+1864	361185	NA
+1865	261553	NA
+1866	649044	NA
+1867	493097	NA
+1868	323946	NA
+1869	517359	NA
+1870	181998	NA
+1871	133805	NA
+1872	339306	NA
+1873	284988	NA
+1874	190242	NA
+1875	252496	NA
+1876	259715	NA
+1877	233810	NA
+1878	234346	NA
+1879	181484	NA
+1880	116111	NA
+1881	275382	NA
+1882	270005	NA
+1883	239965	NA
+1884	368784	NA
+1885	260130	NA
+1886	209383	NA
+1887	137047	NA
+1888	211024	NA
+1889	218766	NA
+1890	256092	NA
+1891	305456	NA
+1892	271712	NA
+1893	163029	NA
+1894	322711	NA
+1895	393305	NA
+1896	150740	NA
+1897	312970	NA
+1898	242081	NA
+1899	173047	NA
+1900	313136	NA
+1901	198269	NA
+1902	119960	NA
+1903	351680	NA
+1904	241934	NA
+1905	343912	NA
+1906	248080	NA
+1907	439937	NA
+1908	149053	NA
+1909	382176	NA
+1910	198114	NA
+1911	230383	NA
+1912	400495	NA
+1913	223448	NA
+1914	422114	NA
+1915	292544	NA
+1916	262745	262257
+1917	372675	353943
+1918	284623	347790
+1919	300926	327513
+1920	269803	369026
+1921	529993	642548
+1922	201074	288270
+1923	301115	399886
+1924	393541	388139
+1925	166647	184946
+1926	445550	430504
+1927	231087	262161
+1928	462301	277303
+1929	229789	259441
+1930	358022	318374
+1931	255426	237936
+1932	174555	174794
+1933	327005	318299
+1934	191276	156166
+1935	234654	212297
+1936	253585	340955
+1937	287344	205738
+1938	372793	387867
+1939	226391	273678
+1940	187045	130805
+1941	397118	310248
+1942	532980	669430
+1943	270463	236543
+1944	266851	266597
+1945	251408	293766
+1946	159439	202068
+1947	519892	425379
+1948	348213	436277
+1949	377340	500653
+1950	145227	171788
+1951	241471	232172
+1952	341131	297186
+1953	200115	212031
+1954	134186	107071
+1955	224639	159693
+1956	185455	177710
+1957	434590	482559
+1958	359922	281412
+1959	194622	188259
+1960	305522	251501
+1961	229391	256293
+1962	369547	296898
+1963	120733	104389
+1964	199382	161166
+1965	475509	438423
+1966	170442	151352
+1967	228951	192035
+1968	223080	233682
+1969	364197	379360
+1970	387179	617264
+1971	284377	297806
+1972	178490	230315
+1973	346494	534641
+1974	211099	251906
+1975	292803	302290
+1976	196715	224766
+1977	146312	149640
+1978	246227	157376
+1979	376924	327506
+1980	263038	443749
+1981	160463	140089
+1982	283279	253534
+1983	610966	549440
+1984	352047	535571
+1985	497345	481608
+1986	327189	300783
+1987	299235	410881
+1988	186227	275358
+1989	217049	243237
+1990	247297	220728
+1991	308480	237569
+1992	242142	231408
+1993	319026	224163
+1994	235520	216288
+1995	584232	513655
+1996	338156	255077
+1997	395836	322298
+1998	301871	360989
+1999	450790	437315
+2000	201689	241060
+2001	243528	213432
+2002	74465	52728

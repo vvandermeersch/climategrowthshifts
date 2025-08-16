@@ -1,0 +1,527 @@
+# Woodhouse 2003 Gunnison River Basin Snow Water Equivalent Reconstruction
+#----------------------------------------------------------------------- 
+#               World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available),
+# and date accessed when using these downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/6298
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-6298.json
+#   Study_Level_JSON_Description: JSON metadata of this file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/pd59-5n11
+#
+# Science_Keywords: Other Hydroclimate Reconstruction
+#-------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/colorado/gunnison_swe-noaa.txt
+#   Data_Download_Description: NOAA Template File; Snow Water Equivalent Data
+#
+#-------------------
+# Contribution_Date
+#   Date: 2003-05-01
+#-------------------
+# File_Last_Modified_Date
+#    Date: 2025-06-12
+#-------------------
+# Title
+#   Study_Name: Woodhouse 2003 Gunnison River Basin Snow Water Equivalent Reconstruction
+#-------------------
+# Investigators
+#   Investigators: Woodhouse, C.A.(https://orcid.org/0000-0003-0545-9753)
+#-------------------
+# Description_Notes_and_Keywords
+#   Description: Tree-ring-based reconstruction of 1 April snow water equivalent (SWE) for the Gunnison River basin region in western Colorado. 
+#-------------------
+# Publication
+#   Authors: Woodhouse, C.A.
+#   Journal_Name: Journal of Climate
+#   Published_Title: A 431-Yr Reconstruction of Western Colorado Snowpack from Tree Rings
+#   Published_Date_or_Year: 2003-05-15
+#   Volume: 16
+#   Issue: 10
+#   Pages: 1551-1561
+#   Report_Number: 
+#   DOI: 10.1175/1520-0442(2003)016<1551:AYROWC>2.0.CO;2
+#   Full_Citation: 
+#   Abstract: A tree-ring-based reconstruction for 1 April snow water equivalent (SWE) is generated for the Gunnison River basin region in western Colorado. The reconstruction explains 63% of the variance in the instrumental record and extends from 1569 to 1999. When the twentieth-century part of the record is compared to the full record, the variability and extremes in the twentieth century appear representative of the long-term record. However, years of extreme SWE (low and high) and persistent low SWE events are not evenly distributed throughout the record. The twentieth century is notable for several periods that lack extreme years, and along with the nineteenth century and the second half of the eighteenth century, contains many fewer persistent low SWE events than the first half of the reconstruction. Low SWE in the western United States is associated with several circulation patterns, including the Pacific–North American (PNA) pattern and those related to El Niño–Southern Oscillation (ENSO), but the Gunnison River basin is on the edge of the area with a strong relationship to the PNA and is generally in a transitional zone with respect to regional ENSO influences. Tree-ring chronologies from Oregon and New Mexico, regions impacted by ENSO, were used as rough proxies of northwestern and southwestern U.S. winter precipitation to explore possible associations between Gunnison SWE and winter climate in these two regions over the past four centuries.
+#-------------------
+# Funding_Agency
+#   Funding_Agency_Name: US National Science Foundation
+#   Grant_Number: ATM-9729671 and ATM-0080889
+#-------------------
+# Site_Information
+#   Site_Name: Gunnison River Basin
+#   Location: Colorado
+#   Northernmost_Latitude: 39
+#   Southernmost_Latitude: 38
+#   Easternmost_Longitude: -106
+#   Westernmost_Longitude: -108
+#   Elevation_m: 
+#-------------------
+# Data_Collection
+#   Collection_Name: Gunnison_SNE_Woodhouse2003
+#   First_Year: 1569
+#   Last_Year: 1999
+#   Time_Unit: CE
+#   Core_Length_m: 
+#   Parameter_Keywords: reconstructions
+#   Notes: 
+#-------------------
+# Chronology_Information
+#   Chronology:
+#-------------------
+# Variables 
+#
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Variables format: shortname <tab> what,material,error,units,seasonality,data_type,detail,method, C(har) or N(umeric) data,additional information
+#
+## age	age,,,year Common Era,,climate reconstructions;tree ring,,,N,
+## swer	snow water equivalent,,,centimeter,Apr,climate reconstructions;tree ring,,,N,April 1 SWE
+## swei	snow water equivalent,,,centimeter,Apr,instrumental,,,N,
+#-------------------------------
+# Data: 
+# Missing_Values: NA
+age	swer	swei
+1569	39.03	NA
+1570	40.31	NA
+1571	33.98	NA
+1572	38.77	NA
+1573	34.44	NA
+1574	24.32	NA
+1575	41.51	NA
+1576	34.09	NA
+1577	49.05	NA
+1578	46.31	NA
+1579	47.99	NA
+1580	22.35	NA
+1581	32.03	NA
+1582	50.31	NA
+1583	36.91	NA
+1584	22.25	NA
+1585	31.84	NA
+1586	46.51	NA
+1587	42.29	NA
+1588	53.68	NA
+1589	50.57	NA
+1590	23.45	NA
+1591	27.35	NA
+1592	33.01	NA
+1593	40.10	NA
+1594	52.84	NA
+1595	49.10	NA
+1596	42.61	NA
+1597	28.74	NA
+1598	17.29	NA
+1599	44.32	NA
+1600	30.33	NA
+1601	38.44	NA
+1602	40.31	NA
+1603	44.81	NA
+1604	48.42	NA
+1605	48.98	NA
+1606	46.34	NA
+1607	29.65	NA
+1608	44.45	NA
+1609	40.71	NA
+1610	45.00	NA
+1611	49.96	NA
+1612	39.25	NA
+1613	52.52	NA
+1614	52.13	NA
+1615	44.19	NA
+1616	38.56	NA
+1617	53.30	NA
+1618	42.15	NA
+1619	30.49	NA
+1620	43.01	NA
+1621	39.68	NA
+1622	36.34	NA
+1623	40.08	NA
+1624	36.51	NA
+1625	27.39	NA
+1626	36.14	NA
+1627	39.14	NA
+1628	50.21	NA
+1629	38.78	NA
+1630	39.02	NA
+1631	30.99	NA
+1632	33.39	NA
+1633	43.58	NA
+1634	28.18	NA
+1635	44.43	NA
+1636	40.10	NA
+1637	38.62	NA
+1638	40.90	NA
+1639	46.14	NA
+1640	45.62	NA
+1641	38.73	NA
+1642	41.38	NA
+1643	52.13	NA
+1644	32.01	NA
+1645	30.90	NA
+1646	31.85	NA
+1647	59.04	NA
+1648	44.77	NA
+1649	52.42	NA
+1650	51.19	NA
+1651	44.83	NA
+1652	44.86	NA
+1653	32.25	NA
+1654	16.48	NA
+1655	66.67	NA
+1656	37.51	NA
+1657	47.66	NA
+1658	39.83	NA
+1659	40.81	NA
+1660	37.68	NA
+1661	38.31	NA
+1662	39.06	NA
+1663	32.71	NA
+1664	22.26	NA
+1665	48.13	NA
+1666	35.58	NA
+1667	28.77	NA
+1668	32.90	NA
+1669	47.35	NA
+1670	30.22	NA
+1671	32.54	NA
+1672	48.42	NA
+1673	45.34	NA
+1674	38.22	NA
+1675	36.47	NA
+1676	44.43	NA
+1677	42.64	NA
+1678	47.85	NA
+1679	43.56	NA
+1680	58.41	NA
+1681	45.28	NA
+1682	33.16	NA
+1683	42.90	NA
+1684	39.01	NA
+1685	21.37	NA
+1686	33.85	NA
+1687	43.43	NA
+1688	45.10	NA
+1689	50.87	NA
+1690	44.54	NA
+1691	52.25	NA
+1692	33.61	NA
+1693	44.41	NA
+1694	44.04	NA
+1695	37.04	NA
+1696	50.04	NA
+1697	43.21	NA
+1698	43.43	NA
+1699	33.48	NA
+1700	35.34	NA
+1701	48.89	NA
+1702	49.31	NA
+1703	36.39	NA
+1704	31.55	NA
+1705	42.56	NA
+1706	37.38	NA
+1707	27.42	NA
+1708	30.47	NA
+1709	43.61	NA
+1710	38.99	NA
+1711	40.99	NA
+1712	40.70	NA
+1713	35.48	NA
+1714	26.19	NA
+1715	43.03	NA
+1716	36.36	NA
+1717	42.48	NA
+1718	42.62	NA
+1719	44.91	NA
+1720	46.70	NA
+1721	35.64	NA
+1722	33.07	NA
+1723	30.00	NA
+1724	43.63	NA
+1725	50.57	NA
+1726	51.24	NA
+1727	41.57	NA
+1728	35.47	NA
+1729	27.60	NA
+1730	39.79	NA
+1731	36.56	NA
+1732	45.34	NA
+1733	41.79	NA
+1734	45.24	NA
+1735	31.89	NA
+1736	31.63	NA
+1737	30.95	NA
+1738	50.52	NA
+1739	52.57	NA
+1740	29.97	NA
+1741	51.45	NA
+1742	45.18	NA
+1743	52.70	NA
+1744	38.22	NA
+1745	44.46	NA
+1746	38.46	NA
+1747	46.13	NA
+1748	23.80	NA
+1749	49.81	NA
+1750	29.71	NA
+1751	45.94	NA
+1752	46.73	NA
+1753	44.07	NA
+1754	39.57	NA
+1755	36.88	NA
+1756	33.39	NA
+1757	37.76	NA
+1758	45.40	NA
+1759	25.59	NA
+1760	50.57	NA
+1761	42.57	NA
+1762	51.69	NA
+1763	31.86	NA
+1764	50.35	NA
+1765	32.08	NA
+1766	41.95	NA
+1767	31.46	NA
+1768	46.96	NA
+1769	40.60	NA
+1770	33.32	NA
+1771	44.24	NA
+1772	44.29	NA
+1773	33.37	NA
+1774	42.70	NA
+1775	45.86	NA
+1776	31.09	NA
+1777	29.77	NA
+1778	37.83	NA
+1779	38.14	NA
+1780	28.94	NA
+1781	36.10	NA
+1782	40.45	NA
+1783	42.48	NA
+1784	56.02	NA
+1785	46.87	NA
+1786	34.73	NA
+1787	49.47	NA
+1788	40.48	NA
+1789	26.29	NA
+1790	51.59	NA
+1791	43.43	NA
+1792	44.00	NA
+1793	38.23	NA
+1794	36.48	NA
+1795	45.15	NA
+1796	45.39	NA
+1797	54.73	NA
+1798	25.55	NA
+1799	47.69	NA
+1800	42.07	NA
+1801	36.71	NA
+1802	46.38	NA
+1803	36.34	NA
+1804	31.73	NA
+1805	41.15	NA
+1806	40.45	NA
+1807	40.55	NA
+1808	43.10	NA
+1809	38.74	NA
+1810	38.66	NA
+1811	44.38	NA
+1812	41.84	NA
+1813	36.56	NA
+1814	30.26	NA
+1815	43.91	NA
+1816	43.18	NA
+1817	36.75	NA
+1818	38.49	NA
+1819	28.64	NA
+1820	36.92	NA
+1821	46.78	NA
+1822	31.06	NA
+1823	45.75	NA
+1824	28.01	NA
+1825	32.42	NA
+1826	46.12	NA
+1827	37.89	NA
+1828	43.90	NA
+1829	33.36	NA
+1830	36.93	NA
+1831	45.14	NA
+1832	47.24	NA
+1833	41.61	NA
+1834	29.44	NA
+1835	29.16	NA
+1836	40.95	NA
+1837	55.82	NA
+1838	42.28	NA
+1839	46.44	NA
+1840	48.98	NA
+1841	48.58	NA
+1842	34.22	NA
+1843	45.54	NA
+1844	38.66	NA
+1845	25.62	NA
+1846	29.69	NA
+1847	25.02	NA
+1848	43.06	NA
+1849	52.44	NA
+1850	49.11	NA
+1851	20.28	NA
+1852	49.70	NA
+1853	45.92	NA
+1854	35.73	NA
+1855	27.64	NA
+1856	48.06	NA
+1857	34.95	NA
+1858	45.90	NA
+1859	44.79	NA
+1860	37.15	NA
+1861	28.97	NA
+1862	53.65	NA
+1863	37.90	NA
+1864	38.14	NA
+1865	43.48	NA
+1866	55.31	NA
+1867	56.52	NA
+1868	50.77	NA
+1869	40.93	NA
+1870	41.10	NA
+1871	27.25	NA
+1872	49.61	NA
+1873	46.36	NA
+1874	38.92	NA
+1875	32.08	NA
+1876	37.26	NA
+1877	39.06	NA
+1878	40.25	NA
+1879	22.82	NA
+1880	49.52	NA
+1881	42.45	NA
+1882	30.57	NA
+1883	38.17	NA
+1884	47.86	NA
+1885	49.46	NA
+1886	38.42	NA
+1887	33.10	NA
+1888	40.43	NA
+1889	36.86	NA
+1890	43.52	NA
+1891	43.52	NA
+1892	43.23	NA
+1893	38.79	NA
+1894	40.71	NA
+1895	44.89	NA
+1896	21.42	NA
+1897	45.54	NA
+1898	38.52	NA
+1899	44.84	NA
+1900	42.99	NA
+1901	31.96	NA
+1902	22.33	NA
+1903	49.64	NA
+1904	34.53	NA
+1905	44.32	NA
+1906	48.51	NA
+1907	41.46	NA
+1908	30.24	NA
+1909	46.95	NA
+1910	36.08	NA
+1911	34.76	NA
+1912	40.19	NA
+1913	36.88	NA
+1914	44.50	NA
+1915	34.46	NA
+1916	37.75	NA
+1917	49.26	NA
+1918	40.34	NA
+1919	35.22	NA
+1920	48.60	NA
+1921	45.58	NA
+1922	34.24	NA
+1923	48.78	NA
+1924	51.96	NA
+1925	33.22	NA
+1926	40.67	NA
+1927	41.47	NA
+1928	47.21	NA
+1929	48.27	NA
+1930	42.45	NA
+1931	33.17	NA
+1932	44.66	NA
+1933	42.09	NA
+1934	30.51	NA
+1935	40.96	NA
+1936	39.72	NA
+1937	36.46	NA
+1938	43.69	43.18
+1939	37.41	29.718
+1940	37.93	32.766
+1941	45.27	40.64
+1942	45.10	42.418
+1943	35.98	36.83
+1944	35.77	39.878
+1945	30.51	43.434
+1946	33.42	25.908
+1947	44.25	39.878
+1948	39.30	45.466
+1949	45.84	48.514
+1950	33.98	39.624
+1951	36.31	35.814
+1952	47.27	70.104
+1953	34.85	32.512
+1954	30.47	29.972
+1955	41.84	34.29
+1956	38.44	39.37
+1957	49.53	55.626
+1958	44.91	45.466
+1959	33.02	36.576
+1960	42.86	37.846
+1961	32.08	30.988
+1962	59.38	52.578
+1963	38.29	27.432
+1964	28.56	32.004
+1965	51.53	54.356
+1966	31.93	25.908
+1967	33.79	32.258
+1968	35.90	39.116
+1969	44.73	49.276
+1970	40.17	42.164
+1971	37.85	38.608
+1972	39.87	28.448
+1973	47.43	42.672
+1974	36.87	38.354
+1975	45.59	52.578
+1976	31.28	38.862
+1977	19.83	16.256
+1978	50.81	54.61
+1979	52.53	52.832
+1980	46.43	57.15
+1981	27.38	22.86
+1982	44.51	50.292
+1983	55.07	47.498
+1984	51.12	56.642
+1985	53.62	44.958
+1986	46.63	41.656
+1987	39.81	39.878
+1988	35.82	33.274
+1989	41.28	35.052
+1990	24.74	23.114
+1991	44.92	38.1
+1992	34.32	37.338
+1993	47.91	52.324
+1994	34.34	31.75
+1995	47.28	44.958
+1996	39.90	49.022
+1997	47.09	46.99
+1998	43.64	37.338
+1999	44.20	24.27111

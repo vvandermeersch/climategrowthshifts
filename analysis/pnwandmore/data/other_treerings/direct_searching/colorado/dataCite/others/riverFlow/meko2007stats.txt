@@ -1,0 +1,188 @@
+Meko et al. 2007 Upper Colorado River Flow Reconstruction
+-----------------------------------------------------------------------
+               World Data Service for Paleoclimatology
+-----------------------------------------------------------------------
+NOTE: PLEASE CITE ORIGINAL REFERENCE WHEN USING THIS DATA!!!!!
+
+DESCRIPTION: Statistics of Reconstruction Models
+
+
+All metadata and data for this study can be accessed via:
+https://doi.org/10.25921/3w6k-2e19
+
+-----------------------------------------------------------------------
+Table 1.  Summary Statistics of Sub-Period Reconstruction Models
+
+Sequence a	Start b	Calibration c		Validationd
+		Years	n-p-q	R2adj		m	RE	RMSE
+1	762	1906-2003	3-3-1	0.60		9	0.58	3.46
+2	1182	1906-2002	6-5-1	0.74		9	0.73	2.78
+3	1365	1906-2002	9-4-1	0.77		9	0.76	2.64
+4	1473	1906-2004	4-4-1	0.57		9	0.54	2.63
+
+a Sequence number of sub-period model (1 is earliest).
+b Start year of reconstruction sub-period.
+c Calibration statistics: years, calibration period; 
+n, the number of chronologies available; 
+p, the number of potential predictors in the predictor pool; 
+q, the number of predictors in the final model; 
+R2adj, the adjusted coefficient of determination.
+d Validation statistics (cross-validation): 
+m, the number of observations left out in "leave-m-out" validation; 
+RE, the reduction of error statistic; 
+RMSE, the root-mean-square error of cross-validation, in billion cubic meters (BCM).
+
+
+
+Text S4. Statistics of residual site chronologies. 
+
+6.1 Column "N", tree-ring site number, as on map in Figure 1 in paper 
+6.2 Column "Length", total length (years) 
+6.3 Column "Seg", minimum segment length (shortest segment of ring widths, in years) 
+6.4 Column "Mean", full-period mean
+6.5 Column "StDev", standard deviation
+6.6 Column "Skew", skewness coefficient
+6.7 Column "Sig", statistical significance of skew (0 = not significant at 0.05 alpha-level; 1 = significant at 0.01 
+alpha); note that none of the estimated skew coefficients fell into the intermediate range of significant at 0.05 but 
+not at 0.01.
+6.8 Column "r1", lag-1 autocorrelation
+6.9 Column "NLow", smallest sample size (number of cores) in any year
+6.10 Column "NHigh", largest sample size (number of cores) in any year
+6.11 Column "SSS_Min", minimum sub-sample signal strength statistic (Wigley et al. 1984) in any year
+6.12 Column "EPS_L", minimum expressed population signal statistic (Wigley et al. 1984) in any year
+6.13 Column "EPS_H", maximum expressed population signal statistic (Wigley et al. 1984) in any year
+  
+
+ N  Length Seg   Mean  StDev   Skew Sig     r1 NLow NHigh SSS_Min   EPS_L  EPS_H          
+ 1  1044   256  0.999  0.236  -0.04   0  -0.05    3    21    0.88    0.85   0.97
+ 2  1448   259  1.001  0.212  -0.05   0  -0.01    1    35    0.65    0.64   0.98
+ 3   662   265  0.994  0.292   0.03   0  -0.03    3    20    0.92    0.91   0.98
+ 4   533   259  1.003  0.257  -0.41   1  -0.05    4    27    0.89    0.87   0.98
+ 5   600   268  1.001  0.251  -0.19   0  -0.02    3    12    0.90    0.82   0.93
+ 6  1324   434  1.000  0.172  -0.30   1  -0.01    2    27    0.82    0.80   0.97
+ 7   638   262  0.999  0.189  -0.36   1  -0.03    3    45    0.87    0.86   0.99
+ 8   854   264  0.999  0.252  -0.09   0  -0.06    3    47    0.91    0.90   0.99
+ 9   822   256  1.001  0.224  -0.28   1  -0.05    3    29    0.87    0.85   0.98
+10   760   251  0.999  0.158  -0.41   1  -0.02    2    43    0.48    0.46   0.96
+11  1243   263  0.999  0.229   0.07   0  -0.03    4    42    0.79    0.77   0.98
+
+
+
+Text S5. Summary statistics of single-site regression models of flow on residual site tree-ring chronologies.
+7.1 Column "N", tree-ring site number, as on map in Figure 1 in paper
+7.2 Column "Site_Name", tree-ring site name
+7.3 Column "Spec", tree species: (PSME=Pseudotsuga menziesii, PIED=Pinus edulis)
+7.4 Column "Yr", end-year for calibration of flow with lagged residual site chronology; start year for all models was 
+1906; final year of chronologies differs from this because two trailing years of chronology were required to allow 
+lags t+1 and t+2 to be used in the predictor pool
+7.5 Column "Lags", flow in year t was regressed on residual chronologies lagged this many years from t
+7.6 Column "R2", coefficient of multiple determination for the regression
+7.7 Column "F", overall F-level of regression of flow on lagged chronologies; all are significant at alpha-level of 0.001.
+7.8 Column "RE_A", reduction-of-error (RE) statistic for calibraton on first half of period covered by Yr_Start to 
+Yr_end and validation on second half. RE statistic computed as in Fritts et al. (1990). A positive RE is regarded as 
+evidence of positive skill when the model is applied to data not used to calibrate the model
+7.9 Column "RE_B", reduction-of-error statistic for calibraton on second half of period covered by Yr_Start to 
+Yr_end and validation on first half
+7.10 Column "Model(s)", Membership of chronology in one or more of the four sub-period regression models 
+beginning in A.D. 762, 1182, 1365 and 1473 (see Table 1 in paper)                              
+
+
+ N  Site_Name      Spec  Yr    Lags      R2       F     RE_A    RE_B Model(s)            
+ 1  Harmon Canyon  PSME  2003  0,-1      0.42  35.1     0.46    0.26    2,3,4
+ 2  Beef Basin     PSME  2003  0,-1,1    0.39  21.0     0.48    0.27    1,2,3 
+ 3  Navajo Canyon  PSME  2003  0,-1      0.41  33.5     0.40    0.44      3,4
+ 4  Slickrock      PIED  2003  0,-1,1    0.41  67.7     0.46    0.41        4
+ 5  Wells Draw     PIED  2003  0,-1      0.37  28.8     0.39    0.39        4
+ 6  Eagle          PSME  2002  0,-1,-2,1 0.48  44.8     0.50    0.48    1,2,3 
+ 7  Pump House     PIED  2000  0,-1      0.47  82.2     0.48    0.39        3 
+ 8  Wild Rose      PIED  2000  0,-1      0.51  48.1     0.61    0.37      2,3 
+ 9  Trail Gulch    PSME  2000  0,-1,-2   0.57  63.4     0.47    0.59      2,3 
+10  Lands End      PSME  2002  0,1       0.35  25.8     0.44    0.18        3 
+11  Green Mtn Res  PSME  2002  0,-2      0.23  29.2     0.27    0.05    1,2,3 
+
+
+
+Text S6. Weights measuring relative importance of each tree-ring chronology to the sub-period reconstruction 
+models listed in Table 1 of the paper.
+8.1 Column "N", tree-ring site number, as on map in Figure 1
+8.2 Column "Site", site name
+8.3 Column "Model-1", relative weights on chronologies for model beginning A.D. 762 column in Table 1 in the 
+text. The four sub-period models are listed as in Table 2 in the text.
+8.4 Column "Model-2", relative weights on chronologies for model beginning A.D. 1182 The weights have been 
+scaled so that the weight is 1.0 for the chronology most important to the reconstruction
+8.5 Column "Model-3", relative weights on chronologies for model beginning A.D. 1365 sub-period reconstruction 
+model
+8.6 Column "Model-4", relative weights on chronologies for model beginning A.D. 1473
+
+
+N    Site           Model-1   Model-2   Model-3   Model-4
+1    Harmon Canyon     NULL      0.59      0.57      0.99
+2    Beef Basin        0.77      0.59      0.58      NULL
+3    Navajo Canyon     NULL      NULL      0.52      0.87
+4    Slickrock         NULL      NULL      NULL      0.90
+5    Wells Draw        NULL      NULL      NULL      1.00
+6    Eagle             1.00      0.75      0.75      NULL
+7    Pump House        NULL      NULL      0.65      NULL
+8    Wild Rose         NULL      0.86      0.88      NULL
+9    Trail Gulch       NULL      1.00      1.00      NULL
+10   Lands End         NULL      NULL      0.39      NULL
+11   Green Mtn Res     0.34      0.27      0.29      NULL
+
+
+Literature cited in the auxiliary material:
+
+Bloomfield P. (2000) 
+Fourier analysis of time series: an introduction, second edition. 
+John Wiley & Sons, Inc., New York. 261p.
+
+Briffa K. and Jones P. D. (1990) 
+Basic chronology statistics and assessment. 
+In Methods of Dendrochronology, Applications in the Environmental Sciences 
+(ed E. R. Cook and L. A. Kairiukstis), pp. 136-152. Kluwer Academic Publishers.
+
+Cook E. R., Briffa K., Shiyatov S. and Mazepa V. (1990) 
+Tree-ring standardization and growth-trend estimation. 
+In Methods of Dendrochronology, Applications in the Environmental Sciences 
+(ed E. R. Cook and L. A. Kairiukstis), pp. 104-123. Kluwer Academic Publishers.
+
+Cook E. R., Briffa K. R., Meko D. M., Graybill D. A. and Funkhouser G. (1995) 
+The "segment length curse" in long tree-ring chronology development for palaeolclimatic studies. 
+The Holocene 5(2), 229-237.
+
+Cook E. R. and Peters K. (1997) 
+Calculating unbiased tree-ring indices for the study of climatic and environmental change. 
+The Holocene 7(3), 361-370.
+
+Fritts H. C., Guiot J. and Gordon G. A. (1990) 
+Verification. 
+In Methods of Dendrochronology, Applications in the Environmental Sciences 
+(ed E. R. Cook and L. A. Kairiukstis), pp. 178-185. Kluwer Academic Publishers.
+
+Hurvich C. M. and Tsai C. (1989) 
+Regression and time series model selection in small samples. 
+Biometrika 76, 297-307.
+
+Meko D. M. (2006) 
+Drought on the Colorado River: tree-ring perspective A.D. 700s to present.
+Summary Report to California Department of Water Resources, DWR Agreement 460003882; 
+California Department of Water Resources, P. O. Box 942836, Sacramento, CA, 94236.
+
+Meko D. M., Cook E. R., Stahle D. W., Stockton C. W. and Hughes M. K. (1993) 
+Spatial patterns of tree-growth anomalies in the United States and southeastern Canada. 
+J. of Climate 6, 1773-1786.
+
+Meko D. M., Therrell M. D., Baisan C. H. and Hughes M. K. (2001) 
+Sacramento River flow reconstructed to A.D. 869 from tree rings. 
+J. of the American Water Resources Association 37(4), 1029-1040.
+
+Meko D. M. and Woodhouse C. A. (2005) 
+Tree-ring footprint of joint hydrologic drought in Sacramento and Upper Colorado River Basins, western USA. 
+Journal of Hydrology 308, 196-213.
+
+Osborn T. J., Briffa K. R. and Jones P. D. (1997) 
+Adjusting variance for sample-size in tree-ring chronologies and other regional mean timeseries. 
+Dendrochronologia 15, 89-99.
+
+Wigley T. M. L., Briffa K. R. and Jones P. D. (1984) 
+On the average value of correlated time series, with applications in dendroclimatology and hydrometeorology. 
+Journal of Climate and Applied Meteorology 23, 201-213.
