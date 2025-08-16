@@ -6,13 +6,13 @@
 #options(stringsAsFactors=FALSE)
 
 # Setting working directory. Add in your own path in an if statement for your file structure
-if(length(grep("lizzie", getwd())>0)) { 
-  setwd("~/Documents/git/projects/grephon/climategrowthshifts/analysis/pnw")
-} else if(length(grep("victor", getwd())>0)) { 
-  setwd("/home/victor/projects/climategrowthshifts/analysis/pnw")
-}  else if (length(grep("helloworld", getwd()))>0) {
-  setwd("boomboom")
-}
+# if(length(grep("lizzie", getwd())>0)) { 
+#   setwd("~/Documents/git/projects/grephon/climategrowthshifts/analysis/pnw")
+# } else if(length(grep("victor", getwd())>0)) { 
+#   setwd("/home/victor/projects/climategrowthshifts/analysis/pnw")
+# }  else if (length(grep("helloworld", getwd()))>0) {
+#   setwd("boomboom")
+# }
 
 library(stringr)
 library(ape)

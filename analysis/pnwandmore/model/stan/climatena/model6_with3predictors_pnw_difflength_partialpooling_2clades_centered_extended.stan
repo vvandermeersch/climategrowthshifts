@@ -90,8 +90,8 @@ data {
   
   vector[N] log_rw_obs; // Log of Observed Ring Width Per 1 mm
   vector[N] gdd_obs; // Observed gdd (all year) (x100 degC)
-  vector[N] sm_obs; // Observed soil moisture (MJJ) (%)
-  vector[N] vpd_obs; // Observed VPD (JJMJJA) (hPa)
+  vector[N] winterprec_obs; // Observed soil moisture (MJJ) (%)
+  vector[N] ffp_obs; // Observed VPD (JJMJJA) (hPa)
   
   // corr_matrix[N_species] Cphy; // phylogenetic relationship matrix (fixed)
   
@@ -101,9 +101,9 @@ data {
 }
 
 transformed data {
-  real gdd0 = 10;
-  real sm0 = 25;
-  real vpd0 = 8;
+  real gdd0 = 100;
+  real winterprec0 = 50;
+  real ffp0 = 120;
 }
 
 parameters {
@@ -115,14 +115,14 @@ parameters {
   vector[N_species] beta_gdd;
   
   // SM slope (1/%)
-  vector[N_clades] mu_sm;
-  vector<lower=0>[N_clades] tau_sm;
-  vector[N_species] beta_sm;
+  vector[N_clades] mu_winterprec;
+  vector<lower=0>[N_clades] tau_winterprec;
+  vector[N_species] beta_winterprec;
   
   // VPD slope (1/hPa)
-  vector[N_clades] mu_vpd;
-  vector<lower=0>[N_clades] tau_vpd;
-  vector[N_species] beta_vpd;
+  vector[N_clades] mu_ffp;
+  vector<lower=0>[N_clades] tau_ffp;
+  vector[N_species] beta_ffp;
   
   // Lifetime proportional growth scale
   vector<lower=1>[N_clades] mu_rho;
@@ -189,11 +189,11 @@ model {
   alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
   
   mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  mu_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  mu_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_winterprec ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_ffp ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   tau_gdd ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
-  tau_sm ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
-  tau_vpd ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
+  tau_winterprec ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
+  tau_ffp ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
   
   mu_rho ~ lognormal(3.55, 0.24); // 20 <~ rho <~ 60
   tau_rho ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
@@ -206,8 +206,8 @@ model {
   
   for (sp in 1:N_species) {
     beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
-    beta_sm[sp] ~ normal(mu_sm[clade_idxs[sp]] , tau_sm[clade_idxs[sp]]);
-    beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+    beta_winterprec[sp] ~ normal(mu_winterprec[clade_idxs[sp]] , tau_winterprec[clade_idxs[sp]]);
+    beta_ffp[sp] ~ normal(mu_ffp[clade_idxs[sp]], tau_ffp[clade_idxs[sp]]);
     
     rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
     gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
@@ -249,13 +249,13 @@ model {
     
     
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
-    vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
-    vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
+    vector[N_years[t]] winterprec_obs_tree = winterprec_obs[tree_idxs];
+    vector[N_years[t]] ffp_obs_tree = ffp_obs[tree_idxs];
     
     vector[N_years[t]] mu =  alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
-    + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
+    + beta_winterprec[species_idx] * (winterprec_obs_tree - winterprec0)
+    + beta_ffp[species_idx] * (ffp_obs_tree - ffp0)
     + kappa_sh[species_idx]
     * f_sh[stand_idx, all_years_idxs_tree];
     
@@ -278,14 +278,11 @@ generated quantities {
     int species_idx = species_idxs[t];
     
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
-    vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
-    vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
+    vector[N_years[t]] winterprec_obs_tree = winterprec_obs[tree_idxs];
+    vector[N_years[t]] ffp_obs_tree = ffp_obs[tree_idxs];
     
-    vector[N_years[t]] mu1 = alpha 
-    + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) 
-    + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0) 
-    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
+    vector[N_years[t]] mu1 = alpha + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) + beta_winterprec[species_idx] * (winterprec_obs_tree - winterprec0)
+    + beta_ffp[species_idx] * (ffp_obs_tree - ffp0) + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
     
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree,
                                 mu1, gamma_sp[species_idx], rho_sp[species_idx], sigma, 1e-10);

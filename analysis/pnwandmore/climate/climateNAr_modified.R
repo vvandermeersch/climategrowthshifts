@@ -1,7 +1,6 @@
-library(ClimateNAr) # this package is weird
-
-# And I have to modify the function so it can work
-ClimateNAr <- function(inputFile='Test/test.csv',periodList='Normal_1961_1990.nrm',varList=c('MAT','MAP'),outDir='c:/temp/'){
+# I have to modify the function so it can work
+ClimateNAr <- function(inputFile='Test/test.csv',periodList='Normal_1961_1990.nrm',varList=c('MAT','MAP'),outDir='c:/temp/',
+                       prefix = 'clim'){
   ## Initial steps ================================================>
   # library(terra); library(data.table)
   
@@ -52,7 +51,7 @@ ClimateNAr <- function(inputFile='Test/test.csv',periodList='Normal_1961_1990.nr
     elev0 <- input[[5]];head(elev0)
     #xy_input0 <- input[,c(4,3)];names(xy_input0) <- c('x','y');head(xy_input0)
     xyl_input <- cbind(input[,c(4,3)],elev0)
-    periodList = periodList[1]
+    # periodList = periodList[1]
     if(dim(input)[1]>1 & dim(input)[2]==5){input_valid=T}; input_valid
     if(dim(input)[1]>1000000){message('Your input file might be too big')}
   }
@@ -1216,8 +1215,9 @@ ClimateNAr <- function(inputFile='Test/test.csv',periodList='Normal_1961_1990.nr
     
     if(inputFile_class=="dataFrame"){
       out_csv <- data.table(input,DT[,..varList]);head(out_csv)
-      inF_name2 <- 'test'
+      inF_name2 <- prefix
       outF <- paste0(outDir,inF_name2,'_',gsub('/','_',substr(prd,1,(nchar(prd)-4))),'.csv');outF
+      print(outF)
       data.table::fwrite(out_csv,outF)
     }# end of CSV output
     
@@ -1259,13 +1259,3 @@ ClimateNAr <- function(inputFile='Test/test.csv',periodList='Normal_1961_1990.nr
   print(paste0('Completed for ', length(periodList),' periods'))
   rm(list=ls());gc()
 } # end of ClimateNAr <===========================================================================
-
-
-ClimateNAr(
-  inputFile = data.frame(id1 = c(1,2), id2 = c(1,2), lat = c(50, 50.1), lon = c(-115, -115.1), elev = c(1000,1000)),
-  periodList = "Year_1901.ann",
-  varList = c("Tmax01"),
-  outDir = "/home/victor/Downloads/test"
-)
-
-
