@@ -1,0 +1,155 @@
+# Southwest British Columbia Tree Ring Oxygen Stable Isotope Data 1981-2021 CE
+#-----------------------------------------------------------------------
+#               World Data Service for Paleoclimatology, Boulder
+#                                   and
+#                      NOAA Paleoclimatology Program
+#-----------------------------------------------------------------------
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available), and date accessed when using downloaded data.
+# If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed.
+#
+# Description/Documentation lines begin with '#' followed by a space
+# Data lines have no '#'
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/39901
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-tree-39901.json
+#   Study_Level_JSON_Description: JSON metadata of this data file's parent study, which includes all study metadata.
+#
+# Data_Type: Tree Ring
+#
+# Dataset_DOI: 10.25921/w770-ev63
+#
+# Science_Keywords: 
+#---------------------------------------
+# Resource_Links
+#
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/isotope/northamerica/canada/mackey2024-swbc-iso.txt
+#   Data_Download_Description: NOAA Template File; Southwest BC Oxygen Isotope Data
+#
+# Related_Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/canada/can719.rwl
+#   Related_Online_Description: NOAA Landing Page; CAN719 ITRDB Data
+#
+# Related_Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/measurements/northamerica/canada/can720.rwl
+#   Related_Online_Description: NOAA Landing Page; CAN720 ITRDB Data
+#
+#---------------------------------------
+# Contribution_Date
+#   Date: 2024-10-18
+#---------------------------------------
+# File_Last_Modified_Date
+#   Date: 2025-08-06
+#---------------------------------------
+# Title
+#   Study_Name: Southwest British Columbia Tree Ring Oxygen Stable Isotope Data 1981-2021 CE
+#---------------------------------------
+# Investigators
+#   Investigators: Mackey, Laura (https://orcid.org/0009-0008-2202-8035)
+#---------------------------------------
+# Description_Notes_and_Keywords
+#   Description: Raw tree ring measurements can be found in ITRDB records CAN719 (https://www.ncei.noaa.gov/access/paleo-search/study/39899) and CAN720 (https://www.ncei.noaa.gov/access/paleo-search/study/39900).
+#---------------------------------------
+# Publication
+#   Authors: Mackey, L.
+#   Published_Date_or_Year: 2024
+#   Published_Title: An evaluation of tree ring records as proxies for historical atmospheric river storm variability in southwest BC
+#   Journal_Name: 
+#   Volume: 
+#   Edition: 
+#   Issue: 
+#   Pages: 152 pp.
+#   Report_Number: 
+#   DOI: 
+#   Online_Resource: https://summit.sfu.ca/item/38347
+#   Full_Citation: Mackey, L. 2024. An evaluation of tree ring records as proxies for historical atmospheric river storm variability in southwest BC. Masters Thesis, Simon Fraser University, 152 pp.
+#   Abstract: Atmospheric rivers (ARs) influence floods, droughts, and snowpack levels in southwest British Columbia (BC), making their variability consequential to the region's water resources. While instrumental AR data are limited to recent decades, tree ring records can extend knowledge of AR trends by centuries, allowing for better contextualization of current and future AR trends. This research evaluates two dendrochronological methods – tree ring width and tree ring δ18O – for their novel use as proxy records of historical AR variability in southwest BC. Generalized Additive Models reveal that AR data explain tree ring width and δ18O variability not explained by other climate data, suggesting an AR signal. The strength of this signal is stronger for tree ring δ18O, with the percentage of fall precipitation from Pineapple Express (PE)-type ARs explaining up to 44% of δ18O variance. These results indicate the potential for centuries-long PE records and carry important implications for water resource management.
+#---------------------------------------
+# Funding_Agency
+#   Funding_Agency_Name: Natural Sciences and Engineering Research Council of Canada (NSERC)
+#   Grant: Discovery Grant
+#---------------------------------------
+# Site_Information
+#   Site_Name: Southwest British Columbia
+#   Location: British Columbia
+#   Northernmost_Latitude: 49.357
+#   Southernmost_Latitude: 49.272
+#   Easternmost_Longitude: -122.582
+#   Westernmost_Longitude: -123.113
+#   Elevation_m: 
+#---------------------------------------
+# Data_Collection
+#   Collection_Name: SWBC Tree d18O Mackey2024
+#   First_Year: 1981
+#   Last_Year: 2021
+#   Time_Unit: year Common Era
+#   Core_Length_m: 
+#   Parameter_Keywords: oxygen isotopes
+#   Notes: Alpha cellulose of 4 trees per site was pooled prior to O18 analysis
+#---------------------------------------
+# Species
+#   Species_Name: Pseudotsuga menziesii (Mirb.) Franco
+#   Common_Name: Douglas-fir
+#   Tree_Species_Code: PSME
+#---------------------------------------
+# Chronology_Information 
+# Chronology: 
+#---------------------------------------
+# Variables
+# PaST_Thesaurus_Download_Resource: https://www.ncei.noaa.gov/access/paleo-search/skos/past-thesaurus.rdf
+#   PaST_Thesaurus_Download_Description: Paleoenvironmental Standard Terms (PaST) Thesaurus terms, definitions, and relationships in SKOS format.
+#
+# Data variables follow that are preceded by "##" in columns one and two.
+# Variables list, one per line, shortname-tab-var components: what, material, error, units, seasonality, data type, detail, method, C or N for Character or Numeric data)
+#
+## age_AD	age,,,year Common Era,,tree ring,,,N,
+## MKRF_d18O	delta 18O,alpha cellulose,,per mil VSMOW,annual,tree ring,,isotope ratio mass spectrometry,N,Malcolm Knapp Research Forest; 4 trees pooled by year
+## Capilano_d18O	delta 18O,alpha cellulose,,per mil VSMOW,annual,tree ring,,isotope ratio mass spectrometry,N,Capilano Watershed; 4 trees pooled by year
+#------------------------
+# Data:
+# Data lines follow (have no #)
+# Data line format - tab-delimited text, variable short name as header
+# Missing_Values: NA
+age_AD	MKRF_d18O	Capilano_d18O	
+1981	24.33	24.03	
+1982	24.61	23.81	
+1983	24.6	23.8	
+1984	23.97	23.91	
+1985	25.08	25.3	
+1986	24.88	24.46	
+1987	26.28	24.69	
+1988	25.06	22.76	
+1989	24.5	22.72	
+1990	23.27	20.59	
+1991	24.48	22.43	
+1992	26.72	23.71	
+1993	23.66	20.53	
+1994	24.32	22.88	
+1995	23.38	23.32	
+1996	24.15	21.8	
+1997	23.64	22.22	
+1998	24.87	22.08	
+1999	21.47	21.06	
+2000	22.89	22.84	
+2001	24.33	23.37	
+2002	22.4	24.9	
+2003	23.51	24.15	
+2004	24.1	24.53	
+2005	25.73	22.52	
+2006	22.46	23.4	
+2007	23.33	23.28	
+2008	24.55	23.47	
+2009	25.05	24.44	
+2010	22.8	24.76	
+2011	22.05	22.56	
+2012	24.54	22.62	
+2013	23.81	21.61	
+2014	27.63	24.95	
+2015	24.01	23.54	
+2016	24.94	23.08	
+2017	25.16	23.36	
+2018	23.96	24.14	
+2019	24.4	22.45	
+2020	24.56	22.3	
+2021	22.76	22.46	

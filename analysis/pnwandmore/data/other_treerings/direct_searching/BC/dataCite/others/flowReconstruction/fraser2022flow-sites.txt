@@ -1,0 +1,250 @@
+# Fraser River Basin 450 Year Seasonal Streamflow Reconstructions
+#----------------------------------------------------------------------- 
+#                World Data Service for Paleoclimatology, Boulder 
+#                                  and 
+#                     NOAA Paleoclimatology Program 
+#             National Centers for Environmental Information (NCEI)
+#----------------------------------------------------------------------- 
+# Template Version 4.0
+# Encoding: UTF-8
+# NOTE: Please cite original publication, NOAA Landing Page URL, dataset and publication DOIs (where available), and date accessed when using downloaded data. If there is no publication information, please cite investigator, study title, NOAA Landing Page URL, and date accessed. 
+#
+# Description/Documentation lines begin with #
+# Data lines have no #
+#
+# NOAA_Landing_Page: https://www.ncei.noaa.gov/access/paleo-search/study/34332
+#   Landing_Page_Description: NOAA Landing Page of this file's parent study, which includes all study metadata.
+#
+# Study_Level_JSON_Metadata: https://www.ncei.noaa.gov/pub/data/metadata/published/paleo/json/noaa-recon-34332.json 
+#   Study_Level_JSON_Description: JSON metadata of this data file's parent study, which includes all study metadata.
+#
+# Data_Type: Climate Reconstructions
+#
+# Dataset_DOI: 10.25921/7e0g-3a82
+#
+# Science_Keywords: Streamflow Reconstruction
+#--------------------     
+# Resource_Links
+#   
+# Data_Download_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/canada/fraser2022flow-sites.txt
+#   Data_Download_Description: NOAA Template File; Records Used Metadata Table
+#
+# Related_Online_Resource: https://www.ncei.noaa.gov/pub/data/paleo/treering/reconstructions/northamerica/canada/fraser2022flow.txt
+#   Related_Online_Description: NOAA Template File; Fraser River Basin Seasonal Streamflow Reconstructions
+#
+#--------------------
+# Contribution_Date
+#    Date: 2021-11-30
+#--------------------
+# File_Last_Modified_Date
+#     Date: 2025-05-19
+#--------------------
+# Title
+#   Study_Name: Fraser River Basin 450 Year Seasonal Streamflow Reconstructions
+#--------------------
+# Investigators
+#   Investigators: Brice, B.L.; Coulthard, B.L.; Homfeld, I.K.; Dye, L.; Anchukaitis, K.J.
+#--------------------
+# Description_Notes_and_Keywords
+#   Description: Tree-ring based seasonal (Spring flood and Summer drought) streamflow reconstructions for the Fraser River Basin and sub-basins, for 1560-2016 CE. 
+#	Tree-ring data used in this study are archived in the International Tree-Ring Data Bank (ITRDB) and listed in the file fraser2022flow-sites.csv. 
+#--------------------
+# Publication 
+#   Authors: Becky L. Brice, Bethany Lynn Coulthard, Inga K. Homfeld, Laura Dye and Kevin J. Anchukaitis
+#   Published_Date_or_Year: 2021-11-26
+#   Published_Title: Paleohydrological context for recent floods and droughts in the Fraser River Basin, British Columbia, Canada
+#   Journal_Name: Environmental Research Letters
+#   Volume: 16
+#   Edition: 
+#   Issue: 
+#   Pages:
+#   Report_Number: 124074
+#   DOI: 10.1088/1748-9326/ac3daf 
+#   Online_Resource: https://iopscience.iop.org/article/10.1088/1748-9326/ac3daf
+#   Full_Citation:
+#   Abstract: The recent intensification of floods and droughts in the Fraser River Basin (FRB) of British Columbia has had profound cultural, ecological, and economic impacts that are expected to be exacerbated further by anthropogenic climate change. In part due to short instrumental runoff records, the long-term stationarity of hydroclimatic extremes in this major North American watershed remains poorly understood, highlighting the need to use high-resolution paleoenvironmental proxies to inform on past streamflow. Here we use a network of tree-ring proxy records to develop 11 subbasin-scale, complementary flood- and drought-season reconstructions, the first of their kind. The reconstructions explicitly target management-relevant flood and drought seasons within each basin, and are examined in tandem to provide an expanded assessment of extreme events across the FRB with immediate implications for water management. We find that past high flood-season flows have been of greater magnitude and occurred in more consecutive years than during the observational record alone. Early 20th century low flows in the drought season were especially severe in both duration and magnitude in some subbasins relative to recent dry periods. Our Fraser subbasin-scale reconstructions provide long-term benchmarks for the natural flood and drought variability prior to anthropogenic forcing. These reconstructions demonstrate that the instrumental streamflow records upon which current management is based likely underestimate the full natural magnitude, duration, and frequency of extreme seasonal flows in the FRB, as well as the potential severity of future anthropogenically forced events.
+#--------------------
+# Funding_Agency 
+#   Funding_Agency_Name: US National Science Foundation 
+#   Grant:  AGS-1803995
+#--------------------
+# Site_Information 
+#   Site_Name: Fraser River Basin
+#   Location: British Columbia
+#   Northernmost_Latitude: 56
+#   Southernmost_Latitude: 49
+#   Easternmost_Longitude: -118
+#   Westernmost_Longitude: -128
+#   Elevation_m: 
+#--------------------
+# Data_Collection  
+#   Collection_Name: Fraser2022flow
+#   First_Year: 1560
+#   Last_Year: 2016
+#   Time_Unit: year Common Era
+#   Core_Length_m: 
+#   Parameter_Keywords: streamflow
+#   Notes:
+#---------------------
+# Synthesis Collection Metadata Fields
+# NOTE: These are the fields used to capture the metadata about data sources used in a synthesis study.
+# Metadata fields that follow that are preceded by "##" in columns one and two.
+# Additional columns from contributor may be included below "notes" field.
+## itrdbCode	International Tree Ring Data Bank code
+## siteName	Site Name
+#---------------------------------------
+# RecordsUsed_Metadata:
+# Missing_Values: 
+itrdbCode	siteName
+cana09	Lower Canyon, Stein Valley
+cana10	Lower Canyon, Stein Valley
+cana011	Pavillion Lake
+cana013	Kamloops
+cana015	Kamloops
+cana018	Naramata
+cana092	Pine Pass
+cana093	Bear Lake
+cana094	Bell Mountain
+cana095	Spring Lake
+cana096	Sunwapta Pass
+cana097	Peyto Lake
+cana098	Vermilion Pass
+cana099	Sarrail Glacier
+cana107	Capilano Watershed, Recollection
+cana108	Capilano Watershed, Vancouver
+cana109	Seymour Watershed, Vancouver
+cana110	Seymour Watershed, Vancouver
+cana111	Vancouver Cyprus-Prov.P.
+cana112	Kootenai Pass
+cana 113	Arrowsmith Mountain
+cana114	Kokanee Glacier Prov.Par
+cana147	Sicamous Creek
+cana150	Big White
+cana152	Big White
+cana161	Adams Lake
+cana162	Adams Lake
+cana171	Athabasca Glacier
+cana174	Mount Cain
+cana175	Mount Cain
+cana223	Glacier
+cana224	Revelstoke
+cana225	Meadow Mountain
+cana226	Kokanee
+cana227	Idaho Lookout
+cana228	Ymir
+cana229	Old Glory
+cana230	Kootenay
+cana231	Park Mountain
+cana232	Silverstar
+cana233	Galloping Mountain
+cana234	Big White 2
+cana235	Mt. Baldy
+cana236	Grey Creek
+cana237	Pavilion Mountain
+cana238	Cornwall Hills
+cana239	Mt. Chuwells
+cana240	Promontory
+cana241	Zum Peak
+cana242	Lone Man
+cana308	Grays Creek Pass Recollection 
+cana351	Bennington
+cana352	French Glacier
+cana353	Grassy Mountain
+cana355	Larch Valley
+cana370	Jonas Creek
+cana381	Smithers Ski
+cana385	Telkwa Micro
+cana386	Thoen
+cana388	Sweeney
+cana389	Yukon Crossing
+cana390	Glacier Gulch
+cana391	Grey Creek
+cana392	Premier
+cana393	Salmon
+cana395	Blaeberry
+cana396	Mt. Forster
+cana398	Jumbo Pass
+cana399	Lakit
+cana400	Lavina
+cana401	McMurdo
+cana402	Obelisk
+cana403	Trout Lake
+cana404	Avion Ridge
+cana405	Bugaboo Glacier
+cana406	Floe Lake
+cana408	Grassy Mountain
+cana409	Haiseldon Lake
+cana411	Larch Valley (young trees)
+cana412	Lineham Lakes
+cana413	Marmot Basin
+cana414	Nakiska
+cana415	Plateau Mountain
+cana416	Racehorse Pass
+cana418	Southfork Lakes
+cana419	Storm Mountain
+cana420	Summit Lake
+cana421	Sunshine Meadows
+cana422	Top of the World
+cana423	Tyrwhitt-Highwood
+cana425	Wolverine Pass
+cana430	Athabasca Glacier2
+cana432	Bennington
+cana433	Bennington Glacier
+cana435	CardinalDivide
+cana437	GeraldineLakes
+cana438	HighwoodPass
+cana442	Morphee
+cana446	PyramidMountain
+cana447	Robson Glacier
+cana449	SignalMountain
+cana450	Bennington
+cana453	SurpriseValley
+cana454	Ten Mile
+cana455	Tumuch
+cana457	Yoho Pass
+cana464	Hurley Road
+cana465	Cream Lake 
+cana466	Douglas Peak
+cana467	Franklin Glacier
+cana468	Joffre Lakes
+cana469	M. Gurr Lake
+cana470	Mount Becher
+cana471	Mount Cain
+cana472	Mount Porter
+cana473	TAD Ridge
+cana474	Wapiti Ridge
+cana475	Surprise Glacier
+cana476	Nusatsum Pass
+cana477	Hump Lakes
+cana478	Mount Hayes
+cana479	Extew River
+cana480	Cable Spur
+cana481	Tzeetsaytsul Glacier
+cana482	Bridge Glacier
+cana483	Byamee Glacier
+cana485	Jacobsen Glacier
+cana486	Liberty Glacier
+cana487	Oval Glacier
+cana488	Ragnarok Glacier
+cana489	Berendon Glacier
+cana490	Blue Jay Lake
+cana491	Cathedral Glacier
+cana492	Cathedral Glacier
+cana493	Escape Glacier
+cana494	Hope Glacier
+cana495	Manatee Glacier
+cana496	Mount Cheam
+cana497	Mount Cheam
+cana498	Oval Glacier
+cana528	TamarackBowl
+cana529	Vicary Mine
+cana530	Rowe Lakes  (Formerly MT126)
+cana639	Gunn Creek
+cana640	Upper Joffre
+cana641	Lower Joffre
+cana642	Rough Creek
+cana643	Spatsum Fan
+cana644	Spatsum Slope
+cana645	Train Trailhead ABAM
+cana646	Train Trailhead TSME
+cana647	Wilcox
