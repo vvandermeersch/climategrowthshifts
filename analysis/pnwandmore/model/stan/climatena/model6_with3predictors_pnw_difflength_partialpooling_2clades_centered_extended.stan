@@ -89,9 +89,9 @@ data {
   array[N_trees] int<lower=1, upper=N> tree_end_idxs;
   
   vector[N] log_rw_obs; // Log of Observed Ring Width Per 1 mm
-  vector[N] gdd_obs; // Observed gdd (all year) (x100 degC)
-  vector[N] winterprec_obs; // Observed soil moisture (MJJ) (%)
-  vector[N] ffp_obs; // Observed VPD (JJMJJA) (hPa)
+  vector[N] gdd_obs; // GDD (all year) (x100 degC)
+  vector[N] winterprec_obs; // Winter precipitation (NDJFMA) (dm)
+  vector[N] ffp_obs; // Frost-free period (x10 days)
   
   // corr_matrix[N_species] Cphy; // phylogenetic relationship matrix (fixed)
   
@@ -101,9 +101,9 @@ data {
 }
 
 transformed data {
-  real gdd0 = 100;
-  real winterprec0 = 50;
-  real ffp0 = 120;
+  real gdd0 = 10;
+  real winterprec0 = 5;
+  real ffp0 = 12;
 }
 
 parameters {
