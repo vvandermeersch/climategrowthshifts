@@ -14,25 +14,37 @@ library(tidyverse)
 rm(list = ls())
 wd <- "analysis/pnwandmore/data/other_treerings/direct_searching/others/doi_10_5061_dryad_k5k9074__v20190226/Raw_Ring_Widths_012118/Raw_Ring_Widths_012118"
 wo <- 'analysis/pnwandmore/input/other_tree_rings/direct_searching'
+wl <- "analysis/pnwandmore/data/other_treerings/direct_searching/others/doi_10_5061_dryad_k5k9074__v20190226/Tree_Info_BAI_012118/Tree_Info_BAI_012118"
 ```
 
 ```{r pressure, echo=FALSE}
 rawRingDatas <- list.files(here(wd),pattern="avgRingWidth.*",recursive=TRUE,full.names=FALSE)
 rawRingDatas
-  #read.csv(here(wd,"CO-ABLA_avgRingWidths_2-19-15.csv"))
 ```
+
 ```{r data cleaning}
 for (d in 1:length(rawRingDatas)) {
   df_name <- rawRingDatas[d]
-  rawRingData <-read.csv(here(wd,df_name))
+  title <- paste0(substr(df_name,1,2),"_",substr(df_name,4,7))
+  
+  treeinfofile <- list.files(here(wl),pattern=paste0(title,"_treeinfobai",".*\\.csv$"),full.names=FALSE)[1]
+  
+  
+  rawRingData <- read.csv(here(wd,df_name))
+  treeinfo <- read.csv(here(wl,treeinfofile)) %>%
+    select(Tag,Lat,Long)
+  print(head(treeinfo))
+  }
+```
+
+
   rawRingData_long <- rawRingData %>%
   select(-X)%>%
   pivot_longer(
     cols = starts_with("X"),
     names_to = "years",
     names_prefix = "X",
-    values_to = "Ring_width"
-  ) %>%
+    values_to = "Ring_width") %>%
   select(-Species,-Elev)
 
   head(rawRingData_long)
