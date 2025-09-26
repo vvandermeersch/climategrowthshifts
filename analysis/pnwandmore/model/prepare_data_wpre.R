@@ -88,10 +88,9 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 
 # Load climate data
-clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_24sept2025.rds"))
-clim_pred$soilmoist_mjj <- clim_pred$soilmoist_2m_mjj*100 # in percentage
+clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_13august2025.rds"))
+clim_pred$pre_ndjfma <- clim_pred$pre_ndjfma/100 # in x100 mm, i.e. dm!
 clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
-clim_pred$gdd_amjjas <- clim_pred$gdd_amjjas/100 # in x100 degC
 clim_pred$vpd_mjj <- clim_pred$vpd_mjj # in hPa?
 clim_pred <- na.omit(clim_pred)
 
@@ -117,8 +116,7 @@ N_all_years <- length(all_years)
 # Format data into ragged arrays
 log_rw_obs <- c()
 gdd_obs <- c()
-gdd_amjjas_obs  <- c()
-sm_obs <- c()
+wprec_obs <- c()
 vpd_obs <- c()
 years <- c()
 all_years_idxs <- c()
@@ -148,14 +146,6 @@ for(tid in uniq_tree_ids) {
   }
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
   
-  gdd_obs_amjjas_tree <- sapply(years_tree, 
-                         function(y) 
-                           as.numeric(clim_pred$gdd_amjjas[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  if(any(is.na(gdd_obs_amjjas_tree))){
-    stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
-  }
-  gdd_amjjas_obs <- c(gdd_amjjas_obs, gdd_obs_amjjas_tree)
-  
   log_rw_obs_tree <- sapply(years_tree, 
                             function(y) 
                               log(raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
@@ -163,10 +153,10 @@ for(tid in uniq_tree_ids) {
   
   
   
-  sm_obs_tree <- sapply(years_tree, 
+  wprec_obs_tree <- sapply(years_tree, 
                         function(y) 
-                          as.numeric(clim_pred$soilmoist_mjj[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  sm_obs <- c(sm_obs, sm_obs_tree)
+                          as.numeric(clim_pred$pre_ndjfma[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  wprec_obs <- c(wprec_obs, wprec_obs_tree)
   
   vpd_obs_tree <- sapply(years_tree, 
                          function(y) 
@@ -193,7 +183,7 @@ for(tid in uniq_tree_ids) {
 N_trees
 length(log_rw_obs)
 length(gdd_obs)
-length(sm_obs)
+length(wprec_obs)
 length(years)
 length(all_years_idxs)
 length(N_years)
@@ -201,12 +191,13 @@ length(tree_start_idxs)
 length(tree_end_idxs)
 sum(is.na(gdd_obs)) # check clim. pred
 
+wpre_obs <- wprec_obs
 
 # Collection data into list
 N <- length(years)
 N_clades <- 2
 data <- mget(c('N', 'N_all_years', 'N_trees', 
-               'log_rw_obs', 'gdd_obs', 'sm_obs', 'vpd_obs',
+               'log_rw_obs', 'gdd_obs', 'wpre_obs', 'vpd_obs',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
@@ -217,6 +208,4 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
                ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_24sept2025.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_24sept2025.rds'))
-saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025_wpre.rds'))
