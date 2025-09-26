@@ -191,18 +191,18 @@ model {
   mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   mu_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   mu_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  tau_gdd ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
-  tau_sm ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
-  tau_vpd ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
+  tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_sm ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
   
   mu_rho ~ lognormal(3.55, 0.24); // 20 <~ rho <~ 60
-  tau_rho ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
+  tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
   
   mu_gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
-  tau_gamma ~ normal(0, log(1.5) / 2.57); // variation of the order of 50%?
+  tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
   
-  mu_kappa ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  tau_kappa ~ normal(0, log(1.1) / 2.57); // variation of the order of 10%?
+  mu_kappa ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
   for (sp in 1:N_species) {
     beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);

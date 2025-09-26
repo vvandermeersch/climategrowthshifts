@@ -174,7 +174,6 @@ model {
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   // gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
-  // kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
   
