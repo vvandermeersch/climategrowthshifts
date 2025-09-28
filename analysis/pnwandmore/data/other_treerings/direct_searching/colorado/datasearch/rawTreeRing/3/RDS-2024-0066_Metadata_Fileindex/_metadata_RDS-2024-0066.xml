@@ -1,0 +1,661 @@
+<?xml-stylesheet href='NBII_classic.xsl' type='text/xsl'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Warnick, Katarina J.</origin>
+        <origin>Tinkham, Wade T.</origin>
+        <origin>Battaglia, Michael A.</origin>
+        <pubdate>2024</pubdate>
+        <title>Tree core radial growth, diameter at breast height, and height observations of a 40-year lodgepole pine provenance trial at Fraser Experimental Forest, Colorado, USA</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Fort Collins, CO</pubplace>
+          <publish>Forest Service Research Data Archive</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.2737/RDS-2024-0066</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This data publication comprises data collected from a nearly 40-year-old lodgepole pine (Pinus contorta Dougl. var. latifolia Engelm.) provenance experiment in Fraser Experimental Forest (FEF) in Fraser, Colorado. It includes spatial location data from the 34 original provenance seed source sites, spanning from La Veta Pass, Colorado, through Wyoming, to Marias Pass, Montana. Data include diameter at breast height (DBH), height, and crown vigor observations collected from each of the 160 lodgepole pine trees sampled at FEF during the summers of 2022-2023. Data also include annual growth increment data, measured from tree cores collected at approximately 1 foot above ground as basal area increment (BAI), for each of the 160 trees sampled, covering the study period of 1992-2021.</abstract>
+      <purpose>The purpose of this study was to investigate the adaptive potential of lodgepole pine and its potential for utilization in assisted migration efforts aimed at enhancing forest-climate resilience in the species’ southernmost range in Colorado. Tree data were collected during 2022-2023 at a long-term provenance experiment research site in Fraser Experimental Forest (FEF) in Fraser, Colorado, and provide critical insight into the adaptability of southern lodgepole pine. Measurements include tree growth data (tree diameter, height, annual ring width), tree vigor, and climate and drought data from the open-source ClimateNA system. These data ultimately support the broader goal of mitigating the negative impacts of climate change on forested ecosystems in the western United States.</purpose>
+      <supplinf>For more information about this study and these data, see Warnick (2024). Additional details regarding the provenances and their performance in a greenhouse, see Moore (1981).</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>1992</begdate>
+          <enddate>2023</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>Ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <eastbc>-105.86559</eastbc>
+        <westbc>-105.86741</westbc>
+        <northbc>39.93419</northbc>
+        <southbc>39.93332</southbc>
+        <boundalt>
+          <altmax>2710</altmax>
+          <altmin>2704</altmin>
+          <altunits>meters</altunits>
+        </boundalt>
+      </bounding>
+      <descgeog>Data were collected at the Fraser Experimental Forest in Fraser, Colorado.</descgeog>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+        <themekey>climatologyMeteorologyAtmosphere</themekey>
+      </theme>
+      <theme>
+        <themekt>National Research &amp; Development Taxonomy</themekt>
+        <themekey>Climate change</themekey>
+        <themekey>Ecological adaptation</themekey>
+        <themekey>Ecology, Ecosystems, &amp; Environment</themekey>
+        <themekey>Plant ecology</themekey>
+        <themekey>Forest &amp; Plant Health</themekey>
+        <themekey>Climate effects</themekey>
+        <themekey>Natural Resource Management &amp; Use</themekey>
+        <themekey>Forest management</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>lodgepole pine</themekey>
+        <themekey>Pinus contorta</themekey>
+        <themekey>dendrochronology</themekey>
+        <themekey>tree ring research</themekey>
+        <themekey>climate adaptation</themekey>
+        <themekey>assisted migration</themekey>
+        <themekey>forest assisted migration</themekey>
+        <themekey>seed selection</themekey>
+        <themekey>seed source</themekey>
+        <themekey>provenance experiment</themekey>
+        <themekey>upper montane ecosystems</themekey>
+        <themekey>subalpine ecosystems</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Fraser Experimental Forest</placekey>
+        <placekey>Colorado</placekey>
+        <placekey>Montana</placekey>
+        <placekey>Wyoming</placekey>
+        <placekey>western United States</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>None</taxonkt>
+        <taxonkey>single species</taxonkey>
+        <taxonkey>plants</taxonkey>
+      </keywtax>
+      <taxonsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>ITIS </origin>
+              <pubdate>2024</pubdate>
+              <title>Integrated Taxonomic Information System</title>
+              <geoform>on-line database</geoform>
+              <othercit>Retrieved [September, 9, 2024]; CC0</othercit>
+              <onlink>https://www.itis.gov</onlink>
+              <onlink>https://doi.org/10.5066/F7KH0KBK</onlink>
+            </citeinfo>
+          </classcit>
+        </classsys>
+      </taxonsys>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <common>plantes</common>
+        <common>Planta</common>
+        <common>Vegetal</common>
+        <common>plants</common>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <common>green plants</common>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <common>land plants</common>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <common>vascular plants</common>
+                <common>tracheophytes</common>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <common>spermatophytes</common>
+                  <common>seed plants</common>
+                  <common>phanérogames</common>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <common>conifers</common>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <common>pines</common>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <common>pines</common>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <common>pine</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus contorta</taxonrv>
+                              <common>lodgepole pine</common>
+                              <common>scrub pine</common>
+                              <common>shore pine</common>
+                              <common>tamarack pine</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>None</accconst>
+    <useconst>These data were collected using funding from the U.S. Government and can be used without additional permissions or fees. If you use these data in a publication, presentation, or other research product please use the following citation: 
+
+Warnick, Katarina J.; Tinkham, Wade T.; Battaglia, Michael A. 2024. Tree core radial growth, diameter at breast height, and height observations of a 40-year lodgepole pine provenance trial at Fraser Experimental Forest, Colorado, USA. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2024-0066</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Wade T. Tinkham</cntper>
+          <cntorg>USDA Forest Service, Rocky Mountain Research Station</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>240 West Prospect Road</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>970-498-1286</cntvoice>
+        <cntpos>Research Forester</cntpos>
+        <cntemail>wade.tinkham@usda.gov</cntemail>
+        <cntinst>This contact information was current as of original publication date. For current information see Contact Us page on: https://doi.org/10.2737/RDS.</cntinst>
+      </cntinfo>
+    </ptcontac>
+    <datacred>Funding for these data was provided by USDA Forest Service, Rocky Mountain Research Station and Colorado Forest Restoration Institute.
+	
+	
+Author Information:
+
+Katarina J. Warnick
+Colorado State University, Colorado Forest Restoration Institute
+https://orcid.org/0009-0006-9587-9549
+
+Wade T. Tinkham
+USDA Forest Service, Rocky Mountain Research Station 
+https://orcid.org/0000-0002-4668-7624
+
+Michael A. Battaglia
+USDA Forest Service, Rocky Mountain Research Station
+https://orcid.org/0000-0002-4260-5804</datacred>
+    <crossref>
+      <citeinfo>
+        <origin>Moore, Musser B.</origin>
+        <pubdate>1981</pubdate>
+        <title>Geographic variation in lodgepole pine in the Central Rocky Mountains</title>
+        <geoform>document</geoform>
+        <serinfo>
+          <sername>Ph.D. Dissertation</sername>
+        </serinfo>
+        <pubinfo>
+          <pubplace>Fort Collins, CO</pubplace>
+          <publish>Colorado State University</publish>
+        </pubinfo>
+        <othercit>181 p.</othercit>
+      </citeinfo>
+    </crossref>
+    <crossref>
+      <citeinfo>
+        <origin>Warnick, Katarina J.</origin>
+        <pubdate>2024</pubdate>
+        <title>The influence of provenance on radial growth and drought resilience of lodgepole pine in Fraser Experimental Forest, Colorado, U.S.A.</title>
+        <geoform>document</geoform>
+        <serinfo>
+          <sername>Master's Thesis</sername>
+        </serinfo>
+        <pubinfo>
+          <pubplace>Fort Collins, CO</pubplace>
+          <publish>Colorado State University</publish>
+        </pubinfo>
+        <othercit>64 p.; ISBN: 9798383690178</othercit>
+      </citeinfo>
+    </crossref>
+    <tool>
+      <tooldesc>dplR (Dendrochronology Program Library in R), performs tree-ring analyses such as detrending, chronology building, and cross-dating.</tooldesc>
+      <toolcite>
+        <citeinfo>
+          <origin>Bunn, Andrew G.</origin>
+          <origin>Korpela, Mikko</origin>
+          <origin>Biondi, Franco</origin>
+          <origin>Campelo, Filipe</origin>
+          <origin>Mérian, Pierre</origin>
+          <origin>Fares, Qaedan</origin>
+          <origin>Zang, Christian</origin>
+          <pubdate>2024</pubdate>
+          <title>dplR: Dendrochronology Program Library in R</title>
+          <geoform>software</geoform>
+          <othercit>R package version 1.7.6.</othercit>
+        </citeinfo>
+      </toolcite>
+      <toolacc>
+        <toolinst>see website</toolinst>
+        <onlink>https://CRAN.R-project.org/package=dplR</onlink>
+      </toolacc>
+    </tool>
+    <tool>
+      <tooldesc>CDendro is intended to help you crossdate wood samples towards each other.</tooldesc>
+      <toolcite>
+        <citeinfo>
+          <origin>Larsson, Lars-Ake</origin>
+          <pubdate>2003</pubdate>
+          <title>CDendro: Cybis Dendro dating program</title>
+          <geoform>software</geoform>
+        </citeinfo>
+      </toolcite>
+      <toolacc>
+        <toolinst>see website</toolinst>
+        <onlink>https://www.cybis.se/forfun/dendro/index.htm</onlink>
+      </toolacc>
+    </tool>
+    <tool>
+      <tooldesc>Cybis Coordinate Record (CooRecorder) software is intended to help you measure ring widths with a standard office scanner.</tooldesc>
+      <toolcite>
+        <citeinfo>
+          <origin>Larsson, Lars-Ake</origin>
+          <pubdate>2014</pubdate>
+          <title>Cybis CooRecord. Saltsjöbaden: Cybis Elektronik &amp; Data AB</title>
+          <geoform>software</geoform>
+        </citeinfo>
+      </toolcite>
+      <toolacc>
+        <toolinst>see website</toolinst>
+        <onlink>https://www.cybis.se/forfun/dendro/index.htm</onlink>
+      </toolacc>
+    </tool>
+    <tool>
+      <tooldesc>R is a free software environment for statistical computing and graphics.</tooldesc>
+      <toolcite>
+        <citeinfo>
+          <origin>R Core Team</origin>
+          <pubdate>2023</pubdate>
+          <title>R: A Language and Environment for Statistical Computing</title>
+          <geoform>software</geoform>
+          <pubinfo>
+            <pubplace>Vienna, Austria</pubplace>
+            <publish>R Foundation for Statistical Computing</publish>
+          </pubinfo>
+          <edition>version 2023.9.1.494</edition>
+        </citeinfo>
+      </toolcite>
+      <toolacc>
+        <toolinst>see website</toolinst>
+        <onlink>https://www.R-project.org/</onlink>
+      </toolacc>
+    </tool>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Spatial data were intensively checked to ensure no mistakes were made during digitization of the data from original source documents. Tree growth data were checked multiple times using quality-assurance/quality-control (QA/QC) measures including double-blind data entry and error checking. Following measurement, tree ring samples were plotted individually and as chronologies and were evaluated visually and statistically to identify errors in dating.</attraccr>
+    </attracc>
+    <logic>Methods vary according to the data type, but include visual (graphical) evaluation, recalculation, and sample-based checking for data entry errors against the field data sheets.</logic>
+    <complete>The only missing values present are within the tree growth data in the "Vigor" field. Three measurements of tree vigor are missing as a result of failure to record these measurements during field sampling. These missing measurements are denoted as "NA" (not available).</complete>
+    <lineage>
+      <method>
+        <methdesc>STUDY SITE
+		
+To address our research questions, we sampled trees from a 40-year-old provenance experiment in Fraser Experimental Forest (FEF) located in Fraser in north central Colorado. This is a subalpine and riparian, high-elevation ecosystem, at an elevation of approximately 2,791 meters (m). Throughout our selected study period, 1992-2021, the site experienced an average temperature of 3ºCelsius (ºC) and 59 centimeters (cm) of average precipitation, with most precipitation occurring during the late-winter and mid-spring months (Wang et al. 2016). To establish the provenance study, cone samples were collected from lodgepole pine trees along a latitudinal (37.6ºN to 48.3ºN) and elevational (1372 m to 3506 m) gradient spanning 34 populations from La Veta Pass, Colorado to Marias Pass, Montana (Moore 1981). Seeds were collected in summer (July-September) 1979 then germinated in the Colorado State Forest Service greenhouse in Fort Collins, Colorado in 1980. After two seasons of greenhouse growth, seedlings were planted in a clear-cut lodgepole pine stand in 1982 at the northern edge of FEF. The planting involved 45 seedlings from each of the 34 provenances, arranged randomly in three adjacent blocks measuring 84 m x 48 m each. Within each block, 447 seedlings were planted at a square spacing of 3.0 m with one empty space, totaling 1,341 trees across three blocks (Moore 1981). 
+
+
+FIELD SAMPLING
+
+Field data collection for our study occurred in June-August 2022 and June-July 2023. In 2022, survival data and the majority of growth data were collected. In 2023, replacement measurements were collected (i.e., new tree core samples to replace broken or unclear cores, new growth measurements to replace missing data). We recorded the survival status (live/dead) of each planted individual (n = 1,341). If a tree was no longer present (i.e., did not survive after planting/past seedling stage), we recorded it as “NS” (“No Survival”). If there was evidence of mechanical removal of a tree, we recorded it as “CS” (“Cut Stump”). Both “NS” and “CS” trees were discarded from analysis. Radial growth measurements were collected on a sample of trees (n = 212) distributed across the three blocks and across provenances. To reduce any potential confounding effects of competition, we limited our sampling to trees that were not located on the edge of a block and had live, intact neighbors on all four sides. Though our initial intention was to sample radial growth from 7-8 trees from each provenance, this was not possible due to mechanical removal and differential mortality. Instead, our sample consisted of 2-6 trees per provenance. We extracted one increment core from each sample tree at approximately 0.30 m above ground level using a 5.15 millimeter (mm) diameter increment borer. Directionality was not considered when deciding the location of core sample extraction due to the flatness of slope at the site. Cores were labeled with an individual tree code and stored inside of paper straws within well-ventilated plastic jars until sample processing occurred. For each sample tree, we recorded diameter at breast height (DBH), tree height, tree vigor, and competition. DBH was measured at 1.37 m above the base of each tree using a logger’s tape. Tree height was measured using a laser rangefinder from a distance of at least 10 m from the sample tree. Tree vigor was assessed using a visual classification method with five possible outcomes (Excellent: tree is healthy, needles green, canopy full, branching, upright, robust, no signs of insect pathogen or disease; Good: tree is mostly upright, majority of needles green/canopy full, little sign of insect pathogen or disease; Fair: tree is neither healthy nor dying, 20-30% needles yellow or brown, few signs of insect pathogen or disease; Poor: tree is unhealthy, needles yellow or brown, signs of insect pathogen or disease; Dying: tree is gnarled, poor stature, presence of insect pathogen or disease). Due to the presence of advanced volunteer regeneration within portions of the study area, competition data were collected by measuring the DBH of all volunteer trees taller than 1.37 m within a 1.8 m radius surrounding each sample tree. 
+
+The data provided in this data publication are a subset of the data described above, due to the mechanical removal and early mortality of some trees, the final dataset was narrowed to the n = 212 sample trees that had intact study neighbors. Additionally, as described in the LAB PROCESSING section, this was further reduced to a final dataset where the tree cores provided a cross-dating correlation of greater than 0.4.
+</methdesc>
+        <methtype>Field</methtype>
+        <methcite>
+          <citeinfo>
+            <origin>Moore, Musser B.</origin>
+            <pubdate>1981</pubdate>
+            <title>Geographic variation in lodgepole pine in the Central Rocky Mountains</title>
+            <geoform>document</geoform>
+            <serinfo>
+              <sername>Ph.D. Dissertation</sername>
+            </serinfo>
+            <pubinfo>
+              <pubplace>Fort Collins, CO</pubplace>
+              <publish>Colorado State University</publish>
+            </pubinfo>
+            <othercit>181 p.</othercit>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Wang, Tongli</origin>
+            <origin>Haman, Andreas</origin>
+            <origin>Spittlehouse, Dave</origin>
+            <origin>Carroll, Carlos</origin>
+            <pubdate>2016</pubdate>
+            <title>Locally downscaled and spatially customizable climate data for historical and future periods for North America</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername> PLoS ONE</sername>
+              <issue>11(6)</issue>
+            </serinfo>
+            <onlink>https://doi.org/10.1371/journal.pone.0156720</onlink>
+          </citeinfo>
+        </methcite>
+      </method>
+      <method>
+        <methdesc>LAB PROCESSING
+		
+Tree core sample processing occurred in the fall of 2022. Samples were prepared using standard dendrochronological techniques (Speer 2010). Cores were mounted onto long strips of wood using glue and secured using string. Once the glue dried, the string was removed, and the core mounts were cut so that each core was mounted individually. The cores were sanded at the Field Sample Prep Lab at Colorado State University to within approximately 1 mm of being flush with the core mount using a belt sander with successive grits from coarse to fine. We used an EPSON (Epson America, Inc., Los Alamitos, CA, U.S.) color scanner to scan each core at a resolution of 1200 dots per square inch (dpi). If a core sample did not include the pith by more than three growth rings, or if knots were present and obscured any growth rings, a replacement core was collected in June 2023 and processed in July 2023. Cores that lacked distinguishable growth rings due to poor sampling or preparation were excluded. Cores were visually cross-dated using a microscope. Cybis Coordinate Record (CooRecorder) software (Larsson 2014) was utilized to identify the age of each tree core by assigning either the year 2021 or 2022 to the most recent latewood ring if the sample was collected in 2022 or 2023, respectively. Following Maxwell and Larsson (2021), position points were created on each latewood ring from bark to pith, then ring widths were measured, and points were saved as position files. The Cybis Dendro Dating Program (CDendro) software (Larsson 2003) was utilized to perform initial cross-dating (Maxwell and Larsson 2021). The dplR package (Bunn 2008, Bunn 2010, and Bunn et al. 2023) was utilized in R Studio version 2023.9.1.494 (R Core Team 2023) to cross-date ring width series. We excluded tree cores with poor cross-dating correlation, defined here as having an interseries residual correlation less than 0.4. Using this threshold, we aimed to retain cores that reflected inter-provenance growth variation while ensuring rings were accurately dated. 
+
+The resulting data included 160 trees, consisting of 73 trees from Colorado, 64 from Montana, and 23 from Wyoming. This data publication therefore includes the tree core radial growth measurements as well as DBH, tree height, and original seed source (provenance) locations for these 160 trees. Additionally, the DBH of volunteer competition trees is also provided for a 1.8 m radius plot around each of the 160 sample trees. 
+
+We pruned the annual radial growth measurements to the years 1992-2021 as these years provided clear annual ring-width data for each of the sample trees, avoiding small early branch collars.
+ </methdesc>
+        <methtype>Lab</methtype>
+        <methcite>
+          <citeinfo>
+            <origin>Bunn, Andrew G.</origin>
+            <pubdate>2008</pubdate>
+            <title>A dendrochronology program library in R (dplR)</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Dendrochronologia</sername>
+              <issue>2(26): 115-124</issue>
+            </serinfo>
+            <onlink>https://doi.org/10.1016/j.dendro.2008.01.002</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Bunn, Andrew G.</origin>
+            <pubdate>2010</pubdate>
+            <title>Statistical and visual crossdating in R using the dplR library</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Dendrochronologia</sername>
+              <issue>4(28): 251-258</issue>
+            </serinfo>
+            <onlink>https://doi.org/10.1016/j.dendro.2009.12.001</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Maxwell, R. Stockton</origin>
+            <origin>Larsson, Lars-Ake</origin>
+            <pubdate>2021</pubdate>
+            <title>Measuring tree-ring widths using the CooRecorder software application</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Dendrochronologia</sername>
+              <issue>67: 125841</issue>
+            </serinfo>
+            <onlink>https://doi.org/10.1016/j.dendro.2021.125841</onlink>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Speer, James H.</origin>
+            <pubdate>2010</pubdate>
+            <title>Fundamentals of tree-ring research</title>
+            <geoform>book chapter</geoform>
+            <pubinfo>
+              <publish>The University of Arizona Press</publish>
+            </pubinfo>
+          </citeinfo>
+        </methcite>
+      </method>
+      <procstep>
+        <procdate>No process steps described.</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <overview>
+      <eaover>Below you will find a list and description of the files included in this data publication.
+
+VARIABLE DESCRIPTION FILE (1) 
+
+1. \Data\_variable_descriptions.csv: Comma-separated values (CSV) file containing a list and description of variables found in all data files. (A description of these variables is also provided in the metadata below.)
+
+Columns include:
+
+Filename = name of data file
+Variable = name of variable
+Units = units (if applicable)	
+Precision = precision (if applicable)
+Description = description of variable
+
+
+DATA FILES (4)
+
+1. \Data\competition_LPP.csv: CSV file containing tree size measurements for each of the 160 trees sampled at the study site and for all volunteer competition trees within a 1.8 m radius plot of each sample tree.
+
+Variables include:
+
+BLOCK = Study block within which each tree is spatially located at the study site. Possible values: 1, 2, 3
+
+COL = Column within which each tree is spatially located at the study site. Possible values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+
+ROW = Row within which each tree is spatially located at the study site. The field is utilized in only two instances for two individual trees bearing the same block, column, state, provenance, and replicate in order to distinguish one from the other (31212W21, 3123W21).
+
+STATE = U.S. state within which each provenance of each tree is located. Possible values:
+C = Colorado
+M = Montana
+W = Wyoming
+
+PROV = Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for:
+Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Wyoming (W): 1, 2, 3, 4, 5, 5A
+
+REP = Number of replicates (samples) collected from the same provenance from which each tree seed was collected. Possible values: 1, 2, 3, 4, 5
+
+TREE_ID = Unique identifier for each individual sampled tree. From left to right, the code for each tree corresponds to the study block, column, state, provenance, and replicate. Row is included in the code of two trees where it is listed after block and column for distinguishing purposes (31212W21, 3123W21).
+
+DBH = Diameter at breast height of each individual sample tree and competition tree. Possible values: 3.0-20.8 centimeters.
+
+CLASS = Factor identifying if the record identifies one of the 160 sample trees or a competition tree within a 1.8 m radius around a sample tree. 
+Sample = 1 of the 160 sample trees
+Competition = volunteer competitor
+
+SURVIVAL = Factor identifying the live and dead status of each tree.
+L = living
+D = dead
+
+NOTE = Comments about the competition trees providing information about forks and species. If not noted otherwise, all competition tree species are lodgepole pine.
+POTR = quaking aspen.
+
+
+2. \Data\growth_LPP.csv: CSV file containing tree size and vigor measurements for each of the 160 trees sampled at the study site.
+
+Variables include:
+
+BLOCK = Study block within which each tree is spatially located at the study site. Possible values: 1, 2, 3
+
+COL = Column within which each tree is spatially located at the study site. Possible values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+
+ROW = Row within which each tree is spatially located at the study site. The field is utilized in only two instances for two individual trees bearing the same block, column, state, provenance, and replicate in order to distinguish one from the other (31212W21, 3123W21).
+
+STATE = U.S. state within which each provenance of each tree is located. Possible values: 
+C = Colorado
+M = Montana
+W = Wyoming
+
+PROV = Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for:
+Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Wyoming (W): 1, 2, 3, 4, 5, 5A
+
+REP = Number of replicates (samples) collected from the same provenance from which each tree seed was collected. Possible values: 1, 2, 3, 4, 5
+
+TREE_ID = Unique identifier for each individual sampled tree. From left to right, the code for each tree corresponds to the study block, column, state, provenance, and replicate. Row is included in the code of two trees where it is listed after block and column for distinguishing purposes (31212W21, 3123W21).
+
+DBH = Diameter at breast height of each individual tree sampled at the study site. Possible values: 8.9-20.8 centimeters
+
+HT = Height of each individual tree sampled at the study site. Possible values: 4-11.3 meters
+
+VIGOR = Visual classification of vigor of live trees sampled at the study site. Possible values: 
+E = Excellent
+G = Good
+F = Fair
+P = Poor
+D = Dying
+NA = missing data
+
+
+3. \Data\ring_widths_LPP.csv: CSV file containing annual tree ring width measurements for the years 1992-2021 from cores obtained from the 160 trees sampled at the study site.
+
+Variables include: 
+
+YEAR = Growth year associated with the ring widths in columns [B:FE], which represent TREE_ID. Possible values: 1992-2021
+
+[TREE_ID] = Measured annual tree ring width for the individual sample tree (TREE_ID). Possible values: 0.08-6.14 millimeters
+
+
+4. \Data\spatial_LPP.csv: CSV file containing longitude, latitude, and elevation for each original seed source (provenance) from which each tree seed was collected for this study.
+
+Variables include:
+
+STATE = U.S. state within which each provenance of each tree is located. Possible values: 
+C = Colorado
+M = Montana
+W = Wyoming
+
+PROV = Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for:
+Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+Wyoming (W): 1, 2, 3, 4, 5, 5A
+
+LAT = Latitude (North) of each provenance site location. Possible range: 37.6-48.3 decimal degrees
+
+LONG = Longitude (West) of each provenance site location. Possible range: -105.2-114.5 decimal degrees
+
+ELEV = Elevation of each provenance site location. Possible range: 1372-3506 meters
+
+
+
+SUPPLEMENTAL FILES (1)
+
+1. \Supplements\Moore_1981_Dissertation.pdf: Portable Document Format (PDF) file containing a 1981 dissertation prepared by Musser B. Moore, "Geographic variation in lodgepole pine in the central Rocky Mountains".</eaover>
+      <eadetcit>Warnick, Katarina J. 2024. The influence of provenance on radial growth and drought resilience of lodgepole pine in Fraser Experimental Forest, Colorado, U.S.A. Master’s Thesis. Fort Collins, CO: Colorado State University. 64 p. ISBN: 9798383690178</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>USDA Forest Service, Research and Development</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>240 West Prospect Road</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>see Contact Instructions</cntvoice>
+        <cntpos>Research Data Archivist</cntpos>
+        <cntinst>This contact information was current as of September 2024. For current information see Contact Us page on: https://doi.org/10.2737/RDS.</cntinst>
+      </cntinfo>
+    </distrib>
+    <resdesc>RDS-2024-0066</resdesc>
+    <distliab>Metadata documents have been reviewed for accuracy and completeness. Unless otherwise stated, all data and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. However, neither the author, the Archive, nor any part of the federal government can assure the reliability or suitability of these data for a particular purpose. The act of distribution shall not constitute any such warranty, and no responsibility is assumed for a user's application of these data or related materials.
+
+The metadata, data, or related materials may be updated without notification. If a user believes errors are present in the metadata, data or related materials, please use the information in (1) Identification Information: Point of Contact, (2) Metadata Reference: Metadata Contact, or (3) Distribution Information: Distributor to notify the author or the Archive of the issues.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>CSV</formname>
+          <formvern>see Format Specification</formvern>
+          <formspec>Comma-separated values file</formspec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2024-0066</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <digform>
+        <digtinfo>
+          <formname>PDF</formname>
+          <formvern>see Format Specification</formvern>
+          <formspec>Portable Document Format file</formspec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2024-0066</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20240930</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Wade T. Tinkham</cntper>
+          <cntorg>USDA Forest Service, Rocky Mountain Research Station</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>240 West Prospect Road</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>970-498-2570</cntvoice>
+        <cntpos>Research Forester</cntpos>
+        <cntemail>Wade.Tinkham@usda.gov</cntemail>
+        <cntinst>This contact information was current as of original publication date. For current information see Contact Us page on: https://doi.org/10.2737/RDS.</cntinst>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

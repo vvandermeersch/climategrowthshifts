@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-nwt.220.1"
+  system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://ecoinformatics.org/eml-2.2.0 https://nis.lternet.edu/schemas/EML/eml-2.2.0/xsd/eml.xsd">
+   <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+      <allow>
+         <principal>uid=nwt,o=EDI,dc=ecoinformatics,dc=org</principal>
+         <permission>read</permission>
+         <permission>write</permission>
+      </allow>
+      <allow>
+         <principal>public</principal>
+         <permission>read</permission>
+      </allow>
+   </access>
+   <dataset>
+      <alternateIdentifier
+      system="https://doi.org">doi:10.6073/pasta/52bc004623a8ae473a6a056dc85346cb</alternateIdentifier><shortName>Tree Core</shortName>
+      <title>Tree ring data from the Niwot Ridge subalpine zone, 2017 - 2018.</title>
+      <creator>
+         <individualName>
+            <givenName>Rachel K</givenName>
+            <surName>Chai</surName>
+         </individualName>
+         <electronicMailAddress>rachel.chai@colorado.edu</electronicMailAddress>
+      </creator>
+      <pubDate>2024-05-24</pubDate>
+      <language>English</language>
+      <abstract>
+         <para>
+    Tree cores were collected across a range of diverse stand types and
+    topographic positions in 2017 and 2018 to examine changes in tree
+    growth as a response to changing climate in the subalpine forest of
+    the Colorado Front Range, USA. Tree cores were collected for all
+    present species in the subalpine zones; Engelmann spruce (Picea
+    engelmannii), subalpine fir (Abies lasiocarpa), lodgepole pine
+    (Pinus contorta) and limber pine (Pinus flexilis). We extracted core
+    from ~180 trees from 3 large permanent plots across a range of
+    species and sizes classes within each plot. The cores were then
+    processed using WinDENDRO software. This dataset includes field data
+    taken on each tree from which a core was extracted, the original
+    WinDENDRO files for each coree.g. bark thickness, height, etc.), 2)
+    MRS4 .txt fil output from WinDENDRO, 3) MRS5 .txt fil output from
+    WinDENDRO, 4) MRS7.txt fil output from WinDENDRO, The WinDENDRO,
+    outputs will be used to reconstruct a time series of radial growth
+    for each tree in each plot to examine whether the topoclimatic
+    position affects tree growth (by species and stand types) and
+    whether tree growth has changed with warming temperatures.
+  </para>
+      </abstract>
+      <keywordSet>
+         <keyword>aboveground production</keyword>
+         <keyword>climate change</keyword>
+         <keyword>forest dynamics</keyword>
+         <keyword>tree rings</keyword>
+         <keyword>tree growth</keyword>
+         <keyword>dendrochronology</keyword>
+         <keyword>forest ecology</keyword>
+         <keywordThesaurus>LTER controlled vocabulary</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>populations</keyword>
+         <keywordThesaurus>LTER core area</keywordThesaurus>
+      </keywordSet>
+      <keywordSet>
+         <keyword>Niwot Ridge LTER</keyword>
+      </keywordSet>
+      <intellectualRights>
+         <para>
+    This information is released under the Creative Commons license -
+    Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/).
+    The consumer of these data (“Data User” herein) is required to cite
+    it appropriately in any publication that results from its use. The
+    Data User should realize that these data may be actively used by
+    others for ongoing research and that coordination may be necessary
+    to prevent duplicate publication. The Data User is urged to contact
+    the authors of these data if any questions about methodology or
+    results occur. Where appropriate, the Data User is encouraged to
+    consider collaboration or co-authorship with the authors. The Data
+    User should realize that misinterpretation of data may occur if used
+    out of context of the original study. While substantial efforts are
+    made to ensure the accuracy of data and associated documentation,
+    complete accuracy of data sets cannot be guaranteed. All data are
+    made available "as is." The Data User should be aware,
+    however, that data are updated periodically and it is the
+    responsibility of the Data User to check for new versions of the
+    data. The data authors and the repository where these data were
+    obtained shall not be liable for damages resulting from any use or
+    misinterpretation of the data. Thank you.
+  </para>
+      </intellectualRights>
+      <licensed>
+         <licenseName>Creative Commons Attribution 4.0 International</licenseName>
+         <url>https://spdx.org/licenses/CC-BY-4.0.html</url>
+         <identifier>CC-BY-4.0</identifier>
+      </licensed>
+      <distribution
+      id="10.6073/pasta/52bc004623a8ae473a6a056dc85346cb" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+        function="information">https://doi.org/10.6073/pasta/52bc004623a8ae473a6a056dc85346cb</url></online></distribution><coverage>
+         <geographicCoverage>
+            <geographicDescription>MRS7</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-105.569</westBoundingCoordinate>
+               <eastBoundingCoordinate>-105.569</eastBoundingCoordinate>
+               <northBoundingCoordinate>40.042</northBoundingCoordinate>
+               <southBoundingCoordinate>40.042</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>MRS4</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-105.562</westBoundingCoordinate>
+               <eastBoundingCoordinate>-105.562</eastBoundingCoordinate>
+               <northBoundingCoordinate>40.039</northBoundingCoordinate>
+               <southBoundingCoordinate>40.039</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <geographicCoverage>
+            <geographicDescription>MRS5</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-105.577</westBoundingCoordinate>
+               <eastBoundingCoordinate>-105.577</eastBoundingCoordinate>
+               <northBoundingCoordinate>40.043</northBoundingCoordinate>
+               <southBoundingCoordinate>40.043</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <temporalCoverage>
+            <rangeOfDates>
+               <beginDate>
+                  <calendarDate>2017-06-01</calendarDate>
+               </beginDate>
+               <endDate>
+                  <calendarDate>2018-09-01</calendarDate>
+               </endDate>
+            </rangeOfDates>
+         </temporalCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Species</taxonRankName>
+               <taxonRankValue>Abies lasiocarpa</taxonRankValue>
+            </taxonomicClassification>
+            <taxonomicClassification>
+               <taxonRankName>Species</taxonRankName>
+               <taxonRankValue>Picea engelmannii</taxonRankValue>
+            </taxonomicClassification>
+            <taxonomicClassification>
+               <taxonRankName>Species</taxonRankName>
+               <taxonRankValue>Pinus contorta</taxonRankValue>
+            </taxonomicClassification>
+            <taxonomicClassification>
+               <taxonRankName>Species</taxonRankName>
+               <taxonRankValue>Pinus flexilis</taxonRankValue>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+      </coverage>
+      <contact>
+         <organizationName>Niwot Ridge LTER</organizationName>
+         <positionName>Information Manager</positionName>
+         <address>
+            <deliveryPoint>4001 Discovery Drive, UCB 450</deliveryPoint>
+            <deliveryPoint>University of Colorado</deliveryPoint>
+            <city>Boulder</city>
+            <administrativeArea>CO</administrativeArea>
+            <postalCode>80303</postalCode>
+            <country>United States</country>
+         </address>
+         <electronicMailAddress>lternwt@colorado.edu</electronicMailAddress>
+         <onlineUrl>https://nwt.lternet.edu/</onlineUrl>
+         <userId
+        directory="https://ror.org">https://ror.org/02ep77d74</userId>
+      </contact>
+      <publisher>
+         <organizationName>Environmental Data Initiative</organizationName>
+         <electronicMailAddress>info@edirepository.org</electronicMailAddress>
+         <onlineUrl>https://edirepository.org</onlineUrl>
+         <userId
+      directory="https://ror.org">0330j0z60</userId>
+      </publisher>
+      <pubPlace>Environmental Data Initiative</pubPlace>
+      <methods>
+         <methodStep>
+            <description>
+               <para>
+    Tree cores were taken from three plots (MRS4, MRS5, and MRS7) in the
+    subalpine zone of the Colorado Front Range, USA with the intent to
+    capture variation between stand types exhibited in the subalpine
+    zone. MRS4 is a mesic site, MRS5 is a hydric site, and MRS7 is a
+    xeric site. In each plot ~60 tree cores were taken from all tree
+    species in each plots and across all size classes within each
+    species. In MRS4 and MRS7, four subalpine tree species can be found;
+    Engelmann spruce (Picea engelmannii), subalpine fir (Abies
+    lasiocarpa), lodgepole pine (Pinus contorta) and limber pine (Pinus
+    flexilis). In MRS5, a composition equilibrium old-growth stand, only
+    two of the four species can be found; Engelmann spruce and subalpine
+    fir. Cores were taken at DBH (diameter at breast height). Two cores
+    were taken from each tree, one core parallel to the slope and one
+    core perpendicular to the slope. From each tree that cores were
+    extracted, we reported species, DBH (diameter at breast height in
+    cm), height (in meters using a laser rangefinder), crown base (in
+    meters using a laser rangefinder), and bark thickness (in cm using a
+    bark gauge). Following standard protocol, the cores were then dried,
+    mounted, and sanded. Each core was then scanned into WinDENDRO where
+    annual tree-ring measurements were computed to produce ring-width
+    series’ for each tree in each plot. We then created cross-dated and
+    converted chronologies to a Tucson (decadal) format file (.rwl
+    files). Some files in the original WinDENDRO output we were not able
+    to cross-date because they either had different growth patterns or
+    contained lot of missing rings or measurement errors. These
+    individuals are not included in the Tucson (.rwl) files. We found
+    that many of the ring width series do not correlate particularly
+    well. This may be due to either errors in measurement and/or
+    differential growth responses of individual trees within the plots.
+    In a few cases, the species code in the windendro file does not
+    match with those in the field (treecore) file due to a labeling
+    error in the lab. In these cases (e.g. MRS4 tree# 116) please refer
+    to the species identity in the field (tree core) spreadsheet.
+  </para>
+               <para>
+    Additional ring width data from the same sites at Niwot Ridge may be
+    found in the NOAA National Centers for Environmental Information
+    (NCEI), under the World Data Service (WDS) for Paleoclimatology,
+    under the following dataset identifiers: doi:10.25921/qbrd-0k44;
+    doi:10.25921/mvac-ww18; doi:10.25921/shv2-1010.
+  </para>
+            </description>
+         </methodStep>
+      </methods>
+      <project>
+         <title>Niwot Ridge LTER</title>
+         <personnel>
+            <organizationName>University of Colorado</organizationName>
+            <role>pointOfContact</role>
+         </personnel>
+         <award>
+            <funderName>National Science Foundation</funderName>
+            <awardNumber>1637686</awardNumber>
+            <title>LTER: Long-term research on the dynamics of high-elevation ecosystems -- a framework for understanding ecological responsiveness to climate change</title>
+         </award>
+      </project>
+      <dataTable
+      id="5738bde4e3754b9c76a9db928da3cbfe" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Tree Cores</entityName>
+         <entityDescription>Field data collected for each tree core taken</entityDescription>
+         <physical>
+            <objectName>mrs_tree_core.rc.data.csv</objectName>
+            <size
+          unit="byte">7472</size>
+            <authentication
+              method="MD5">0a8b5731153e147c15295d1a6e7deaee</authentication>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/5738bde4e3754b9c76a9db928da3cbfe</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute
+          id="att.1">
+               <attributeName>Plot</attributeName>
+               <attributeDefinition>Unique identifier for plots</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>any text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+          id="att.2">
+               <attributeName>Tree Tag #</attributeName>
+               <attributeDefinition>Unique numeric identifier for trees within plots</attributeDefinition>
+               <storageType>integer</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>any text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+          id="att.3">
+               <attributeName>Species</attributeName>
+               <attributeDefinition>Tree Species</attributeDefinition>
+               <storageType>string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain>
+                           <codeDefinition>
+                              <code>ABLA</code>
+                              <definition>Abies lasiocarpa</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>PIEN</code>
+                              <definition>Picea engelmannii</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>PICO</code>
+                              <definition>Pinus contorta</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>PIFL</code>
+                              <definition>Pinus flexilis</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute
+              id="att.4">
+               <attributeName>DBH [cm]</attributeName>
+               <attributeDefinition>Diameter at breast height in 2017</attributeDefinition>
+               <storageType>float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>no data</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="CentiM">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+              id="att.5">
+               <attributeName>Height [m]</attributeName>
+               <attributeDefinition>Height of tree in 2017</attributeDefinition>
+               <storageType>float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>meter</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>no data</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="M">http://qudt.org/vocab/unit/M</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+              id="att.6">
+               <attributeName>Crown base</attributeName>
+               <attributeDefinition>Height at the base of tree crown in 2017</attributeDefinition>
+               <storageType>float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>meter</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>no data</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+          label="M">http://qudt.org/vocab/unit/M</valueURI>
+               </annotation>
+            </attribute>
+            <attribute
+              id="att.7">
+               <attributeName>Bark Thickness</attributeName>
+               <attributeDefinition>Thickness of tree bark where core was taken</attributeDefinition>
+               <storageType>float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <precision>0.1</precision>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NaN</code>
+                  <codeExplanation>no data</codeExplanation>
+               </missingValueCode>
+               <annotation>
+                  <propertyURI
+              label="has unit">http://qudt.org/schema/qudt/hasUnit</propertyURI>
+                  <valueURI
+      label="CentiM">http://qudt.org/vocab/unit/CentiM</valueURI>
+               </annotation>
+            </attribute>
+         </attributeList>
+         <numberOfRecords>210</numberOfRecords>
+      </dataTable>
+      <otherEntity
+      id="36d8f7ada622ff75930dcd7ab19b4de3" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS4 windendro</entityName>
+         <entityDescription>ring-width series output from WinDENDRO for MRS 4 site</entityDescription>
+         <physical>
+            <objectName>MRS4_windendro.rc.data.txt</objectName>
+            <size
+          unit="byte">231772</size>
+            <authentication
+              method="MD5">e8b24d810b8eb39971e6e389dbf9825b</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Windendro file output</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/36d8f7ada622ff75930dcd7ab19b4de3</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+      <otherEntity
+      id="49d7d1f7e3c7b8494384b59c3ba137af" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS5 windendro</entityName>
+         <entityDescription>ring-width series output from WinDENDRO for MRS 5 site</entityDescription>
+         <physical>
+            <objectName>MRS5_windendro.rc.data.txt</objectName>
+            <size
+          unit="byte">178734</size>
+            <authentication
+              method="MD5">cc3a808846c8d6d7ce232f463e851498</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Windendro file output</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/49d7d1f7e3c7b8494384b59c3ba137af</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+      <otherEntity
+      id="500937d98792870396dde32888d202d6" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS7 windendro</entityName>
+         <entityDescription>ring-width series output from WinDENDRO for MRS 7 site</entityDescription>
+         <physical>
+            <objectName>MRS7_windendro.rc.data.txt</objectName>
+            <size
+          unit="byte">203955</size>
+            <authentication
+              method="MD5">96481c6f77482d6ccebd68e92da19325</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Windendro file output</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/500937d98792870396dde32888d202d6</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+      <otherEntity
+      id="8d12134178537f75cd94d91a704ae986" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS4 tucson</entityName>
+         <entityDescription>chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 4 site</entityDescription>
+         <physical>
+            <objectName>MRS4F1_tucson.rc.data.rwl</objectName>
+            <size
+          unit="byte">153524</size>
+            <authentication
+              method="MD5">5df25e2dea8b2b244ec50addd4d6e266</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Tucson (decadal) format file</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/8d12134178537f75cd94d91a704ae986</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+      <otherEntity
+      id="ecb82dbf4fab726ce13447db17ebdba0" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS5 tucson</entityName>
+         <entityDescription>chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 5 site</entityDescription>
+         <physical>
+            <objectName>MRS5F1_tucson.rc.data.rwl</objectName>
+            <size
+          unit="byte">83972</size>
+            <authentication
+              method="MD5">254fbb495ae4558348df97b855378344</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Tucson (decadal) format file</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/ecb82dbf4fab726ce13447db17ebdba0</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+      <otherEntity
+      id="5042fc794557b9d1555933acd2cc27f8" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>MRS7 tucson</entityName>
+         <entityDescription>chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 7 site</entityDescription>
+         <physical>
+            <objectName>MRS7F1_tucson.rc.data.rwl</objectName>
+            <size
+          unit="byte">128532</size>
+            <authentication
+              method="MD5">fef7ea7aab20cc1aa26376ab7b11e0d2</authentication>
+            <dataFormat>
+               <externallyDefinedFormat>
+                  <formatName>Tucson (decadal) format file</formatName>
+               </externallyDefinedFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/5042fc794557b9d1555933acd2cc27f8</url>
+               </online>
+            </distribution>
+         </physical>
+         <entityType>otherEntity</entityType>
+      </otherEntity>
+   </dataset>
+   <additionalMetadata>
+      <metadata>
+         <unitList>
+            <unit
+          abbreviation="cm" id="centimeter" multiplierToSI="0.01"
+          name="centimeter"
+          parentSI="meter">
+               <description>.01 meters</description>
+            </unit>
+            <unit
+          abbreviation="m" id="meter" multiplierToSI="1" name="meter" unitType="length">
+               <description>SI unit of length</description>
+            </unit>
+         </unitList>
+      </metadata>
+   </additionalMetadata>
+</eml:eml>

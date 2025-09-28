@@ -1,0 +1,6 @@
+Manifest file for edi.1969.1.zip created on Sun Aug 10 20:29:30 UTC 2025
+Dukes_tree_rings.csv (1028480 bytes)
+Dukes_macroplot_cores_steminfo_for_EDI.csv (10481 bytes)
+edi.1969.1.xml (54711 bytes)
+edi.1969.1.txt (27703 bytes)
+edi.1969.1.report.xml (50769 bytes)

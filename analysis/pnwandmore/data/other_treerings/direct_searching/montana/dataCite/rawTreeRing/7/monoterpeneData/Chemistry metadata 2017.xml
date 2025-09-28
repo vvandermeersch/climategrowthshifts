@@ -1,0 +1,494 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Diana L. Six</origin>
+        <pubdate>20190701</pubdate>
+        <title>Monoterpene concentrations of whitebark pine surviving and susceptible to mountain pine beetle at Vipond Park, Montana</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.5066/xxxxxxxx</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>excel file containing concentrations of monoterpenes of individual trees</abstract>
+      <purpose>To determine if pines that are not attacked by mountain pine beetle differ in defensive chemistry. For comparisons of pine defenses within and among populations</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <sngdate>
+          <caldate>20170801</caldate>
+        </sngdate>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Montana</descgeog>
+      <bounding>
+        <westbc>-113.1207</westbc>
+        <eastbc>-112.9285</eastbc>
+        <northbc>44.9181</northbc>
+        <southbc>44.7155</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>mountain pine beetle</themekey>
+        <themekey>Dendroctonus ponderosae</themekey>
+        <themekey>climate-driven outbreak</themekey>
+        <themekey>secondary defenses</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Vipond Park</placekey>
+        <placekey>Montana</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>Integrated Taxonomic Information System</taxonkt>
+        <taxonkey>Pinus albicaulis</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <common>Pine</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>Whitebark Pine</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>Do not release until after June 2020</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L. Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>32 camous Drive</address>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 - 531-1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </ptcontac>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>These are exact measurements</attraccr>
+    </attracc>
+    <logic>yes</logic>
+    <complete>These data are for trees in one discreet location</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Gas chromatography was used to determine which monoterpenes were present in whitebark pine and their relative concentrations in the trees that were sampled. All compounds were compared with pure standards.</procdesc>
+        <procdate>20170901</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Diana L Six</cntper>
+              <cntorg>University of Montana</cntorg>
+            </cntperp>
+            <cntpos>Professor</cntpos>
+            <cntaddr>
+              <addrtype>Mailing and Physical</addrtype>
+              <address>32 Campus Drive</address>
+              <address>College of Forestry</address>
+              <city>Missoula </city>
+              <state>MT</state>
+              <postal>59804</postal>
+              <country>USA</country>
+            </cntaddr>
+            <cntvoice>406 531 1813</cntvoice>
+            <cntemail>diana.six@umontana.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Monoterpenes Vipond 2017.xlsx (Sheet1)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Sample</attrlabl>
+        <attrdef>sample from individual tree</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Contact the author for more information.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Group</attrlabl>
+  <attrdef>group - either survivors or general population (potentially susceptible)</attrdef>
+  <attrdefs>Producer defined</attrdefs>
+  <attrdomv>
+    <edom>
+      <edomv>Group 1</edomv>
+      <edomvd>Contact author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>Group 2</edomv>
+      <edomvd>Contact author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+        <attrlabl>a-pinene </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>55.7</rdommin>
+            <rdommax>175748.5</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>a-terpinene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>8.9</rdommin>
+            <rdommax>7427.9</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>b-caryophyllene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>57.5</rdommin>
+            <rdommax>208422.4</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>a-bisabolol</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>126690.2992</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>b-myrcene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>13.52194841</rdommin>
+            <rdommax>13769.27756</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>b-pinene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>51.5833147</rdommin>
+            <rdommax>17960.04407</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>camphene </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>9.154657841</rdommin>
+            <rdommax>12725.23199</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>d-limonene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>75.39920222</rdommin>
+            <rdommax>24397.78109</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>g-terpinene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>46.60996263</rdommin>
+            <rdommax>46186.33978</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>g-carene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>14.79472689</rdommin>
+            <rdommax>29448.7907</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>geraniol </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>49156.24075</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>guaicol</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>476.252</rdommin>
+            <rdommax>2195391.129</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>a-humulene </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>34.78155838</rdommin>
+            <rdommax>41616.05902</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>isopulegol </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.0</rdommin>
+            <rdommax>12938.98713</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>linalool </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>190.876055</rdommin>
+            <rdommax>210698.1785</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>nerolidol</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>45.03736657</rdommin>
+            <rdommax>44693.90603</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>ocimene</attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>21.91126795</rdommin>
+            <rdommax>45993.29818</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>p-cymene </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>276.0739385</rdommin>
+            <rdommax>340374.5492</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>terpinolene </attrlabl>
+        <attrdef>a monoterpene</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>46.55156875</rdommin>
+            <rdommax>9645.148906</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Class</attrlabl>
+  <attrdef>a monoterpene</attrdef>
+  <attrdefs>Producer defined</attrdefs>
+  <attrdomv>
+    <edom>
+      <edomv>G</edomv>
+      <edomvd>Contact author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>V</edomv>
+      <edomvd>Contact author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/xxxxxxxx</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20190903</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L. Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 - 531-1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
