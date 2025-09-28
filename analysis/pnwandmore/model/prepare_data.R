@@ -88,9 +88,10 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 
 # Load climate data
-clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_04july2025.rds"))
+clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_24sept2025.rds"))
 clim_pred$soilmoist_mjj <- clim_pred$soilmoist_2m_mjj*100 # in percentage
 clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
+clim_pred$gdd_amjjas <- clim_pred$gdd_amjjas/100 # in x100 degC
 clim_pred$vpd_mjj <- clim_pred$vpd_mjj # in hPa?
 clim_pred <- na.omit(clim_pred)
 
@@ -116,6 +117,7 @@ N_all_years <- length(all_years)
 # Format data into ragged arrays
 log_rw_obs <- c()
 gdd_obs <- c()
+gdd_amjjas_obs  <- c()
 sm_obs <- c()
 vpd_obs <- c()
 years <- c()
@@ -145,6 +147,14 @@ for(tid in uniq_tree_ids) {
     stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
   }
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
+  
+  gdd_obs_amjjas_tree <- sapply(years_tree, 
+                         function(y) 
+                           as.numeric(clim_pred$gdd_amjjas[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  if(any(is.na(gdd_obs_amjjas_tree))){
+    stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
+  }
+  gdd_amjjas_obs <- c(gdd_amjjas_obs, gdd_obs_amjjas_tree)
   
   log_rw_obs_tree <- sapply(years_tree, 
                             function(y) 
@@ -207,6 +217,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
                ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_11july2025_soilmoisture2m.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_24sept2025.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_24sept2025.rds'))
 saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))

@@ -36,7 +36,7 @@ datasets <- datasets[datasets$last_year >= 1999,] # at least 20 years of observa
 
 # Temporary, dropping Angiosperms
 angiosperms <- c('PLRA', 'QUDG', 'QULO', 'QUGA', 'PPFR', 'PPTR', 'PPDE')
-# datasets <- datasets[!(datasets$species_code %in% todrop),]
+datasets <- datasets[!(datasets$species_code %in% angiosperms),]
 
 # Same species
 datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <- 
@@ -44,6 +44,10 @@ datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <-
 
 source(file.path(wd, 'getphylo.R'))
 phy.plants.here$tip.label <- sppfull[match(phy.plants.here$tip.label, sppfull$phylo.name),'shortname']
+
+# Diagnostic with only one species
+# table(datasets$species_code)
+# datasets <- datasets[datasets$species_code == 'PIED',]
 
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
@@ -87,8 +91,8 @@ raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = '
 
 # Load climate data
 clim_pred <- readRDS(file.path(wd, "output", "climate", 'climatena',  "climpredictors_11august2025.rds"))
-clim_pred$DD5 <- clim_pred$DD5/10 # in x10 degC
-clim_pred$FFP <- clim_pred$FFP # in days
+clim_pred$DD5 <- clim_pred$DD5/100 # in x100 degC
+clim_pred$FFP <- clim_pred$FFP/10 # in x10days
 PPT_prev <- clim_pred[clim_pred$year %in% 1901:2023, c('dataset', 'year','PPT11', 'PPT12')] 
 PPT_prev$year <- PPT_prev$year + 1
 names(PPT_prev)[3:4] <- paste0(names(PPT_prev)[3:4], '_prev')
@@ -96,7 +100,7 @@ clim_pred <- merge(clim_pred, PPT_prev, all = TRUE)
 clim_pred$PPT11to04 <- clim_pred$PPT11_prev + clim_pred$PPT12_prev +
   clim_pred$PPT01 + clim_pred$PPT02 +
   clim_pred$PPT03 + clim_pred$PPT04 
-clim_pred$PPT11to04 <- clim_pred$PPT11to04/10 # in cm!
+clim_pred$PPT11to04 <- clim_pred$PPT11to04/100 # in dm!
 clim_pred <- na.omit(clim_pred)
 
 
@@ -201,7 +205,7 @@ sum(is.na(gdd_obs)) # check clim. pred
 
 # Collection data into list
 N <- length(years)
-N_clades <- 2
+N_clades <- length(unique(clade_idxs))
 data <- mget(c('N', 'N_all_years', 'N_trees', 
                'log_rw_obs', 'gdd_obs', 'winterprec_obs', 'ffp_obs',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
@@ -214,6 +218,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_11august2025_longonlyus.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_11july2025.rds'))
-saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_24sept2025_long_gymnosperms.rds'))
+saveRDS(datasets, file.path(wd, 'output/model/climatena', 'datasets_24sept2025_long_gymnosperms.rds'))
+# saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
