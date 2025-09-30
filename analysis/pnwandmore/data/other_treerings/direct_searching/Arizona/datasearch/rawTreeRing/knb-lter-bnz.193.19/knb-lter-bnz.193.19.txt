@@ -1,0 +1,183 @@
+Dataset title:  Tree ring width data for trees adjacent to the BBC collapse scar
+
+Dataset ID:  Dataset Creator
+
+	Name:		Isla Myers-Smith
+	Position:	Graduate Student
+	
+	Address:
+			405 CW Biological Sciences Building, Dept. Biological Sciences University of Alberta, , AB, T6G 2E9
+			Edmonton, Aberta T6G 2E9  Canada
+	
+	Phone:		(780) 492-1295
+	Email:		myerssmi@ualberta.ca
+	URL:		http://www.ualberta.ca/~myerssmi/home.html
+
+	Organization:	Bonanza Creek LTER
+	
+	Address:
+			Boreal Ecology Cooperative Research Unit 
+			University of Alaska Fairbanks
+			P.O. Box 756780 
+			Fairbanks, AK 99775  USA
+	
+	Phone:		907-474-6364
+	Fax:		907-474-6251
+	Email:		uaf-bnz-im-team@alaska.edu
+	URL:		http://www.lter.uaf.edu
+
+
+Metadata Provider
+
+	Position:	Data Manager
+	Organization:	Bonanza Creek LTER
+	
+	Address:
+			Boreal Ecology Cooperative Research Unit 
+			University of Alaska Fairbanks
+			P.O. Box 756780 
+			Fairbanks, AK 99775  USA
+	
+	Phone:		907-474-6364
+	Fax:		907-474-6251
+	Email:		uaf-bnz-im-team@alaska.edu
+	URL:		http://www.lter.uaf.edu
+
+
+Dataset Abstract
+
+	This data set contains ring width data for trees adjacent to the BBC collapse scar. We used dendrochronology to link paleoecological data with modern observations of the response of this system to fire.  Tree ring analysis provides a record of the response of the black spruce trees to changing climate and ongoing thermokarst, allowing for speculation about the response of this landscape to future climate change.  We harvested twenty-one fire-killed tree cross-sections from the margin of the collapse and in the surrounding burn in the growing season of 2004.  We measured ring width (sliding stage, Velmex Inc., Bloomfield, NY, USA, resolution: 0.001mm) for two radial transects of the tree cross-sections.  To remove the age-related variation in growth rate, we crossdated trees with Cofecha and standardized ring-widths with the program ARSTAN (Richard Holmes, Laboratory of Tree Ring Research, University of Arizona).  We recorded the presence of compression-wood for each tree ring, an indicator of leaning which is interpreted to be related to frost-heaving and permafrost collapse (Camill and Clark, 1998).  This data set includes temperature and precipitation data from a composite of climate data from the University Experiment Station (1906-1947) and Fairbanks International Airport (1948-2000) (Wilmking et al., 2004). 
+
+
+Dataset Keywords
+
+	dendrochronology
+	tree rings
+	paleoecological
+	black spruce
+	thermokarst
+	precipitation
+	temperature
+
+
+Intellectual Rights
+
+
+
+Distribution
+
+	Online distribution:  http://www.lter.uaf.edu/data/data-detail/id/193
+
+
+Geographic Coverage
+
+
+	Bounding Coordinates
+
+		Geographic description:	Dataset geographic description information is unavailable. {datafile/geoCoverage is empty}
+		West bounding coordinate:	-148.3334833
+		East bounding coordinate:	-148.3334833
+		North bounding coordinate:	64.6408
+		South bounding coordinate:	64.6408
+	
+
+
+
+Temporal Coverage
+
+	Start Date:  2003-03-06
+	End Date:  2004-09-18
+
+
+Dataset Contact
+
+
+
+Methods
+
+	Sampling Description 
+
+
+
+	Method Step 
+
+		Description 
+
+
+
+Data Table
+
+	Entity Name:  bog_tree_ring_data.txt
+	Entity Description:  This data set contains ring width data for trees adjacent to the BBC collapse scar.
+	Object Name:  bog_tree_ring_data.txt
+
+
+
+Data Format
+
+	Number of Header Lines:  1
+	Attribute Orientation:  column
+	Field Delimiter:  \t
+
+
+
+Attributes
+
+	Attribute Name:  Year
+	Attribute Label:  Year
+	Attribute Definition:  Year of measurement
+	Storage Type:  integer
+	Measurement Scale: 
+		Units:		yyyy
+		Number Type:  real
+	Missing Value Code: 
+
+
+	Attribute Name:  Tree Name
+	Attribute Label:  Tree Name
+	Attribute Definition:  tree identification name
+	Storage Type:  string
+	Measurement Scale: 
+		tree identification name
+	Missing Value Code: 
+
+
+	Attribute Name:  Tree location
+	Attribute Label:  Tree location
+	Attribute Definition:  description of tree location
+	Storage Type:  string
+	Measurement Scale: 
+		description of tree location
+	Missing Value Code: 
+
+
+	Attribute Name:  Tree Ring Widths (mm)
+	Attribute Label:  Tree Ring Widths (mm)
+	Attribute Definition:  Tree Ring Width
+	Storage Type:  float
+	Measurement Scale: 
+		Units:  millimeter
+		Number Type:  real
+	Missing Value Code: 
+
+
+	Attribute Name:  Temperature (C, Growing Season: May, June, July, Aug)
+	Attribute Label:  Temperature (C, Growing Season: May, June, July, Aug)
+	Attribute Definition:  Temperature in Celsius during growing season (May, June, July, August)
+	Storage Type:  float
+	Measurement Scale: 
+		Units:  celsius
+		Number Type:  real
+	Missing Value Code: -9999  (Missing Value)
+
+
+	Attribute Name:  Precipitation (mm, Growing Season: May, June, July, Aug)
+	Attribute Label:  Precipitation (mm, Growing Season: May, June, July, Aug)
+	Attribute Definition:  Precipitation in millimeters during growing season (May, June, July, August)
+	Storage Type:  float
+	Measurement Scale: 
+		Units:  millimeter
+		Number Type:  real
+	Missing Value Code: -9999  (Missing Value)
+
+

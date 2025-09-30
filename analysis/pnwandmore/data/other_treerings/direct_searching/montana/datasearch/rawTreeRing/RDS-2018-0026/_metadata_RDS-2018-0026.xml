@@ -1,0 +1,500 @@
+<?xml-stylesheet href='C:\Program Files (x86)\USDA Forest Service\Metavist.Preview1\XML\NBII_classic.xsl' type='text/xsl'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Elliott, Katherine J.</origin>
+        <origin>Miniat, Chelcy Ford</origin>
+        <pubdate>2018</pubdate>
+        <title>Tree ring widths from mesic and upslope locations at the Coweeta Hydrologic Laboratory</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Fort Collins, CO</pubplace>
+          <publish>Forest Service Research Data Archive</publish>
+        </pubinfo>
+        <onlink>https://doi.org/10.2737/RDS-2018-0026</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This data publication contains raw tree ring widths for individual trees in the Coweeta Basin, which is within the Coweeta Hydrologic Laboratory in western North Carolina. Transects extending from stream edge to ridge were established in 22 forest stands which were classified as mesic or upslope locations. Fifteen to forty trees per stand were cored one meter from the ground, between 2005 and 2010, from six different species (ACRU=Acer rubrum L., BELE=Betula lenta L., LITU=Liriodendron tulipifera L., QUAL=Quercus alba L., QUMO=Quercus montana Willd., and QURU=Quercus rubra L.). Tree cores dated back as far as 1966.</abstract>
+      <purpose>The purpose of this study was to try to examine forest tree growth response to hydroclimate variability in the southern Appalachians.</purpose>
+      <supplinf>Original metadata date was 06/15/2018. Minor metadata updates were made on 09/06/2019.
+	  
+For more information about Coweeta: https://www.srs.fs.usda.gov/coweeta/research/lter/.</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>1666</begdate>
+          <enddate>2010</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>Ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Coweeta Hydrologic Laboratory is located in the Nantahala Mountain Range of western North Carolina, USA in Macon County. These data were collected in the 1626 hectare east-facing Coweeta Basin.
+
+More information about Coweeta can be found in Laseter et al. (2012).</descgeog>
+      <bounding>
+        <westbc>-83.47845</westbc>
+        <eastbc>-83.42166</eastbc>
+        <northbc>35.07382</northbc>
+        <southbc>35.02734</southbc>
+        <boundalt>
+          <altmin>685</altmin>
+          <altmax>1362</altmax>
+          <altunits>meters</altunits>
+        </boundalt>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>radial growth</themekey>
+        <themekey>hydroclimate</themekey>
+        <themekey>tree-ring</themekey>
+        <themekey>small storms</themekey>
+        <themekey>ring-porous</themekey>
+        <themekey>diffuse-porous</themekey>
+        <themekey>structural equation modeling</themekey>
+        <themekey>productivity</themekey>
+        <themekey>dendrochronology</themekey>
+        <themekey>tree growth</themekey>
+      </theme>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>National Research &amp; Development Taxonomy</themekt>
+        <themekey>Ecology, Ecosystems, &amp; Environment</themekey>
+        <themekey>Forest &amp; Plant Health</themekey>
+        <themekey>Forest Products</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Coweeta Hydrologic Laboratory</placekey>
+        <placekey>Coweeta Lab</placekey>
+        <placekey>North Carolina</placekey>
+        <placekey>Macon County</placekey>
+        <placekey>southern Appalachians</placekey>
+        <placekey>Coweeta Basin</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>None</taxonkt>
+        <taxonkey>multiple species</taxonkey>
+        <taxonkey>plants</taxonkey>
+      </keywtax>
+      <taxonsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>ITIS</origin>
+              <pubdate>2017</pubdate>
+              <title>Integrated Taxonomic Information System</title>
+              <geoform>database</geoform>
+              <othercit>Retrieved [February, 7, 2017] </othercit>
+              <onlink>https://www.itis.gov</onlink>
+            </citeinfo>
+          </classcit>
+        </classsys>
+      </taxonsys>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <common>plantes</common>
+        <common>Planta</common>
+        <common>Vegetal</common>
+        <common>plants</common>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <common>land plants</common>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <common>vascular plants</common>
+                <common>tracheophytes</common>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <common>spermatophytes</common>
+                  <common>seed plants</common>
+                  <common>phanérogames</common>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Magnoliopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Superorder</taxonrn>
+                      <taxonrv>Magnolianae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Magnoliales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Magnoliaceae</taxonrv>
+                          <common>magnolias</common>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Liriodendron</taxonrv>
+                            <common>tuliptree</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Liriodendron tulipifera</taxonrv>
+                              <common>yellow poplar</common>
+                              <common>tulip poplar</common>
+                              <common>yellow-poplar</common>
+                              <common>tuliptree</common>
+                              <common>bois-jaune</common>
+                              <common>tulip-poplar</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                    <taxoncl>
+                      <taxonrn>Superorder</taxonrn>
+                      <taxonrv>Rosanae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Fagales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Fagaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Quercus</taxonrv>
+                            <common>chêne</common>
+                            <common>oak</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Quercus alba</taxonrv>
+                              <common>chêne blanc</common>
+                              <common>white oak</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Quercus montana</taxonrv>
+                              <common>chestnut oak</common>
+                            </taxoncl>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Quercus rubra</taxonrv>
+                              <common>northern red oak</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Betulaceae</taxonrv>
+                          <common>alder</common>
+                          <common>birch</common>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Betula</taxonrv>
+                            <common>birch</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Betula lenta</taxonrv>
+                              <common>sweet birch</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Sapindales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Sapindaceae</taxonrv>
+                          <common>soapberries</common>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Acer</taxonrv>
+                            <common>maples</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Acer rubrum</taxonrv>
+                              <common>red maple</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>None</accconst>
+    <useconst>These data were collected using funding from the U.S. Government and can be used without additional permissions or fees. If you use these data in a publication, presentation, or other research product please use the following citation:
+
+Elliott, Katherine J.; Miniat, Chelcy Ford. 2018. Tree ring widths from mesic and upslope locations at the Coweeta Hydrologic Laboratory. Fort Collins, CO: Forest Service Research Data Archive. https://doi.org/10.2737/RDS-2018-0026
+
+* We also encourage data users to contact the Coweeta Project Leader (via the Metadata Contact below) for a review of manuscripts that use any of these Coweeta data.</useconst>
+    <datacred>This project was funded by USDA Forest Service, Southern Research Station, Coweeta.
+
+We acknowledge the support of Patsy Clinton and Sarah Butler.</datacred>
+    <crossref>
+      <citeinfo>
+        <origin>Elliott, Katherine J.</origin>
+        <origin>Miniat, Chelcy F.</origin>
+        <origin>Pederson, Neil</origin>
+        <origin>Laseter, Stephanie H.</origin>
+        <pubdate>2015</pubdate>
+        <title>Forest tree growth response to hydroclimate variability in the southern Appalachians</title>
+        <geoform>journal article</geoform>
+        <serinfo>
+          <sername>Global Change Biology</sername>
+          <issue>21(12): 4627-4641</issue>
+        </serinfo>
+        <onlink>https://doi.org/10.1111/gcb.13045</onlink>
+      </citeinfo>
+    </crossref>
+    <crossref>
+      <citeinfo>
+        <origin>Laseter, Stephanie H.</origin>
+        <origin>Ford, Chelcy R.</origin>
+        <origin>Vose, James M.</origin>
+        <origin>Swift, Lloyd W.</origin>
+        <pubdate>2012</pubdate>
+        <title>Long-term temperature and precipitation trends at the Coweeta Hydrologic Laboratory, Otto, North Carolina, USA</title>
+        <geoform>journal article</geoform>
+        <serinfo>
+          <sername>Hydrology Research</sername>
+          <issue>43(6):890-901</issue>
+        </serinfo>
+        <onlink>https://doi.org/10.2166/nh.2012.067</onlink>
+      </citeinfo>
+    </crossref>
+    <crossref>
+      <citeinfo>
+        <origin>Butler, Sarah M.</origin>
+        <origin>White, Alan S.</origin>
+        <origin>Elliott, Katherine J.</origin>
+        <origin>Seymour, Robert S.</origin>
+        <pubdate>2014</pubdate>
+        <title>Disturbance history and stand dynamics in secondary and oldgrowth forests of the Southern Appalachian Mountains, USA</title>
+        <geoform>journal article</geoform>
+        <serinfo>
+          <sername>The Journal of the Torrey Botanical Society</sername>
+          <issue>141(3):189-204</issue>
+        </serinfo>
+        <onlink>https://doi.org/10.3159/TORREY-D-13-00056.1</onlink>
+      </citeinfo>
+    </crossref>
+    <crossref>
+      <citeinfo>
+        <origin>Elliott, Katherine J.</origin>
+        <origin>Vose, James M.</origin>
+        <pubdate>2012</pubdate>
+        <title>Age and distribution of an evergreen clonal shrub in the Coweeta Basin: Rhododendron maximum L.</title>
+        <geoform>journal article</geoform>
+        <serinfo>
+          <sername>The Journal of the Torrey Botanical Society</sername>
+          <issue>139(2): 149-166</issue>
+        </serinfo>
+        <onlink>https://doi.org/10.3159/torrey-d-11-00076.1</onlink>
+      </citeinfo>
+    </crossref>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Statistical analyses and information about the accuracy of the data can be found in Elliott et al. (2015).
+	  
+Elliott, Katherine J.; Miniat, Chelcy F.; Pederson, Neil; Laseter, Stephanie H. 2015. Forest tree growth response to hydroclimate variability in the southern Appalachians. Global Change Biology 21(12): 4627-4641. https://doi.org/10.1111/gcb.13045</attraccr>
+    </attracc>
+    <logic>Statistical analyses and other information about the data can be found in Elliott et al. (2015).</logic>
+    <complete>If tree ring width was not measured, or there was nothing to measure the data contain a ".".
+	
+There were no BELE in the upslope stands, so there is no corresponding data file for this particular species.
+
+Note that this data package contains data for 488 trees. In Elliott et al. (2015) only 465 trees were used because they were not able to cross date well with the software they were using, so it was not included in the standardized chronologies. However, others who may want to use these raw-ring widths and they may have another method to verify age so all 488 trees are included here.</complete>
+    <lineage>
+      <method>
+        <methtype>Field</methtype>
+        <methdesc>We sampled 22 forest stands across the elevation gradient and north- and south-facing exposures in Coweeta Hydrologic Laboratory (CHL) Basin, in reference areas that had no human disturbance since 1923 or longer. Within each of these stands, we established transects extending from the stream edge to the ridge, a total of 54 transects. Collections were separated by topographic position; cove and riparian trees were those sampled within 20 meters (m) of the stream (classified as mesic, cove topographic condition), and upslope trees were those sampled more than 20 m from the stream edge (classified as dry, upslope topographic condition). Topographic moisture conditions have been verified in CHL. In all stands, we collected tree-ring cores from six species (ACRU=Acer rubrum L., BELE=Betula lenta L., LITU=Liriodendron tulipifera L., QUAL=Quercus alba L., QUMO=Quercus montana Willd., and QURU=Quercus rubra L.) that were most abundant; of the 34 tree species present in CHL these six comprise more than 50% of the total basal area. We sampled 15–40 trees per stand for a total of 488 trees ranging in size from 10.0 to 110.6 centimeters (cm) diameter at breast height (dbh). Our sampling design allowed us to sample a large number of trees and tree sizes across CHL, and to avoid bias, such as sampling only large trees or sampling a small number of trees. Tree-ring cores were extracted from all sampled trees at one meter from the ground parallel to topographic contours. (See Elliott et al. 2015 for more details).
+
+Visual cross-dating was used to date, and identify missing rings, cracks, or damage. After dating, annual ring widths were measured to the nearest 0.00l millimeter (mm) using a linear-encoded stage, microscope and software (Velmex Inc., Bloomfield, NY, Olympus America Inc., Center Valley, PA, J2X software, Holderness, NH), followed by statistical cross-dating (Holmes 1983 and Grissino-Mayer 2001).</methdesc>
+        <methcite>
+          <citeinfo>
+            <origin>Holmes, R.L.</origin>
+            <pubdate>1983</pubdate>
+            <title>Computer-assisted quality control in tree-ring dating and measuring</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Tree-Ring Bulletin</sername>
+              <issue>43: 69-78</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Grissino-Mayer, Henri D.</origin>
+            <pubdate>2001</pubdate>
+            <title>Evaluating crossdating accuracy: a manual and tutorial for the computer program COFECHA</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Tree-Ring Research</sername>
+              <issue>57: 205-221</issue>
+            </serinfo>
+          </citeinfo>
+        </methcite>
+        <methcite>
+          <citeinfo>
+            <origin>Elliott, Katherine J.</origin>
+            <origin>Miniat, Chelcy F.</origin>
+            <origin>Pederson, Neil</origin>
+            <origin>Laseter, Stephanie H.</origin>
+            <pubdate>2015</pubdate>
+            <title>Forest tree growth response to hydroclimate variability in the southern Appalachians</title>
+            <geoform>journal article</geoform>
+            <serinfo>
+              <sername>Global Change Biology</sername>
+              <issue>21(12): 4627-4641</issue>
+            </serinfo>
+            <onlink>https://doi.org/10.1111/gcb.13045</onlink>
+          </citeinfo>
+        </methcite>
+      </method>
+      <procstep>
+        <procdesc>See Methods section above.</procdesc>
+        <procdate>Unknown</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Tree</enttypl>
+        <enttypd>Individual tree identifier</enttypd>
+        <enttypds>Author</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Individual tree ring widths</attrlabl>
+        <attrdef>Measured to the nearest 0.001 millimeters (mm) using a linear encoded stage, microscope, and software.</attrdef>
+        <attrdefs>(Velmex Inc., Bloomfield, NY, Olympus America inc., Center Valley, Pa, J2X software, Holderness, HN)</attrdefs>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>This data publication includes 11 comma-delimited ASCII text files containing raw tree ring widths measured across 6 different species and 2 basin locations: 
+
+\Data\ACRUmesic RW.csv: raw tree ring widths for Acer rubrum trees across the Coweeta Basin in mesic locations.
+
+\Data\ACRUupslope RW.csv: raw tree ring widths for Acer rubrum trees across the Coweeta Basin in upslope locations.
+
+\Data\BELEmesic RW.csv: raw tree ring widths for Betula lenta trees across the Coweeta Basin in mesic locations.
+
+\Data\LITUmesic RW.csv: raw tree ring widths for Liriodendron tulipifera trees across the Coweeta Basin in mesic locations.
+
+\Data\LITUupslope RW.csv: raw tree ring widths for Liriodendron tulipifera trees across the Coweeta Basin in upslope locations.
+
+\Data\QUALmesic RW.csv: raw tree ring widths for Quercus alba trees across the Coweeta Basin in mesic locations.
+
+\Data\QUALupslope RW.csv: raw tree ring widths for Quercus alba trees across the Coweeta Basin in upslope locations.
+
+\Data\QUMOmesic RW.csv: raw tree ring widths for Quercus montana trees across the Coweeta Basin in mesic locations.
+
+\Data\QUMOupslope RW.csv: raw tree ring widths for Quercus montana trees across the Coweeta Basin in upslope locations.
+
+\Data\QURUmesic RW.csv: raw tree ring widths for Quercus rubra trees across the Coweeta Basin in mesic locations.
+
+\Data\QURUupslope RW.csv: raw tree ring widths for Quercus rubra trees across the Coweeta Basin in upslope locations.
+
+
+Each of these files contain the following:
+
+Row 1 = tree identifier (site location code-tree tag number)
+
+Column A = tree ring year, before cross-dating through COFECHA (Holmes 1983 and Grissino-Mayer 2001)
+
+Column B — Column ? each represent individual trees, and the values are the raw ring widths measured to the nearest 0.001 millimeters using a linear encoded stage, microscope, and software (Velmex Inc., Bloomfield, NY, Olympus America Inc., Center Valley, Pa, J2X software, Holderness, HN)</eaover>
+      <eadetcit>Elliott, Katherine J.; Miniat, Chelcy F.; Pederson, Neil; Laseter, Stephanie H. 2015. Forest tree growth response to hydroclimate variability in the southern Appalachians. Global Change Biology 21(12): 4627-4641. https://doi.org/10.1111/gcb.13045
+
+Holmes, R.L. 1983. Computer-assisted quality control in tree-ring dating and measuring. Tree-Ring Bulletin 43: 69-78.
+
+Grissino-Mayer, Henri D. 2001. Evaluating crossdating accuracy: a manual and tutorial for the computer program COFECHA. Tree-Ring Research 57: 205-221.</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>USDA Forest Service, Research and Development</cntorg>
+        </cntorgp>
+        <cntpos>Research Data Archivist</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>240 West Prospect Road</address>
+          <city>Fort Collins</city>
+          <state>CO</state>
+          <postal>80526</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>see Contact Instructions</cntvoice>
+        <cntinst>This contact information was current as of September 2019. For current information see Contact Us page on: https://doi.org/10.2737/RDS.</cntinst>
+      </cntinfo>
+    </distrib>
+    <resdesc>RDS-2018-0026</resdesc>
+    <distliab>Metadata documents have been reviewed for accuracy and completeness. Unless otherwise stated, all data and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. However, neither the author, the Archive, nor any part of the federal government can assure the reliability or suitability of these data for a particular purpose. The act of distribution shall not constitute any such warranty, and no responsibility is assumed for a user's application of these data or related materials.
+
+The metadata, data, or related materials may be updated without notification. If a user believes errors are present in the metadata, data or related materials, please use the information in (1) Identification Information: Point of Contact, (2) Metadata Reference: Metadata Contact, or (3) Distribution Information: Distributor to notify the author or the Archive of the issues.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>ASCII</formname>
+          <formvern>see Format Specification</formvern>
+          <formspec>Comma-delimited ASCII text file (CSV)</formspec>
+          <filedec>Files zipped with 7-Zip 18.05</filedec>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.2737/RDS-2018-0026</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20190906</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Katherine Elliott</cntper>
+          <cntorg>Coweeta Hydrologic Laboratory</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>3160 Coweeta Lab Road</address>
+          <city>Otto</city>
+          <state>North Carolina</state>
+          <postal>28734</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>828-524-2128</cntvoice>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

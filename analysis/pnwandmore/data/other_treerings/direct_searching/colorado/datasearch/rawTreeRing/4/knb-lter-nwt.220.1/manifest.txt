@@ -1,0 +1,11 @@
+Manifest file for knb-lter-nwt.220.1.zip created on Sun Aug 10 18:17:21 UTC 2025
+mrs_tree_core.rc.data.csv (7472 bytes)
+MRS4_windendro.rc.data.txt (231772 bytes)
+MRS5_windendro.rc.data.txt (178734 bytes)
+MRS7_windendro.rc.data.txt (203955 bytes)
+MRS4F1_tucson.rc.data.rwl (153524 bytes)
+MRS5F1_tucson.rc.data.rwl (83972 bytes)
+MRS7F1_tucson.rc.data.rwl (128532 bytes)
+knb-lter-nwt.220.1.xml (28021 bytes)
+knb-lter-nwt.220.1.txt (15891 bytes)
+knb-lter-nwt.220.1.report.xml (93464 bytes)

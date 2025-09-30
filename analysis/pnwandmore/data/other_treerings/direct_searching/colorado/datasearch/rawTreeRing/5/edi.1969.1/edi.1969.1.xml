@@ -1,0 +1,1010 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="edi.1969.1" system="https://pasta.edirepository.org"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://eml.ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+   <access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+      <allow>
+         <principal>uid=EDI,o=EDI,dc=edirepository,dc=org</principal>
+         <permission>all</permission>
+      </allow>
+      <allow>
+         <principal>https://orcid.org/0000-0003-1029-6995</principal>
+         <permission>all</permission>
+      </allow>
+      <allow>
+         <principal>public</principal>
+         <permission>read</permission>
+      </allow>
+   </access>
+   <dataset>
+      <alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/6dd464ad0dfd5ad64d5f9e2dad24d0cb</alternateIdentifier><title>Tree-ring measurements from permanent study plot in old-growth hemlock-hardwood forest, Dukes RNA, Hiawatha NF, Marquetee Co., MI</title>
+      <creator>
+         <individualName>
+            <givenName>Kerry</givenName>
+            <givenName>D</givenName>
+            <surName>Woods</surName>
+         </individualName>
+         <organizationName>Bennington College</organizationName>
+         <positionName>Professor emeritus</positionName>
+         <address>
+            <deliveryPoint>9 Maple ave</deliveryPoint>
+            <city>Cambridge</city>
+            <administrativeArea>New York</administrativeArea>
+            <postalCode>12816</postalCode>
+         </address>
+         <electronicMailAddress>kerry.d.woods@gmail.com</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-1029-6995</userId>
+         <userId
+      directory="https://ror.org/">01pq38j30</userId>
+      </creator>
+      <pubDate>2025-04-22</pubDate>
+      <abstract>
+         <para>This package includes tree growth-ring widths for increment cores collected from a long-term 'macroplot' established in old-growth hemlock-northern hardwoods forest at the Dukes Research Natural Area/Dukes Experimental Forest in the Hiawatha National Forest in Marquette Co., MI. Tree demographic monitoring data for the entire ca. 3.0 ha macroplot, from 1992 to 2019, are available in the EDI package edi.1526.1. In 1993, 1994 and 1995, increment cores were taken for all 'core-able' trees greater than ~ 10 cm diameter for a subsection of the macroplot about 1 ha in area. Trees that were obviously badly rotten and hollow or steeply leaning were not cored. Cores are not cross-dated. See Methods for more details. This data-package may be cross-referenced to the demographic data in edi.1526.1 using stem numbers.</para>
+      </abstract>
+      <keywordSet>
+         <keyword>increment cores</keyword>
+         <keyword>tree growth rates</keyword>
+         <keyword>hemlock-northern hardwood forest</keyword>
+      </keywordSet>
+      <keywordSet>
+         <keyword>tree rings</keyword>
+         <keyword>old growth forests</keyword>
+         <keywordThesaurus>LTER Controlled Vocabulary</keywordThesaurus>
+      </keywordSet>
+      <intellectualRights>
+         <para>This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available "as is." The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.</para>
+      </intellectualRights>
+      <licensed>
+         <licenseName>Creative Commons Attribution 4.0 International</licenseName>
+         <url>https://spdx.org/licenses/CC-BY-4.0</url>
+         <identifier>CC-BY-4.0</identifier>
+      </licensed>
+      <distribution
+      id="10.6073/pasta/6dd464ad0dfd5ad64d5f9e2dad24d0cb" scope="system"
+          system="https://pasta.edirepository.org"><online><url
+            function="information">https://doi.org/10.6073/pasta/6dd464ad0dfd5ad64d5f9e2dad24d0cb</url></online></distribution><coverage>
+         <geographicCoverage>
+            <geographicDescription>Macroplot has maximum dimensions of ca. 200 m (E-W) by 85 m (N-S), with plot center near 46.370 N latitude and -87.151 W longitude.</geographicDescription>
+            <boundingCoordinates>
+               <westBoundingCoordinate>-87.1523</westBoundingCoordinate>
+               <eastBoundingCoordinate>-87.1501</eastBoundingCoordinate>
+               <northBoundingCoordinate>46.37</northBoundingCoordinate>
+               <southBoundingCoordinate>46.369</southBoundingCoordinate>
+            </boundingCoordinates>
+         </geographicCoverage>
+         <temporalCoverage>
+            <rangeOfDates>
+               <beginDate>
+                  <calendarDate>1992</calendarDate>
+               </beginDate>
+               <endDate>
+                  <calendarDate>1994</calendarDate>
+               </endDate>
+            </rangeOfDates>
+         </temporalCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Class</taxonRankName>
+               <taxonRankValue>Magnoliopsida</taxonRankValue>
+               <commonName>flowering plants</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">3398</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Order</taxonRankName>
+                  <taxonRankValue>Sapindales</taxonRankValue>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">41937</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Family</taxonRankName>
+                     <taxonRankValue>Sapindaceae</taxonRankValue>
+                     <commonName>soapberry family</commonName>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">23672</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subfamily</taxonRankName>
+                        <taxonRankValue>Hippocastanoideae</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">1977916</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Genus</taxonRankName>
+                           <taxonRankValue>Acer</taxonRankValue>
+                           <commonName>maple trees</commonName>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">4022</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Species</taxonRankName>
+                              <taxonRankValue>Acer rubrum</taxonRankValue>
+                              <commonName>red maple</commonName>
+                              <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">45314</taxonId>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Magnoliopsida</taxonRankValue>
+                           <commonName>flowering plants</commonName>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">3398</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Order</taxonRankName>
+                              <taxonRankValue>Sapindales</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">41937</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Family</taxonRankName>
+                                 <taxonRankValue>Sapindaceae</taxonRankValue>
+                                 <commonName>soapberry family</commonName>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">23672</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Subfamily</taxonRankName>
+                                    <taxonRankValue>Hippocastanoideae</taxonRankValue>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">1977916</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Genus</taxonRankName>
+                                       <taxonRankValue>Acer</taxonRankValue>
+                                       <commonName>maple trees</commonName>
+                                       <taxonId
+                              provider="https://www.ncbi.nlm.nih.gov/taxonomy">4022</taxonId>
+                                       <taxonomicClassification>
+                                          <taxonRankName>Species</taxonRankName>
+                                          <taxonRankValue>Acer saccharum</taxonRankValue>
+                                          <commonName>sugar maple</commonName>
+                                          <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">4024</taxonId>
+                                       </taxonomicClassification>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Magnoliopsida</taxonRankValue>
+                           <commonName>flowering plants</commonName>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">3398</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Order</taxonRankName>
+                              <taxonRankValue>Fagales</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">3502</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Family</taxonRankName>
+                                 <taxonRankValue>Betulaceae</taxonRankValue>
+                                 <commonName>birch family</commonName>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">3514</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Genus</taxonRankName>
+                                    <taxonRankValue>Ostrya</taxonRankValue>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">13621</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Species</taxonRankName>
+                                       <taxonRankValue>Ostrya virginiana</taxonRankValue>
+                                       <commonName>American hop-hornbeam</commonName>
+                                       <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">13622</taxonId>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Magnoliopsida</taxonRankValue>
+                           <commonName>flowering plants</commonName>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">3398</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Order</taxonRankName>
+                              <taxonRankValue>Fagales</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">3502</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Family</taxonRankName>
+                                 <taxonRankValue>Fagaceae</taxonRankValue>
+                                 <commonName>beech family</commonName>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">3503</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Genus</taxonRankName>
+                                    <taxonRankValue>Fagus</taxonRankValue>
+                                    <commonName>beech trees</commonName>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">21024</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Species</taxonRankName>
+                                       <taxonRankValue>Fagus grandifolia</taxonRankValue>
+                                       <commonName>American beech</commonName>
+                                       <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">60423</taxonId>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Magnoliopsida</taxonRankValue>
+                           <commonName>flowering plants</commonName>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">3398</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Order</taxonRankName>
+                              <taxonRankValue>Fagales</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">3502</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Family</taxonRankName>
+                                 <taxonRankValue>Betulaceae</taxonRankValue>
+                                 <commonName>birch family</commonName>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">3514</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Genus</taxonRankName>
+                                    <taxonRankValue>Betula</taxonRankValue>
+                                    <commonName>birches</commonName>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">3504</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Species</taxonRankName>
+                                       <taxonRankValue>Betula alleghaniensis</taxonRankValue>
+                                       <commonName>yellow birch</commonName>
+                                       <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">21017</taxonId>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Pinopsida</taxonRankValue>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">58019</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Subclass</taxonRankName>
+                              <taxonRankValue>Pinidae</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">3313</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Order</taxonRankName>
+                                 <taxonRankValue>Pinales</taxonRankValue>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">1446380</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Family</taxonRankName>
+                                    <taxonRankValue>Pinaceae</taxonRankValue>
+                                    <commonName>pine family</commonName>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">3318</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Genus</taxonRankName>
+                                       <taxonRankValue>Picea</taxonRankValue>
+                                       <taxonId
+                              provider="https://www.ncbi.nlm.nih.gov/taxonomy">3328</taxonId>
+                                       <taxonomicClassification>
+                                          <taxonRankName>Species</taxonRankName>
+                                          <taxonRankValue>Picea glauca</taxonRankValue>
+                                          <commonName>white spruce</commonName>
+                                          <taxonId
+            provider="https://www.ncbi.nlm.nih.gov/taxonomy">3330</taxonId>
+                                       </taxonomicClassification>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+         <taxonomicCoverage>
+            <taxonomicClassification>
+               <taxonRankName>Domain</taxonRankName>
+               <taxonRankValue>Eukaryota</taxonRankValue>
+               <commonName>eucaryotes</commonName>
+               <taxonId
+              provider="https://www.ncbi.nlm.nih.gov/taxonomy">2759</taxonId>
+               <taxonomicClassification>
+                  <taxonRankName>Kingdom</taxonRankName>
+                  <taxonRankValue>Viridiplantae</taxonRankValue>
+                  <commonName>green plants</commonName>
+                  <taxonId
+                provider="https://www.ncbi.nlm.nih.gov/taxonomy">33090</taxonId>
+                  <taxonomicClassification>
+                     <taxonRankName>Phylum</taxonRankName>
+                     <taxonRankValue>Streptophyta</taxonRankValue>
+                     <taxonId
+                  provider="https://www.ncbi.nlm.nih.gov/taxonomy">35493</taxonId>
+                     <taxonomicClassification>
+                        <taxonRankName>Subphylum</taxonRankName>
+                        <taxonRankValue>Streptophytina</taxonRankValue>
+                        <taxonId
+                    provider="https://www.ncbi.nlm.nih.gov/taxonomy">131221</taxonId>
+                        <taxonomicClassification>
+                           <taxonRankName>Class</taxonRankName>
+                           <taxonRankValue>Pinopsida</taxonRankValue>
+                           <taxonId
+                      provider="https://www.ncbi.nlm.nih.gov/taxonomy">58019</taxonId>
+                           <taxonomicClassification>
+                              <taxonRankName>Subclass</taxonRankName>
+                              <taxonRankValue>Pinidae</taxonRankValue>
+                              <taxonId
+                        provider="https://www.ncbi.nlm.nih.gov/taxonomy">3313</taxonId>
+                              <taxonomicClassification>
+                                 <taxonRankName>Order</taxonRankName>
+                                 <taxonRankValue>Pinales</taxonRankValue>
+                                 <taxonId
+                          provider="https://www.ncbi.nlm.nih.gov/taxonomy">1446380</taxonId>
+                                 <taxonomicClassification>
+                                    <taxonRankName>Family</taxonRankName>
+                                    <taxonRankValue>Pinaceae</taxonRankValue>
+                                    <commonName>pine family</commonName>
+                                    <taxonId
+                            provider="https://www.ncbi.nlm.nih.gov/taxonomy">3318</taxonId>
+                                    <taxonomicClassification>
+                                       <taxonRankName>Genus</taxonRankName>
+                                       <taxonRankValue>Tsuga</taxonRankValue>
+                                       <commonName>hemlocks</commonName>
+                                       <taxonId
+                              provider="https://www.ncbi.nlm.nih.gov/taxonomy">3358</taxonId>
+                                       <taxonomicClassification>
+                                          <taxonRankName>Species</taxonRankName>
+                                          <taxonRankValue>Tsuga canadensis</taxonRankValue>
+                                          <commonName>Canada hemlock</commonName>
+                                          <taxonId
+        provider="https://www.ncbi.nlm.nih.gov/taxonomy">66173</taxonId>
+                                       </taxonomicClassification>
+                                    </taxonomicClassification>
+                                 </taxonomicClassification>
+                              </taxonomicClassification>
+                           </taxonomicClassification>
+                        </taxonomicClassification>
+                     </taxonomicClassification>
+                  </taxonomicClassification>
+               </taxonomicClassification>
+            </taxonomicClassification>
+         </taxonomicCoverage>
+      </coverage>
+      <maintenance>
+         <description>Creator will update as needed; no planned additions</description>
+      </maintenance>
+      <contact>
+         <individualName>
+            <givenName>Kerry</givenName>
+            <givenName>D</givenName>
+            <surName>Woods</surName>
+         </individualName>
+         <organizationName>Bennington College</organizationName>
+         <positionName>Professor emeritus</positionName>
+         <address>
+            <deliveryPoint>9 Maple ave</deliveryPoint>
+            <city>Cambridge</city>
+            <administrativeArea>New York</administrativeArea>
+            <postalCode>12816</postalCode>
+         </address>
+         <electronicMailAddress>kerry.d.woods@gmail.com</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-1029-6995</userId>
+      </contact>
+      <contact>
+         <individualName>
+            <salutation>Dr.</salutation>
+            <givenName>Christel</givenName>
+            <surName>Kern</surName>
+         </individualName>
+         <organizationName>Northern Research Station USDA-Forest Servic</organizationName>
+         <positionName>Research Forester</positionName>
+         <electronicMailAddress>christel.c.kern@usda.gov</electronicMailAddress>
+         <userId
+        directory="https://orcid.org">0000-0003-4923-6180</userId>
+      </contact>
+      <publisher>
+         <organizationName>Environmental Data Initiative</organizationName>
+         <electronicMailAddress>info@edirepository.org</electronicMailAddress>
+         <onlineUrl>https://edirepository.org</onlineUrl>
+         <userId
+          directory="https://ror.org">0330j0z60</userId>
+      </publisher>
+      <pubPlace>Environmental Data Initiative</pubPlace>
+      <methods>
+         <methodStep>
+            <description>
+               <para>Field Methods: Over an approximately 1-ha portion of the macroplot described in package edi.1526.1, all suitable trees &gt; 10 cm in diameter were cored in the summers of 1993, 1994, and 1995. Trees that were obviously substantially hollow or rotten, leaning heavily, or otherwise significantly compromised were skipped. A single core was taken at a height of about 1.2 m, from south to north (except as otherwise noted in the 'field notes' field of the core information data-table). Where rot or hollowness prevented taking a complete core, only the 'south-facing' section is included (indicated by "a" in the 'side' code in data-set).  Where a single complete core (bark to bark) could be extracted, both sides ("a" and 'north-facing' "b" side) are included.  Ring measurements and further information for 232 trees are included here.</para>
+            </description>
+         </methodStep>
+         <methodStep>
+            <description>
+               <para>Lab Methods: Cores were mounted on wooden blocks and sanded. Rings were measured, in the ecology lab at Bennington College, for all cores during 1994-1997, using "Project J2X" software and a Velmex ring measurement system.  Cross-dating proved to be impractical, and data in this package are raw measurements (not cross-dated). Maximum ring-count was 299.</para>
+            </description>
+         </methodStep>
+      </methods>
+      <project>
+         <title>Tree-ring measurements from old-growth hemlock-hardwood forest, Duke RNA, Marquette Co., MI</title>
+         <personnel>
+            <individualName>
+               <salutation>Dr.</salutation>
+               <givenName>Kerry</givenName>
+               <givenName>D</givenName>
+               <surName>Woods</surName>
+            </individualName>
+            <organizationName>Bennington Colllege</organizationName>
+            <positionName>Professor emeritus</positionName>
+            <electronicMailAddress>kerry.d.woods@gmail.com</electronicMailAddress>
+            <userId
+          directory="https://orcid.org">0000-0003-1029-6995</userId>
+            <role>project originator and leader, overseer of field measurement crews and lab-work</role>
+         </personnel>
+         <personnel>
+            <individualName>
+               <salutation>Dr.</salutation>
+               <givenName>Christel</givenName>
+               <surName>Kern</surName>
+            </individualName>
+            <organizationName>Northern Research Station USDA-Forest Service</organizationName>
+            <positionName>Research Forester</positionName>
+            <electronicMailAddress>christel.c.kern@usda.gov</electronicMailAddress>
+            <userId
+      directory="https://orcid.org">0000-0003-4923-6180</userId>
+            <role>oversight of research activities at the Dukes RNA</role>
+         </personnel>
+         <award>
+            <funderName>NSF</funderName>
+            <title>Long-term dynamics of old-growth northern hardwood forests: restoration and expansion of permanent plot studies.</title>
+         </award>
+         <award>
+            <funderName>Andrew Mellon Foundation</funderName>
+            <title>Long-term dynamics in old-growth forests: ongoing permanent plot studies</title>
+         </award>
+         <award>
+            <funderName>U.S. Forest Service</funderName>
+            <title>Long-term productivity and regeneration dynamics, Dukes RNA (joint venture agreement)</title>
+         </award>
+      </project>
+      <dataTable
+      id="07209301847b0163aff5427d80f38427" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Dukes_tree_rings</entityName>
+         <entityDescription>ring-width measurements for cores from 232 trees in old-growth forest long-term study plot</entityDescription>
+         <physical>
+            <objectName>Dukes_tree_rings.csv</objectName>
+            <size
+          unit="byte">1028480</size>
+            <authentication
+              method="MD5">2789d096b0bdf58fedb246d0f5fca606</authentication>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+            function="download">https://pasta.lternet.edu/package/data/eml/edi/1969/1/07209301847b0163aff5427d80f38427</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute>
+               <attributeName>year</attributeName>
+               <attributeLabel>year</attributeLabel>
+               <attributeDefinition>year of growth</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>nominalYear</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>ring.width</attributeName>
+               <attributeLabel>ring.width</attributeLabel>
+               <attributeDefinition>width of growth ring in mm</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>millimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>sp</attributeName>
+               <attributeLabel>sp</attributeLabel>
+               <attributeDefinition>tree species code</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+            enforced="yes">
+                           <codeDefinition>
+                              <code>pigl</code>
+                              <definition>Picea glauca</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>acru</code>
+                              <definition>Acer rubrum</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>acsa</code>
+                              <definition>Acer saccharum</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>beal</code>
+                              <definition>Betula alleghaniensis</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>fagr</code>
+                              <definition>Fagus grandifolia</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>osvi</code>
+                              <definition>Ostrya virginiana</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>tsca</code>
+                              <definition>Tsuga canadensis</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>stem</attributeName>
+               <attributeLabel>stem</attributeLabel>
+               <attributeDefinition>index number identifying stem in permanent plot database edi.1526.1</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>number</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>side</attributeName>
+               <attributeLabel>side</attributeLabel>
+               <attributeDefinition>side of tree relative to corer entry and center</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+      enforced="yes">
+                           <codeDefinition>
+                              <code>a</code>
+                              <definition>side of core towards direction of corer entry (South unless otherwise indicated in stem information)</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>b</code>
+                              <definition>for complete cores, measurements for 'side' of core away from corer entry</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>44386</numberOfRecords>
+      </dataTable>
+      <dataTable
+      id="2f6630b08e9778f70d221e6a080ac345" scope="document"
+          system="https://pasta.edirepository.org">
+         <entityName>Dukes_macroplot_cores_steminfo_for_EDI</entityName>
+         <entityDescription>Information about individual trees and cores corresponding to ring-measurements in this project</entityDescription>
+         <physical>
+            <objectName>Dukes_macroplot_cores_steminfo_for_EDI.csv</objectName>
+            <size
+          unit="byte">10481</size>
+            <authentication
+              method="MD5">ee41614fa56220de2eccabd8e6ec3db9</authentication>
+            <dataFormat>
+               <textFormat>
+                  <numHeaderLines>1</numHeaderLines>
+                  <recordDelimiter>\r\n</recordDelimiter>
+                  <attributeOrientation>column</attributeOrientation>
+                  <simpleDelimited>
+                     <fieldDelimiter>,</fieldDelimiter>
+                     <quoteCharacter>"</quoteCharacter>
+                  </simpleDelimited>
+               </textFormat>
+            </dataFormat>
+            <distribution>
+               <online>
+                  <url
+            function="download">https://pasta.lternet.edu/package/data/eml/edi/1969/1/2f6630b08e9778f70d221e6a080ac345</url>
+               </online>
+            </distribution>
+         </physical>
+         <attributeList>
+            <attribute>
+               <attributeName>stem</attributeName>
+               <attributeLabel>stem</attributeLabel>
+               <attributeDefinition>unique index identifying stem in ring-width file and in plot census data in project edi.1526.1</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">integer</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>number</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>integer</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>dbh</attributeName>
+               <attributeLabel>dbh</attributeLabel>
+               <attributeDefinition>stem diamber at breast height (1.4m) in 1992-94 census of permanent plot</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>notes</attributeName>
+               <attributeLabel>notes</attributeLabel>
+               <attributeDefinition>field notes related to particular tree and core</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <textDomain>
+                           <definition>text</definition>
+                        </textDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>year</attributeName>
+               <attributeLabel>year</attributeLabel>
+               <attributeDefinition>year core was collected</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">dateTime</storageType>
+               <measurementScale>
+                  <dateTime>
+                     <formatString>YYYY</formatString>
+                     <dateTimeDomain/>
+                  </dateTime>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>sp</attributeName>
+               <attributeLabel>sp</attributeLabel>
+               <attributeDefinition>species code for tree</attributeDefinition>
+               <storageType
+                  typeSystem="XML Schema Datatypes">string</storageType>
+               <measurementScale>
+                  <nominal>
+                     <nonNumericDomain>
+                        <enumeratedDomain
+            enforced="yes">
+                           <codeDefinition>
+                              <code>acru</code>
+                              <definition>Acer rubrum</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>acsa</code>
+                              <definition>Acer saccharum</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>beal</code>
+                              <definition>Betula alleghaniensis</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>fagr</code>
+                              <definition>Fagus grandifolia</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>osvi</code>
+                              <definition>Ostrya virginiana</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>pigl</code>
+                              <definition>Picea glauca</definition>
+                           </codeDefinition>
+                           <codeDefinition>
+                              <code>tsca</code>
+                              <definition>Tsuga canadensis</definition>
+                           </codeDefinition>
+                        </enumeratedDomain>
+                     </nonNumericDomain>
+                  </nominal>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>count</attributeName>
+               <attributeLabel>count</attributeLabel>
+               <attributeDefinition>maximum number of rings counted (either side for complete cores); minimum age of tree</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>number</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>to_center</attributeName>
+               <attributeLabel>to_center</attributeLabel>
+               <attributeDefinition>for complete cores, estimated distance from oldest ring to center of tree (0 where core includes pith)</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>centimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>for incomplete cores (usually due to rotten or hollow center)</codeExplanation>
+               </missingValueCode>
+            </attribute>
+            <attribute>
+               <attributeName>overallx</attributeName>
+               <attributeLabel>overallx</attributeLabel>
+               <attributeDefinition>map coordinates for tree in macroplot (edi.1526.1); approximately W to E from arbitrary origin</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>meter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>overally</attributeName>
+               <attributeLabel>overally</attributeLabel>
+               <attributeDefinition>map coordinates for tree in macroplot (edi.1526.1); approximately S to N from arbitrary origin</attributeDefinition>
+               <storageType
+            typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>meter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+            </attribute>
+            <attribute>
+               <attributeName>corelength</attributeName>
+               <attributeLabel>corelength</attributeLabel>
+               <attributeDefinition>total length of core collected</attributeDefinition>
+               <storageType
+        typeSystem="XML Schema Datatypes">float</storageType>
+               <measurementScale>
+                  <ratio>
+                     <unit>
+                        <standardUnit>millimeter</standardUnit>
+                     </unit>
+                     <numericDomain>
+                        <numberType>real</numberType>
+                     </numericDomain>
+                  </ratio>
+               </measurementScale>
+               <missingValueCode>
+                  <code>NA</code>
+                  <codeExplanation>measurement not recorded in field</codeExplanation>
+               </missingValueCode>
+            </attribute>
+         </attributeList>
+         <caseSensitive>no</caseSensitive>
+         <numberOfRecords>232</numberOfRecords>
+      </dataTable>
+   </dataset>
+   <additionalMetadata>
+      <metadata>
+         <emlEditor
+        app="ezEML" release="2025.04.16"/>
+      </metadata>
+   </additionalMetadata>
+</eml:eml>

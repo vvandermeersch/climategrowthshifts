@@ -1,0 +1,413 @@
+
+
+
+uid=BNZ,o=EDI,dc=edirepository,dc=org
+all
+
+
+public
+read
+
+
+
+doi:10.6073/pasta/ea632cd87a76fc060b77cd9f3729a555knb-lter-bnz.775.2
+Tree-Ring Data for Co-Occurring White Spruce and Paper Birch at an Intermediate Aged Stand in the Bonanza Creek LTER Regional Site Network - 2018
+
+
+Patrick Sullivan
+
+			Environment and Natural Resources Institute, University of Alaska Anchorage, 3211 Providence Dr.
+			Anchorage, Alaska 99508  United States
+
+
+pfsullivan@alaska.edu
+https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/programs/environment-and-natural-resources-institute/
+
+
+Bonanza Creek LTER
+			Boreal Ecology Cooperative Research Unit 
+			University of Alaska Fairbanks
+			P.O. Box 756780 
+			Fairbanks, AK 99775  USA
+907-474-6364
+907-474-6251
+uaf-bnz-im-team@alaska.edu
+http://www.lter.uaf.edu
+
+
+Bonanza Creek LTER
+Data Manager
+			Boreal Ecology Cooperative Research Unit 
+			University of Alaska Fairbanks
+			P.O. Box 756780 
+			Fairbanks, AK 99775  USA
+907-474-6364
+907-474-6251
+uaf-bnz-im-team@alaska.edu
+http://www.lter.uaf.edu
+
+
+2021-03-17
+
+This dataset contains tree ring widths of co-occurring white spruce and Alaska paper birch.  The data were published as part of a 2021 article in Journal of Ecology.
+
+
+boreal forests
+Picea glauca
+Betula neoalaskana
+dendrochronology
+droughts
+sap flux
+Vegetation
+
+
+
+Data Use
+This work has been produced as part of the Long Term Ecological Research Program and data users should adhere to the Data Use Agreement of the Long Term Ecological Research Network.
+
+
+Citation
+It is considered a matter of professional ethics to acknowledge the work of other scientists. Thus, the Data User should properly cite the Data Set in any publications or in the metadata of any derived data products that were produced using the Data Set. Citation should take the following general form: Creator(s), Year of Data Publication, Title of Dataset, Publisher, Dataset identifier, Dataset URL, Dataset DOI.  For Example:   Van Cleve, Keith; Chapin, F. Stuart; Ruess, Roger W. 2016. Bonanza Creek Experimental Forest: Hourly Temperature (sample, min, max) at 50 cm and 150 cm from 1988 to Present, Bonanza Creek LTER - University of Alaska Fairbanks. BNZ:1, http://www.lter.uaf.edu/data/data-detail/id/1. doi:10.6073/pasta/725db90d86686be13e6d6b2da5d61217.
+
+
+Acknowledgement
+The Data User should acknowledge any institutional support or specific funding awards referenced in the metadata accompanying this dataset in any publications where the Data Set contributed significantly to its content. Acknowledgements should identify the supporting party, the party that received the support, and any identifying information such as grant numbers. For example: Data are provided by the Bonanza Creek LTER, a partnership between the University of Alaska Fairbanks, and the U.S. Forest Service. Significant funding for collection of these data was provided by the National Science Foundation Long-Term Ecological Research program (NSF Grant numbers  DEB-1636476, DEB-1026415, DEB-0620579, DEB-0423442, DEB-0080609, DEB-9810217, DEB-9211769, DEB-8702629) and by the USDA Forest Service, Pacific Northwest Research Station (Agreement # RJVA-PNW-01-JV-11261952-231).
+
+
+Notification
+The Data User will notify the Data Set Contact when any derivative work or publication based on or derived from the Data Set is distributed.
+
+
+Collaboration
+The Data Set has been released in the spirit of open scientific collaboration. Data Users are thus strongly encouraged to consider consultation, collaboration and/or co-authorship with the Data Set Creator.
+
+
+Disclaimer
+While substantial efforts are made to ensure the accuracy of data and documentation contained in this Data Set, complete accuracy of data and metadata cannot be guaranteed. All data and metadata are made available in its present condition. The Data User holds all parties involved in the production or distribution of the Data Set harmless for damages resulting from its use or interpretation.
+
+
+
+
+
+http://www.lter.uaf.edu/data/data-detail/id/775
+
+
+
+
+Dataset geographic description information is unavailable. {datafile/geoCoverage is empty}
+
+-148.39382
+-148.39382
+64.87464
+64.87464
+
+
+
+
+
+1960-01-01
+
+
+2018-12-31
+
+
+
+
+
+
+
+Status
+Completed
+
+
+
+
+Bonanza Creek LTER
+Data Manager
+			Boreal Ecology Cooperative Research Unit 
+			University of Alaska Fairbanks
+			P.O. Box 756780 
+			Fairbanks, AK 99775  USA
+907-474-6364
+907-474-6251
+uaf-bnz-im-team@alaska.edu
+http://www.lter.uaf.edu
+
+
+Environmental Data Initiativeinfo@environmentaldatainitiative.orghttps://environmentaldatainitiative.orgEnvironmental Data Initiative
+
+
+
+
+Methods
+FIELD:  One increment core of the complete stem diameter was collected 20 cm above the ground surface from each of the 16 study trees  monitored for sap flux (8 white spruce and 8 paper birch) and from an additional 19 white spruce and 26 paper birch growing near the study site.  The increment cores were generally collected in late September of 2018, with the exception of the 26 additional paper birch cores, which were collected in late May of 2016 for inclusion in a larger paper birch tree-ring dataset (Cahoon et al. 2018).   LAB:  The increment cores were air dried in paper straws, mounted in wooden blocks and sanded to 600 (white spruce) or 1200 grit (paper birch).  White spruce cores were scanned at 1200 dpi and analyzed using WinDENDRO (Regent Instruments, Quebec, Canada).  Paper birch cores were stained when necessary using phloroglucinol and HCl (Patterson 1959) and measured to the nearest 0.001 mm using a sliding bench micrometer and digital encoder (Velmex Inc., Bloomfield, New York, USA).  Cross-dating of the tree-ring series was facilitated by the presence of narrow marker rings in 2013 for white spruce and in 1993 and 2010 for paper birch.  The accuracy of the cross-dating was checked using COFECHA to identify potential dating errors (Holmes 1983). 
+
+
+
+
+
+
+
+MDI2 -- In 1958 this site burned in the Murphy Dome fire. It is now a mixed black spruce / birch stand. .  Site alternate names:  MD-7
+
+-148.389008
+-148.389008
+64.879249
+64.879249
+
+
+
+
+
+1960-01-01
+
+
+2018-12-31
+
+
+
+
+
+
+
+Sampling Frequency
+Annually
+
+
+
+
+
+The Bonanza Creek LTER
+
+Keith Van Cleve
+Bonanza Creek LTER
+Lead Principal Investigator
+Principal Investigator
+
+
+F.S. Chapin
+Bonanza Creek LTER
+Lead Principal Investigator
+			Department of Biology and Wildlife;  Institute of Arctic Biology:  University of Alaska Fairbanks 193 Arctic Health P.O. Box 757000
+			Fairbanks, AK  99775  United States
+(907) 455-6408
+(907) 474-6967
+terry.chapin@alaska.edu
+http://terrychapin.org/
+Principal Investigator
+
+
+Roger Ruess
+Bonanza Creek LTER
+Lead Principal Investigator
+			Institute of Arctic Biology  University of Alaska Fairbanks P.O. Box 757000
+			Fairbanks, AK  99775-0180  United States
+(907) 474-7153
+(907) 474-6967
+rwruess@alaska.edu
+http://www.iab.uaf.edu/~roger_ruess/
+Principal Investigator
+
+
+NSF Grant numbers  DEB-1636476, DEB-1026415, DEB-0620579, DEB-0423442, DEB-0080609, DEB-9810217, DEB-9211769, DEB-8702629
+USDA Forest Service, Pacific Northwest Research Station (Agreement # RJVA-PNW-01-JV-11261952-231)
+
+
+
+775_birch.csv
+This dataset contains annual ring widths of paper birch in column format.
+
+775_birch.csv
+
+
+1
+\n
+\n
+column
+
+,
+
+
+
+
+
+https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/b79b76fa6d722b03efd16eb4dae35417
+
+
+
+
+
+Year
+Year
+year
+integer
+
+
+
+yyyy
+
+
+real
+
+
+
+
+
+
+
+Tree
+Tree
+unique identifier for each tree
+string
+
+
+
+
+unique identifier for each tree
+
+
+
+
+
+
+
+Ring_Width_mm
+Ring_Width_mm
+annual ring width in mm
+float
+
+
+
+millimeter
+
+
+real
+
+
+
+
+
+
+
+
+
+775_spruce.csv
+This dataset contains annual ring widths of white spruce in column format.
+
+775_spruce.csv
+
+
+1
+\n
+\n
+column
+
+,
+
+
+
+
+
+https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/56569ec7410fd05ce64190e5381ce734
+
+
+
+
+
+Year
+Year
+year
+integer
+
+
+
+yyyy
+
+
+real
+
+
+
+
+
+
+
+Tree
+Tree
+unique identifier for each tree
+string
+
+
+
+
+unique identifier for each tree
+
+
+
+
+
+
+
+Ring_Width_mm
+Ring_Width_mm
+annual ring width in mm
+float
+
+
+
+millimeter
+
+
+real
+
+
+
+
+
+
+
+
+
+775_spruce.txt
+This dataset contains annual ring widths of white spruce in the traditional Tucson (.rwl) format.
+
+775_spruce.txt
+
+
+txt file
+
+
+
+
+https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/6366e57479042e0e40ab5a84dbb800cc
+
+
+
+txt file
+
+
+775_birch.txt
+This dataset contains annual ring widths of paper in the traditional Tucson (.rwl) format.
+
+775_birch.txt
+
+
+txt file
+
+
+
+
+https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/850671eca3f531de0b118002f03b4faa
+
+
+
+txt file
+
+
+
+ 
+ 
+
+
+ 
+ 

@@ -1,0 +1,537 @@
+
+   
+      
+         uid=nwt,o=EDI,dc=ecoinformatics,dc=org
+         read
+         write
+      
+      
+         public
+         read
+      
+   
+   
+      doi:10.6073/pasta/52bc004623a8ae473a6a056dc85346cbTree Core
+      Tree ring data from the Niwot Ridge subalpine zone, 2017 - 2018.
+      
+         Rachel K Chai
+         rachel.chai@colorado.edu
+      
+      2024-05-24
+      English
+      
+         
+    Tree cores were collected across a range of diverse stand types and
+    topographic positions in 2017 and 2018 to examine changes in tree
+    growth as a response to changing climate in the subalpine forest of
+    the Colorado Front Range, USA. Tree cores were collected for all
+    present species in the subalpine zones; Engelmann spruce (Picea
+    engelmannii), subalpine fir (Abies lasiocarpa), lodgepole pine
+    (Pinus contorta) and limber pine (Pinus flexilis). We extracted core
+    from ~180 trees from 3 large permanent plots across a range of
+    species and sizes classes within each plot. The cores were then
+    processed using WinDENDRO software. This dataset includes field data
+    taken on each tree from which a core was extracted, the original
+    WinDENDRO files for each coree.g. bark thickness, height, etc.), 2)
+    MRS4 .txt fil output from WinDENDRO, 3) MRS5 .txt fil output from
+    WinDENDRO, 4) MRS7.txt fil output from WinDENDRO, The WinDENDRO,
+    outputs will be used to reconstruct a time series of radial growth
+    for each tree in each plot to examine whether the topoclimatic
+    position affects tree growth (by species and stand types) and
+    whether tree growth has changed with warming temperatures.
+  
+      
+      
+         aboveground production
+         climate change
+         forest dynamics
+         tree rings
+         tree growth
+         dendrochronology
+         forest ecology
+         LTER controlled vocabulary
+      
+      
+         populations
+         LTER core area
+      
+      
+         Niwot Ridge LTER
+      
+      
+         
+    This information is released under the Creative Commons license -
+    Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/).
+    The consumer of these data (“Data User” herein) is required to cite
+    it appropriately in any publication that results from its use. The
+    Data User should realize that these data may be actively used by
+    others for ongoing research and that coordination may be necessary
+    to prevent duplicate publication. The Data User is urged to contact
+    the authors of these data if any questions about methodology or
+    results occur. Where appropriate, the Data User is encouraged to
+    consider collaboration or co-authorship with the authors. The Data
+    User should realize that misinterpretation of data may occur if used
+    out of context of the original study. While substantial efforts are
+    made to ensure the accuracy of data and associated documentation,
+    complete accuracy of data sets cannot be guaranteed. All data are
+    made available "as is." The Data User should be aware,
+    however, that data are updated periodically and it is the
+    responsibility of the Data User to check for new versions of the
+    data. The data authors and the repository where these data were
+    obtained shall not be liable for damages resulting from any use or
+    misinterpretation of the data. Thank you.
+  
+      
+      
+         Creative Commons Attribution 4.0 International
+         https://spdx.org/licenses/CC-BY-4.0.html
+         CC-BY-4.0
+      
+      https://doi.org/10.6073/pasta/52bc004623a8ae473a6a056dc85346cb
+         
+            MRS7
+            
+               -105.569
+               -105.569
+               40.042
+               40.042
+            
+         
+         
+            MRS4
+            
+               -105.562
+               -105.562
+               40.039
+               40.039
+            
+         
+         
+            MRS5
+            
+               -105.577
+               -105.577
+               40.043
+               40.043
+            
+         
+         
+            
+               
+                  2017-06-01
+               
+               
+                  2018-09-01
+               
+            
+         
+         
+            
+               Species
+               Abies lasiocarpa
+            
+            
+               Species
+               Picea engelmannii
+            
+            
+               Species
+               Pinus contorta
+            
+            
+               Species
+               Pinus flexilis
+            
+         
+      
+      
+         Niwot Ridge LTER
+         Information Manager
+         			4001 Discovery Drive, UCB 450
+			University of Colorado
+			Boulder, CO 80303  United States
+         lternwt@colorado.edu
+         https://nwt.lternet.edu/
+         https://ror.org/02ep77d74
+      
+      
+         Environmental Data Initiative
+         info@edirepository.org
+         https://edirepository.org
+         0330j0z60
+      
+      Environmental Data Initiative
+      
+         
+            
+               
+    Tree cores were taken from three plots (MRS4, MRS5, and MRS7) in the
+    subalpine zone of the Colorado Front Range, USA with the intent to
+    capture variation between stand types exhibited in the subalpine
+    zone. MRS4 is a mesic site, MRS5 is a hydric site, and MRS7 is a
+    xeric site. In each plot ~60 tree cores were taken from all tree
+    species in each plots and across all size classes within each
+    species. In MRS4 and MRS7, four subalpine tree species can be found;
+    Engelmann spruce (Picea engelmannii), subalpine fir (Abies
+    lasiocarpa), lodgepole pine (Pinus contorta) and limber pine (Pinus
+    flexilis). In MRS5, a composition equilibrium old-growth stand, only
+    two of the four species can be found; Engelmann spruce and subalpine
+    fir. Cores were taken at DBH (diameter at breast height). Two cores
+    were taken from each tree, one core parallel to the slope and one
+    core perpendicular to the slope. From each tree that cores were
+    extracted, we reported species, DBH (diameter at breast height in
+    cm), height (in meters using a laser rangefinder), crown base (in
+    meters using a laser rangefinder), and bark thickness (in cm using a
+    bark gauge). Following standard protocol, the cores were then dried,
+    mounted, and sanded. Each core was then scanned into WinDENDRO where
+    annual tree-ring measurements were computed to produce ring-width
+    series’ for each tree in each plot. We then created cross-dated and
+    converted chronologies to a Tucson (decadal) format file (.rwl
+    files). Some files in the original WinDENDRO output we were not able
+    to cross-date because they either had different growth patterns or
+    contained lot of missing rings or measurement errors. These
+    individuals are not included in the Tucson (.rwl) files. We found
+    that many of the ring width series do not correlate particularly
+    well. This may be due to either errors in measurement and/or
+    differential growth responses of individual trees within the plots.
+    In a few cases, the species code in the windendro file does not
+    match with those in the field (treecore) file due to a labeling
+    error in the lab. In these cases (e.g. MRS4 tree# 116) please refer
+    to the species identity in the field (tree core) spreadsheet.
+  
+               
+    Additional ring width data from the same sites at Niwot Ridge may be
+    found in the NOAA National Centers for Environmental Information
+    (NCEI), under the World Data Service (WDS) for Paleoclimatology,
+    under the following dataset identifiers: doi:10.25921/qbrd-0k44;
+    doi:10.25921/mvac-ww18; doi:10.25921/shv2-1010.
+  
+            
+         
+      
+      
+         Niwot Ridge LTER
+         
+            University of Colorado
+            pointOfContact
+         
+         
+            National Science Foundation
+            1637686
+            LTER: Long-term research on the dynamics of high-elevation ecosystems -- a framework for understanding ecological responsiveness to climate change
+         
+      
+      
+         Tree Cores
+         Field data collected for each tree core taken
+         
+            mrs_tree_core.rc.data.csv
+            7472
+            0a8b5731153e147c15295d1a6e7deaee
+            
+               
+                  1
+                  \r\n
+                  column
+                  
+                     ,
+                     "
+                  
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/5738bde4e3754b9c76a9db928da3cbfe
+               
+            
+         
+         
+            
+               Plot
+               Unique identifier for plots
+               string
+               
+                  
+                     
+                        
+                           any text
+                        
+                     
+                  
+               
+            
+            
+               Tree Tag #
+               Unique numeric identifier for trees within plots
+               integer
+               
+                  
+                     
+                        
+                           any text
+                        
+                     
+                  
+               
+            
+            
+               Species
+               Tree Species
+               string
+               
+                  
+                     
+                        
+                           
+                              ABLA
+                              Abies lasiocarpa
+                           
+                           
+                              PIEN
+                              Picea engelmannii
+                           
+                           
+                              PICO
+                              Pinus contorta
+                           
+                           
+                              PIFL
+                              Pinus flexilis
+                           
+                        
+                     
+                  
+               
+            
+            
+               DBH [cm]
+               Diameter at breast height in 2017
+               float
+               
+                  
+                     
+                        centimeter
+                     
+                     0.1
+                     
+                        real
+                     
+                  
+               
+               
+                  NaN
+                  no data
+               
+               
+                  http://qudt.org/schema/qudt/hasUnit
+                  http://qudt.org/vocab/unit/CentiM
+               
+            
+            
+               Height [m]
+               Height of tree in 2017
+               float
+               
+                  
+                     
+                        meter
+                     
+                     0.1
+                     
+                        real
+                     
+                  
+               
+               
+                  NaN
+                  no data
+               
+               
+                  http://qudt.org/schema/qudt/hasUnit
+                  http://qudt.org/vocab/unit/M
+               
+            
+            
+               Crown base
+               Height at the base of tree crown in 2017
+               float
+               
+                  
+                     
+                        meter
+                     
+                     0.1
+                     
+                        real
+                     
+                  
+               
+               
+                  NaN
+                  no data
+               
+               
+                  http://qudt.org/schema/qudt/hasUnit
+                  http://qudt.org/vocab/unit/M
+               
+            
+            
+               Bark Thickness
+               Thickness of tree bark where core was taken
+               float
+               
+                  
+                     
+                        centimeter
+                     
+                     0.1
+                     
+                        real
+                     
+                  
+               
+               
+                  NaN
+                  no data
+               
+               
+                  http://qudt.org/schema/qudt/hasUnit
+                  http://qudt.org/vocab/unit/CentiM
+               
+            
+         
+         210
+      
+      
+         MRS4 windendro
+         ring-width series output from WinDENDRO for MRS 4 site
+         
+            MRS4_windendro.rc.data.txt
+            231772
+            e8b24d810b8eb39971e6e389dbf9825b
+            
+               
+                  Windendro file output
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/36d8f7ada622ff75930dcd7ab19b4de3
+               
+            
+         
+         otherEntity
+      
+      
+         MRS5 windendro
+         ring-width series output from WinDENDRO for MRS 5 site
+         
+            MRS5_windendro.rc.data.txt
+            178734
+            cc3a808846c8d6d7ce232f463e851498
+            
+               
+                  Windendro file output
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/49d7d1f7e3c7b8494384b59c3ba137af
+               
+            
+         
+         otherEntity
+      
+      
+         MRS7 windendro
+         ring-width series output from WinDENDRO for MRS 7 site
+         
+            MRS7_windendro.rc.data.txt
+            203955
+            96481c6f77482d6ccebd68e92da19325
+            
+               
+                  Windendro file output
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/500937d98792870396dde32888d202d6
+               
+            
+         
+         otherEntity
+      
+      
+         MRS4 tucson
+         chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 4 site
+         
+            MRS4F1_tucson.rc.data.rwl
+            153524
+            5df25e2dea8b2b244ec50addd4d6e266
+            
+               
+                  Tucson (decadal) format file
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/8d12134178537f75cd94d91a704ae986
+               
+            
+         
+         otherEntity
+      
+      
+         MRS5 tucson
+         chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 5 site
+         
+            MRS5F1_tucson.rc.data.rwl
+            83972
+            254fbb495ae4558348df97b855378344
+            
+               
+                  Tucson (decadal) format file
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/ecb82dbf4fab726ce13447db17ebdba0
+               
+            
+         
+         otherEntity
+      
+      
+         MRS7 tucson
+         chronologies cross-dated and converted to a Tucson (decadal) format file for MRS 7 site
+         
+            MRS7F1_tucson.rc.data.rwl
+            128532
+            fef7ea7aab20cc1aa26376ab7b11e0d2
+            
+               
+                  Tucson (decadal) format file
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/knb-lter-nwt/220/1/5042fc794557b9d1555933acd2cc27f8
+               
+            
+         
+         otherEntity
+      
+   
+   
+      
+         
+            
+               .01 meters
+            
+            
+               SI unit of length
+            
+         
+      
+   

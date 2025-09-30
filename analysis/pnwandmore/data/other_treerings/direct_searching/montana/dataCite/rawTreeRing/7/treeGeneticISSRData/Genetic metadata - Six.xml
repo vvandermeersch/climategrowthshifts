@@ -1,0 +1,383 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Diana L. Six</origin>
+        <pubdate>20190801</pubdate>
+        <title>Information for tree genetic (ISSR) data for whitebark pine in Montana 2017-2018</title>
+        <geoform>Excel</geoform>
+        <onlink>https://doi.org/10.5066/xxxxxxxx</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>The data consists of genetic ISSR band scores. Two sets of trees were sampled for genetic analyses - large trees surviving mountain pine beetle and 'general population' trees that we just a little to small to be attacked that served as a proxy for the population without beetle selection. </abstract>
+      <purpose>To assess whether survivors are genetically different than those selected by mountain pine beetle indicating a capacity for adaptation over time to beetle presence and increasing drought</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20170601</begdate>
+          <enddate>20180830</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Montana</descgeog>
+      <bounding>
+        <westbc>-112.91512</westbc>
+        <eastbc>-112.82959</eastbc>
+        <northbc>45.69740</northbc>
+        <southbc>45.59482</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>adaptation</themekey>
+        <themekey>natural selection</themekey>
+        <themekey>mountain pine beetle</themekey>
+        <themekey>whitebark pine</themekey>
+        <themekey>outbreak</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Montana</placekey>
+        <placekey>Pioneer Mountains</placekey>
+      </place>
+    </keywords>
+      <taxonomy>
+      <keywtax>
+        <taxonkt>Integrated Taxonomic Information System</taxonkt>
+        <taxonkey>Pinus albicaulis</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <common>Pine</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>Whitebark Pine</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>Do not release before June 2020</accconst>
+    <useconst>None. Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>College of Forestry and Conservation</cntorg>
+        </cntperp>
+        <cntpos>professor</cntpos>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>University of Montana</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <native>Microsoft Excel 2016 Genetic ISSR data for whitebark pine Vipond 20KB; Microsoft Word 2016 Metadata for Genetic ISSR profiles for whitebark pine at Vipond Park 13KB</native>
+    <crossref>
+      <citeinfo>
+        <origin>Diana L. Six</origin>
+        <origin>Clare Vergobbi</origin>
+        <origin>Mitchell Cutter</origin>
+        <pubdate>20180723</pubdate>
+        <title>Are Survivors Different? Genetic-Based Selection of Trees by Mountain Pine Beetle During a Climate Change-Driven Outbreak in a High-Elevation Pine Forest</title>
+        <geoform>publication</geoform>
+        <serinfo>
+          <sername>Frontiers in Plant Science</sername>
+          <issue>vol. 9</issue>
+        </serinfo>
+        <pubinfo>
+          <pubplace>n/a</pubplace>
+          <publish>Frontiers Media SA</publish>
+        </pubinfo>
+        <onlink>http://dx.doi.org/10.3389/fpls.2018.00993</onlink>
+      </citeinfo>
+    </crossref>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>25% of ISSR PCRs were rerun and scored and compared with original results. The results indicated high accuracy</attraccr>
+    </attracc>
+    <logic>No information listed.</logic>
+    <complete>No information listed.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Needles from pines were collected. DNA was extracted and purified. PCRs were run using three primers. Bands were scored manually. Methods used are published in publication linked to this report.</procdesc>
+        <procdate>20190819</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Genetic ISSR data for whitebark pine Vipond.xlsx (Sheet1)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>807</attrlabl>
+        <attrdef>Primer</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PG notation</attrlabl>
+        <attrdef>PopGene ISSR band score</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1000000000.0</rdommin>
+            <rdommax>101100000000000.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>17899A</attrlabl>
+        <attrdef>Primer</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PG notation.1</attrlabl>
+        <attrdef>PopGene ISSR band score</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>100100.0</rdommin>
+            <rdommax>11111110.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>HB12</attrlabl>
+        <attrdef>primer</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PG notation.2</attrlabl>
+        <attrdef>PopGene ISSR band score</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1000000.0</rdommin>
+            <rdommax>11101111100.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>818</attrlabl>
+        <attrdef>primer</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PG notation.3</attrlabl>
+        <attrdef>PopGene ISSR band score</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>809</attrlabl>
+        <attrdef>primer</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>See the associated metadata document.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PG notation.4</attrlabl>
+        <attrdef>PopGene ISSR band score</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1000000000.0</rdommin>
+            <rdommax>11110100010000.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+  <attrlabl>Unnamed: 10</attrlabl>
+  <attrdef>Primer</attrdef>
+  <attrdefs>Producer defined</attrdefs>
+  <attrdomv>
+    <edom>
+      <edomv>* uncertain</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+      <attr>
+  <attrlabl>Unnamed: 11</attrlabl>
+  <attrdef>Ask author for more information.</attrdef>
+  <attrdefs>Producer defined</attrdefs><attrdomv>
+    <edom>
+      <edomv>Missing Info</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>- negative gel</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>+ positive gel</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+  <attrdomv>
+    <edom>
+      <edomv>&lt;&lt; empty cell &gt;&gt;</edomv>
+      <edomvd>Ask author for more information.</edomvd>
+      <edomvds>Producer defined</edomvds>
+    </edom>
+  </attrdomv>
+</attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/xxxxxxxx</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20190819</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>College of Forestry and Conservation</cntorg>
+        </cntperp>
+        <cntpos>professor</cntpos>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>University of Montana</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

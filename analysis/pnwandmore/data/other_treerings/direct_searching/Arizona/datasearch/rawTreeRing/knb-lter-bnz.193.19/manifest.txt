@@ -1,0 +1,5 @@
+Manifest file for knb-lter-bnz.193.19.zip created on Mon Aug 04 22:28:40 UTC 2025
+bog_tree_ring_data.txt (93476 bytes)
+knb-lter-bnz.193.19.xml (24597 bytes)
+knb-lter-bnz.193.19.txt (5190 bytes)
+knb-lter-bnz.193.19.report.xml (23408 bytes)

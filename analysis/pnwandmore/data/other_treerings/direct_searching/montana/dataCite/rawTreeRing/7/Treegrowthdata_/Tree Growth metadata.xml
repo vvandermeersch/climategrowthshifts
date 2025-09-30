@@ -1,0 +1,4066 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Six, Diana</origin>
+        <pubdate>20190801</pubdate>
+        <title>Tree growth data (ring widths) for trees surviving and killed by mountain pine beetle at Vipond Park, Montana</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.5066/xxxxxxxx</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>tree ring widths of trees by year</abstract>
+      <purpose>To compare growth rates of trees selected by mountain pine beetle with those that survived</purpose>
+      <supplinf>These are raw data reported in millimeters</supplinf>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20170701</begdate>
+          <enddate>20180701</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Montana</descgeog>
+      <bounding>
+        <westbc>-113.1207</westbc>
+        <eastbc>-112.9285</eastbc>
+        <northbc>44.9181</northbc>
+        <southbc>44.7155</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Dendroctonus ponderosae</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Montana</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>Integrated Taxonomic Information System</taxonkt>
+        <taxonkey>Pinus albicaulis</taxonkey>
+      </keywtax>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Plantae</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Viridiplantae</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Streptophyta</taxonrv>
+            <taxoncl>
+              <taxonrn>Superdivision</taxonrn>
+              <taxonrv>Embryophyta</taxonrv>
+              <taxoncl>
+                <taxonrn>Division</taxonrn>
+                <taxonrv>Tracheophyta</taxonrv>
+                <taxoncl>
+                  <taxonrn>Subdivision</taxonrn>
+                  <taxonrv>Spermatophytina</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Class</taxonrn>
+                    <taxonrv>Pinopsida</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Subclass</taxonrn>
+                      <taxonrv>Pinidae</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Pinales</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Pinaceae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Pinus</taxonrv>
+                            <common>Pine</common>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Pinus albicaulis</taxonrv>
+                              <common>Whitebark Pine</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>Do not release before 06/01/2020</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+      </cntinfo>
+    </ptcontac>
+    <native>Excel, Windows 10</native>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Tree ring widths were measured by two individuals and double checked for accuracy</attraccr>
+    </attracc>
+    <logic>Yes</logic>
+    <complete>These data are for whitebark pines in one location only</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Tree cores were measured under a microscope using a Velmex table and J2X Software. Rings were measured at a resolution of 0.i mm</procdesc>
+        <procdate>20180701</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Diana L. Six</cntper>
+              <cntorg>University of Montana</cntorg>
+            </cntperp>
+            <cntpos>Professor</cntpos>
+            <cntaddr>
+              <addrtype>mailing and physical</addrtype>
+              <address>College of Forestry</address>
+              <city>Missoula</city>
+              <state>MT</state>
+              <postal>59812</postal>
+              <country>USA</country>
+            </cntaddr>
+            <cntvoice>406 531 1813</cntvoice>
+            <cntemail>diana.six@umontana.edu</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>VPD16_BAI.xlsx (BAIs)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Basal Area Increment (cm^2)</attrlabl>
+        <attrdef>type of data</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>This is a title field only.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 1</attrlabl>
+        <attrdef>Year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>YYYY</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 7</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 14</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 15</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurements</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPD17_BAI.xlsx (BAIs)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Basal Area Increment (cm^2)</attrlabl>
+        <attrdef>data type</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>Description of the data</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 1</attrlabl>
+        <attrdef>year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>YYYY</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 7</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurements averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 14</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurements averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 15</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurements averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 19</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 20</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 21</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 22</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 23</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 24</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 25</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 26</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 27</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 28</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 29</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 30</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 31</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 32</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 33</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 34</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 35</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 36</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 37</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 38</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 39</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 40</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 41</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 42</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 43</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 44</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 45</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 46</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 47</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 48</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 49</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 50</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 51</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPG16_BAI.xlsx (BAIs)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Basal Area Increment (cm^2)</attrlabl>
+        <attrdef>Type of data</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>None - this is a title field</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 1</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 7</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 14</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 15</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 19</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 20</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 21</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 22</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 23</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 24</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 25</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 26</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 27</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 28</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 29</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPG17_BAI.xlsx (BAIs)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Basal Area Increment (cm^2)</attrlabl>
+        <attrdef>type of data</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>this is a title field</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 1</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 7</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 14</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 15</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 19</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 20</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 21</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 22</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 23</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 24</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 25</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 26</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 27</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 28</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 29</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 30</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 31</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 32</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 33</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 34</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 35</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 36</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 37</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 38</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPL16_BAI.xlsx (BAIs)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Basal Area Increment (cm^2)</attrlabl>
+        <attrdef>type of data</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>this is a title field</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 1</attrlabl>
+        <attrdef>year</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 7</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 14</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 15</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 19</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 20</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 21</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 22</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 23</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 24</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 25</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 26</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 27</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 28</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 29</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 30</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 31</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 32</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 33</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 34</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 35</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 36</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 37</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 38</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 39</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 40</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 41</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 42</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 43</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 44</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 45</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 46</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 47</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 48</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 49</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 50</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 51</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 52</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 53</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 54</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 55</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 56</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 57</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 58</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 59</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 60</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 61</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 62</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 63</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 64</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 65</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 66</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 67</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 68</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 69</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 70</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 71</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 72</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 73</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 74</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 75</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 76</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 77</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 78</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 79</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 80</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 81</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 82</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 83</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 84</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 85</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 86</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 87</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 88</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 89</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Unnamed: 90</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <udom>ring width measurement averages</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPL16_AVG_VAR.xlsx (Averages)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Year for tree ring (mean width of two cores per tree. units mm</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1832.0</rdommin>
+            <rdommax>2016.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL1</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.25</rdommin>
+            <rdommax>2.1085</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL2</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.163</rdommin>
+            <rdommax>1.472</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL3</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.204</rdommin>
+            <rdommax>3.82</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL4</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.41000000000000003</rdommin>
+            <rdommax>1.8609999999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL5</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.317</rdommin>
+            <rdommax>2.195</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL6</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.4225</rdommin>
+            <rdommax>1.818</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL8</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.39525</rdommin>
+            <rdommax>1.8295</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL9</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.479</rdommin>
+            <rdommax>1.929</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL10</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.33749999999999997</rdommin>
+            <rdommax>1.32175</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL11</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.49325</rdommin>
+            <rdommax>1.5295</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL12</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.33749999999999997</rdommin>
+            <rdommax>1.3739375</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL13</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.26</rdommin>
+            <rdommax>1.929</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL16</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.372</rdommin>
+            <rdommax>1.5474999999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL17</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.14500000000000002</rdommin>
+            <rdommax>1.8115</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL18</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.3495</rdommin>
+            <rdommax>2.7695</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL19</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.215</rdommin>
+            <rdommax>1.154</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL20</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.16666666666666666</rdommin>
+            <rdommax>1.098</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL21</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.144</rdommin>
+            <rdommax>1.487</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL22</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.176</rdommin>
+            <rdommax>1.4184999999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL23</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.415</rdommin>
+            <rdommax>1.991</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL24</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.31025</rdommin>
+            <rdommax>1.4922499999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL25</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.2415</rdommin>
+            <rdommax>3.9385000000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL26</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.931</rdommin>
+            <rdommax>2.9115</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL27</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.239</rdommin>
+            <rdommax>1.8025000000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL28</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.39449999999999996</rdommin>
+            <rdommax>2.472</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL29</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.2005</rdommin>
+            <rdommax>1.8075</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL30</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.167</rdommin>
+            <rdommax>1.875</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL31</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.14600000000000002</rdommin>
+            <rdommax>1.6139999999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL32</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.139</rdommin>
+            <rdommax>1.6600000000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL33</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.248</rdommin>
+            <rdommax>1.5339999999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL36</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.177</rdommin>
+            <rdommax>1.803</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL37</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.2265</rdommin>
+            <rdommax>2.154</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL39</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.16549999999999998</rdommin>
+            <rdommax>2.0025</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL40</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.218</rdommin>
+            <rdommax>2.18350005</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL41</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.325</rdommin>
+            <rdommax>1.6315</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL42</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.39549999999999996</rdommin>
+            <rdommax>2.3745000000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL43</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.28</rdommin>
+            <rdommax>1.2885</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL44</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.08350000499999999</rdommin>
+            <rdommax>1.976</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL45A</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.054</rdommin>
+            <rdommax>1.347</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL46</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.10850000000000001</rdommin>
+            <rdommax>1.1005</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL47A</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.273</rdommin>
+            <rdommax>2.016</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL48</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1115</rdommin>
+            <rdommax>1.1265</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL49</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.20900000000000002</rdommin>
+            <rdommax>1.3615</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL50</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.4155</rdommin>
+            <rdommax>1.5615</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL51</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.115</rdommin>
+            <rdommax>2.1245000000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL52</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.213</rdommin>
+            <rdommax>1.3115</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL53</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.08499999999999999</rdommin>
+            <rdommax>2.2305</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL54</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.06</rdommin>
+            <rdommax>1.3325</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL56</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.196</rdommin>
+            <rdommax>1.613</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL57</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.27549999999999997</rdommin>
+            <rdommax>1.518</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL58B</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.298</rdommin>
+            <rdommax>2.059</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL59</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.3265</rdommin>
+            <rdommax>2.827</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL60</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1245</rdommin>
+            <rdommax>2.1265</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL61</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.41100000000000003</rdommin>
+            <rdommax>2.723</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL62</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.402</rdommin>
+            <rdommax>2.6935000000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL63</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.071500005</rdommin>
+            <rdommax>1.9405000000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL64</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.5015000000000001</rdommin>
+            <rdommax>1.8405</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL65</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.266</rdommin>
+            <rdommax>1.3765</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL66 </attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.9984999999999999</rdommin>
+            <rdommax>2.427</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL68</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>1.0855</rdommin>
+            <rdommax>3.315</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL69</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.4605</rdommin>
+            <rdommax>2.448</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL70</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.663</rdommin>
+            <rdommax>2.2225</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL71</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1445000025</rdommin>
+            <rdommax>1.772</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL72</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.109</rdommin>
+            <rdommax>2.01</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL73</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1465</rdommin>
+            <rdommax>1.9080000000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL74</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1185</rdommin>
+            <rdommax>1.8054999999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL75 </attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.421</rdommin>
+            <rdommax>1.8715</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL77</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1785</rdommin>
+            <rdommax>2.0949999999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL78</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.259</rdommin>
+            <rdommax>1.9649999999999999</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL79</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.38375000000000004</rdommin>
+            <rdommax>1.3042500000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL80</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.0965</rdommin>
+            <rdommax>1.5699999999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL81</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.348</rdommin>
+            <rdommax>1.3195000000000001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL83</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.3585</rdommin>
+            <rdommax>2.6950000000000003</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL84</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.1945</rdommin>
+            <rdommax>1.8895</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL85</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.369</rdommin>
+            <rdommax>1.376</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL86</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.18</rdommin>
+            <rdommax>2.135</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL87</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.23575000000000002</rdommin>
+            <rdommax>1.256</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL88</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.19</rdommin>
+            <rdommax>1.3455</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL89</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.29375</rdommin>
+            <rdommax>1.5385</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL90</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.116</rdommin>
+            <rdommax>1.7134999999999998</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL91</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.385</rdommin>
+            <rdommax>1.9260000000000002</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL92</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.173</rdommin>
+            <rdommax>3.0</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL93</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.2625</rdommin>
+            <rdommax>2.2065</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL94</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.191</rdommin>
+            <rdommax>2.5309999999999997</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL95</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.42100000000000004</rdommin>
+            <rdommax>2.255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL96</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.3945</rdommin>
+            <rdommax>1.7625</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL97</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.469</rdommin>
+            <rdommax>2.4415</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL98</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.21100000000000002</rdommin>
+            <rdommax>2.1825</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL99</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.337</rdommin>
+            <rdommax>2.2545</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWL100</attrlabl>
+        <attrdef>sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.40149999999999997</rdommin>
+            <rdommax>2.239</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPG17_AVG_VAR.xlsx (VPG17_TEST)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>year of tree ring (average of two cores per sample (tree) (mm)</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1918</rdommin>
+            <rdommax>2017</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG31A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.105</rdommin>
+            <rdommax>2.255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG31B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.137</rdommin>
+            <rdommax>1.863</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG31D</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.14</rdommin>
+            <rdommax>1.885</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG32A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.047</rdommin>
+            <rdommax>2.46</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG32B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.05</rdommin>
+            <rdommax>2.457</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG33A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.247</rdommin>
+            <rdommax>2.092</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG33B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.18</rdommin>
+            <rdommax>2.11</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG34A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.191</rdommin>
+            <rdommax>1.887</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG34B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.135</rdommin>
+            <rdommax>1.535</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG35A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.191</rdommin>
+            <rdommax>1.384</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG35B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.286</rdommin>
+            <rdommax>1.241</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG37A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.09</rdommin>
+            <rdommax>1.833</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG37B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.146</rdommin>
+            <rdommax>1.616</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG38A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.253</rdommin>
+            <rdommax>1.865</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG38B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.319</rdommin>
+            <rdommax>1.925</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG39A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.118</rdommin>
+            <rdommax>2.311</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG39B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.049</rdommin>
+            <rdommax>2.178</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG40A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.249</rdommin>
+            <rdommax>1.939</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG40B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.231</rdommin>
+            <rdommax>1.708</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VWPG41A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.267</rdommin>
+            <rdommax>2.438</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG41B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.141</rdommin>
+            <rdommax>1.614</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG41 B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>4.225000000000008e-05</rdommin>
+            <rdommax>0.42055225000000007</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG42A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.485</rdommin>
+            <rdommax>2.059</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG42B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.445</rdommin>
+            <rdommax>1.596</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG43A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.351</rdommin>
+            <rdommax>1.582</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG43B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.315</rdommin>
+            <rdommax>2.052</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG44A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.309</rdommin>
+            <rdommax>1.368</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG44B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.378</rdommin>
+            <rdommax>2.01</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG45A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.537</rdommin>
+            <rdommax>1.778</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG45B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.511</rdommin>
+            <rdommax>1.797</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG46A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.565</rdommin>
+            <rdommax>1.476</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG46B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.694</rdommin>
+            <rdommax>1.805</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG47A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.428</rdommin>
+            <rdommax>1.695</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG47B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.345</rdommin>
+            <rdommax>1.403</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG48A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.469</rdommin>
+            <rdommax>1.789</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG48B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.376</rdommin>
+            <rdommax>1.982</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG49A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>1.086</rdommin>
+            <rdommax>2.912</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG49B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.341</rdommin>
+            <rdommax>2.459</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG50A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.307</rdommin>
+            <rdommax>1.853</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG50B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.541</rdommin>
+            <rdommax>1.727</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG51A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.171</rdommin>
+            <rdommax>2.004</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG51B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.154</rdommin>
+            <rdommax>2.337</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG52A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.335</rdommin>
+            <rdommax>1.595</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG52B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.445</rdommin>
+            <rdommax>2.371</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG53A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.427</rdommin>
+            <rdommax>2.015</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG53B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.502</rdommin>
+            <rdommax>2.31</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG54A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.122</rdommin>
+            <rdommax>1.399</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG54B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.193</rdommin>
+            <rdommax>1.596</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG54C</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.117</rdommin>
+            <rdommax>1.437</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG55A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.158</rdommin>
+            <rdommax>1.255</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG55B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.18</rdommin>
+            <rdommax>1.653</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG56A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.129</rdommin>
+            <rdommax>1.725</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG56B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.151</rdommin>
+            <rdommax>1.634</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG57A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.376</rdommin>
+            <rdommax>1.458</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG57B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.374</rdommin>
+            <rdommax>1.519</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG58A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.114</rdommin>
+            <rdommax>1.416</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG58B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.134</rdommin>
+            <rdommax>1.203</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG59A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.178</rdommin>
+            <rdommax>1.815</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG59B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.311</rdommin>
+            <rdommax>1.521</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG60A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.177</rdommin>
+            <rdommax>1.102</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG60B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.323</rdommin>
+            <rdommax>1.397</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG61A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.228</rdommin>
+            <rdommax>2.001</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG61B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.049</rdommin>
+            <rdommax>5.942</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG62A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.052</rdommin>
+            <rdommax>1.664</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG62B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.045</rdommin>
+            <rdommax>2.505</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG63A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.118</rdommin>
+            <rdommax>1.492</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG63B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.196</rdommin>
+            <rdommax>1.549</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG64A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.114</rdommin>
+            <rdommax>1.608</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG64B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.166</rdommin>
+            <rdommax>2.054</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG65A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.311</rdommin>
+            <rdommax>1.636</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG65B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.237</rdommin>
+            <rdommax>1.917</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG67A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.147</rdommin>
+            <rdommax>1.518</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG67B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.149</rdommin>
+            <rdommax>1.599</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG68A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.139</rdommin>
+            <rdommax>2.493</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG68B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.095</rdommin>
+            <rdommax>2.203</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>VPG16_AVG_VAR.xlsx (VPWG16_TEST)</enttypl>
+        <enttypd>Excel Worksheet</enttypd>
+        <enttypds>Producer defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>tree ring width averages for two cores per sample tree (mm)</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1901</rdommin>
+            <rdommax>2016</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 1A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.29</rdommin>
+            <rdommax>2.171</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 1B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.27</rdommin>
+            <rdommax>2.012</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 2A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.165</rdommin>
+            <rdommax>1.697</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 2B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.044</rdommin>
+            <rdommax>1.415</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 3A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.376</rdommin>
+            <rdommax>1.731</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 3B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.451</rdommin>
+            <rdommax>1.531</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG4A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.161</rdommin>
+            <rdommax>2.019</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 4B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.047</rdommin>
+            <rdommax>2.293</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 5A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.443</rdommin>
+            <rdommax>1.917</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 5B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.575</rdommin>
+            <rdommax>2.132</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 6A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.287</rdommin>
+            <rdommax>1.707</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 6B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.067</rdommin>
+            <rdommax>1.332</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 7A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.167</rdommin>
+            <rdommax>2.419</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 7B2</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.157</rdommin>
+            <rdommax>2.415</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 8B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.266</rdommin>
+            <rdommax>1.412</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 9A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.517</rdommin>
+            <rdommax>1.787</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 10B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.41</rdommin>
+            <rdommax>1.773</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 11A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.143</rdommin>
+            <rdommax>1.857</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG11D</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.087</rdommin>
+            <rdommax>1.204</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 13A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.257</rdommin>
+            <rdommax>1.15</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 17A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.131</rdommin>
+            <rdommax>1.44</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPW19 B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.232</rdommin>
+            <rdommax>1.943</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 21A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.618</rdommin>
+            <rdommax>2.054</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 21B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.516</rdommin>
+            <rdommax>2.62</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 23E</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.749</rdommin>
+            <rdommax>2.043</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 23F</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.476</rdommin>
+            <rdommax>1.454</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 26A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.329</rdommin>
+            <rdommax>2.364</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 26B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.318</rdommin>
+            <rdommax>2.724</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 28A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.527</rdommin>
+            <rdommax>2.387</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VWG 28B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.559</rdommin>
+            <rdommax>2.438</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 29A</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.24</rdommin>
+            <rdommax>1.582</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>VPWG 30B</attrlabl>
+        <attrdef>Sample</attrdef>
+        <attrdefs>Producer defined</attrdefs>
+        <attrdomv><rdom>
+            <rdommin>0.293</rdommin>
+            <rdommax>2.03</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <overview>
+      <eaover>Two data sets are not included in the details. VPD17_AVE_VAR is too large but it follows the same format as the others. First is a Year column which is the date for each tree ring. All other columns are for individual sample trees with units in mm. 
+The spread sheet titled Key to VIpond datasets provides other data for each tree that was sampled such as diameter at breast height. </eaover>
+      <eadetcit>Six, Diana. 2018. Tree growth data (ring widths) for trees surviving and killed by mountain pine beetle at Vipond Park, Montana.</eadetcit>
+    </overview>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntperp>
+          <cntper>GS ScienceBase</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform><digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt><onlinopt><computer><networka><networkr>https://doi.org/10.5066/xxxxxxxx</networkr></networka></computer></onlinopt></digtopt></digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20190908</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Diana L Six</cntper>
+          <cntorg>University of Montana</cntorg>
+        </cntperp>
+        <cntpos>Professor</cntpos>
+        <cntaddr>
+          <addrtype>mailing and physical</addrtype>
+          <address>College of Forestry</address>
+          <city>Missoula</city>
+          <state>MT</state>
+          <postal>59812</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>406 531 1813</cntvoice>
+        <cntemail>diana.six@umontana.edu</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
