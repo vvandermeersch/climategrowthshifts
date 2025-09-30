@@ -9,17 +9,16 @@ library(here)
 library(readr)
 library(tidyverse)
 ```
-
+others data
 ```{r set up file path(relative)}
 rm(list = ls())
 wd <- "analysis/pnwandmore/data/other_treerings/direct_searching/others/doi_10_5061_dryad_k5k9074__v20190226/Raw_Ring_Widths_012118/Raw_Ring_Widths_012118"
-wo <- 'analysis/pnwandmore/input/other_tree_rings/direct_searching'
+wo <- 'analysis/pnwandmore/input/other_tree_rings/direct_searching/others'
 wl <- "analysis/pnwandmore/data/other_treerings/direct_searching/others/doi_10_5061_dryad_k5k9074__v20190226/Tree_Info_BAI_012118/Tree_Info_BAI_012118"
 ```
 
 ```{r pressure, echo=FALSE}
 rawRingDatas <- list.files(here(wd),pattern="avgRingWidth.*",recursive=TRUE,full.names=FALSE)
-rawRingDatas
 ```
 
 ```{r data cleaning}
@@ -40,7 +39,7 @@ for (d in 1:length(rawRingDatas)) {
     cols = starts_with("X"),
     names_to = "years",
     names_prefix = "X",
-    values_to = "Ring_width") %>%
+    values_to = "Ring_width(mm)") %>%
   select(-Species,-Elev) %>%
     left_join(treeinfo,by="Tag")
 
@@ -49,3 +48,42 @@ for (d in 1:length(rawRingDatas)) {
 }
 ```
 
+
+Alberta data
+```{r directory} 
+alwd <- "analysis/pnwandmore/data/other_treerings/direct_searching/Alberta/dataCite/RawtreeRing/whiteSpruce1983-2016/treering_width.csv"
+alwo <- 'analysis/pnwandmore/input/other_tree_rings/direct_searching/Alberta'
+```
+
+```{r data input}
+alrrd <- read.csv(here(alwd))
+```
+
+```{r cleaning and saving}
+alrrd <- alrrd %>%
+  select(id,year,trw,Latitude,Longitude)%>%
+  rename("Ring_width(mm)" = trw,
+         Lat = Latitude,
+         Long = Longitude,
+         Tag = id,
+         years = year)
+
+write.csv(alrrd,here(alwo,"treering_width.csv"))
+```
+
+Arizona datasearch
+```{r directory}
+arw <- "analysis/pnwandmore/data/other_treerings/direct_searching/Arizona/datasearch/rawTreeRing/bog_tree/bog_tree_ring_data.txt"
+arwo <- 'analysis/pnwandmore/input/other_tree_rings/direct_searching/Arizona'
+```
+
+```{r data cleaning}
+Lat <- tibble(Lat = 64.6408)
+Long <- tibble(Long = 	-148.3334833)
+arrrd <- read.table(here(arw),sep="\t",skip = 2,col.names = c("years","Tag","Tree location","Ring_width","Temperature (ºC, Growing Season: May, June, July, Aug)","Precipitation (mm, Growing Season: May, June, July, Aug)")) %>%
+  select(years,Tag,Ring_width)%>%
+  rename("Ring_width(mm)"=Ring_width)%>%
+  bind_cols(Lat,Long)
+
+write.csv(arrrd,here(arwo,"bog_tree_ring_data.csv"))
+```
