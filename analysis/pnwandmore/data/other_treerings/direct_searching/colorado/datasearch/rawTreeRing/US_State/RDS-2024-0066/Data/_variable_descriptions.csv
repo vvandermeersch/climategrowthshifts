@@ -1,0 +1,33 @@
+﻿Filename,Variable,Units,Precision,Description
+,,,,
+competition_LPP.csv,BLOCK,,,"Study block within which each tree is spatially located at the study site. Possible values: 1, 2, 3."
+competition_LPP.csv,COL,,,"Column within which each tree is spatially located at the study site. Possible values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16."
+competition_LPP.csv,ROW,,,"Row within which each tree is spatially located at the study site. The field is utilized in only two instances for two individual trees bearing the same block, column, state, provenance, and replicate in order to distinguish one from the other (31212W21, 3123W21)."
+competition_LPP.csv,STATE,,,"U.S. state within which each provenance of each tree is located. Possible values: C = Colorado, M = Montana, W = Wyoming."
+competition_LPP.csv,PROV,,,"Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16; Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12; Wyoming (W): 1, 2, 3, 4, 5, 5A."
+competition_LPP.csv,REP,,,"Number of replicates (samples) collected from the same provenance from which each tree seed was collected. Possible values: 1, 2, 3, 4, 5."
+competition_LPP.csv,TREE_ID,,,"Unique identifier for each individual sampled tree. From left to right, the code for each tree corresponds to the study block, column, state, provenance, and replicate. Row is included in the code of two trees where it is listed after block and column for distinguishing purposes (31212W21, 3123W21)."
+competition_LPP.csv,DBH,centimeters,0.1,Diameter at breast height of each individual sample tree and competition tree. Possible values: 3.0-20.8.
+competition_LPP.csv,CLASS,,,"Factor identifying if the record identifies one of the 160 sample trees or a competition tree within a 1.8 m radius around a sample tree. Sample = 1 of the 160 sample trees, Competition = volunteer competitor."
+competition_LPP.csv,SURVIVAL,,,"Factor identifying the live and dead status of each tree. L = living, D = dead."
+competition_LPP.csv,NOTE,,,"Comments about the competition trees providing information about forks and species. If not noted otherwise, all competition tree species are lodgepole pine. POTR = quaking aspen."
+,,,,
+growth_LPP.csv,BLOCK,,,"Study block within which each tree is spatially located at the study site. Possible values: 1, 2, 3."
+growth_LPP.csv,COL,,,"Column within which each tree is spatially located at the study site. Possible values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16."
+growth_LPP.csv,ROW,,,"Row within which each tree is spatially located at the study site. The field is utilized in only two instances for two individual trees bearing the same block, column, state, provenance, and replicate in order to distinguish one from the other (31212W21, 3123W21)."
+growth_LPP.csv,STATE,,,"U.S. state within which each provenance of each tree is located. Possible values: C = Colorado, M = Montana, W = Wyoming."
+growth_LPP.csv,PROV,,,"Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16; Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12; Wyoming (W): 1, 2, 3, 4, 5, 5A."
+growth_LPP.csv,REP,,,"Number of replicates (samples) collected from the same provenance from which each tree seed was collected. Possible values: 1, 2, 3, 4, 5."
+growth_LPP.csv,TREE_ID,,,"Unique identifier for each individual sampled tree. From left to right, the code for each tree corresponds to the study block, column, state, provenance, and replicate. Row is included in the code of two trees where it is listed after block and column for distinguishing purposes (31212W21, 3123W21)."
+growth_LPP.csv,DBH,centimeters,0.1,Diameter at breast height of each individual tree sampled at the study site. Possible values: 8.9-20.8.
+growth_LPP.csv,HT,meters,0.1,Height of each individual tree sampled at the study site. Possible values: 4-11.3.
+growth_LPP.csv,VIGOR,,,"Visual classification of vigor of live trees sampled at the study site. Possible values: E = Excellent, G = Good, F = Fair, P = Poor, D = Dying. NA values indicate missing data."
+,,,,
+ring_widths_LPP.csv,YEAR,years,,"Growth year associated with the ring widths in columns [B:FE], which represent TREE_ID. Possible values: 1992-2021."
+ring_widths_LPP.csv,[TREE_ID],millimeters,0.001,Measured annual tree ring width for the individual sample tree (TREE_ID). Possible values: 0.08-6.14 millimeters.
+,,,,
+spatial_LPP.csv,STATE,,,"U.S. state within which each provenance of each tree is located. Possible values: C = Colorado, M = Montana, W = Wyoming."
+spatial_LPP.csv,PROV,,,"Provenance (original seed source site) from which each tree seed was collected for planting at study site. Possible values for Colorado (C): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16; Montana (M): 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12; Wyoming (W): 1, 2, 3, 4, 5, 5A."
+spatial_LPP.csv,LAT,degrees,0.1,Latitude (North) of each provenance site location. Possible range: 37.6-48.3.
+spatial_LPP.csv,LONG,degrees,0.1,Longitude (West) of each provenance site location. Possible range: -105.2-114.5.
+spatial_LPP.csv,ELEV,meters,1,Elevation of each provenance site location. Possible range: 1372-3506.
