@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eml:eml packageId="knb-lter-bnz.775.2" scope="system"
+  system="https://pasta.edirepository.org"
+  xmlns:ds="eml://ecoinformatics.org/dataset-2.2.0"
+  xmlns:eml="https://eml.ecoinformatics.org/eml-2.2.0"
+  xmlns:stmml="http://www.xml-cml.org/schema/stmml-1.2"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="eml://ecoinformatics.org/eml-2.2.0 https://eml.ecoinformatics.org/eml-2.2.0/eml.xsd">
+<access
+    authSystem="https://pasta.edirepository.org/authentication"
+    order="allowFirst" scope="document"
+      system="https://pasta.edirepository.org">
+<allow>
+<principal>uid=BNZ,o=EDI,dc=edirepository,dc=org</principal>
+<permission>all</permission>
+</allow>
+<allow>
+<principal>public</principal>
+<permission>read</permission>
+</allow>
+</access>
+<dataset>
+<alternateIdentifier
+        system="https://doi.org">doi:10.6073/pasta/ea632cd87a76fc060b77cd9f3729a555</alternateIdentifier><shortName>knb-lter-bnz.775.2</shortName>
+<title>Tree-Ring Data for Co-Occurring White Spruce and Paper Birch at an Intermediate Aged Stand in the Bonanza Creek LTER Regional Site Network - 2018
+</title>
+<creator>
+<individualName>
+<givenName>Patrick</givenName>
+<givenName>F</givenName>
+<surName>Sullivan</surName>
+</individualName>
+<!--No position recorded in Database ( pers/position when lead_contact=1 )-->
+<address>
+<deliveryPoint>Environment and Natural Resources Institute, University of Alaska Anchorage, 3211 Providence Dr.</deliveryPoint>
+<city>Anchorage</city>
+<administrativeArea>Alaska</administrativeArea>
+<postalCode>99508</postalCode>
+<country>United States</country>
+</address>
+<!--No phone info in Database  ( pers/tel1, tel2 or cell when lead_contact=1 )-->
+<!--No fax info present in Database  ( pers/fax when lead_contact=1 )-->
+<electronicMailAddress>pfsullivan@alaska.edu</electronicMailAddress>
+<onlineUrl>https://www.uaa.alaska.edu/academics/college-of-arts-and-sciences/programs/environment-and-natural-resources-institute/</onlineUrl>
+</creator>
+<creator>
+<organizationName>Bonanza Creek LTER</organizationName>
+<address>
+<deliveryPoint>Boreal Ecology Cooperative Research Unit </deliveryPoint>
+<deliveryPoint>University of Alaska Fairbanks</deliveryPoint>
+<deliveryPoint>P.O. Box 756780 </deliveryPoint>
+<city>Fairbanks</city>
+<administrativeArea>AK</administrativeArea>
+<postalCode>99775</postalCode>
+<country>USA</country>
+</address>
+<phone
+        phonetype="voice">907-474-6364</phone>
+<phone
+        phonetype="fax">907-474-6251</phone>
+<electronicMailAddress>uaf-bnz-im-team@alaska.edu</electronicMailAddress>
+<onlineUrl>http://www.lter.uaf.edu</onlineUrl>
+</creator>
+<metadataProvider>
+<organizationName>Bonanza Creek LTER</organizationName>
+<positionName>Data Manager</positionName>
+<address>
+<deliveryPoint>Boreal Ecology Cooperative Research Unit </deliveryPoint>
+<deliveryPoint>University of Alaska Fairbanks</deliveryPoint>
+<deliveryPoint>P.O. Box 756780 </deliveryPoint>
+<city>Fairbanks</city>
+<administrativeArea>AK</administrativeArea>
+<postalCode>99775</postalCode>
+<country>USA</country>
+</address>
+<phone
+        phonetype="voice">907-474-6364</phone>
+<phone
+      phonetype="fax">907-474-6251</phone>
+<electronicMailAddress>uaf-bnz-im-team@alaska.edu</electronicMailAddress>
+<onlineUrl>http://www.lter.uaf.edu</onlineUrl>
+</metadataProvider>
+<!--No other people associated with this dataset found on file (pers/lastname/lead_contact=0)-->
+<pubDate>2021-03-17</pubDate>
+<abstract>
+<para>This dataset contains tree ring widths of co-occurring white spruce and Alaska paper birch.  The data were published as part of a 2021 article in Journal of Ecology.</para>
+</abstract>
+<keywordSet>
+<keyword>boreal forests</keyword>
+<keyword>Picea glauca</keyword>
+<keyword>Betula neoalaskana</keyword>
+<keyword>dendrochronology</keyword>
+<keyword>droughts</keyword>
+<keyword>sap flux</keyword>
+<keywordThesaurus>Vegetation</keywordThesaurus>
+</keywordSet>
+<intellectualRights>
+<section>
+<title>Data Use</title>
+<para>This work has been produced as part of the Long Term Ecological Research Program and data users should adhere to the Data Use Agreement of the Long Term Ecological Research Network.</para>
+</section>
+<section>
+<title>Citation</title>
+<para>It is considered a matter of professional ethics to acknowledge the work of other scientists. Thus, the Data User should properly cite the Data Set in any publications or in the metadata of any derived data products that were produced using the Data Set. Citation should take the following general form: Creator(s), Year of Data Publication, Title of Dataset, Publisher, Dataset identifier, Dataset URL, Dataset DOI.  For Example:   Van Cleve, Keith; Chapin, F. Stuart; Ruess, Roger W. 2016. Bonanza Creek Experimental Forest: Hourly Temperature (sample, min, max) at 50 cm and 150 cm from 1988 to Present, Bonanza Creek LTER - University of Alaska Fairbanks. BNZ:1, http://www.lter.uaf.edu/data/data-detail/id/1. doi:10.6073/pasta/725db90d86686be13e6d6b2da5d61217.</para>
+</section>
+<section>
+<title>Acknowledgement</title>
+<para>The Data User should acknowledge any institutional support or specific funding awards referenced in the metadata accompanying this dataset in any publications where the Data Set contributed significantly to its content. Acknowledgements should identify the supporting party, the party that received the support, and any identifying information such as grant numbers. For example: Data are provided by the Bonanza Creek LTER, a partnership between the University of Alaska Fairbanks, and the U.S. Forest Service. Significant funding for collection of these data was provided by the National Science Foundation Long-Term Ecological Research program (NSF Grant numbers  DEB-1636476, DEB-1026415, DEB-0620579, DEB-0423442, DEB-0080609, DEB-9810217, DEB-9211769, DEB-8702629) and by the USDA Forest Service, Pacific Northwest Research Station (Agreement # RJVA-PNW-01-JV-11261952-231).</para>
+</section>
+<section>
+<title>Notification</title>
+<para>The Data User will notify the Data Set Contact when any derivative work or publication based on or derived from the Data Set is distributed.</para>
+</section>
+<section>
+<title>Collaboration</title>
+<para>The Data Set has been released in the spirit of open scientific collaboration. Data Users are thus strongly encouraged to consider consultation, collaboration and/or co-authorship with the Data Set Creator.</para>
+</section>
+<section>
+<title>Disclaimer</title>
+<para>While substantial efforts are made to ensure the accuracy of data and documentation contained in this Data Set, complete accuracy of data and metadata cannot be guaranteed. All data and metadata are made available in its present condition. The Data User holds all parties involved in the production or distribution of the Data Set harmless for damages resulting from its use or interpretation.</para>
+</section>
+<!--No additional acknowledgements found in database (datafile/intellectual_rights)-->
+</intellectualRights>
+<distribution
+          id="distributionReference">
+<online>
+<url
+        function="information">http://www.lter.uaf.edu/data/data-detail/id/775</url>
+</online>
+</distribution>
+<coverage>
+<geographicCoverage
+        id="geoReference">
+<geographicDescription>Dataset geographic description information is unavailable. {datafile/geoCoverage is empty}</geographicDescription>
+<boundingCoordinates>
+<westBoundingCoordinate>-148.39382</westBoundingCoordinate>
+<eastBoundingCoordinate>-148.39382</eastBoundingCoordinate>
+<northBoundingCoordinate>64.87464</northBoundingCoordinate>
+<southBoundingCoordinate>64.87464</southBoundingCoordinate>
+</boundingCoordinates>
+</geographicCoverage>
+<temporalCoverage>
+<rangeOfDates>
+<beginDate>
+<calendarDate>1960-01-01</calendarDate>
+</beginDate>
+<endDate>
+<calendarDate>2018-12-31</calendarDate>
+</endDate>
+</rangeOfDates>
+</temporalCoverage>
+</coverage>
+<maintenance>
+<description>
+<section>
+<title>Status</title>
+<para>Completed</para>
+</section>
+</description>
+</maintenance>
+<contact>
+<organizationName>Bonanza Creek LTER</organizationName>
+<positionName>Data Manager</positionName>
+<address>
+<deliveryPoint>Boreal Ecology Cooperative Research Unit </deliveryPoint>
+<deliveryPoint>University of Alaska Fairbanks</deliveryPoint>
+<deliveryPoint>P.O. Box 756780 </deliveryPoint>
+<city>Fairbanks</city>
+<administrativeArea>AK</administrativeArea>
+<postalCode>99775</postalCode>
+<country>USA</country>
+</address>
+<phone
+        phonetype="voice">907-474-6364</phone>
+<phone
+        phonetype="fax">907-474-6251</phone>
+<electronicMailAddress>uaf-bnz-im-team@alaska.edu</electronicMailAddress>
+<onlineUrl>http://www.lter.uaf.edu</onlineUrl>
+</contact>
+
+<publisher><organizationName>Environmental Data Initiative</organizationName><electronicMailAddress>info@environmentaldatainitiative.org</electronicMailAddress><onlineUrl>https://environmentaldatainitiative.org</onlineUrl></publisher><pubPlace>Environmental Data Initiative</pubPlace>
+<methods>
+<methodStep>
+<description>
+<section>
+<title>Methods</title>
+<para>FIELD:  One increment core of the complete stem diameter was collected 20 cm above the ground surface from each of the 16 study trees  monitored for sap flux (8 white spruce and 8 paper birch) and from an additional 19 white spruce and 26 paper birch growing near the study site.  The increment cores were generally collected in late September of 2018, with the exception of the 26 additional paper birch cores, which were collected in late May of 2016 for inclusion in a larger paper birch tree-ring dataset (Cahoon et al. 2018).   LAB:  The increment cores were air dried in paper straws, mounted in wooden blocks and sanded to 600 (white spruce) or 1200 grit (paper birch).  White spruce cores were scanned at 1200 dpi and analyzed using WinDENDRO (Regent Instruments, Quebec, Canada).  Paper birch cores were stained when necessary using phloroglucinol and HCl (Patterson 1959) and measured to the nearest 0.001 mm using a sliding bench micrometer and digital encoder (Velmex Inc., Bloomfield, New York, USA).  Cross-dating of the tree-ring series was facilitated by the presence of narrow marker rings in 2013 for white spruce and in 1993 and 2010 for paper birch.  The accuracy of the cross-dating was checked using COFECHA to identify potential dating errors (Holmes 1983). </para>
+</section>
+</description>
+</methodStep>
+<sampling>
+<studyExtent>
+<coverage>
+<geographicCoverage>
+<geographicDescription>MDI2 -- In 1958 this site burned in the Murphy Dome fire. It is now a mixed black spruce / birch stand. .  Site alternate names:  MD-7</geographicDescription>
+<boundingCoordinates>
+<westBoundingCoordinate>-148.389008</westBoundingCoordinate>
+<eastBoundingCoordinate>-148.389008</eastBoundingCoordinate>
+<northBoundingCoordinate>64.879249</northBoundingCoordinate>
+<southBoundingCoordinate>64.879249</southBoundingCoordinate>
+</boundingCoordinates>
+</geographicCoverage>
+<temporalCoverage>
+<rangeOfDates>
+<beginDate>
+<calendarDate>1960-01-01</calendarDate>
+</beginDate>
+<endDate>
+<calendarDate>2018-12-31</calendarDate>
+</endDate>
+</rangeOfDates>
+</temporalCoverage>
+</coverage>
+</studyExtent>
+<samplingDescription>
+<section>
+<title>Sampling Frequency</title>
+<para>Annually</para>
+</section>
+</samplingDescription>
+</sampling>
+</methods>
+<project>
+<title>The Bonanza Creek LTER</title>
+<personnel
+        id="VanCleveID">
+<individualName>
+<givenName>Keith</givenName>
+<surName>Van Cleve</surName>
+</individualName>
+<organizationName>Bonanza Creek LTER</organizationName>
+<positionName>Lead Principal Investigator</positionName>
+<role>Principal Investigator</role>
+</personnel>
+<personnel
+          id="ChapinID">
+<individualName>
+<givenName>F.S.</givenName>
+<givenName>Stuart</givenName>
+<surName>Chapin</surName>
+</individualName>
+<organizationName>Bonanza Creek LTER</organizationName>
+<positionName>Lead Principal Investigator</positionName>
+<address>
+<deliveryPoint>Department of Biology and Wildlife;  Institute of Arctic Biology:  University of Alaska Fairbanks 193 Arctic Health P.O. Box 757000</deliveryPoint>
+<city>Fairbanks</city>
+<administrativeArea>AK </administrativeArea>
+<postalCode>99775</postalCode>
+<country>United States</country>
+</address>
+<phone
+          phonetype="voice">(907) 455-6408</phone>
+<phone
+        phonetype="fax">(907) 474-6967</phone>
+<electronicMailAddress>terry.chapin@alaska.edu</electronicMailAddress>
+<onlineUrl>http://terrychapin.org/</onlineUrl>
+<role>Principal Investigator</role>
+</personnel>
+<personnel
+          id="RuessID">
+<individualName>
+<givenName>Roger</givenName>
+<givenName>W.</givenName>
+<surName>Ruess</surName>
+</individualName>
+<organizationName>Bonanza Creek LTER</organizationName>
+<positionName>Lead Principal Investigator</positionName>
+<address>
+<deliveryPoint>Institute of Arctic Biology  University of Alaska Fairbanks P.O. Box 757000</deliveryPoint>
+<city>Fairbanks</city>
+<administrativeArea>AK </administrativeArea>
+<postalCode>99775-0180</postalCode>
+<country>United States</country>
+</address>
+<phone
+          phonetype="voice">(907) 474-7153</phone>
+<phone
+              phonetype="fax">(907) 474-6967</phone>
+<electronicMailAddress>rwruess@alaska.edu</electronicMailAddress>
+<onlineUrl>http://www.iab.uaf.edu/~roger_ruess/</onlineUrl>
+<role>Principal Investigator</role>
+</personnel>
+<funding>
+<para>NSF Grant numbers  DEB-1636476, DEB-1026415, DEB-0620579, DEB-0423442, DEB-0080609, DEB-9810217, DEB-9211769, DEB-8702629</para>
+<para>USDA Forest Service, Pacific Northwest Research Station (Agreement # RJVA-PNW-01-JV-11261952-231)</para>
+</funding>
+</project>
+<dataTable>
+<entityName>775_birch.csv</entityName>
+<entityDescription>This dataset contains annual ring widths of paper birch in column format.</entityDescription>
+<physical>
+<objectName>775_birch.csv</objectName>
+<dataFormat>
+<textFormat>
+<numHeaderLines>1</numHeaderLines>
+<recordDelimiter>\n</recordDelimiter>
+<physicalLineDelimiter>\n</physicalLineDelimiter>
+<attributeOrientation>column</attributeOrientation>
+<simpleDelimited>
+<fieldDelimiter>,</fieldDelimiter>
+</simpleDelimited>
+</textFormat>
+</dataFormat>
+<distribution>
+<online>
+<url
+              function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/b79b76fa6d722b03efd16eb4dae35417</url>
+</online>
+</distribution>
+</physical>
+<attributeList>
+<attribute>
+<attributeName>Year</attributeName>
+<attributeLabel>Year</attributeLabel>
+<attributeDefinition>year</attributeDefinition>
+<storageType>integer</storageType>
+<measurementScale>
+<ratio>
+<unit>
+<customUnit>yyyy</customUnit>
+</unit>
+<numericDomain>
+<numberType>real</numberType>
+<!--No minimum value recorded in database (datafilevaribles/minvalid)-->
+</numericDomain>
+</ratio>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+<attribute>
+<attributeName>Tree</attributeName>
+<attributeLabel>Tree</attributeLabel>
+<attributeDefinition>unique identifier for each tree</attributeDefinition>
+<storageType>string</storageType>
+<measurementScale>
+<nominal>
+<nonNumericDomain>
+<textDomain>
+<definition>unique identifier for each tree</definition>
+</textDomain>
+</nonNumericDomain>
+</nominal>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+<attribute>
+<attributeName>Ring_Width_mm</attributeName>
+<attributeLabel>Ring_Width_mm</attributeLabel>
+<attributeDefinition>annual ring width in mm</attributeDefinition>
+<storageType>float</storageType>
+<measurementScale>
+<ratio>
+<unit>
+<standardUnit>millimeter</standardUnit>
+</unit>
+<numericDomain>
+<numberType>real</numberType>
+<!--No minimum value recorded in database (datafilevaribles/minvalid)-->
+</numericDomain>
+</ratio>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+</attributeList>
+</dataTable>
+<dataTable>
+<entityName>775_spruce.csv</entityName>
+<entityDescription>This dataset contains annual ring widths of white spruce in column format.</entityDescription>
+<physical>
+<objectName>775_spruce.csv</objectName>
+<dataFormat>
+<textFormat>
+<numHeaderLines>1</numHeaderLines>
+<recordDelimiter>\n</recordDelimiter>
+<physicalLineDelimiter>\n</physicalLineDelimiter>
+<attributeOrientation>column</attributeOrientation>
+<simpleDelimited>
+<fieldDelimiter>,</fieldDelimiter>
+</simpleDelimited>
+</textFormat>
+</dataFormat>
+<distribution>
+<online>
+<url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/56569ec7410fd05ce64190e5381ce734</url>
+</online>
+</distribution>
+</physical>
+<attributeList>
+<attribute>
+<attributeName>Year</attributeName>
+<attributeLabel>Year</attributeLabel>
+<attributeDefinition>year</attributeDefinition>
+<storageType>integer</storageType>
+<measurementScale>
+<ratio>
+<unit>
+<customUnit>yyyy</customUnit>
+</unit>
+<numericDomain>
+<numberType>real</numberType>
+<!--No minimum value recorded in database (datafilevaribles/minvalid)-->
+</numericDomain>
+</ratio>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+<attribute>
+<attributeName>Tree</attributeName>
+<attributeLabel>Tree</attributeLabel>
+<attributeDefinition>unique identifier for each tree</attributeDefinition>
+<storageType>string</storageType>
+<measurementScale>
+<nominal>
+<nonNumericDomain>
+<textDomain>
+<definition>unique identifier for each tree</definition>
+</textDomain>
+</nonNumericDomain>
+</nominal>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+<attribute>
+<attributeName>Ring_Width_mm</attributeName>
+<attributeLabel>Ring_Width_mm</attributeLabel>
+<attributeDefinition>annual ring width in mm</attributeDefinition>
+<storageType>float</storageType>
+<measurementScale>
+<ratio>
+<unit>
+<standardUnit>millimeter</standardUnit>
+</unit>
+<numericDomain>
+<numberType>real</numberType>
+<!--No minimum value recorded in database (datafilevaribles/minvalid)-->
+</numericDomain>
+</ratio>
+</measurementScale>
+<!--No missing value/character in database (datafilevarible/errorcode)-->
+</attribute>
+</attributeList>
+</dataTable>
+<otherEntity
+              id="775_spruce.txt">
+<entityName>775_spruce.txt</entityName>
+<entityDescription>This dataset contains annual ring widths of white spruce in the traditional Tucson (.rwl) format.</entityDescription>
+<physical>
+<objectName>775_spruce.txt</objectName>
+<dataFormat>
+<externallyDefinedFormat>
+<formatName>txt file</formatName>
+</externallyDefinedFormat>
+</dataFormat>
+<distribution>
+<online>
+<url
+      function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/6366e57479042e0e40ab5a84dbb800cc</url>
+</online>
+</distribution>
+</physical>
+<entityType>txt file</entityType>
+</otherEntity>
+<otherEntity
+              id="775_birch.txt">
+<entityName>775_birch.txt</entityName>
+<entityDescription>This dataset contains annual ring widths of paper in the traditional Tucson (.rwl) format.</entityDescription>
+<physical>
+<objectName>775_birch.txt</objectName>
+<dataFormat>
+<externallyDefinedFormat>
+<formatName>txt file</formatName>
+</externallyDefinedFormat>
+</dataFormat>
+<distribution>
+<online>
+<url
+          function="download">https://pasta.lternet.edu/package/data/eml/knb-lter-bnz/775/2/850671eca3f531de0b118002f03b4faa</url>
+</online>
+</distribution>
+</physical>
+<entityType>txt file</entityType>
+</otherEntity>
+</dataset>
+<additionalMetadata>
+ <metadata>
+ <unitList>
+<unit id="yyyy"/>
+</unitList>
+ </metadata>
+ </additionalMetadata>
+</eml:eml>

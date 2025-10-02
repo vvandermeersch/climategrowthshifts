@@ -1,0 +1,869 @@
+
+   
+      
+         uid=EDI,o=EDI,dc=edirepository,dc=org
+         all
+      
+      
+         https://orcid.org/0000-0003-1029-6995
+         all
+      
+      
+         public
+         read
+      
+   
+   
+      doi:10.6073/pasta/6dd464ad0dfd5ad64d5f9e2dad24d0cbTree-ring measurements from permanent study plot in old-growth hemlock-hardwood forest, Dukes RNA, Hiawatha NF, Marquetee Co., MI
+      
+         Kerry Woods
+         Bennington College
+         Professor emeritus
+         			9 Maple ave
+			Cambridge, New York 12816  
+         kerry.d.woods@gmail.com
+         0000-0003-1029-6995
+         01pq38j30
+      
+      2025-04-22
+      
+         This package includes tree growth-ring widths for increment cores collected from a long-term 'macroplot' established in old-growth hemlock-northern hardwoods forest at the Dukes Research Natural Area/Dukes Experimental Forest in the Hiawatha National Forest in Marquette Co., MI. Tree demographic monitoring data for the entire ca. 3.0 ha macroplot, from 1992 to 2019, are available in the EDI package edi.1526.1. In 1993, 1994 and 1995, increment cores were taken for all 'core-able' trees greater than ~ 10 cm diameter for a subsection of the macroplot about 1 ha in area. Trees that were obviously badly rotten and hollow or steeply leaning were not cored. Cores are not cross-dated. See Methods for more details. This data-package may be cross-referenced to the demographic data in edi.1526.1 using stem numbers.
+      
+      
+         increment cores
+         tree growth rates
+         hemlock-northern hardwood forest
+      
+      
+         tree rings
+         old growth forests
+         LTER Controlled Vocabulary
+      
+      
+         This information is released under the Creative Commons license - Attribution - CC BY (https://creativecommons.org/licenses/by/4.0/). The consumer of these data ("Data User" herein) is required to cite it appropriately in any publication that results from its use. The Data User should realize that these data may be actively used by others for ongoing research and that coordination may be necessary to prevent duplicate publication. The Data User is urged to contact the authors of these data if any questions about methodology or results occur. Where appropriate, the Data User is encouraged to consider collaboration or co-authorship with the authors. The Data User should realize that misinterpretation of data may occur if used out of context of the original study. While substantial efforts are made to ensure the accuracy of data and associated documentation, complete accuracy of data sets cannot be guaranteed. All data are made available "as is." The Data User should be aware, however, that data are updated periodically and it is the responsibility of the Data User to check for new versions of the data. The data authors and the repository where these data were obtained shall not be liable for damages resulting from any use or misinterpretation of the data. Thank you.
+      
+      
+         Creative Commons Attribution 4.0 International
+         https://spdx.org/licenses/CC-BY-4.0
+         CC-BY-4.0
+      
+      https://doi.org/10.6073/pasta/6dd464ad0dfd5ad64d5f9e2dad24d0cb
+         
+            Macroplot has maximum dimensions of ca. 200 m (E-W) by 85 m (N-S), with plot center near 46.370 N latitude and -87.151 W longitude.
+            
+               -87.1523
+               -87.1501
+               46.37
+               46.369
+            
+         
+         
+            
+               
+                  1992
+               
+               
+                  1994
+               
+            
+         
+         
+            
+               Class
+               Magnoliopsida
+               flowering plants
+               3398
+               
+                  Order
+                  Sapindales
+                  41937
+                  
+                     Family
+                     Sapindaceae
+                     soapberry family
+                     23672
+                     
+                        Subfamily
+                        Hippocastanoideae
+                        1977916
+                        
+                           Genus
+                           Acer
+                           maple trees
+                           4022
+                           
+                              Species
+                              Acer rubrum
+                              red maple
+                              45314
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Magnoliopsida
+                           flowering plants
+                           3398
+                           
+                              Order
+                              Sapindales
+                              41937
+                              
+                                 Family
+                                 Sapindaceae
+                                 soapberry family
+                                 23672
+                                 
+                                    Subfamily
+                                    Hippocastanoideae
+                                    1977916
+                                    
+                                       Genus
+                                       Acer
+                                       maple trees
+                                       4022
+                                       
+                                          Species
+                                          Acer saccharum
+                                          sugar maple
+                                          4024
+                                       
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Magnoliopsida
+                           flowering plants
+                           3398
+                           
+                              Order
+                              Fagales
+                              3502
+                              
+                                 Family
+                                 Betulaceae
+                                 birch family
+                                 3514
+                                 
+                                    Genus
+                                    Ostrya
+                                    13621
+                                    
+                                       Species
+                                       Ostrya virginiana
+                                       American hop-hornbeam
+                                       13622
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Magnoliopsida
+                           flowering plants
+                           3398
+                           
+                              Order
+                              Fagales
+                              3502
+                              
+                                 Family
+                                 Fagaceae
+                                 beech family
+                                 3503
+                                 
+                                    Genus
+                                    Fagus
+                                    beech trees
+                                    21024
+                                    
+                                       Species
+                                       Fagus grandifolia
+                                       American beech
+                                       60423
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Magnoliopsida
+                           flowering plants
+                           3398
+                           
+                              Order
+                              Fagales
+                              3502
+                              
+                                 Family
+                                 Betulaceae
+                                 birch family
+                                 3514
+                                 
+                                    Genus
+                                    Betula
+                                    birches
+                                    3504
+                                    
+                                       Species
+                                       Betula alleghaniensis
+                                       yellow birch
+                                       21017
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Pinopsida
+                           58019
+                           
+                              Subclass
+                              Pinidae
+                              3313
+                              
+                                 Order
+                                 Pinales
+                                 1446380
+                                 
+                                    Family
+                                    Pinaceae
+                                    pine family
+                                    3318
+                                    
+                                       Genus
+                                       Picea
+                                       3328
+                                       
+                                          Species
+                                          Picea glauca
+                                          white spruce
+                                          3330
+                                       
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+         
+            
+               Domain
+               Eukaryota
+               eucaryotes
+               2759
+               
+                  Kingdom
+                  Viridiplantae
+                  green plants
+                  33090
+                  
+                     Phylum
+                     Streptophyta
+                     35493
+                     
+                        Subphylum
+                        Streptophytina
+                        131221
+                        
+                           Class
+                           Pinopsida
+                           58019
+                           
+                              Subclass
+                              Pinidae
+                              3313
+                              
+                                 Order
+                                 Pinales
+                                 1446380
+                                 
+                                    Family
+                                    Pinaceae
+                                    pine family
+                                    3318
+                                    
+                                       Genus
+                                       Tsuga
+                                       hemlocks
+                                       3358
+                                       
+                                          Species
+                                          Tsuga canadensis
+                                          Canada hemlock
+                                          66173
+                                       
+                                    
+                                 
+                              
+                           
+                        
+                     
+                  
+               
+            
+         
+      
+      
+         Creator will update as needed; no planned additions
+      
+      
+         Kerry Woods
+         Bennington College
+         Professor emeritus
+         			9 Maple ave
+			Cambridge, New York 12816  
+         kerry.d.woods@gmail.com
+         0000-0003-1029-6995
+      
+      
+         Dr. Christel Kern
+         Northern Research Station USDA-Forest Servic
+         Research Forester
+         christel.c.kern@usda.gov
+         0000-0003-4923-6180
+      
+      
+         Environmental Data Initiative
+         info@edirepository.org
+         https://edirepository.org
+         0330j0z60
+      
+      Environmental Data Initiative
+      
+         
+            
+               Field Methods: Over an approximately 1-ha portion of the macroplot described in package edi.1526.1, all suitable trees > 10 cm in diameter were cored in the summers of 1993, 1994, and 1995. Trees that were obviously substantially hollow or rotten, leaning heavily, or otherwise significantly compromised were skipped. A single core was taken at a height of about 1.2 m, from south to north (except as otherwise noted in the 'field notes' field of the core information data-table). Where rot or hollowness prevented taking a complete core, only the 'south-facing' section is included (indicated by "a" in the 'side' code in data-set).  Where a single complete core (bark to bark) could be extracted, both sides ("a" and 'north-facing' "b" side) are included.  Ring measurements and further information for 232 trees are included here.
+            
+         
+         
+            
+               Lab Methods: Cores were mounted on wooden blocks and sanded. Rings were measured, in the ecology lab at Bennington College, for all cores during 1994-1997, using "Project J2X" software and a Velmex ring measurement system.  Cross-dating proved to be impractical, and data in this package are raw measurements (not cross-dated). Maximum ring-count was 299.
+            
+         
+      
+      
+         Tree-ring measurements from old-growth hemlock-hardwood forest, Duke RNA, Marquette Co., MI
+         
+            Dr. Kerry Woods
+            Bennington Colllege
+            Professor emeritus
+            kerry.d.woods@gmail.com
+            0000-0003-1029-6995
+            project originator and leader, overseer of field measurement crews and lab-work
+         
+         
+            Dr. Christel Kern
+            Northern Research Station USDA-Forest Service
+            Research Forester
+            christel.c.kern@usda.gov
+            0000-0003-4923-6180
+            oversight of research activities at the Dukes RNA
+         
+         
+            NSF
+            Long-term dynamics of old-growth northern hardwood forests: restoration and expansion of permanent plot studies.
+         
+         
+            Andrew Mellon Foundation
+            Long-term dynamics in old-growth forests: ongoing permanent plot studies
+         
+         
+            U.S. Forest Service
+            Long-term productivity and regeneration dynamics, Dukes RNA (joint venture agreement)
+         
+      
+      
+         Dukes_tree_rings
+         ring-width measurements for cores from 232 trees in old-growth forest long-term study plot
+         
+            Dukes_tree_rings.csv
+            1028480
+            2789d096b0bdf58fedb246d0f5fca606
+            
+               
+                  1
+                  \r\n
+                  column
+                  
+                     ,
+                     "
+                  
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/edi/1969/1/07209301847b0163aff5427d80f38427
+               
+            
+         
+         
+            
+               year
+               year
+               year of growth
+               integer
+               
+                  
+                     
+                        nominalYear
+                     
+                     
+                        integer
+                     
+                  
+               
+            
+            
+               ring.width
+               ring.width
+               width of growth ring in mm
+               float
+               
+                  
+                     
+                        millimeter
+                     
+                     
+                        real
+                     
+                  
+               
+            
+            
+               sp
+               sp
+               tree species code
+               string
+               
+                  
+                     
+                        
+                           
+                              pigl
+                              Picea glauca
+                           
+                           
+                              acru
+                              Acer rubrum
+                           
+                           
+                              acsa
+                              Acer saccharum
+                           
+                           
+                              beal
+                              Betula alleghaniensis
+                           
+                           
+                              fagr
+                              Fagus grandifolia
+                           
+                           
+                              osvi
+                              Ostrya virginiana
+                           
+                           
+                              tsca
+                              Tsuga canadensis
+                           
+                        
+                     
+                  
+               
+            
+            
+               stem
+               stem
+               index number identifying stem in permanent plot database edi.1526.1
+               integer
+               
+                  
+                     
+                        number
+                     
+                     
+                        integer
+                     
+                  
+               
+            
+            
+               side
+               side
+               side of tree relative to corer entry and center
+               string
+               
+                  
+                     
+                        
+                           
+                              a
+                              side of core towards direction of corer entry (South unless otherwise indicated in stem information)
+                           
+                           
+                              b
+                              for complete cores, measurements for 'side' of core away from corer entry
+                           
+                        
+                     
+                  
+               
+            
+         
+         no
+         44386
+      
+      
+         Dukes_macroplot_cores_steminfo_for_EDI
+         Information about individual trees and cores corresponding to ring-measurements in this project
+         
+            Dukes_macroplot_cores_steminfo_for_EDI.csv
+            10481
+            ee41614fa56220de2eccabd8e6ec3db9
+            
+               
+                  1
+                  \r\n
+                  column
+                  
+                     ,
+                     "
+                  
+               
+            
+            
+               
+                  https://pasta.lternet.edu/package/data/eml/edi/1969/1/2f6630b08e9778f70d221e6a080ac345
+               
+            
+         
+         
+            
+               stem
+               stem
+               unique index identifying stem in ring-width file and in plot census data in project edi.1526.1
+               integer
+               
+                  
+                     
+                        number
+                     
+                     
+                        integer
+                     
+                  
+               
+            
+            
+               dbh
+               dbh
+               stem diamber at breast height (1.4m) in 1992-94 census of permanent plot
+               float
+               
+                  
+                     
+                        centimeter
+                     
+                     
+                        real
+                     
+                  
+               
+            
+            
+               notes
+               notes
+               field notes related to particular tree and core
+               string
+               
+                  
+                     
+                        
+                           text
+                        
+                     
+                  
+               
+            
+            
+               year
+               year
+               year core was collected
+               dateTime
+               
+                  
+                     YYYY
+                     
+                  
+               
+            
+            
+               sp
+               sp
+               species code for tree
+               string
+               
+                  
+                     
+                        
+                           
+                              acru
+                              Acer rubrum
+                           
+                           
+                              acsa
+                              Acer saccharum
+                           
+                           
+                              beal
+                              Betula alleghaniensis
+                           
+                           
+                              fagr
+                              Fagus grandifolia
+                           
+                           
+                              osvi
+                              Ostrya virginiana
+                           
+                           
+                              pigl
+                              Picea glauca
+                           
+                           
+                              tsca
+                              Tsuga canadensis
+                           
+                        
+                     
+                  
+               
+            
+            
+               count
+               count
+               maximum number of rings counted (either side for complete cores); minimum age of tree
+               float
+               
+                  
+                     
+                        number
+                     
+                     
+                        real
+                     
+                  
+               
+            
+            
+               to_center
+               to_center
+               for complete cores, estimated distance from oldest ring to center of tree (0 where core includes pith)
+               float
+               
+                  
+                     
+                        centimeter
+                     
+                     
+                        real
+                     
+                  
+               
+               
+                  NA
+                  for incomplete cores (usually due to rotten or hollow center)
+               
+            
+            
+               overallx
+               overallx
+               map coordinates for tree in macroplot (edi.1526.1); approximately W to E from arbitrary origin
+               float
+               
+                  
+                     
+                        meter
+                     
+                     
+                        real
+                     
+                  
+               
+            
+            
+               overally
+               overally
+               map coordinates for tree in macroplot (edi.1526.1); approximately S to N from arbitrary origin
+               float
+               
+                  
+                     
+                        meter
+                     
+                     
+                        real
+                     
+                  
+               
+            
+            
+               corelength
+               corelength
+               total length of core collected
+               float
+               
+                  
+                     
+                        millimeter
+                     
+                     
+                        real
+                     
+                  
+               
+               
+                  NA
+                  measurement not recorded in field
+               
+            
+         
+         no
+         232
+      
+   
+   
+      
+         
+      
+   

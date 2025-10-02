@@ -87,3 +87,32 @@ arrrd <- read.table(here(arw),sep="\t",skip = 2,col.names = c("years","Tag","Tre
 
 write.csv(arrrd,here(arwo,"bog_tree_ring_data.csv"))
 ```
+
+```{r}
+arw1 <- "analysis/pnwandmore/data/other_treerings/direct_searching/Arizona/datasearch/rawTreeRing/PIPOcores518/PIPOCores518RingWidths.txt"
+arwlgeo <- "analysis/pnwandmore/data/other_treerings/direct_searching/Arizona/datasearch/rawTreeRing/PIPOcores518/PIPOCores518Meta.txt"
+
+geoloc <- read_tsv(here(arwlgeo)) %>%
+  select(CORE_CN,LON,LAT)
+arrrd1 <- read.table(here(arw1),sep="\t",skip=1,
+                     col.names = c("Ring_width","years","CORE_CN")) %>%
+  left_join(geoloc,by = "CORE_CN")%>%
+  rename(Lat = LAT,
+         Lon = LON,
+         "Ring_width(mm)"=Ring_width,
+         Tag = CORE_CN)
+write.csv(arrrd1,here(arwo,"PIPOCores518RingWidths.csv"))
+```
+
+Arizona dataCite
+```{r}
+arc <- "analysis/pnwandmore/data/other_treerings/direct_searching/Arizona/dataCite/RawTreeRing/speciesResponse/core_data_22dec2023 (1)/core_data_22dec2023 (1).csv"
+arc1 <- read.csv(here(arc)) %>%
+  select(Year,Series,RW,x,y)%>%
+  rename(years = Year,
+         Tag = Series,
+         "Ring_width(mm)"=RW,
+         Lat = x,
+         Lon = y)
+write.csv(arc1,here(arwo,"core_data_22dec2023.csv"))
+```
