@@ -116,3 +116,32 @@ arc1 <- read.csv(here(arc)) %>%
          Lon = y)
 write.csv(arc1,here(arwo,"core_data_22dec2023.csv"))
 ```
+
+BC datasearch
+```{r} 
+wdb <- "analysis/pnwandmore/data/other_treerings/direct_searching/BC/datasearch/RawTreeRing/EN22_Tree_Ring_Widths.tab"
+savebc<-'analysis/pnwandmore/input/other_tree_rings/direct_searching/Bc'
+
+bcdata <- read_tsv(here(wdb),skip = 52) %>%
+  rename(Lat=Latitude,
+         Long=Longitude,
+         "Ring_width(mm)"="TRW [mm]" ,
+         years="Age [a AD/CE]",
+         Tag="Subsample ID")%>%
+  select(Tag,Lat,Long,years,"Ring_width(mm)")
+write.csv(bcdata,here(savebc,"EN22_Tree_Ring_Widths.csv"))
+#head(bcdata)
+```
+
+Colorado datasearch
+```{r} 
+wdco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/BonanzaCreek2018/knb-lter-bnz.775.2/775_birch.csv"
+saveco<-"analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018"
+
+codata <- read_csv(here(wdco))%>%
+  rename(Tag=Tree,
+         years=Year,
+         "Ring_width(mm)"=Ring_Width_mm)%>%
+  bind_cols(Lat=64.87464,Long=-148.39382)
+write.csv(codata,here(saveco,"775_birch.csv"))
+```
