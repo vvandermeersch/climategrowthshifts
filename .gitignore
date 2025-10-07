@@ -36,6 +36,7 @@ analysis/mountrainier/data/climate/wldas
 analysis/pnwandmore/output/model
 analysis/pnwandmore/output/climate/rasters
 analysis/pnwandmore/output/climate/species_gddrange_experienced.rds
+analysis/pnwandmore/output/climate/climvar_04july2025.rds
 analysis/pnwandmore/data/srtm
 analysis/pnwandmore/data/ustreeatlas
 analysis/pnwandmore/data/climate
