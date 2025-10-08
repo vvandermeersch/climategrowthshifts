@@ -135,13 +135,27 @@ write.csv(bcdata,here(savebc,"EN22_Tree_Ring_Widths.csv"))
 
 Colorado datasearch
 ```{r} 
-wdco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/BonanzaCreek2018/knb-lter-bnz.775.2/775_birch.csv"
-saveco<-"analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018"
+wdco <-"analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/ring_widths_LPP.csv"
+spatialco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/spatial_LPP.csv"
+growthco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/growth_LPP.csv"
+saveco<-"analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/US_state"
 
+
+cospatial <- read_csv(here(spatialco))
+cogrowth <- read_csv(here(growthco))
 codata <- read_csv(here(wdco))%>%
-  rename(Tag=Tree,
-         years=Year,
-         "Ring_width(mm)"=Ring_Width_mm)%>%
-  bind_cols(Lat=64.87464,Long=-148.39382)
-write.csv(codata,here(saveco,"775_birch.csv"))
+  pivot_longer(cols=-1,
+               names_to = "TREE_ID",
+               values_to = "Ring_width(mm)")%>%
+  left_join(cogrowth,by="TREE_ID")%>%
+  left_join(cospatial,by=c("STATE","PROV"))%>%
+  select(YEAR,TREE_ID,"Ring_width(mm)",LAT,LONG)%>%
+  rename(years=YEAR,
+         Tag=TREE_ID,
+         Lat=LAT,
+         Long=LONG)
+  
+write.csv(codata,here(saveco,"ring_widths_LPP.csv"))
 ```
+
+idaho dataCite
