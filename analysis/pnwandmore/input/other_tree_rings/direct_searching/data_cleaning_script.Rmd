@@ -98,7 +98,7 @@ arrrd1 <- read.table(here(arw1),sep="\t",skip=1,
                      col.names = c("Ring_width","years","CORE_CN")) %>%
   left_join(geoloc,by = "CORE_CN")%>%
   rename(Lat = LAT,
-         Lon = LON,
+         Long = LON,
          "Ring_width(mm)"=Ring_width,
          Tag = CORE_CN)
 write.csv(arrrd1,here(arwo,"PIPOCores518RingWidths.csv"))
@@ -112,8 +112,8 @@ arc1 <- read.csv(here(arc)) %>%
   rename(years = Year,
          Tag = Series,
          "Ring_width(mm)"=RW,
-         Lat = x,
-         Lon = y)
+         Long = x,
+         Lat = y)
 write.csv(arc1,here(arwo,"core_data_22dec2023.csv"))
 ```
 
@@ -159,3 +159,16 @@ write.csv(codata,here(saveco,"ring_widths_LPP.csv"))
 ```
 
 idaho dataCite
+```{r}
+wdid <- "analysis/pnwandmore/data/other_treerings/direct_searching/idaho/dataCite/rawTreeRing/coredata2023/core_data_22dec2023.csv"
+saveid <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/idaho/coredata2023"
+
+iddata <- read_csv(here(wdid))%>%
+  select(Series,Year,RW,x,y)%>%
+  rename(Tag=Series,
+         years=Year,
+         "Ring_width(mm)"=RW,
+         Long=x,
+         Lat=y)
+write.csv(iddata,here(saveid,"core_data_22dec2023.csv"))
+```
