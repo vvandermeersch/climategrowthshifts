@@ -5,7 +5,7 @@ plot_disc_pushforward_quantiles_2clades <- function(samples, names,
                                             residual=FALSE,
                                             xlab="", xticklabs=NULL,
                                             ylab=NULL, display_ylim=NULL, yticklabs=NULL,
-                                            main="") {
+                                            main="", line0 = FALSE) {
   # Check that baseline values are well-defined
   if (!is.null(baseline_values)) {
     if (length(baseline_values) != length(names)) {
@@ -82,26 +82,31 @@ plot_disc_pushforward_quantiles_2clades <- function(samples, names,
     plot(1, type="n", main=main,
          xlim=c(bin_min, bin_max), xlab=xlab,
          ylim=display_ylim, ylab=ylab,  frame.plot=F)
+    if(line0){abline(h = 0, lty = 2, col = "grey70")}
   } else {
     if (length(xticklabs) == N & is.null(yticklabs)) {
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
            ylim=display_ylim, ylab=ylab,  frame.plot=F)
+      if(line0){abline(h = 0, lty = 2, col = "grey70")}
       axis(1, at=1:N, labels=xticklabs)
     } else if(is.na(xticklabs)  & is.null(yticklabs)){
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
            ylim=display_ylim, ylab=ylab,  frame.plot=F)
+      if(line0){abline(h = 0, lty = 2, col = "grey70")}
     } else if(is.na(xticklabs)  & is.na(yticklabs) ){
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab, xaxt="n",
            ylim=display_ylim, ylab=ylab,  yaxt = "n",  frame.plot=F)
+      if(line0){abline(h = 0, lty = 2, col = "grey70")}
     } else {
       warning(paste0('The list of x labels tick has the wrong',
                      ' dimension and baselines will not be plotted.'))
       plot(1, type="n", main=main,
            xlim=c(bin_min, bin_max), xlab=xlab,
            ylim=display_ylim, ylab=ylab,  frame.plot=F)
+      if(line0){abline(h = 0, lty = 2, col = "grey70")}
     }
   }
   
