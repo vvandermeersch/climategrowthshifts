@@ -172,3 +172,94 @@ iddata <- read_csv(here(wdid))%>%
          Lat=y)
 write.csv(iddata,here(saveid,"core_data_22dec2023.csv"))
 ```
+montana datasearch-coweetaLab
+```{r}
+wdmon <- "analysis/pnwandmore/data/other_treerings/direct_searching/montana/datasearch/rawTreeRing/CoweetaLab/Data"
+savemon <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/montana/coweetaLab"
+
+montdatas <- list.files(here(wdmon),recursive=TRUE,full.names=FALSE)
+for (i in 1:length(montdatas)) {
+  dfname <- montdatas[i]
+  mondata <- read.csv(here(wdmon,dfname),na.strings=".")%>%
+  pivot_longer(cols=-1,
+               names_to = "Tag",
+               values_to = "Ring_width")%>%
+  mutate("Ring_width(mm)"=Ring_width/1000)%>%
+  rename(years=X)%>%
+  select(-Ring_width)%>%
+  bind_cols(LongW=-83.47845,LongE=-83.42166,LatN=35.07382,LatS=35.02734)
+  write.csv(mondata,here(savemon,dfname))
+}
+```
+montana datasearch-treeGrowthData
+```{r}
+wdmon1 <- "analysis/pnwandmore/data/other_treerings/direct_searching/montana/datasearch/rawTreeRing/Tree growth data/Treegrowthdata_/LSWL_2017_AVE_CNT_BAI.csv"
+savemon1 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/montana/treeGrowth"
+mondata1 <- read_csv(here(wdmon1))%>%
+  rename(years=Year,
+         Tag="Tree ID",
+         "Ring_width(mm)"="Ave. Ringwidth")%>%
+  select(years,Tag,"Ring_width(mm)")%>%
+  bind_cols(LongW=-113.1207,
+            LongE=-112.9285,
+            LatN=44.9181,
+            LatS=44.7155)
+head(mondata1)
+write.csv(mondata1,here(savemon1,"LSWL_2017_AVE_CNT_BAI.csv"))
+```
+montana dataCite
+```{r}
+wdmon2 <- "analysis/pnwandmore/data/other_treerings/direct_searching/montana/dataCite/rawTreeRing/coredata2023/core_data_22dec2023.csv"
+
+savemon2 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/montana/core2023"
+
+mondata2 <- read_csv(here(wdmon2))%>%
+  rename(Long=x,
+         Lat=y,
+         "Ring_width(mm)"=RW,
+         years=Year,
+         Tag=Series)%>%
+  select(years,Long,Lat,"Ring_width(mm)",Tag)
+write.csv(mondata2,here(savemon2,"core_data_22dec2023.csv"))
+head(mondata2)
+```
+nevada datasearch
+"D:\ubc_study\udergrad_research\temporal ecology lab\climategrowthshifts\analysis\pnwandmore\data\other_treerings\direct_searching\nevada\datasearch\rawTreeRing\North_South_California_Tree_Ring_Study\northerncaliforniaringwidthdata" Don't know how to process RWL
+
+nevada dataCite
+```{r}
+wdne <- "analysis/pnwandmore/data/other_treerings/direct_searching/nevada/dataCite/rawTreeRing/Northern Nevada aspen (Populus tremuloides) data"
+savene <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/nevada/Northern(noCoor)"
+
+nedatas <- list.files(path=here(wdne),pattern="*ring*",full.names = FALSE)
+for (i in 1:length(nedatas)) {
+  df<- nedatas[i]
+  nedata <- read_csv(here(wdne,df))%>%
+  pivot_longer(
+    cols= -c(1,2),
+    names_to = "Tag",
+    values_to="Ring_width(mm)"
+  )%>%
+  select(-"Mountain Range")%>%
+  rename(years=Year)
+  
+  write.csv(nedata,here(savene,df))
+}
+```
+
+New Maxico dataCite
+```{r}
+wdmx <- "analysis/pnwandmore/data/other_treerings/direct_searching/NewMexico/dataCite/rawTreeRing/doi_10_5061_dryad_fv322__v20180406/sample+tree+growth+data+with+locations.csv"
+
+savemx <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/NewMexico"
+
+mxdata <- read_csv(here(wdmx))%>%
+  select(Year,"Sample tree ID","Longitude","Latitude","Ring width (mm)")%>%
+  rename(years=Year,
+         Tag="Sample tree ID",
+         Long = Longitude,
+         Lat = Latitude,
+         "Ring_width(mm)"="Ring width (mm)")
+write.csv(mxdata,here(savemx,"sample+tree+growth+data+with+locations.csv"))
+head(mxdata)
+```
