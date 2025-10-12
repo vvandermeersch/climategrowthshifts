@@ -263,3 +263,20 @@ mxdata <- read_csv(here(wdmx))%>%
 write.csv(mxdata,here(savemx,"sample+tree+growth+data+with+locations.csv"))
 head(mxdata)
 ```
+
+Utah dataCite
+```{r}
+wdu <- "analysis/pnwandmore/data/other_treerings/direct_searching/Utah/datasearch/rawTreeRing/1/UT_rw.csv"
+saveu <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/Utah"
+
+udata <- read_csv(here(wdu)) %>%
+  mutate(Tag=paste(PLT_CN,TRE_CN,sep="-"))%>%
+  rename(years=Year,
+         "Ring_width(mm)"=RW) %>%
+  select(years,Tag,"Ring_width(mm)")
+
+write.csv(udata,here(saveu,"UT_rw.csv"))
+head(udata)
+```
+Wyoming datasearch 
+"I don't know how to read this file Cottonwood_Wind_Ring_Widths"
