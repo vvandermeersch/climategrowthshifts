@@ -32,9 +32,9 @@ datasets <- datasets[datasets$dataset != 'co691',] # temporary
 # Keep only datasets within WLDAS extent
 datasets <- datasets[datasets$north_lat >=25.065 & datasets$north_lat <=52.925 & datasets$east_lon <= -89.025 &  datasets$east_lon >= -124.925,]
 
-datasets <- datasets[datasets$last_year >= 1969,] # at least 20 years of observations
+datasets <- datasets[datasets$last_year-1902 >= 20,] # at least 20 years of observations (not doing anything)
 
-# Temporary, dropping Angiosperms
+# Angiosperms
 angiosperms <- c('PLRA', 'QUDG', 'QULO', 'QUGA', 'PPFR', 'PPTR', 'PPDE')
 # length(datasets)
 # datasets <- datasets[!(datasets$species_code %in% angiosperms),]
@@ -50,21 +50,25 @@ datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <-
 source(file.path(wd, 'getphylo.R'))
 phy.plants.here$tip.label <- sppfull[match(phy.plants.here$tip.label, sppfull$phylo.name),'shortname']
 
-# Diagnostic with only one species
+# Test with only one species
 # table(datasets$species_code)
 # datasets <- datasets[datasets$species_code == 'PIED',]
 
 # Test with only one genus
 # unique(datasets[,c("species_code", 'species_name')])
-# length(datasets)
+# nrow(datasets)
 # datasets <- datasets[grepl('Pinus', datasets$species_name),]
+
+# Test with only one species in one state, and the most recent studies
+table(datasets$species_code)
+datasets <- datasets[datasets$species_code == 'PIPO' & datasets$state == 'az' & datasets$last_year >= 2018,]
 
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
   
   raw_data_d <- ringwidth_series[ringwidth_series$dataset == datasets[d, 'dataset'], ]
   
-  raw_data_d <- raw_data_d[raw_data_d$year >= 1950 & raw_data_d$year <= 1980 & !is.na(raw_data_d$year), ]
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1902 & raw_data_d$year <= 2024 & !is.na(raw_data_d$year), ]
   # raw_data_d <- raw_data_d[ , colSums(is.na(raw_data_d)) < length(1980:2010)]
   
   raw_data_d$species_code <- datasets[d, 'species_code']
@@ -82,8 +86,31 @@ for(d in 1:nrow(datasets)){
   )
   names(raw_data_d)[names(raw_data_d) == "rw_mm"] <- "rw_avg_mm"
   
-  trees_to_remove <- unique(raw_data_d[is.na(raw_data_d$rw_avg_mm) | raw_data_d$rw_avg_mm == 0 , 'tree_id_uniq'])
+  raw_data_d <- na.omit(raw_data_d)
+  raw_data_d$year <- as.numeric(raw_data_d$year)
+  
+  # Here, we check that there is no missing year in the individual time series
+  count_bytrees <- aggregate(
+    rw_avg_mm ~ tree_id_uniq,
+    data = raw_data_d,
+    FUN = function(x) length(x)
+  )
+  years_bytrees <- aggregate(
+    year ~ tree_id_uniq,
+    data = raw_data_d,
+    FUN = function(x) max(x)-min(x)+1
+  )
+  check_length <- merge(count_bytrees, years_bytrees)
+  trees_to_remove <- check_length[check_length$rw_avg_mm != check_length$year, 'tree_id_uniq']
   raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
+  
+  # remove less than 20 years observed
+  trees_to_remove <- check_length[check_length$rw_avg_mm < 20, 'tree_id_uniq']
+  raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
+  
+  # remove trees with 0mm observations - NOT ANYMORE
+  # trees_to_remove <- unique(raw_data_d[raw_data_d$rw_avg_mm == 0 , 'tree_id_uniq'])
+  # raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
   
   raw_data <- rbind(raw_data, raw_data_d)
 }
@@ -148,6 +175,8 @@ idx <- 1
 tree_start_idxs <- c()
 tree_end_idxs <- c()
 
+
+aconstant <- 1e-05
 for(tid in uniq_tree_ids) {
   print(tid)
   
@@ -168,19 +197,19 @@ for(tid in uniq_tree_ids) {
   
   log_rw_obs_tree <- sapply(years_tree, 
                             function(y) 
-                              log(raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
+                              log(aconstant + raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
   log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
   
   ffp_obs_tree <- sapply(years_tree, 
-                        function(y) 
-                          clim_pred$FFP[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1])
+                         function(y) 
+                           clim_pred$FFP[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1])
   ffp_obs <- c(ffp_obs, ffp_obs_tree)
   
   winterprec_obs_tree <- sapply(years_tree, 
-                         function(y) 
-                           clim_pred$PPT11to04[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]
-                         
-                         )
+                                function(y) 
+                                  clim_pred$PPT11to04[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]
+                                
+  )
   winterprec_obs <- c(winterprec_obs, winterprec_obs_tree)
   
   years <- c(years, years_tree)
@@ -228,6 +257,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_15oct2025_long_19501980.rds'))
-saveRDS(datasets, file.path(wd, 'output/model/climatena', 'datasets_15oct2025_long_19501980.rds'))
+saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_15oct2025_long_recentPIPOinAZ.rds'))
+saveRDS(datasets, file.path(wd, 'output/model/climatena', 'datasets_15oct2025_long_recentPIPOinAZ.rds'))
 # saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))

@@ -32,9 +32,12 @@ datasets <- datasets[datasets$north_lat >=25.065 & datasets$north_lat <=52.925 &
 
 datasets <- datasets[datasets$last_year >= 1999,] # at least 20 years of observations
 
-# Temporary, dropping Angiosperms
+# Defining Angiosperms
 angiosperms <- c('PLRA', 'QUDG', 'QULO', 'QUGA', 'PPFR', 'PPTR', 'PPDE')
-# datasets <- datasets[!(datasets$species_code %in% todrop),]
+
+# Dropping two Mexican species whose ranges are outside WLDAS extent
+todrop <- c('PIGR', 'PICU')
+datasets <- datasets[!(datasets$species_code %in% todrop),]
 
 # Same species
 datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <- 
@@ -43,9 +46,7 @@ datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <-
 source(file.path(wd, 'getphylo.R'))
 phy.plants.here$tip.label <- sppfull[match(phy.plants.here$tip.label, sppfull$phylo.name),'shortname']
 
-
-
-
+# Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_all.rds'))
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
@@ -88,11 +89,12 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 
 # Load climate data
-clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_24sept2025.rds"))
+clim_pred <- readRDS(file.path(wd, "output", "climate",  "climpredictors_10oct2025.rds"))
 clim_pred$soilmoist_mjj <- clim_pred$soilmoist_2m_mjj*100 # in percentage
 clim_pred$gdd <- clim_pred$gdd/100 # in x100 degC
 clim_pred$gdd_amjjas <- clim_pred$gdd_amjjas/100 # in x100 degC
 clim_pred$vpd_mjj <- clim_pred$vpd_mjj # in hPa?
+clim_pred$pre_jja <- clim_pred$pre_jja/10 # in cm? 
 clim_pred <- na.omit(clim_pred)
 
 # Check
@@ -120,6 +122,7 @@ gdd_obs <- c()
 gdd_amjjas_obs  <- c()
 sm_obs <- c()
 vpd_obs <- c()
+pre_jja_obs <- c()
 years <- c()
 all_years_idxs <- c()
 N_years <- c()
@@ -148,20 +151,20 @@ for(tid in uniq_tree_ids) {
   }
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
   
-  gdd_obs_amjjas_tree <- sapply(years_tree, 
-                         function(y) 
-                           as.numeric(clim_pred$gdd_amjjas[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  if(any(is.na(gdd_obs_amjjas_tree))){
-    stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
-  }
-  gdd_amjjas_obs <- c(gdd_amjjas_obs, gdd_obs_amjjas_tree)
-  
   log_rw_obs_tree <- sapply(years_tree, 
                             function(y) 
                               log(raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
   log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
   
+  gdd_obs_amjjas_tree <- sapply(years_tree, 
+                                function(y) 
+                                  as.numeric(clim_pred$gdd_amjjas[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  gdd_amjjas_obs <- c(gdd_amjjas_obs, gdd_obs_amjjas_tree)
   
+  pre_obs_jja_tree <- sapply(years_tree, 
+                                function(y) 
+                                  as.numeric(clim_pred$pre_jja[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
+  pre_jja_obs <- c(pre_jja_obs, pre_obs_jja_tree)
   
   sm_obs_tree <- sapply(years_tree, 
                         function(y) 
@@ -206,7 +209,8 @@ sum(is.na(gdd_obs)) # check clim. pred
 N <- length(years)
 N_clades <- 2
 data <- mget(c('N', 'N_all_years', 'N_trees', 
-               'log_rw_obs', 'gdd_obs', 'sm_obs', 'vpd_obs',
+               'log_rw_obs', 'gdd_obs', 'gdd_amjjas_obs', 
+               'sm_obs', 'vpd_obs', 'pre_jja_obs',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands',
                'species_idxs', 'N_species',
@@ -217,6 +221,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
                ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_24sept2025.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_24sept2025.rds'))
-saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_10oct2025.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_10oct2025.rds'))
+saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_10oct2025.rds'))

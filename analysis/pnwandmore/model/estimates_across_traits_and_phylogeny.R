@@ -52,29 +52,41 @@ for(i in 1:nrow(betas_climate)){
     data.frame(species_name_simplified = betas_climate[i, 'species_name_simplified'], clade = betas_climate[i, 'clade'],
                betagdd = as.numeric(base_samples[[paste0('beta_gdd[', which(data$uniq_species_ids == betas_climate[i, 'species_code']), ']')]]),
                betasm = as.numeric(base_samples[[paste0('beta_sm[', which(data$uniq_species_ids == betas_climate[i, 'species_code']), ']')]]),
-               betavpd = as.numeric(base_samples[[paste0('beta_vpd[', which(data$uniq_species_ids == betas_climate[i, 'species_code']), ']')]]))
+               betavpd = as.numeric(base_samples[[paste0('beta_vpd[', which(data$uniq_species_ids == betas_climate[i, 'species_code']), ']')]]),
+               rho = as.numeric(base_samples[[paste0('rho_sp[', which(data$uniq_species_ids == betas_climate[i, 'species_code']), ']')]]))
   betas_samples <- rbind(betas_samples, betas_samples_i)
 }
 
 
 # Traits!
 mao_traits <- read.csv(file.path("~/projects/mast_trait/Data/silvicsClean.csv")) # from Mao
-mao_traits <- mao_traits[mao_traits$speciesName != "", c("genusName", "speciesName", "droughtTolerance")]
+mao_traits <- mao_traits[mao_traits$speciesName != "", c("genusName", "speciesName", "droughtTolerance", "lifeSpanMax")]
 mao_traits$species_name_simplified <- paste(mao_traits$genusName, mao_traits$speciesName, sep = ' ')
-betas_climate <- merge(betas_climate, mao_traits[,c("species_name_simplified", "droughtTolerance")], all.x = TRUE)
+betas_climate <- merge(betas_climate, mao_traits[,c("species_name_simplified", "droughtTolerance", "lifeSpanMax")], all.x = TRUE)
 betas_climate$droughtTolerance <- ifelse(betas_climate$droughtTolerance == '' | is.na(betas_climate$droughtTolerance), 'Unknown', betas_climate$droughtTolerance)
 betas_climate$drought_tolerance <- factor(betas_climate$droughtTolerance , levels = c("Low", "Moderate", "High", "Unknown"))
-betas_samples <- merge(betas_samples, mao_traits[,c("species_name_simplified", "droughtTolerance")], all.x = TRUE)
+betas_climate$lifeSpanMax <- as.numeric(ifelse(betas_climate$lifeSpanMax == '' | is.na(betas_climate$lifeSpanMax), NA, betas_climate$lifeSpanMax))
+betas_samples <- merge(betas_samples, mao_traits[,c("species_name_simplified", "droughtTolerance", "lifeSpanMax")], all.x = TRUE)
 betas_samples$droughtTolerance <- ifelse(betas_samples$droughtTolerance == '' | is.na(betas_samples$droughtTolerance), 'Unknown', betas_samples$droughtTolerance)
 betas_samples$drought_tolerance <- factor(betas_samples$droughtTolerance , levels = c("Low", "Moderate", "High", "Unknown"))
+betas_samples$lifeSpanMax <- as.numeric(ifelse(betas_samples$lifeSpanMax == '' | is.na(betas_samples$lifeSpanMax), NA, betas_samples$lifeSpanMax))
 droughttrait_plot <- ggplot(data = betas_samples) +
-  geom_boxplot(aes(x=drought_tolerance, y = betagdd, group = paste0(drought_tolerance, clade, species_name_simplified), color = as.character(clade)), 
+  geom_boxplot(aes(x=drought_tolerance, y = betavpd, group = paste0(drought_tolerance, clade, species_name_simplified), color = as.character(clade)), 
                position = position_dodge(preserve = "single"), outliers = FALSE) +
   scale_color_manual(values = c('#27278f', '#278f27')) +
   labs(y = 'VDP slope', x = 'Drought tolerance') +
   theme_classic() +
   theme(legend.position = 'none')
 ggsave(droughttrait_plot, file = file.path(wd, 'figures', 'newyork2025', 'model_estimates', 'vpd_estimates_droughttrait.pdf'), 
+       width = 300, height = 200, units = "mm")
+lifespantrait_plot <- ggplot(data = betas_samples) +
+  geom_boxplot(aes(x=lifeSpanMax, y = rho, group = paste0(clade, species_name_simplified), color = as.character(clade)), 
+               position = position_dodge(preserve = "single"), outliers = FALSE, width = 100) +
+  scale_color_manual(values = c('#27278f', '#278f27')) +
+  labs(y = 'Rho', x = 'Max. life span') +
+  theme_classic() +
+  theme(legend.position = 'none')
+ggsave(lifespantrait_plot, file = file.path(wd, 'figures', 'newyork2025', 'model_estimates', 'rho_estimates_lifespantrait.pdf'), 
        width = 300, height = 200, units = "mm")
 
 augusto_traits <- read.csv(file.path(wd, 'data', 'traits', 'augusto2025', 'Dataset-3_species.csv')) 

@@ -208,3 +208,85 @@ vpdslopes_sm <- ggplot(data = na.omit(betas_climate)) +
 comb <- gddslopes_sm + smslopes_sm + vpdslopes_sm + plot_layout(ncol = 1)
 ggsave(comb, file = file.path(wd, 'figures', 'newyork2025', 'model_estimates', 'estimates_againtSM_subclades.pdf'),
        height = 200, width = 400, units = 'mm')
+
+
+# Range-wide altitude
+species_altrange <- readRDS(file.path(wd, 'output', 'climate', 'species_altitude_range_experienced.rds'))
+betas_climate$rangealt_q5 <- betas_climate$rangealt_q50 <- betas_climate$rangealt_q95 <- NA
+for(i in 1:nrow(betas_climate)){
+  range_alt <- species_altrange[[betas_climate[i, 'species_name_simplified']]]
+  betas_climate[i, paste0('rangealt_q', c(5,50,95))] <- as.numeric(quantile(range_alt, c(0.05,0.5,0.95)))
+}
+gddslopes_alt <- ggplot(data = na.omit(betas_climate)) +
+  facet_grid(~subclade) +
+  geom_hline(aes(yintercept = 0), linetype = 'dotted') + 
+  # geom_density_2d(aes(x = rangegdd_q50, y = betagdd_q50, col = as.character(clade), group = clade), alpha = 0.5) + 
+  geom_pointrange(aes(x=rangealt_q50,
+                      ymin=betagdd_q5, y=betagdd_q50, ymax=betagdd_q95,
+                      color = subclade), size = 0.2) +
+  geom_pointrange(aes(xmin=rangealt_q5, x=rangealt_q50, xmax=rangealt_q95,
+                      y=betagdd_q50,
+                      color = subclade), size = 0.2) +
+  scale_color_manual(
+    breaks = c('Pinus', 'Picea', 'Laricoideae', 'Abietoideae', 'Cupressaceae',
+               'Quercus', 'Populus', 'Platanus'), 
+    values = c('#2A4B73', '#6886A6', '#A0C0D9', '#B97AB0', '#8b8b5f',
+               '#2B7A2B', '#66A766', '#A0CFA0')
+  ) +
+  # coord_equal(xlim = c(-0.1,0.3), ylim = c(-0.1,0.3)) +
+  theme_bw() +
+  theme(legend.position = 'none',
+        strip.background = element_blank(),
+        panel.grid = element_blank()) +
+  labs(x = "Range-wide altitude (m)", y = "GDD slope")
+
+smslopes_alt <- ggplot(data = na.omit(betas_climate)) +
+  facet_grid(~subclade) +
+  geom_hline(aes(yintercept = 0), linetype = 'dotted') + 
+  # geom_density_2d(aes(x = rangegdd_q50, y = betagdd_q50, col = as.character(clade), group = clade), alpha = 0.5) + 
+  geom_pointrange(aes(x=rangealt_q50,
+                      ymin=betasm_q5, y=betasm_q50, ymax=betasm_q95,
+                      color = subclade), size = 0.2) +
+  geom_pointrange(aes(xmin=rangealt_q5, x=rangealt_q50, xmax=rangealt_q95,
+                      y=betasm_q50,
+                      color = subclade), size = 0.2) +
+  scale_color_manual(
+    breaks = c('Pinus', 'Picea', 'Laricoideae', 'Abietoideae', 'Cupressaceae',
+               'Quercus', 'Populus', 'Platanus'), 
+    values = c('#2A4B73', '#6886A6', '#A0C0D9', '#B97AB0', '#8b8b5f',
+               '#2B7A2B', '#66A766', '#A0CFA0')
+  ) +
+  # coord_equal(xlim = c(-0.1,0.3), ylim = c(-0.1,0.3)) +
+  theme_bw() +
+  theme(legend.position = 'none',
+        strip.background = element_blank(),
+        panel.grid = element_blank()) +
+  labs(x = "Range-wide altitude (m)", y = "SM slope")
+
+
+vpdslopes_alt <- ggplot(data = na.omit(betas_climate)) +
+  facet_grid(~subclade) +
+  geom_hline(aes(yintercept = 0), linetype = 'dotted') + 
+  # geom_density_2d(aes(x = rangegdd_q50, y = betagdd_q50, col = as.character(clade), group = clade), alpha = 0.5) + 
+  geom_pointrange(aes(x=rangealt_q50,
+                      ymin=betavpd_q5, y=betavpd_q50, ymax=betavpd_q95,
+                      color = subclade), size = 0.2) +
+  geom_pointrange(aes(xmin=rangealt_q5, x=rangealt_q50, xmax=rangealt_q95,
+                      y=betavpd_q50,
+                      color = subclade), size = 0.2) +
+  scale_color_manual(
+    breaks = c('Pinus', 'Picea', 'Laricoideae', 'Abietoideae', 'Cupressaceae',
+               'Quercus', 'Populus', 'Platanus'), 
+    values = c('#2A4B73', '#6886A6', '#A0C0D9', '#B97AB0', '#8b8b5f',
+               '#2B7A2B', '#66A766', '#A0CFA0')
+  ) +
+  # coord_equal(xlim = c(-0.1,0.3), ylim = c(-0.1,0.3)) +
+  theme_bw() +
+  theme(legend.position = 'none',
+        strip.background = element_blank(),
+        panel.grid = element_blank()) +
+  labs(x = "Range-wide altitude (m)", y = "VPD slope")
+
+comb <- gddslopes_alt + smslopes_alt + vpdslopes_alt + plot_layout(ncol = 1)
+ggsave(comb, file = file.path(wd, 'figures', 'newyork2025', 'model_estimates', 'estimates_againtaltitude_subclades.pdf'),
+       height = 200, width = 400, units = 'mm')
