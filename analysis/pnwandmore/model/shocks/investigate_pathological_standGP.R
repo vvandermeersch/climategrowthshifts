@@ -8,7 +8,7 @@ source('functions/custom_functions.R', local=util)
 setwd(wd)
 
 data <- readRDS(file.path(wd, 'output/model/climatena', 'data_15oct2025_long_az618.rds'))
-fit <- readRDS(file.path(wd, "model/shocks/output", "fit_15oct2025_long_az618.rds"))
+fit <- readRDS(file.path(wd, "model/shocks/output", "fit_15oct2025_long_az618_v2.rds"))
 samples <-  util$extract_expectand_vals(fit)
 fit_before2002 <- readRDS(file.path(wd, "model/shocks/output", "fit_15oct2025_long_az618_before2002.rds"))
 samples_before2002 <-  util$extract_expectand_vals(fit_before2002)

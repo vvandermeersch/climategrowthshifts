@@ -176,7 +176,7 @@ tree_start_idxs <- c()
 tree_end_idxs <- c()
 
 
-aconstant <- 1e-05
+aconstant <- 5e-04
 for(tid in uniq_tree_ids) {
   print(tid)
   
