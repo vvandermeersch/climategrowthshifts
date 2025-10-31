@@ -156,7 +156,7 @@ parameters {
   // Probability of shocks
   vector[N_stands] mu_gamma_sck; // Population means of inner core log-odds
   vector<lower=0>[N_stands] tau_gamma_sck; // Population sds of inner core log-odds
-  vector[N_trees] alpha_gamma_sck; // Inner core log-odds
+  vector[N_trees] alpha_tilde_gamma_sck; // Inner core log-odds
   
   // Growth shock species scaling
   // vector<lower=0>[N_clades] mu_kappa_sck;
@@ -193,12 +193,14 @@ transformed parameters {
   // }
   
   array[N_trees] vector[N_all_years] delta_sck;
+  vector[N_trees] alpha_gamma_sck; 
   vector<lower=0, upper=1>[N_trees] gamma_sck;
   for (t in 1:N_trees) {
     int s = stand_idxs[t];
     for(y in 1:N_all_years) {
       delta_sck[t,y] = pow(inner_tau_sck, 1 - w_sck[s,y]) * delta_tilde_sck[t,y];
     }
+    alpha_gamma_sck[t] = mu_gamma_sck[s] + tau_gamma_sck[s] * alpha_tilde_gamma_sck[t];
     gamma_sck[t] = inv_logit(alpha_gamma_sck[t]);
   }
   
@@ -239,7 +241,8 @@ model {
   // Shocks!
   for (t in 1:N_trees) {
     int s = stand_idxs[t];
-    alpha_gamma_sck[t] ~ normal(mu_gamma_sck[s], tau_gamma_sck[s]);
+    // alpha_gamma_sck[t] ~ normal(mu_gamma_sck[s], tau_gamma_sck[s]);
+    alpha_tilde_gamma_sck[t] ~ normal(0, 1);  
     for(y in 1:N_all_years) {
       target += log_mix(gamma_sck[t],
         normal_lpdf(delta_tilde_sck[t,y] | 0, pow(inner_tau_sck, w_sck[s,y])),
