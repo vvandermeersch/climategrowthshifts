@@ -8,7 +8,7 @@ source('functions/custom_functions.R', local=util)
 setwd(wd)
 
 data <- readRDS(file.path(wd, 'output/model', 'data_30oct2025_az_2species.rds'))
-fit <- readRDS(file.path(wd, "model/shocks/output", "fit_30oct2025_az_2species_standgamma.rds"));gc()
+fit <- readRDS(file.path(wd, "model/shocks/output", "fit_31oct2025_az_2species_noshock.rds"));gc()
 
 samples <- util$extract_expectand_vals(fit);gc()
 diagnostics <- util$extract_hmc_diagnostics(fit)
@@ -126,12 +126,40 @@ for(t in sample(trees_s,8)){
     main = paste0(data$uniq_species_ids[data$species_idxs[t]], ' - ', t), ylab = 'Log ring width (mm)', display_ylim = c(-12,2))
 }         
 
-par(mfrow = c(1,2), mar = c(4,4,2,2), cex.lab = 1.2)
+
+par(mfrow = c(3,2), mar = c(4,4,2,2), cex.lab = 1.2)
+s <- 3
+trees_s <- which(data$stand_idxs==s)
+minyear_s <- min(data$all_years_idxs[data$tree_start_idxs[trees_s]])
+maxyear_s <- max(data$all_years_idxs[data$tree_end_idxs[trees_s]])
+names <- sapply(minyear_s:maxyear_s,
+                function(sp) paste0('f_sh[', s, ',', sp, ']'))
+util$plot_realizations(samples, names, plot_xs = data$all_years[minyear_s:maxyear_s], N_plots = 50,
+                       main = paste0('Stand ', s), ylab = 'f shortGP',
+                       display_xlim = data$all_years[c(minyear_s,maxyear_s)], display_ylim = c(-5,2))
+names <- sapply(minyear_s:maxyear_s,
+                function(sp) paste0('delta_sck[', s, ',', sp, ']'))
+util$plot_realizations(samples, names, plot_xs = data$all_years[minyear_s:maxyear_s], N_plots = 50,
+                       main = paste0('Stand ', s), ylab = 'delta shock',
+                       display_xlim = data$all_years[c(minyear_s,maxyear_s)], , display_ylim = c(-5,2))
 for(t in c(116, 121)){
   idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
   names <- sapply(idxs_t,
                   function(x) paste0('log_rw_pred[', x, ']'))
   util$plot_conn_pushforward_quantiles(
-    samples, names, plot_xs = data$years[idxs_t], baseline_values = data$log_rw_obs[idxs_t],
-    main = paste0('Stand ', s, ' - ', data$uniq_species_ids[data$species_idxs[t]], ' - tree ', t), ylab = 'Log ring width (mm)', display_ylim = c(-12,2))
+    samples, names, plot_xs = data$years[idxs_t], 
+    main = paste0('Stand ', s, ' - ', data$uniq_species_ids[data$species_idxs[t]], ' - tree ', t), 
+    ylab = 'Log ring width (mm)', display_ylim = c(-12,2))
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=1.0, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.8, col="black")
+}  
+for(t in c(116, 121)){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(
+    samples, names, plot_xs = data$years[idxs_t], 
+    baseline_values = data$log_rw_obs[idxs_t],
+    main = paste0('Stand ', s, ' - ', data$uniq_species_ids[data$species_idxs[t]], ' - tree ', t), 
+    ylab = 'Residuals', display_ylim = c(-4,4), residual = TRUE)
 }  
