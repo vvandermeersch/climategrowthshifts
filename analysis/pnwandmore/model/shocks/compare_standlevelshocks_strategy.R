@@ -95,6 +95,7 @@ for(s in 1:data$N_stands){
 fit <- readRDS(file.path(wd, "model/shocks/output", "fit_03nov2025_aznmca_2speciesplots_speciesshocks_speciesgamma.rds"))
 samples <- util$extract_expectand_vals(fit);gc()
 
+pdf()
 par(mfrow = c(9,3), mar = c(3,5.5,2,1), cex.lab = 1.2, cex.main = 1)
 for(s in 1:data$N_stands){
   
