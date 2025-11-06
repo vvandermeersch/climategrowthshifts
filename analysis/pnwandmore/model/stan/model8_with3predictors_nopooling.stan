@@ -242,37 +242,41 @@ model {
   for (s in 1:N_stands) {
     array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
     for(y in 1:N_all_years) {
-      real log_p0;
-      real log_p1;
+      real log_p0 = 0;
+      real log_p1 = 0;
       for(t in 1:N_stand_trees[s]){
         int stand_trees_idx = stand_trees_idxs[t];
         int global_idx = (stand_trees_idx-1)*N_all_years+y;
-        log_p0 += normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y]));
-        log_p1 += log_sum_exp(log1m(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])),
-                              log(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
+        log_p0 += normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])); // because for now I fixed p(z_t=1|z_s=0) = 0
+        // log_p1 += log_sum_exp(log1m(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])),
+        //                       log(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
+        log_p1 += log_mix(omega_tree_sck,
+                          normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck),
+                          normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])));
       }
-      target += log_sum_exp(log1m(phi_sck) + log_p0, log(phi_sck) + log_p1);
+      target += log_mix(phi_sck, log_p1, log_p0);
+      
     }
   }
   inner_tau_sck ~ normal(0, log(1.5)/ 2.57);
   outer_tau_sck ~ normal(0, log(5)/ 2.57);
-  phi_sck ~ beta(1000, 10); 
-  omega_tree_sck ~ beta(1000, 10); 
+  phi_sck ~ beta(10, 500); 
+  omega_tree_sck ~ beta(50, 2); 
   
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
-  
+
   for (t in 1:N_trees) {
     array[N_years[t]] int tree_idxs
     = linspaced_int_array(N_years[t],
                           tree_start_idxs[t],
                           tree_end_idxs[t]);
-    
+
     array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
     array[N_years[t]] real years_tree = years[tree_idxs];
-    
+
     int stand_idx = stand_idxs[t];
     int species_idx = species_idxs[t];
-    
+
     // L_cov needs to be marginalized to the specific
     // observation years for each tree.
     // matrix[N_years[t], N_years[t]] cov
@@ -280,61 +284,61 @@ model {
     //  + diag_matrix(rep_vector(square(sigma), N_years[t]));
     // matrix[N_years[t], N_years[t]] L_cov = cholesky_decompose(cov);
     matrix[N_years[t], N_years[t]] L_cov_tree = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]);
-    
-    
+
+
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
-    
-    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]], 
+
+    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
                                                                              (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
     vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
-    
+
     vector[N_years[t]] mu =  alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
-    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree] 
+    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree]
     + delta_sck_tree;
-    
+
     log_rw_obs[tree_idxs] ~ multi_normal_cholesky(mu, L_cov_tree);
-    
+
   }
 }
 
 generated quantities {
 
   array[N] real log_rw_pred;
-  
+
   for (t in 1:N_trees) {
-    
+
     array[N_years[t]] int tree_idxs = linspaced_int_array(N_years[t], tree_start_idxs[t], tree_end_idxs[t]);
     array[N_years[t]] real years_tree = years[tree_idxs];
     array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
-    
+
     int stand_idx = stand_idxs[t];
     int species_idx = species_idxs[t];
-    
+
     vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
-    
-    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]], 
+
+    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
                                                                              (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
     vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
-    
-    vector[N_years[t]] mu1 = alpha 
-    + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) 
+
+    vector[N_years[t]] mu1 = alpha
+    + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
-    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0) 
+    + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree]
     + delta_sck_tree;
-    
+
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree,
                                 mu1, gamma_sp[species_idx], rho_sp[species_idx], sigma, 1e-10);
-                                
+
     // rw[tree_idxs] = exp(log_rw[tree_idxs]);
     log_rw_pred[tree_idxs] = normal_rng(log_rw, sigma);
-                                 
+
   }
 }
