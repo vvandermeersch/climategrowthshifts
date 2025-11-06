@@ -62,7 +62,7 @@ data {
   int<lower=1> N_trees;     // Number of trees
   int<lower=1> N_all_years; // Max number of years
   int<lower=1> N_stands;    // Number of stands
-  // int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
+  int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
   
   // Indices of tree stands
   array[N_trees] int<lower=1, upper=N_stands> stand_idxs;
@@ -97,7 +97,7 @@ data {
   // corr_matrix[N_species] Cphy; // phylogenetic relationship matrix (fixed)
   
   // Indices of species clades (Gymnosperms=1 or Angiosperms=2)
-  // array[N_species] int<lower=1, upper=N_clades> clade_idxs;
+  array[N_species] int<lower=1, upper=N_clades> clade_idxs;
   
   // Partial centering parameters for growth shocks
   array[N_stands] vector<lower=0, upper=1>[N_all_years] w_sck;
@@ -114,18 +114,18 @@ parameters {
   real alpha; // Log ring width baseline
   
   // GDD slope (1/100degC)
-  // vector[N_clades] mu_gdd;
-  // vector<lower=0>[N_clades] tau_gdd;
+  vector[N_clades] mu_gdd;
+  vector<lower=0>[N_clades] tau_gdd;
   vector[N_species] beta_gdd;
   
   // SM slope (1/%)
-  // vector[N_clades] mu_sm;
-  //vector<lower=0>[N_clades] tau_sm;
+  vector[N_clades] mu_sm;
+  vector<lower=0>[N_clades] tau_sm;
   vector[N_species] beta_sm;
   
   // VPD slope (1/hPa)
-  // vector[N_clades] mu_vpd;
-  // vector<lower=0>[N_clades] tau_vpd;
+  vector[N_clades] mu_vpd;
+  vector<lower=0>[N_clades] tau_vpd;
   vector[N_species] beta_vpd;
   
   // Short-term proportional growth functional behavior
@@ -134,33 +134,31 @@ parameters {
   // real<lower=0> gamma_sh; // Marginal variation - now fixed to 1! (and scaled by kappa)
   
   // Lifetime proportional growth scale (here I implement the hard contraint on both clade and species parameters?)
-  // vector<lower=rho_sh>[N_clades] mu_rho;
-  // vector<lower=0>[N_clades] tau_rho;
+  vector<lower=rho_sh>[N_clades] mu_rho;
+  vector<lower=0>[N_clades] tau_rho;
   vector<lower=rho_sh>[N_species] rho_sp; 
   
   // Lifetime proportional growth variation
-  // vector<lower=0>[N_clades] mu_gamma;
-  // vector<lower=0>[N_clades] tau_gamma;
+  vector<lower=0>[N_clades] mu_gamma;
+  vector<lower=0>[N_clades] tau_gamma;
   vector<lower=0>[N_species] gamma_sp; 
   
   // Short-term proportional growth species scaling
-  // vector<lower=0>[N_clades] mu_kappa;
-  // vector<lower=0>[N_clades] tau_kappa;
+  vector<lower=0>[N_clades] mu_kappa;
+  vector<lower=0>[N_clades] tau_kappa;
   vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  array[N_trees] vector[N_all_years] delta_tilde_sck; // Latent parameter for yearly shocks
+  array[N_stands] vector[N_all_years] delta_tilde_sck; // Latent parameter for yearly shocks
   real<lower=0> inner_tau_sck; // Inner yearly log variation scale
   real<lower=inner_tau_sck> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
   
   // Probability of shocks
-  vector[N_stands] mu_gamma_sck; // Population means of inner core log-odds
-  vector<lower=0>[N_stands] tau_gamma_sck; // Population sds of inner core log-odds
-  vector[N_trees] alpha_tilde_gamma_sck; // Inner core log-odds
+  vector<lower=0, upper=1>[N_stands] gamma_sck; // Inner core probability
   
   // Growth shock species scaling
-  // vector<lower=0>[N_clades] mu_kappa_sck;
-  // vector<lower=0>[N_clades] tau_kappa_sck;
+  vector<lower=0>[N_clades] mu_kappa_sck;
+  vector<lower=0>[N_clades] tau_kappa_sck;
   vector<lower=0>[N_species] kappa_sck; 
   
   // Proportional measurement error
@@ -192,16 +190,11 @@ transformed parameters {
   //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
   // }
   
-  array[N_trees] vector[N_all_years] delta_sck;
-  vector[N_trees] alpha_gamma_sck; 
-  vector<lower=0, upper=1>[N_trees] gamma_sck;
-  for (t in 1:N_trees) {
-    int s = stand_idxs[t];
+  array[N_stands] vector[N_all_years] delta_sck;
+  for (s in 1:N_stands) {
     for(y in 1:N_all_years) {
-      delta_sck[t,y] = pow(inner_tau_sck, 1 - w_sck[s,y]) * delta_tilde_sck[t,y];
+      delta_sck[s,y] = pow(inner_tau_sck, 1 - w_sck[s,y]) * delta_tilde_sck[s,y];
     }
-    alpha_gamma_sck[t] = mu_gamma_sck[s] + tau_gamma_sck[s] * alpha_tilde_gamma_sck[t];
-    gamma_sck[t] = inv_logit(alpha_gamma_sck[t]);
   }
   
   
@@ -219,18 +212,37 @@ model {
   
   alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
   
-  beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_sm ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_sm ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
   
-  rho_sp ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
+  mu_rho ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
+  tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
   
-  gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
+  mu_gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
+  tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
   
-  kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  mu_kappa ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  kappa_sck ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  mu_kappa_sck ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  tau_kappa_sck ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
+  for (sp in 1:N_species) {
+    beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
+    beta_sm[sp] ~ normal(mu_sm[clade_idxs[sp]] , tau_sm[clade_idxs[sp]]);
+    beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+    
+    rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
+    gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
+    
+    kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
+    
+    kappa_sck[sp] ~ normal(mu_kappa_sck[clade_idxs[sp]], tau_kappa_sck[clade_idxs[sp]]);
+  }
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
@@ -239,26 +251,20 @@ model {
   // gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
   // Shocks!
-  for (t in 1:N_trees) {
-    int s = stand_idxs[t];
-    // alpha_gamma_sck[t] ~ normal(mu_gamma_sck[s], tau_gamma_sck[s]);
-    alpha_tilde_gamma_sck[t] ~ normal(0, 1);  
+  for (s in 1:N_stands) {
     for(y in 1:N_all_years) {
-      target += log_mix(gamma_sck[t],
-        normal_lpdf(delta_tilde_sck[t,y] | 0, pow(inner_tau_sck, w_sck[s,y])),
-        normal_lpdf(delta_tilde_sck[t,y] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
+      target += log_mix(gamma_sck[s],
+        normal_lpdf(delta_tilde_sck[s,y] | 0, pow(inner_tau_sck, w_sck[s,y])), 
+        normal_lpdf(delta_tilde_sck[s,y] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
     }
   }
   inner_tau_sck ~ normal(0, log(1.5)/ 2.57);
   outer_tau_sck ~ normal(0, log(5)/ 2.57);
-  // gamma_sck ~ beta(1000, 10); 
-  mu_gamma_sck ~ normal(4.5, 0.5); // hyperprior
-  tau_gamma_sck ~ normal(0, 1); // hyperprior
+  gamma_sck ~ beta(1000, 10); 
   
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
   
   for (t in 1:N_trees) {
-    
     array[N_years[t]] int tree_idxs
     = linspaced_int_array(N_years[t],
                           tree_start_idxs[t],
@@ -288,7 +294,7 @@ model {
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree] 
-    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
+    + kappa_sck[species_idx] * delta_sck[stand_idx,all_years_idxs_tree];
     
     log_rw_obs[tree_idxs] ~ multi_normal_cholesky(mu, L_cov_tree);
     
@@ -317,7 +323,7 @@ generated quantities {
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0) 
     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree]
-    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
+    + kappa_sck[species_idx] * delta_sck[stand_idx,all_years_idxs_tree];
     
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree,
                                 mu1, gamma_sp[species_idx], rho_sp[species_idx], sigma, 1e-10);

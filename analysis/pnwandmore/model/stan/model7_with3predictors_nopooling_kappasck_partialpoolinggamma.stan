@@ -285,7 +285,7 @@ model {
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree] 
-    + kappa_sck[species_idx] * delta_sck[stand_idx,all_years_idxs_tree];
+    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
     
     log_rw_obs[tree_idxs] ~ multi_normal_cholesky(mu, L_cov_tree);
     
@@ -314,7 +314,7 @@ generated quantities {
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0) 
     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree]
-    + kappa_sck[species_idx] * delta_sck[stand_idx,all_years_idxs_tree];
+    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
     
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree,
                                 mu1, gamma_sp[species_idx], rho_sp[species_idx], sigma, 1e-10);

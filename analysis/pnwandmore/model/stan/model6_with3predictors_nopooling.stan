@@ -99,9 +99,6 @@ data {
   // Indices of species clades (Gymnosperms=1 or Angiosperms=2)
   // array[N_species] int<lower=1, upper=N_clades> clade_idxs;
   
-  // Partial centering parameters for growth shocks
-  array[N_stands] vector<lower=0, upper=1>[N_all_years] w_sck;
-  
 }
 
 transformed data {
@@ -148,21 +145,6 @@ parameters {
   // vector<lower=0>[N_clades] tau_kappa;
   vector<lower=0>[N_species] kappa_sh; 
   
-  // Growth shocks
-  array[N_trees] vector[N_all_years] delta_tilde_sck; // Latent parameter for yearly shocks
-  real<lower=0> inner_tau_sck; // Inner yearly log variation scale
-  real<lower=inner_tau_sck> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
-  
-  // Probability of shocks
-  vector[N_stands] mu_gamma_sck; // Population means of inner core log-odds
-  vector<lower=0>[N_stands] tau_gamma_sck; // Population sds of inner core log-odds
-  vector[N_trees] alpha_tilde_gamma_sck; // Inner core log-odds
-  
-  // Growth shock species scaling
-  // vector<lower=0>[N_clades] mu_kappa_sck;
-  // vector<lower=0>[N_clades] tau_kappa_sck;
-  vector<lower=0>[N_species] kappa_sck; 
-  
   // Proportional measurement error
   real<lower=0> sigma; 
 }
@@ -192,18 +174,6 @@ transformed parameters {
   //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
   // }
   
-  array[N_trees] vector[N_all_years] delta_sck;
-  vector[N_trees] alpha_gamma_sck; 
-  vector<lower=0, upper=1>[N_trees] gamma_sck;
-  for (t in 1:N_trees) {
-    int s = stand_idxs[t];
-    for(y in 1:N_all_years) {
-      delta_sck[t,y] = pow(inner_tau_sck, 1 - w_sck[s,y]) * delta_tilde_sck[t,y];
-    }
-    alpha_gamma_sck[t] = mu_gamma_sck[s] + tau_gamma_sck[s] * alpha_tilde_gamma_sck[t];
-    gamma_sck[t] = inv_logit(alpha_gamma_sck[t]);
-  }
-  
   
 }
 
@@ -228,9 +198,6 @@ model {
   gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
   
   kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  
-  kappa_sck ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
@@ -238,27 +205,9 @@ model {
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   // gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
-  // Shocks!
-  for (t in 1:N_trees) {
-    int s = stand_idxs[t];
-    // alpha_gamma_sck[t] ~ normal(mu_gamma_sck[s], tau_gamma_sck[s]);
-    alpha_tilde_gamma_sck[t] ~ normal(0, 1);  
-    for(y in 1:N_all_years) {
-      target += log_mix(gamma_sck[t],
-        normal_lpdf(delta_tilde_sck[t,y] | 0, pow(inner_tau_sck, w_sck[s,y])),
-        normal_lpdf(delta_tilde_sck[t,y] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
-    }
-  }
-  inner_tau_sck ~ normal(0, log(1.5)/ 2.57);
-  outer_tau_sck ~ normal(0, log(5)/ 2.57);
-  // gamma_sck ~ beta(1000, 10); 
-  mu_gamma_sck ~ normal(4.5, 0.5); // hyperprior
-  tau_gamma_sck ~ normal(0, 1); // hyperprior
-  
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
   
   for (t in 1:N_trees) {
-    
     array[N_years[t]] int tree_idxs
     = linspaced_int_array(N_years[t],
                           tree_start_idxs[t],
@@ -287,8 +236,7 @@ model {
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
-    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree] 
-    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
+    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
     
     log_rw_obs[tree_idxs] ~ multi_normal_cholesky(mu, L_cov_tree);
     
@@ -316,8 +264,7 @@ generated quantities {
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0) 
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0) 
-    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree]
-    + kappa_sck[species_idx] * delta_sck[t,all_years_idxs_tree];
+    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
     
     vector[N_years[t]] log_rw = gp_pred_rng(years_tree, log_rw_obs[tree_idxs], years_tree,
                                 mu1, gamma_sp[species_idx], rho_sp[species_idx], sigma, 1e-10);
