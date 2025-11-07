@@ -63,7 +63,10 @@ data {
   int<lower=1> N_all_years; // Max number of years
   int<lower=1> N_stands;    // Number of stands
   // int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
+  
   array[N_stands] int<lower=1, upper=N> N_stand_trees; // Number of trees per stand
+  array[N_stands] int<lower=1, upper=N> N_stand_years; // Max. number of observed years per stand
+  array[N_stands] int<lower=1, upper=N> stand_start_years_idxs; // Indice of first year observed per stand
   
   // Indices of tree stands
   array[N_trees] int<lower=1, upper=N_stands> stand_idxs;
@@ -100,7 +103,7 @@ data {
   // array[N_species] int<lower=1, upper=N_clades> clade_idxs;
   
   // Partial centering parameters for growth shocks
-  array[N_stands] vector<lower=0, upper=1>[N_all_years] w_sck;
+  vector<lower=0, upper=1>[N] w_sck;
   
 }
 
@@ -149,7 +152,7 @@ parameters {
   vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  vector[N_trees*N_all_years] delta_tilde_sck; // Latent parameter for yearly shocks
+  vector[N] delta_tilde_sck; // Latent parameter for yearly shocks
   real<lower=0> inner_tau_sck; // Inner yearly log variation scale
   real<lower=inner_tau_sck> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
   
@@ -191,19 +194,22 @@ transformed parameters {
   //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
   // }
   
-  vector[N_trees*N_all_years] delta_sck;
-  for (s in 1:N_stands) {
-    array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
-    for(y in 1:N_all_years) {
-      for(t in 1:N_stand_trees[s]){
-        int stand_trees_idx = stand_trees_idxs[t];
-        int global_idx = (stand_trees_idx-1)*N_all_years+y;
-        delta_sck[global_idx] = pow(inner_tau_sck, 1 - w_sck[s,y]) * delta_tilde_sck[global_idx];
-      }
-    }
-  }
-    
+  // vector[N] delta_sck;
+  // for (s in 1:N_stands) {
+  //   array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
+  //   for(y in 1:N_all_years) {
+  //     for(t in 1:N_stand_trees[s]){
+  //       int stand_trees_idx = stand_trees_idxs[t];
+  //       int global_idx = (stand_trees_idx-1)*N_all_years+y;
+  //       delta_sck[global_idx] = pow(inner_tau_sck, 1 - w_sck[global_idx]) * delta_tilde_sck[global_idx];
+  //     }
+  //   }
+  // }
   
+  vector[N] delta_sck;
+  for(i in 1:N){
+    delta_sck[i] = pow(inner_tau_sck, 1 - w_sck[i]) * delta_tilde_sck[i];
+  }
   
 }
 
@@ -240,28 +246,35 @@ model {
   
   // Shocks!
   for (s in 1:N_stands) {
+    
     array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
-    for(y in 1:N_all_years) {
-      real log_p0 = 0;
-      real log_p1 = 0;
-      for(t in 1:N_stand_trees[s]){
-        int stand_trees_idx = stand_trees_idxs[t];
-        int global_idx = (stand_trees_idx-1)*N_all_years+y;
-        log_p0 += normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])); // because for now I fixed p(z_t=1|z_s=0) = 0
-        // log_p1 += log_sum_exp(log1m(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])),
-        //                       log(omega_tree_sck) + normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck));
-        log_p1 += log_mix(omega_tree_sck,
-                          normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y] - 1) * outer_tau_sck),
-                          normal_lpdf(delta_tilde_sck[global_idx] | 0, pow(inner_tau_sck, w_sck[s,y])));
-      }
-      target += log_mix(phi_sck, log_p1, log_p0);
+    vector[N_stand_years[s]] log_p0 = rep_vector(0, N_stand_years[s]);
+    vector[N_stand_years[s]] log_p1 = rep_vector(0, N_stand_years[s]);
+    
+    for(ts in 1:N_stand_trees[s]){
+      int t = stand_trees_idxs[ts];
+      array[N_years[t]] int tree_idxs = linspaced_int_array(N_years[t], tree_start_idxs[t], tree_end_idxs[t]);
+      array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
       
+      for(y in 1:N_years[t]) {
+        int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
+        
+        log_p0[ys] += normal_lpdf(delta_tilde_sck[tree_idxs[y]] | 0, pow(inner_tau_sck, w_sck[tree_idxs[y]])); // because for now I fixed p(z_t=1|z_s=0) = 0
+        log_p1[ys] += log_mix(omega_tree_sck,
+                          normal_lpdf(delta_tilde_sck[tree_idxs[y]] | 0, pow(inner_tau_sck, w_sck[tree_idxs[y]] - 1) * outer_tau_sck),
+                          normal_lpdf(delta_tilde_sck[tree_idxs[y]] | 0, pow(inner_tau_sck, w_sck[tree_idxs[y]])));
+        
+      }
+    }
+    
+    for(y in 1:N_stand_years[s]) {
+      target += log_mix(phi_sck, log_p1[y], log_p0[y]);
     }
   }
   inner_tau_sck ~ normal(0, log(1.5)/ 2.57);
   outer_tau_sck ~ normal(0, log(5)/ 2.57);
   phi_sck ~ beta(10, 500); 
-  omega_tree_sck ~ beta(50, 2); 
+  omega_tree_sck ~ beta(5, 5); 
   
   sigma ~ normal(0, 0.095 / 2.57);   // -log(1.1) <~ sigma <~ +log(1.1)
 
@@ -290,9 +303,10 @@ model {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
 
-    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
-                                                                             (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
-    vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
+    // array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
+    //                                                                          (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
+    // vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
+    vector[N_years[t]] delta_sck_tree = delta_sck[tree_idxs];
 
     vector[N_years[t]] mu =  alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
@@ -323,9 +337,10 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
 
-    array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
-                                                                             (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
-    vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
+    // array[N_years[t]] int tree_global_idxs = linspaced_int_array(N_years[t], (t-1)*N_all_years+all_years_idxs[tree_start_idxs[t]],
+    //                                                                          (t-1)*N_all_years+all_years_idxs[tree_end_idxs[t]]);
+    // vector[N_years[t]] delta_sck_tree = delta_sck[tree_global_idxs];
+    vector[N_years[t]] delta_sck_tree = delta_sck[tree_idxs];
 
     vector[N_years[t]] mu1 = alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
