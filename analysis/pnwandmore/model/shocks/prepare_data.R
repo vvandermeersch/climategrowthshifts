@@ -74,8 +74,8 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 # selected_stands <- count_species[count_species$species_code >= 2, 'grouped_stand']
 # datasets <- datasets[datasets$grouped_stand %in% selected_stands,]
 
-# 
-# datasets <- datasets[datasets$grouped_stand %in% c('S50', 'S65'),]
+# Some subset
+datasets <- datasets[datasets$grouped_stand == 'S24',]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_all.rds'))
@@ -340,5 +340,5 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_azca_pipo.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_azca_pipo.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_azca_s24.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_azca_s24.rds'))
