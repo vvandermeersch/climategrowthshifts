@@ -173,11 +173,12 @@ data$w_sck <- rep(0, data$N)
 fit_nc_nonconc2 <- stan(file=file.path(wd, 'model', 'stan', 'model8_with3predictors_nopooling_standphi_nonconcordantshock.stan'),
                        data=data, seed=5838293,
                        chains = 4,
-                       warmup=1000, iter=2024, refresh=10)
+                       warmup=1000, iter=2024, refresh=10,
+                       control=list(adapt_delta=0.999))
 # 4716.6 seconds, gosh
 diagnostics <- util$extract_hmc_diagnostics(fit_nc_nonconc2)
 util$check_all_hmc_diagnostics(diagnostics)
-saveRDS(fit_nc_nonconc2, file = file.path(wd, 'model', 'shocks', 'output', 'pipo2022', 'fit_nc_nonconc2.rds'))
+saveRDS(fit_nc_nonconc2, file = file.path(wd, 'model', 'shocks', 'output', 'pipo2022', 'fit_nc_nonconc2_adaptdelta.rds'))
 samples_nc_nonconc2 <- util$extract_expectand_vals(fit_nc_nonconc2)
 base_samples <- util$filter_expectands(samples_nc_nonconc2,
                                        c('alpha', 

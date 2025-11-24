@@ -1,0 +1,279 @@
+---
+title: "Navigating in a shocking world"
+pdf-engine: lualatex
+format:
+  pdf:
+    keep-tex: true
+    fig-width: 7
+    fig-height: 3
+    code-overflow: wrap
+monofont: 'Latin Modern Mono'
+monofontoptions: 'Scale=0.75'
+knitr:
+  opts_chunk:
+    comment: ''
+    cache.lazy: FALSE
+  opts_knit:
+    global.par: TRUE
+---
+
+
+It's time to expand the dataset I'm using. \
+I look at all the *Pinus ponderosa* in Arizona, i.e. 914 trees on 20 stands (from 1980 onwards). \
+Look at the end of the document to see the Stan model
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+setwd(file.path(wd, 'model'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+source('functions/custom_functions.R', local=util)
+setwd(wd)
+library(rstan)
+options(mc.cores = parallel::detectCores())
+
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\\linespread{0.5}\n", x, "\n\n\\linespread{2}")
+})
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=1,
+    xaxs="i", yaxs="i", mar = c(5, 5, 3, 1))
+```
+
+## The data
+
+```{r}
+data <- readRDS(file = file.path(wd, 'output/model', 'data_15nov2025_azPIPO.rds'))
+
+par(mfrow = c(1,2))
+hist(data$log_rw_obs, col = util$c_mid, border = 'white', main ='',
+     xlab = "Log ringwidth")
+hist(data$log_rw_obs, col = util$c_mid, border = 'white', main ='',
+     xlab = "Log ringwidth",
+     ylim = c(0,500))
+
+```
+
+As a first guess, -4 seems like a good enough limit to define the (non-)centered configuration:
+
+```{r}
+data$w_sck <- ifelse(data$log_rw_obs < -4, 1, 0)
+```
+
+## A first fit
+
+```{r}
+
+run <- FALSE
+if(run){
+  fit <- stan(file=file.path(wd, 'model', 'stan', 
+                             'model8_with3predictors_nopooling_standphi_nonconcordantshock.stan'),
+            data=data, seed=5838293,
+            chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit, file.path(wd, 'model/shocks/output/azPIPO', 'fit.rds'))
+}else{
+  fit <- readRDS(file.path(wd, 'model/shocks/output/azPIPO', 'fit.rds'))
+}
+
+```
+
+Let's look at the diagnostics!
+
+```{r}
+diagnostics1 <- util$extract_hmc_diagnostics(fit)
+util$check_all_hmc_diagnostics(diagnostics1)
+```
+
+There are many signs that the posterior computation might be inaccurate.
+As a first step let's look at $\sigma$ and $\tau^\text{inner}_\text{shock}$, because we expect a degeneracy there.
+
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+  
+samples1 <- util$extract_expectand_vals(fit)
+base_samples <- util$filter_expectands(samples1, c('sigma', 'inner_tau_sck'))
+util$check_all_expectand_diagnostics(base_samples)
+
+util$plot_pairs_by_chain(log(samples1[['sigma']]), 'log(sigma)', 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+```
+
+HMC has trouble exploring the geometry here. Maybe because of some obstruction in exploring $\tau^\text{inner}_\text{shock}$ because of our crude initial (non-)centered configuration? \
+
+### Shock geometry
+
+Let's look at the individual shocks.
+
+```{r}
+name_shocks <- paste("delta_tilde_sck[", 1:data$N, "]", sep='')
+median_shocks <- sapply(name_shocks, function(x) util$ensemble_mcmc_quantile_est(samples1[[x]], 0.5))
+
+
+par(mfrow = c(1,2))
+hist(median_shocks, col = util$c_mid, border = 'white', main ='',
+     xlab = expression(delta[shock]), breaks = 30)
+hist(median_shocks, col = util$c_mid, border = 'white', main ='',
+     xlab = expression(delta[shock]), breaks = 30,
+     ylim = c(0,100))
+```
+
+We can check for some evidence of big shocks that were not centered... For example, the first biggest negative shock that was not centered:
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+
+last10mins <- sort(median_shocks[data$w_sck == 0])[1:10]
+
+name_x <- sub("\\..*$", "", names(last10mins[1]))
+util$plot_pairs_by_chain(samples1[[name_x]], name_x, 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+
+```
+
+Or the second biggest negative shock that was not centered:
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+name_x <- sub("\\..*$", "", names(last10mins[2]))
+util$plot_pairs_by_chain(samples1[[name_x]], name_x, 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+
+```
+And for a big positive shock:
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+
+first10maxs <- sort(median_shocks[data$w_sck == 0], decreasing = TRUE)[1:10]
+
+name_x <- sub("\\..*$", "", names(first10maxs[1]))
+util$plot_pairs_by_chain(samples1[[name_x]], name_x, 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+
+```
+
+However, we don't see any evidence of non-shocks that we should not have centered:
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+
+absmins <- sort(abs(median_shocks[data$w_sck == 1]))[1:10]
+
+name_x <- sub("\\..*$", "", names(absmins[1]))
+util$plot_pairs_by_chain(samples1[[name_x]], name_x, 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+
+```
+```{r}
+#| fig-width: 5
+#| fig-height: 5
+
+absmins <- sort(abs(median_shocks[data$w_sck == 1]))[1:10]
+
+name_x <- sub("\\..*$", "", names(absmins[2]))
+util$plot_pairs_by_chain(samples1[[name_x]], name_x, 
+                         log(samples1[['inner_tau_sck']]), 'log(inner_tau_sck)')
+
+```
+
+### Comparing shocks across stands
+
+A first approach to identify if our shock model is capturing lack of growth as we want is to look at the stand-level GPs. The dashed line corresponds to 2002, because we expect it to be a shock year.
+```{r}
+#| fig-width: 7
+#| fig-height: 9
+
+par(mfrow = c(4,3))
+for(s in 1:data$N_stands){
+  names <- sapply(1:data$N_all_years,
+                  function(y) paste0('f_sh[', s, ',', y, ']'))
+  util$plot_realizations(samples1, names, plot_xs = data$all_years[1:data$N_all_years], N_plots = 50,
+                         main = paste0('Stand ', data$uniq_stand_ids[s]), ylab = 'f_sh',
+                         display_xlim = data$all_years[c(1,data$N_all_years)], display_ylim = c(-2,2))
+  abline(v = 2002, lty = 2)
+}
+```
+
+The stand-level GPs are still all very wiggly, but in particular we see evidence for some shocks in S11 and S15. \
+Let's look more closely at individual shocks for trees in S11.
+
+```{r}
+#| fig-width: 7
+#| fig-height: 9
+
+trees_S11 <- which(data$stand_idxs == which(data$uniq_stand_ids == 'S11'))
+par(mfrow = c(5,4))
+for(t in trees_S11){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_realizations(samples1, names, plot_xs = data$years[idxs_t], N_plots = 100,
+                         ylab = expression(delta[shocks]),
+                         display_xlim = data$all_years[c(1,length(data$all_years))], 
+                         display_ylim = c(-10,10),
+                         main = paste0('Tree ', t))
+}
+
+```
+
+Mostly flat lines, i.e. our shock model does not capture anything. \
+If we look at another stand (S1), we see evidence for a more coherent behavior with what we expect
+
+```{r}
+#| fig-width: 7
+#| fig-height: 9
+
+trees_S1 <- which(data$stand_idxs == which(data$uniq_stand_ids == 'S1'))
+par(mfrow = c(5,4))
+for(t in trees_S1){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_realizations(samples1, names, plot_xs = data$years[idxs_t], N_plots = 100,
+                         ylab = expression(delta[shocks]),
+                         display_xlim = data$all_years[c(1,length(data$all_years))], 
+                         display_ylim = c(-10,10),
+                         main = paste0('Tree ', t))
+}
+
+```
+
+These two stands, S1 and S11, get a very different probability of shocks at the stand level.
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3
+
+par(mfrow = c(1,1))
+util$plot_expectand_pushforward(samples1[[paste0('phi_sck[',which(data$uniq_stand_ids == 'S1'),']')]], 
+                                50, flim = c(0,1), ylim = c(0,30),
+                                display_name=expression(phi[shock]))
+text("S1", x = 0.2, y = 7, col = util$c_dark)
+util$plot_expectand_pushforward(samples1[[paste0('phi_sck[',which(data$uniq_stand_ids == 'S11'),']')]], 
+                                50, flim = c(0,1), ylim = c(0,30),
+                                display_name=expression(phi[shock]), add = TRUE, 
+                                col = util$c_light_highlight)
+text("S11", x = 0.05, y = 20, col = util$c_light_highlight)
+
+```
+
+## The model
+
+
+```{r}
+# we skip the function block
+# many stuff commented out because I'm looking at only one species...
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model8_with3predictors_nopooling_standphi_nonconcordantshock.stan'))[58:340])
+
+```

@@ -44,10 +44,10 @@ datasets <- datasets[!(datasets$species_code %in% angiosperms),]
 
 # Keep only some states (temporary)
 datasets <- datasets[datasets$state %in% c('az', 'nm', 'ca', 'nv', 'ut', 'co'),]
-datasets <- datasets[datasets$state %in% c('az',  'ca'),]
+datasets <- datasets[datasets$state %in% c('az'),]
 
-# Keep only 6 datasets (three sites)
-# datasets <- datasets[datasets$dataset %in% c('az591', 'az592', 'az566', 'az567', 'az689', 'az569'),]
+# Keep only 1 dataset
+# datasets <- datasets[datasets$dataset %in% c('az592', 'az575', 'az585', 'az598'),]
 
 # Keep only some species (temporary)
 datasets <- datasets[datasets$species_code %in% c('PIPO'),]
@@ -75,7 +75,7 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 # datasets <- datasets[datasets$grouped_stand %in% selected_stands,]
 
 # Some subset
-datasets <- datasets[datasets$grouped_stand == 'S24',]
+# datasets <- datasets[datasets$grouped_stand == 'S32',]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_all.rds'))
@@ -340,5 +340,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_azca_s24.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_azca_s24.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_azPIPO.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_azPIPO.rds'))
+
+
