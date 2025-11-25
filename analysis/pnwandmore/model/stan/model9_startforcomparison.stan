@@ -316,8 +316,12 @@ model {
     + delta_sck_tree;
     
     f_tilde[tree_idxs] ~ normal(0,1);
+    
+    for(i in 1:N_years[t]){
+      log_rw_obs[tree_idxs[i]] ~ normal(mu[i] + f[i], sigma);
+    }
 
-    log_rw_obs[tree_idxs] ~ normal(mu + f[tree_idxs], sigma);
+    
 
   }
 }
