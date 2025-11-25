@@ -239,24 +239,16 @@ model {
   
   gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
   
-  // kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  // kappa_sck ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
-  
-  // inner_tau_sck ~ normal(0, log(1.2) / 2.57);
-  // outer_tau_sck ~ normal(0, 10/ 2.57); 
-  eta ~ gamma(3, 43.5);
+  eta ~ gamma(6, 43.5);
   nu ~ gamma(0.5, 0.033); 
-  phi_sck ~ beta(2, 10); 
+  phi_sck ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
-  
-  // sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
   vector[N] mu;
   for (t in 1:N_trees) {
@@ -282,11 +274,6 @@ model {
     + f_sh[stand_idx, all_years_idxs_tree];
     
     f_tilde[tree_idxs] ~ normal(0,1);
-    
-    // for(i in 1:N_years[t]){
-    //   log_rw_obs[tree_idxs[i]] ~ normal(mu[i] + f[i], sigma);
-    // }
-
   }
   
   // Observational model with marginalized shocks
@@ -306,11 +293,15 @@ model {
         int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
         
         log_p0[ys] += log_mix(omega_nonconc_sck,
-                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] + f[tree_idxs[y]], eta * sqrt(1 + nu / eta^2)),
-                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] + f[tree_idxs[y]], eta));
+                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], eta * sqrt(1 + nu / eta^2)),
+                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], eta));
         log_p1[ys] += log_mix(omega_conc_sck,
-                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] + f[tree_idxs[y]], eta * sqrt(1 + nu / eta^2)),
-                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] + f[tree_idxs[y]], eta));
+                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], eta * sqrt(1 + nu / eta^2)),
+                          normal_lpdf(log_rw_obs[tree_idxs[y]] | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], eta));
         
       }
     }
@@ -319,7 +310,6 @@ model {
       target += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
     }
   }
-  
   
 }
 

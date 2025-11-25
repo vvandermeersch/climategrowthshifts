@@ -41,6 +41,7 @@
   \KOMAoptions{parskip=half}}
 \makeatother
 \usepackage{xcolor}
+\usepackage[top=20mm,left=20mm,bottom=20mm,right=20mm]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 % Make \paragraph and \subparagraph free-standing
@@ -204,7 +205,7 @@
 It's time to expand the dataset I'm using.\\
 I look at all the \emph{Pinus ponderosa} in Arizona, i.e.~914 trees on
 20 stands (from 1980 onwards).\\
-Look at the end of the document to see the Stan model
+Look at the end of the document to see the Stan model.
 
 \linespread{0.5}
 
@@ -261,6 +262,100 @@ As a first guess, -4 seems like a good enough limit to define the
 \NormalTok{\}}\ControlFlowTok{else}\NormalTok{\{}
 \NormalTok{  fit }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/azPIPO\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit.rds\textquotesingle{}}\NormalTok{))}
 \NormalTok{\}}
+
+\NormalTok{diagnostics1 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Chain 1: 7 of 1024 transitions (0.68%)
+           saturated the maximum treedepth of 10.
+  Chain 1: E-FMI = 0.002.
+
+  Chain 2: 233 of 1024 transitions (22.75%)
+           saturated the maximum treedepth of 10.
+  Chain 2: E-FMI = 0.002.
+
+  Chain 3: 107 of 1024 transitions (10.45%)
+           saturated the maximum treedepth of 10.
+  Chain 3: E-FMI = 0.024.
+
+  Chain 4: 96 of 1024 transitions (9.38%)
+           saturated the maximum treedepth of 10.
+  Chain 4: E-FMI = 0.003.
+
+  Numerical trajectories that saturate the maximum treedepth have
+terminated prematurely.  Increasing max_depth above 10 should result in
+more expensive, but more efficient, Hamiltonian transitions.
+
+  E-FMI below 0.2 arise when a funnel-like geometry obstructs how
+effectively Hamiltonian trajectories can explore the target
+distribution.
+\end{verbatim}
+
+\linespread{2}
+
+This first run is mostly to refine my (non-)centered configuration.\\
+We can see that we're missing some shocks. For example, we can look at
+the first biggest negative shock that was not centered:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples1 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit)}
+
+\NormalTok{name\_shocks }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(}\StringTok{"delta\_tilde\_sck["}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N, }\StringTok{"]"}\NormalTok{, }\AttributeTok{sep=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
+\NormalTok{median\_shocks }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(name\_shocks, }\ControlFlowTok{function}\NormalTok{(x) util}\SpecialCharTok{$}\FunctionTok{ensemble\_mcmc\_quantile\_est}\NormalTok{(samples1[[x]], }\FloatTok{0.5}\NormalTok{))}
+
+\NormalTok{last10mins }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(median\_shocks[data}\SpecialCharTok{$}\NormalTok{w\_sck }\SpecialCharTok{==} \DecValTok{0}\NormalTok{])[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
+
+\NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(last10mins[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-5-1.pdf}
+
+\linespread{2}
+
+To do this, I used the posterior median of the shocks and define an
+arbitrarily threshold:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(median\_shocks, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{col =}\NormalTok{ util}\SpecialCharTok{$}\NormalTok{c\_mid, }\AttributeTok{border =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(median\_shocks, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{col =}\NormalTok{ util}\SpecialCharTok{$}\NormalTok{c\_mid, }\AttributeTok{border =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,}
+     \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1000}\NormalTok{))}
+
+\NormalTok{data}\SpecialCharTok{$}\NormalTok{w\_sck }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(}\FunctionTok{abs}\NormalTok{(median\_shocks) }\SpecialCharTok{\textgreater{}} \DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\linespread{2}
+
+\subsection{A second fit}\label{a-second-fit}
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{run }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+\ControlFlowTok{if}\NormalTok{(run)\{}
+\NormalTok{  fit }\OtherTok{\textless{}{-}} \FunctionTok{stan}\NormalTok{(}\AttributeTok{file=}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }
+                             \StringTok{\textquotesingle{}model8\_with3predictors\_nopooling\_standphi\_nonconcordantshock.stan\textquotesingle{}}\NormalTok{),}
+            \AttributeTok{data=}\NormalTok{data, }\AttributeTok{seed=}\DecValTok{5838293}\NormalTok{,}
+            \AttributeTok{chains =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }\AttributeTok{iter=}\DecValTok{2024}\NormalTok{, }\AttributeTok{refresh=}\DecValTok{10}\NormalTok{)}
+  \FunctionTok{saveRDS}\NormalTok{(fit, }\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/azPIPO\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit2.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{  fit }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/azPIPO\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit2.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
@@ -272,8 +367,8 @@ Let's look at the diagnostics!
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{diagnostics1 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit)}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics1)}
+\NormalTok{diagnostics2 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics2)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -307,28 +402,50 @@ This is often due to discontinuous or imprecise gradients.
 
 \linespread{2}
 
-There are many signs that the posterior computation might be inaccurate.
-As a first step let's look at \(\sigma\) and
-\(\tau^\text{inner}_\text{shock}\), because we expect a degeneracy
-there.
+There are many signs that the posterior computation might be
+inaccurate.\\
+At the parameters level (I excluded the stand-level GP and the
+tree-level shocks):
 
 \linespread{0.5}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{samples1 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit)}
-\NormalTok{base\_samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{filter\_expectands}\NormalTok{(samples1, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{))}
+\NormalTok{samples2 }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit)}
+
+\NormalTok{parameters }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(samples2)}
+\NormalTok{parameters }\OtherTok{\textless{}{-}}\NormalTok{ parameters[}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"delta"}\NormalTok{, parameters)]}
+\NormalTok{parameters }\OtherTok{\textless{}{-}}\NormalTok{ parameters[}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"f\_"}\NormalTok{, parameters)]}
+\NormalTok{parameters }\OtherTok{\textless{}{-}}\NormalTok{ parameters[}\SpecialCharTok{!}\FunctionTok{grepl}\NormalTok{(}\StringTok{"log\_rw\_pred"}\NormalTok{, parameters)]}
+\NormalTok{base\_samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{filter\_expectands}\NormalTok{(samples2, parameters)}
 \NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_expectand\_diagnostics}\NormalTok{(base\_samples)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-sigma:
-  Split hat{R} (2.853) exceeds 1.1.
-  Chain 1: hat{ESS} (8.641) is smaller than desired (100).
-  Chain 2: hat{ESS} (5.314) is smaller than desired (100).
-  Chain 3: hat{ESS} (9.544) is smaller than desired (100).
-  Chain 4: hat{ESS} (4.145) is smaller than desired (100).
+alpha:
+  Chain 2: hat{ESS} (52.052) is smaller than desired (100).
+
+beta_gdd[1]:
+  Chain 1: hat{ESS} (92.683) is smaller than desired (100).
+  Chain 2: hat{ESS} (55.041) is smaller than desired (100).
+
+beta_sm[1]:
+  Chain 1: hat{ESS} (85.700) is smaller than desired (100).
+  Chain 2: hat{ESS} (80.722) is smaller than desired (100).
+  Chain 4: hat{ESS} (76.048) is smaller than desired (100).
+
+beta_vpd[1]:
+  Chain 1: hat{ESS} (77.991) is smaller than desired (100).
+  Chain 2: hat{ESS} (49.776) is smaller than desired (100).
+
+gamma_sh:
+  Chain 2: hat{ESS} (64.856) is smaller than desired (100).
+  Chain 3: hat{ESS} (59.227) is smaller than desired (100).
+
+rho_sp[1]:
+  Chain 1: hat{ESS} (36.642) is smaller than desired (100).
+  Chain 3: hat{ESS} (28.005) is smaller than desired (100).
 
 inner_tau_sck:
   Split hat{R} (2.474) exceeds 1.1.
@@ -336,6 +453,20 @@ inner_tau_sck:
   Chain 2: hat{ESS} (5.940) is smaller than desired (100).
   Chain 3: hat{ESS} (10.016) is smaller than desired (100).
   Chain 4: hat{ESS} (4.374) is smaller than desired (100).
+
+phi_sck[18]:
+  Chain 1: hat{ESS} (90.319) is smaller than desired (100).
+
+omega_nonconc_sck:
+  Chain 1: hat{ESS} (88.808) is smaller than desired (100).
+  Chain 3: hat{ESS} (55.775) is smaller than desired (100).
+
+sigma:
+  Split hat{R} (2.853) exceeds 1.1.
+  Chain 1: hat{ESS} (8.641) is smaller than desired (100).
+  Chain 2: hat{ESS} (5.314) is smaller than desired (100).
+  Chain 3: hat{ESS} (9.544) is smaller than desired (100).
+  Chain 4: hat{ESS} (4.145) is smaller than desired (100).
 
 
 Split Rhat larger than 1.1 suggests that at least one of the Markov
@@ -345,31 +476,38 @@ Small empirical effective sample sizes result in imprecise Markov chain
 Monte Carlo estimators.
 \end{verbatim}
 
+\linespread{2}
+
+As a first step let's look at \(\sigma\) and
+\(\tau^\text{inner}_\text{shock}\), because we expect a degeneracy
+there.
+
+\linespread{0.5}
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(}\FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(sigma)\textquotesingle{}}\NormalTok{, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(}\FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(sigma)\textquotesingle{}}\NormalTok{, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-6-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-10-1.pdf}
 
 \linespread{2}
 
-HMC has trouble exploring the geometry here. Maybe because of some
+HMC has trouble exploring the geometry. Maybe because of some
 obstruction in exploring \(\tau^\text{inner}_\text{shock}\) because of
-our crude initial (non-)centered configuration?\\
+our crude initial (non-)centered configuration? To check this, let's
+look at some individual shocks.
 
 \subsubsection{Shock geometry}\label{shock-geometry}
-
-Let's look at the individual shocks.
 
 \linespread{0.5}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{name\_shocks }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(}\StringTok{"delta\_tilde\_sck["}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N, }\StringTok{"]"}\NormalTok{, }\AttributeTok{sep=}\StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{)}
-\NormalTok{median\_shocks }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(name\_shocks, }\ControlFlowTok{function}\NormalTok{(x) util}\SpecialCharTok{$}\FunctionTok{ensemble\_mcmc\_quantile\_est}\NormalTok{(samples1[[x]], }\FloatTok{0.5}\NormalTok{))}
+\NormalTok{median\_shocks }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(name\_shocks, }\ControlFlowTok{function}\NormalTok{(x) util}\SpecialCharTok{$}\FunctionTok{ensemble\_mcmc\_quantile\_est}\NormalTok{(samples2[[x]], }\FloatTok{0.5}\NormalTok{))}
 
 
 \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
@@ -381,7 +519,7 @@ Let's look at the individual shocks.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-11-1.pdf}
 
 \linespread{2}
 
@@ -396,12 +534,12 @@ not centered:
 \NormalTok{last10mins }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(median\_shocks[data}\SpecialCharTok{$}\NormalTok{w\_sck }\SpecialCharTok{==} \DecValTok{0}\NormalTok{])[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
 
 \NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(last10mins[}\DecValTok{1}\NormalTok{]))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-12-1.pdf}
 
 \linespread{2}
 
@@ -412,12 +550,12 @@ Or the second biggest negative shock that was not centered:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(last10mins[}\DecValTok{2}\NormalTok{]))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-13-1.pdf}
 
 \linespread{2}
 
@@ -430,12 +568,12 @@ And for a big positive shock:
 \NormalTok{first10maxs }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(median\_shocks[data}\SpecialCharTok{$}\NormalTok{w\_sck }\SpecialCharTok{==} \DecValTok{0}\NormalTok{], }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{)[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
 
 \NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(first10maxs[}\DecValTok{1}\NormalTok{]))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-10-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-14-1.pdf}
 
 \linespread{2}
 
@@ -449,28 +587,49 @@ centered:
 \NormalTok{absmins }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{abs}\NormalTok{(median\_shocks[data}\SpecialCharTok{$}\NormalTok{w\_sck }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]))[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
 
 \NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(absmins[}\DecValTok{1}\NormalTok{]))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-11-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-15-1.pdf}
 
 \linespread{2}
+
+The spherical geometry is more obvious if we look at
+\(\sqrt{\sigma^2 + {\tau^\text{inner}_\text{shock}}^2}\):
 
 \linespread{0.5}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{absmins }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(}\FunctionTok{abs}\NormalTok{(median\_shocks[data}\SpecialCharTok{$}\NormalTok{w\_sck }\SpecialCharTok{==} \DecValTok{1}\NormalTok{]))[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{]}
+\NormalTok{samples2[[}\StringTok{\textquotesingle{}sqrt\_sigma2\_tau2\textquotesingle{}}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]}\SpecialCharTok{\^{}}\DecValTok{2}\SpecialCharTok{+}\NormalTok{samples2[[}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{]]}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
 
-\NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(absmins[}\DecValTok{2}\NormalTok{]))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples1[[name\_x]], name\_x, }
-                         \FunctionTok{log}\NormalTok{(samples1[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(absmins[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}sqrt\_sigma2\_tau2\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(sqrt\_sigma2\_tau2)\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-12-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-16-1.pdf}
+
+\linespread{2}
+
+But what if I look at
+\(\sqrt{\sigma^2 + {\tau^\text{inner}_\text{shock}}^2}\) for the biggest
+negative shock that was not centered?
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{name\_x }\OtherTok{\textless{}{-}} \FunctionTok{sub}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{..*$"}\NormalTok{, }\StringTok{""}\NormalTok{, }\FunctionTok{names}\NormalTok{(last10mins[}\DecValTok{1}\NormalTok{]))}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples2[[name\_x]], name\_x, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}sqrt\_sigma2\_tau2\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(sqrt\_sigma2\_tau2)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-17-1.pdf}
 
 \linespread{2}
 
@@ -489,7 +648,7 @@ corresponds to 2002, because we expect it to be a shock year.
 \ControlFlowTok{for}\NormalTok{(s }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_stands)\{}
 \NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years,}
                   \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}f\_sh[\textquotesingle{}}\NormalTok{, s, }\StringTok{\textquotesingle{},\textquotesingle{}}\NormalTok{, y, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
-\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples1, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years], }\AttributeTok{N\_plots =} \DecValTok{50}\NormalTok{,}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples2, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years], }\AttributeTok{N\_plots =} \DecValTok{50}\NormalTok{,}
                          \AttributeTok{main =} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Stand \textquotesingle{}}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids[s]), }\AttributeTok{ylab =} \StringTok{\textquotesingle{}f\_sh\textquotesingle{}}\NormalTok{,}
                          \AttributeTok{display\_xlim =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,data}\SpecialCharTok{$}\NormalTok{N\_all\_years)], }\AttributeTok{display\_ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
   \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \DecValTok{2002}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
@@ -497,9 +656,9 @@ corresponds to 2002, because we expect it to be a shock year.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-13-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-18-1.pdf}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-13-2.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-18-2.pdf}
 
 \linespread{2}
 
@@ -517,7 +676,7 @@ Let's look more closely at individual shocks for trees in S11.
 \NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
 \NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
                   \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}delta\_sck[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
-\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples1, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], }\AttributeTok{N\_plots =} \DecValTok{100}\NormalTok{,}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples2, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], }\AttributeTok{N\_plots =} \DecValTok{100}\NormalTok{,}
                          \AttributeTok{ylab =} \FunctionTok{expression}\NormalTok{(delta[shocks]),}
                          \AttributeTok{display\_xlim =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FunctionTok{length}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{all\_years))], }
                          \AttributeTok{display\_ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{),}
@@ -526,9 +685,9 @@ Let's look more closely at individual shocks for trees in S11.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-14-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-19-1.pdf}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-14-2.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-19-2.pdf}
 
 \linespread{2}
 
@@ -546,7 +705,7 @@ behavior with what we expect
 \NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
 \NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
                   \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}delta\_sck[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
-\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples1, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], }\AttributeTok{N\_plots =} \DecValTok{100}\NormalTok{,}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples2, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], }\AttributeTok{N\_plots =} \DecValTok{100}\NormalTok{,}
                          \AttributeTok{ylab =} \FunctionTok{expression}\NormalTok{(delta[shocks]),}
                          \AttributeTok{display\_xlim =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\FunctionTok{length}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{all\_years))], }
                          \AttributeTok{display\_ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{),}
@@ -555,9 +714,9 @@ behavior with what we expect
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-15-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-20-1.pdf}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-15-2.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-20-2.pdf}
 
 \linespread{2}
 
@@ -569,11 +728,11 @@ at the stand level.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples1[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids }\SpecialCharTok{==} \StringTok{\textquotesingle{}S1\textquotesingle{}}\NormalTok{),}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids }\SpecialCharTok{==} \StringTok{\textquotesingle{}S1\textquotesingle{}}\NormalTok{),}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }
                                 \DecValTok{50}\NormalTok{, }\AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{30}\NormalTok{),}
                                 \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[shock]))}
 \FunctionTok{text}\NormalTok{(}\StringTok{"S1"}\NormalTok{, }\AttributeTok{x =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{y =} \DecValTok{7}\NormalTok{, }\AttributeTok{col =}\NormalTok{ util}\SpecialCharTok{$}\NormalTok{c\_dark)}
-\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples1[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids }\SpecialCharTok{==} \StringTok{\textquotesingle{}S11\textquotesingle{}}\NormalTok{),}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,}\FunctionTok{which}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids }\SpecialCharTok{==} \StringTok{\textquotesingle{}S11\textquotesingle{}}\NormalTok{),}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }
                                 \DecValTok{50}\NormalTok{, }\AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{30}\NormalTok{),}
                                 \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[shock]), }\AttributeTok{add =} \ConstantTok{TRUE}\NormalTok{, }
                                 \AttributeTok{col =}\NormalTok{ util}\SpecialCharTok{$}\NormalTok{c\_light\_highlight)}
@@ -581,7 +740,107 @@ at the stand level.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-16-1.pdf}
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-21-1.pdf}
+
+\linespread{2}
+
+\subsubsection{Do we obtain posteriors coherent with our domain
+expertise?}\label{do-we-obtain-posteriors-coherent-with-our-domain-expertise}
+
+Despite the numerous issues with the posterior computation, let's take a
+quick look at the limited inference we get from the model.\\
+In particular, let's look at the shock-related parameters (the plot for
+\(\phi_\text{shock}\) is quite messy because each plot gets a different
+\(\phi_\text{shock}\)).
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Quickly look at posteriors}
+\NormalTok{nf }\OtherTok{\textless{}{-}} \FunctionTok{layout}\NormalTok{(}
+  \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}
+           \DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{), }
+         \AttributeTok{ncol=}\DecValTok{6}\NormalTok{, }\AttributeTok{byrow=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.5}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(tau[shock]}\SpecialCharTok{\^{}}\NormalTok{inner))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(xs, }\DecValTok{0}\NormalTok{, }\FunctionTok{log}\NormalTok{(}\FloatTok{1.2}\NormalTok{) }\SpecialCharTok{/} \FloatTok{2.57}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}outer\_tau\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(tau[shock]}\SpecialCharTok{\^{}}\NormalTok{outer))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(xs, }\DecValTok{0}\NormalTok{, }\DecValTok{10} \SpecialCharTok{/} \FloatTok{2.57}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}phi\_sck[1]\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[schock]))}
+\ControlFlowTok{for}\NormalTok{(s }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_stands)\{}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,s,}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }\DecValTok{50}\NormalTok{,}
+                                  \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+                                  \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[schock]), }\AttributeTok{add =}\NormalTok{ T)}
+\NormalTok{\}}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(omega[shock]}\SpecialCharTok{\^{}}\NormalTok{concordant))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{230}\NormalTok{, }\DecValTok{14}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(omega[shock]}\SpecialCharTok{\^{}}\NormalTok{nonconcordant))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-22-1.pdf}
+
+\linespread{2}
+
+It's quite clear that the behavior of
+\(\omega_\text{shock}^\text{concordant}\),i.e.~\(p(z_\text{tree shock}= 1 | z_\text{stand shock} = 1)\),
+is not coherent with what I was expecting.\\
+Also, let's look at posterior distribution for \(\sigma\):
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Quickly look at posteriors}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{1.5}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(sigma))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(xs, }\DecValTok{0}\NormalTok{, }\FunctionTok{log}\NormalTok{(}\FloatTok{1.1}\NormalTok{) }\SpecialCharTok{/} \FloatTok{2.57}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-23-1.pdf}
+
+\linespread{2}
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(}\FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}outer\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(outer\_tau\_sck)\textquotesingle{}}\NormalTok{, }
+                         \FunctionTok{log}\NormalTok{(samples2[[}\StringTok{\textquotesingle{}inner\_tau\_sck\textquotesingle{}}\NormalTok{]]), }\StringTok{\textquotesingle{}log(inner\_tau\_sck)\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{azPIPO_files/figure-pdf/unnamed-chunk-24-1.pdf}
 
 \linespread{2}
 
