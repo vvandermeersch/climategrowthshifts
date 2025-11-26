@@ -366,14 +366,15 @@ project, so for now I recover only the shock state (\(z_t\)).
 \begin{Highlighting}[]
 \FunctionTok{writeLines}\NormalTok{(}
   \FunctionTok{readLines}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }
-                      \StringTok{\textquotesingle{}model9\_marginalshocks.stan\textquotesingle{}}\NormalTok{))[}\DecValTok{351}\SpecialCharTok{:}\DecValTok{402}\NormalTok{])}
+                      \StringTok{\textquotesingle{}model9\_marginalshocks.stan\textquotesingle{}}\NormalTok{))[}\DecValTok{351}\SpecialCharTok{:}\DecValTok{405}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
 generated quantities {
-  //vector delta_sck[N]; // latent variable
-  array[N] int sck_state; // zt = 0 or zt = 1
+
+  array[N] int sck_state; // latent state, zt = 0 or zt = 1
+  array[N] real log_rw_pred;
 
   for (t in 1:N_trees) {
     
@@ -415,10 +416,12 @@ generated quantities {
       sck_state[tree_idxs[y]] = bernoulli_rng(lambda_shock); // or something like categorical_rng(lambda_shock);?
 
       
-      // if(sck_state[tree_idxs[y]] == 1) {
-      //   
-      // }
-      
+      if(sck_state[tree_idxs[y]] == 1) {
+        log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], eta * sqrt(1 + nu / eta^2));
+      }else{
+        log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], eta);
+      }
+
       
     }
   }
@@ -496,17 +499,17 @@ Markov chain Monte Carlo estimation.
 \linespread{2}
 
 Clean! Let's continue.\\
-I cannot do a proper retrodictive check because I need to finish the
-generated quantities block\ldots{} But as a teaser, the latent shock
-states look nice (I think):
+These are the latent shock states:
 
 \linespread{0.5}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{set.seed}\NormalTok{(}\DecValTok{123456}\NormalTok{)}
+\NormalTok{random\_trees }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_trees, }\DecValTok{4}\NormalTok{)}
+
 \FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
-\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_trees, }\DecValTok{4}\NormalTok{))\{}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in}\NormalTok{ random\_trees)\{}
 \NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
 \NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
                   \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}sck\_state[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
@@ -521,16 +524,220 @@ states look nice (I think):
 
 \linespread{2}
 
-\subsection{Complete the generated quantities
-block}\label{complete-the-generated-quantities-block}
+\subsection{Next step}\label{next-step}
 
-What we want is the posterior of \(\delta_\text{shock}(k) ~|~ y(k)\),
-right?\\
-But I can't really see how I can recover the posterior without having
+Is it possible to recover the posterior of
+\(\delta_\text{shock}(k) ~|~ y(k)\), without having
 \({\tau_\text{inner}^\text{shock}}\) or
-\({\tau_\text{outer}^\text{shock}}\).\\
+\({\tau_\text{outer}^\text{shock}}\)?\\
 Maybe a first step could be to fix:
 \({\tau_\text{inner}^\text{shock}} = 0\)?
+
+Because for now my predictions look like:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in}\NormalTok{ random\_trees)\{}
+\NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
+\NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
+                  \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}log\_rw\_pred[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_conn\_pushforward\_quantiles}\NormalTok{(samples, names, data}\SpecialCharTok{$}\NormalTok{years[idxs\_t],}
+                                       \AttributeTok{xlab=}\StringTok{""}\NormalTok{, }\AttributeTok{ylab=}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Shock state {-} tree "}\NormalTok{,t), }
+                                       \AttributeTok{display\_ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{), }\AttributeTok{display\_xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1980}\NormalTok{, }\DecValTok{2010}\NormalTok{))}
+  \FunctionTok{points}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], data}\SpecialCharTok{$}\NormalTok{log\_rw\_obs[idxs\_t], }\AttributeTok{pch=}\DecValTok{16}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.7}\NormalTok{, }\AttributeTok{col=}\StringTok{"white"}\NormalTok{)}
+  \FunctionTok{points}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], data}\SpecialCharTok{$}\NormalTok{log\_rw\_obs[idxs\_t], }\AttributeTok{pch=}\DecValTok{16}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.4}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-9-1.pdf}
+
+\linespread{2}
+
+\subsection{Assuming that tau\_inner =
+0}\label{assuming-that-tau_inner-0}
+
+If I assume that \({\tau_\text{inner}^\text{shock}} = 0\), I can
+reconstruct the large shocks using the normal-normal conjugancy
+(\emph{merci} Google):
+\[\delta_\text{shock}(k) ~|~ y_k \sim \text{normal} \left( ({\tau_\text{outer}^\text{shock}}^2 / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)) \times y_k ~,~ \sqrt{({\tau_\text{outer}^\text{shock}}^2 \times \sigma^2) / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)}\right)\]
+
+In the generated quantities block, we can then have:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{writeLines}\NormalTok{(}
+  \FunctionTok{readLines}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }
+                      \StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner.stan\textquotesingle{}}\NormalTok{))[}\DecValTok{395}\SpecialCharTok{:}\DecValTok{405}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+      
+      if(sck_state[tree_idxs[y]] == 1) {
+        // we can reconstruct shock posterior using the normal-normal conjugancy 
+        real conjugate_mean = (outer_tau_sck^2 / (outer_tau_sck^2 + sigma^2)) * log_rw_obs[tree_idxs[y]];
+        real conjugate_sd   = sqrt((outer_tau_sck^2 * sigma^2) / (outer_tau_sck^2 + sigma^2));
+        delta_sck[tree_idxs[y]] = normal_rng(conjugate_mean, conjugate_sd);
+        log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]] + delta_sck[tree_idxs[y]], sigma);
+      }else{
+        log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
+      }
+\end{verbatim}
+
+\linespread{2}
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{if}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)\{}
+\NormalTok{  fit2 }\OtherTok{\textless{}{-}} \FunctionTok{stan}\NormalTok{(}\AttributeTok{file=}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner.stan\textquotesingle{}}\NormalTok{),}
+            \AttributeTok{data=}\NormalTok{data, }\AttributeTok{seed=}\DecValTok{5838293}\NormalTok{, }\AttributeTok{chains =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }\AttributeTok{iter=}\DecValTok{2024}\NormalTok{, }\AttributeTok{refresh=}\DecValTok{10}\NormalTok{)}
+  \FunctionTok{saveRDS}\NormalTok{(fit2, }\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit2.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{  fit2 }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit2.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\linespread{2}
+
+Diagnostics are cleaned:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{diagnostics }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit2)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  All Hamiltonian Monte Carlo diagnostics are consistent with reliable
+Markov chain Monte Carlo.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit2)}
+\NormalTok{base\_samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{filter\_expectands}\NormalTok{(samples,}
+                                       \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}alpha\textquotesingle{}}\NormalTok{, }
+                                         \StringTok{\textquotesingle{}beta\_gdd\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}beta\_sm\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}beta\_vpd\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}rho\_sh\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}gamma\_sh\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}rho\_sp\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}gamma\_sp\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}outer\_tau\_sck\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}phi\_sck\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{),}
+                                       \AttributeTok{check\_arrays =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_expectand\_diagnostics}\NormalTok{(base\_samples)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+All expectands checked appear to be behaving well enough for reliable
+Markov chain Monte Carlo estimation.
+\end{verbatim}
+
+\linespread{2}
+
+We can look at the latent shocks:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in}\NormalTok{ random\_trees)\{}
+\NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
+\NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
+                  \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}delta\_sck[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_conn\_pushforward\_quantiles}\NormalTok{(samples, names, data}\SpecialCharTok{$}\NormalTok{years[idxs\_t],}
+                                       \AttributeTok{xlab=}\StringTok{""}\NormalTok{, }\AttributeTok{ylab=}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Shock state {-} tree "}\NormalTok{,t), }
+                                       \AttributeTok{display\_ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\AttributeTok{display\_xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1980}\NormalTok{, }\DecValTok{2010}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-13-1.pdf}
+
+\linespread{2}
+
+And at the predictions:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in}\NormalTok{ random\_trees)\{}
+\NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
+\NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
+                  \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}log\_rw\_pred[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_conn\_pushforward\_quantiles}\NormalTok{(samples, names, data}\SpecialCharTok{$}\NormalTok{years[idxs\_t],}
+                                       \AttributeTok{xlab=}\StringTok{""}\NormalTok{, }\AttributeTok{ylab=}\FunctionTok{paste0}\NormalTok{(}\StringTok{"log(rw) {-} tree "}\NormalTok{,t), }
+                                       \AttributeTok{display\_ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{12}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{display\_xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1980}\NormalTok{, }\DecValTok{2010}\NormalTok{))}
+   \FunctionTok{points}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], data}\SpecialCharTok{$}\NormalTok{log\_rw\_obs[idxs\_t], }\AttributeTok{pch=}\DecValTok{16}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.7}\NormalTok{, }\AttributeTok{col=}\StringTok{"white"}\NormalTok{)}
+  \FunctionTok{points}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], data}\SpecialCharTok{$}\NormalTok{log\_rw\_obs[idxs\_t], }\AttributeTok{pch=}\DecValTok{16}\NormalTok{, }\AttributeTok{cex=}\FloatTok{0.4}\NormalTok{, }\AttributeTok{col=}\StringTok{"black"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-14-1.pdf}
+
+\linespread{2}
+
+\newpage
+
+However, it seems that the shocks are bit too large\ldots{}
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{(t }\ControlFlowTok{in}\NormalTok{ random\_trees)\{}
+\NormalTok{  idxs\_t }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{tree\_start\_idxs[t]}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{tree\_end\_idxs[t]}
+\NormalTok{  names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(idxs\_t,}
+                  \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}log\_rw\_pred[\textquotesingle{}}\NormalTok{, x, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_conn\_pushforward\_quantiles}\NormalTok{(samples, names, data}\SpecialCharTok{$}\NormalTok{years[idxs\_t], }
+                                       \AttributeTok{baseline\_values =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{log\_rw\_obs[idxs\_t],}
+                                       \AttributeTok{xlab=}\StringTok{""}\NormalTok{, }\AttributeTok{ylab=}\FunctionTok{paste0}\NormalTok{(}\StringTok{"Residuals {-} tree "}\NormalTok{,t), }
+                                       \AttributeTok{display\_ylim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{display\_xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{1980}\NormalTok{, }\DecValTok{2010}\NormalTok{),}
+                                       \AttributeTok{residual =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-15-1.pdf}
+
+\linespread{2}
+
+And, let's not forget the stand-level GP, which is still wiggly:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years,}
+                  \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}f\_sh[\textquotesingle{}}\NormalTok{, s, }\StringTok{\textquotesingle{},\textquotesingle{}}\NormalTok{, y, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_realizations}\NormalTok{(samples, names, }\AttributeTok{plot\_xs =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years], }\AttributeTok{N\_plots =} \DecValTok{50}\NormalTok{,}
+                       \AttributeTok{main =} \FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}Stand \textquotesingle{}}\NormalTok{, data}\SpecialCharTok{$}\NormalTok{uniq\_stand\_ids[s]), }\AttributeTok{ylab =} \StringTok{\textquotesingle{}f\_sh\textquotesingle{}}\NormalTok{,}
+                       \AttributeTok{display\_xlim =}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{all\_years[}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,data}\SpecialCharTok{$}\NormalTok{N\_all\_years)], }\AttributeTok{display\_ylim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-16-1.pdf}
+
+\linespread{2}
 
 
 

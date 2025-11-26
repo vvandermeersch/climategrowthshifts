@@ -94,7 +94,7 @@ Since I'm not totally sure how to do that, I decided to sample the $\delta_\text
 ```{r}
 writeLines(
   readLines(file.path(wd, 'model', 'stan', 
-                      'model9_marginalshocks.stan'))[351:402])
+                      'model9_marginalshocks.stan'))[351:405])
 ```
 
 ## Test with a small dataset
@@ -141,14 +141,16 @@ util$check_all_expectand_diagnostics(base_samples)
 ```
 
 Clean! Let's continue. \
-I cannot do a proper retrodictive check because I need to finish the generated quantities block... But as a teaser, the latent shock states look nice (I think):
+These are the latent shock states:
 
 ```{r}
 #| fig-width: 7
 #| fig-height: 4
 set.seed(123456)
+random_trees <- sample(1:data$N_trees, 4)
+
 par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
-for(t in sample(1:data$N_trees, 4)){
+for(t in random_trees){
   idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
   names <- sapply(idxs_t,
                   function(x) paste0('sck_state[', x, ']'))
@@ -159,8 +161,146 @@ for(t in sample(1:data$N_trees, 4)){
 
 ```
 
-## Complete the generated quantities block
+## Next step
 
-What we want is the posterior of $\delta_\text{shock}(k) ~|~ y(k)$, right?\
-But I can't really see how I can recover the posterior without having ${\tau_\text{inner}^\text{shock}}$ or ${\tau_\text{outer}^\text{shock}}$. \
+Is it possible to recover the posterior of $\delta_\text{shock}(k) ~|~ y(k)$, without having ${\tau_\text{inner}^\text{shock}}$ or ${\tau_\text{outer}^\text{shock}}$? \
 Maybe a first step could be to fix: ${\tau_\text{inner}^\text{shock}} = 0$?
+
+Because for now my predictions look like:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("Shock state - tree ",t), 
+                                       display_ylim=c(-10, 5), display_xlim = c(1980, 2010))
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.7, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.4, col="black")
+}
+
+```
+
+## Assuming that tau_inner = 0
+
+If I assume that ${\tau_\text{inner}^\text{shock}} = 0$, I can reconstruct the large shocks using the normal-normal conjugancy (*merci* Google):
+$$\delta_\text{shock}(k) ~|~ y_k \sim \text{normal} \left( ({\tau_\text{outer}^\text{shock}}^2 / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)) \times y_k ~,~ \sqrt{({\tau_\text{outer}^\text{shock}}^2 \times \sigma^2) / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)}\right)$$
+
+In the generated quantities block, we can then have:
+
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks_zerotauinner.stan'))[395:405])
+```
+
+
+```{r}
+
+if(FALSE){
+  fit2 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner.stan'),
+            data=data, seed=5838293, chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit2, file.path(wd, 'model/shocks/output/marginal', 'fit2.rds'))
+}else{
+  fit2 <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit2.rds'))
+}
+
+```
+
+Diagnostics are cleaned:
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit2)
+util$check_all_hmc_diagnostics(diagnostics)
+
+samples <- util$extract_expectand_vals(fit2)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 'outer_tau_sck',
+                                         'phi_sck', 'omega_conc_sck', 'omega_nonconc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+
+```
+
+We can look at the latent shocks:
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("Shock state - tree ",t), 
+                                       display_ylim=c(-10, 0.1), display_xlim = c(1980, 2010))
+}
+
+```
+
+And at the predictions:
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("log(rw) - tree ",t), 
+                                       display_ylim=c(-12, 1), display_xlim = c(1980, 2010))
+   points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.7, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.4, col="black")
+}
+
+```
+\newpage
+However, it seems that the shocks are bit too large...
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t], 
+                                       baseline_values = data$log_rw_obs[idxs_t],
+                                       xlab="", ylab=paste0("Residuals - tree ",t), 
+                                       display_ylim=c(-3, 1), display_xlim = c(1980, 2010),
+                                       residual = TRUE)
+}
+
+```
+
+And, let's not forget the stand-level GP, which is still wiggly:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+s <- 1
+names <- sapply(1:data$N_all_years,
+                  function(y) paste0('f_sh[', s, ',', y, ']'))
+util$plot_realizations(samples, names, plot_xs = data$all_years[1:data$N_all_years], N_plots = 50,
+                       main = paste0('Stand ', data$uniq_stand_ids[s]), ylab = 'f_sh',
+                       display_xlim = data$all_years[c(1,data$N_all_years)], display_ylim = c(-2,2))
+```
