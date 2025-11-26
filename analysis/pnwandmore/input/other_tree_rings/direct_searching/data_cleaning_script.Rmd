@@ -68,6 +68,9 @@ alrrd <- alrrd %>%
          Tag = id,
          years = year)
 
+alrrd$speciesfull <- "Picea glauca"
+alrrd$species <- "PIGL"
+
 write.csv(alrrd,here(alwo,"treering_width.csv"))
 ```
 
