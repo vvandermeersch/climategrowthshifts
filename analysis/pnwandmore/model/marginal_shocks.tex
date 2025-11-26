@@ -739,6 +739,194 @@ And, let's not forget the stand-level GP, which is still wiggly:
 
 \linespread{2}
 
+\subsection{More data!}\label{more-data}
+
+Let's expand this stuff to moooore data!\\
+914 trees, this take more than 7 hours to run.
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\AttributeTok{file =} \FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}output/model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}data\_15nov2025\_azPIPO.rds\textquotesingle{}}\NormalTok{))}
+
+\ControlFlowTok{if}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)\{}
+\NormalTok{  fit3 }\OtherTok{\textless{}{-}} \FunctionTok{stan}\NormalTok{(}\AttributeTok{file=}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner.stan\textquotesingle{}}\NormalTok{),}
+            \AttributeTok{data=}\NormalTok{data, }\AttributeTok{seed=}\DecValTok{5838293}\NormalTok{, }\AttributeTok{chains =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }\AttributeTok{iter=}\DecValTok{2024}\NormalTok{, }\AttributeTok{refresh=}\DecValTok{10}\NormalTok{)}
+  \FunctionTok{saveRDS}\NormalTok{(fit3, }\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit3.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{  fit3 }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit3.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\linespread{2}
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{diagnostics }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit3)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  All Hamiltonian Monte Carlo diagnostics are consistent with reliable
+Markov chain Monte Carlo.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit3)}
+\NormalTok{base\_samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{filter\_expectands}\NormalTok{(samples,}
+                                       \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}alpha\textquotesingle{}}\NormalTok{, }
+                                         \StringTok{\textquotesingle{}beta\_gdd\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}beta\_sm\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}beta\_vpd\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}rho\_sh\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}gamma\_sh\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}rho\_sp\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}gamma\_sp\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}outer\_tau\_sck\textquotesingle{}}\NormalTok{,}
+                                         \StringTok{\textquotesingle{}phi\_sck\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{),}
+                                       \AttributeTok{check\_arrays =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_expectand\_diagnostics}\NormalTok{(base\_samples)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+alpha:
+  Chain 2: hat{ESS} (94.815) is smaller than desired (100).
+  Chain 3: hat{ESS} (96.226) is smaller than desired (100).
+
+beta_gdd[1]:
+  Chain 2: hat{ESS} (83.445) is smaller than desired (100).
+
+beta_sm[1]:
+  Chain 2: hat{ESS} (70.945) is smaller than desired (100).
+
+rho_sp[1]:
+  Chain 1: hat{ESS} (76.078) is smaller than desired (100).
+  Chain 2: hat{ESS} (37.400) is smaller than desired (100).
+  Chain 3: hat{ESS} (56.188) is smaller than desired (100).
+  Chain 4: hat{ESS} (65.237) is smaller than desired (100).
+
+sigma:
+  Chain 2: hat{ESS} (38.755) is smaller than desired (100).
+  Chain 3: hat{ESS} (36.254) is smaller than desired (100).
+  Chain 4: hat{ESS} (89.635) is smaller than desired (100).
+
+outer_tau_sck:
+  Chain 3: hat{ESS} (46.249) is smaller than desired (100).
+
+phi_sck[12]:
+  Chain 3: hat{ESS} (68.030) is smaller than desired (100).
+
+omega_conc_sck:
+  Chain 2: Right tail hat{xi} (0.871) exceeds 0.25.
+  Chain 4: Right tail hat{xi} (0.657) exceeds 0.25.
+  Split hat{R} (1.685) exceeds 1.1.
+  Chain 2: hat{ESS} (7.744) is smaller than desired (100).
+  Chain 3: hat{ESS} (4.191) is smaller than desired (100).
+  Chain 4: hat{ESS} (10.152) is smaller than desired (100).
+
+omega_nonconc_sck:
+  Split hat{R} (1.353) exceeds 1.1.
+  Chain 2: hat{ESS} (10.463) is smaller than desired (100).
+  Chain 3: hat{ESS} (5.389) is smaller than desired (100).
+  Chain 4: hat{ESS} (15.782) is smaller than desired (100).
+
+
+Large tail hat{xi}s suggest that the expectand might not be
+sufficiently integrable.
+
+Split Rhat larger than 1.1 suggests that at least one of the Markov
+chains has not reached an equilibrium.
+
+Small empirical effective sample sizes result in imprecise Markov chain
+Monte Carlo estimators.
+\end{verbatim}
+
+\linespread{2}
+
+The model clearly wants to concentrate on lower values of
+\(\omega_\text{shock}^\text{concordant}\).\\
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_pairs\_by\_chain}\NormalTok{(samples[[}\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{]], }\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{,}
+\NormalTok{                         samples[[}\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{]], }\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-19-1.pdf}
+
+\linespread{2}
+
+If we look at all shock-related parameters, we can see that both modes
+for \(\omega_\text{shock}^\text{concordant}\) are very far from our
+prior domain expertise.
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Quickly look at posteriors}
+\NormalTok{nf }\OtherTok{\textless{}{-}} \FunctionTok{layout}\NormalTok{(}
+  \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{,}
+           \DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{5}\NormalTok{), }
+         \AttributeTok{ncol=}\DecValTok{6}\NormalTok{, }\AttributeTok{byrow=}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\StringTok{\textquotesingle{}sigma\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.5}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(tau[shock]}\SpecialCharTok{\^{}}\NormalTok{inner))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(xs, }\DecValTok{0}\NormalTok{, }\FunctionTok{log}\NormalTok{(}\FloatTok{1.1}\NormalTok{) }\SpecialCharTok{/} \FloatTok{2.57}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{2.7}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\StringTok{\textquotesingle{}outer\_tau\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{10}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(tau[shock]}\SpecialCharTok{\^{}}\NormalTok{outer))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dnorm}\NormalTok{(xs, }\DecValTok{0}\NormalTok{, }\DecValTok{10} \SpecialCharTok{/} \FloatTok{2.57}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{2.7}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\StringTok{\textquotesingle{}phi\_sck[1]\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.5}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[schock]))}
+\ControlFlowTok{for}\NormalTok{(s }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_stands)\{}
+\NormalTok{  util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}phi\_sck[\textquotesingle{}}\NormalTok{,s,}\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{)]], }\DecValTok{50}\NormalTok{,}
+                                  \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.5}\NormalTok{), }
+                                  \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(phi[schock]), }\AttributeTok{add =}\NormalTok{ T)}
+\NormalTok{\}}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{2}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{2.7}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\StringTok{\textquotesingle{}omega\_conc\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(omega[shock]}\SpecialCharTok{\^{}}\NormalTok{concordant))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{230}\NormalTok{, }\DecValTok{14}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{2.5}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\NormalTok{util}\SpecialCharTok{$}\FunctionTok{plot\_expectand\_pushforward}\NormalTok{(samples[[}\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{]], }\DecValTok{50}\NormalTok{,}
+                                \AttributeTok{flim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\FloatTok{0.5}\NormalTok{), }
+                                \AttributeTok{display\_name=}\FunctionTok{expression}\NormalTok{(omega[shock]}\SpecialCharTok{\^{}}\NormalTok{nonconcordant))}
+\NormalTok{xs }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
+\NormalTok{ys }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(xs, }\DecValTok{1}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{2.7}\NormalTok{, }\AttributeTok{col=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
+\FunctionTok{lines}\NormalTok{(xs, ys, }\AttributeTok{lwd=}\FloatTok{1.7}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_mid\_teal)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-20-1.pdf}
+
+\linespread{2}
+
 
 
 
