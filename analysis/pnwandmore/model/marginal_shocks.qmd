@@ -1,0 +1,410 @@
+---
+title: "Marginalizing shocks"
+pdf-engine: lualatex
+format:
+  pdf:
+    keep-tex: true
+    fig-width: 7
+    fig-height: 3
+    code-overflow: wrap
+monofont: 'Latin Modern Mono'
+monofontoptions: 'Scale=0.75'
+knitr:
+  opts_chunk:
+    comment: ''
+    cache.lazy: FALSE
+  opts_knit:
+    global.par: TRUE
+geometry:
+  - top=20mm
+  - left=20mm
+  - bottom=20mm
+  - right=20mm
+---
+
+*Cover that shocks which I ought not to see.* 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+setwd(file.path(wd, 'model/shocks'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+# source('functions/custom_functions.R', local=util)
+setwd(wd)
+library(rstan)
+options(mc.cores = parallel::detectCores())
+
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\\linespread{0.5}\n", x, "\n\n\\linespread{2}")
+})
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=1,
+    xaxs="i", yaxs="i", mar = c(5, 5, 3, 1))
+```
+
+## Model reparameterization
+
+We marginalize the shocks in the mixture model!
+Going from:
+```{stan output.var = 'foo'}
+#| eval: false
+# Non-shocky
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, inner_tau_sck)
+
+# Shocky
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, outer_tau_sck)
+```
+
+to a log-likelihood where shocks are marginalized out:
+```{stan output.var = 'foo'}
+#| eval: false
+# Non-shocky
+target += normal_lpdf(y[n] | mu[n], eta)
+
+# Shocky
+target += normal_lpdf( y[n] | mu[n], eta * sqrt{1 + nu / eta^2})
+```
+
+where:
+$$\eta = \sqrt{ \sigma^2 + {\tau_\text{inner}^\text{shock}}^2 }$$
+$$\nu = {\tau_\text{outer}^\text{shock}}^2-{\tau_\text{inner}^\text{shock}}^2$$
+In Stan, we now have in the model block:
+
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks.stan'))[230:315])
+```
+
+## But... my shocks...
+
+Our large shocks are likely tied to interesting ecological stuff... But by marginalizing them, we don't have inferences on them anymore. \
+It could be doable to "*to marginalize out eta in the “small shock” branch of the mixture model but leave eta explicit in the “large shock” branch of the mixture model*" (Mike). \
+Since I'm not totally sure how to do that, I decided to sample the $\delta_\text{shock}$ afterwards, to recover their posterior distributions in the generated quantities block. This is an ongoing project, so for now I recover only the shock state ($z_t$).
+
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks.stan'))[351:405])
+```
+
+## Test with a small dataset
+
+Let's run this new model on a very small dataset, 21 trees and 1 site. \
+The good thing here is that I don't need to tune the (non-)centered parametrization anymore.
+
+```{r}
+data <- readRDS(file = file.path(wd, 'output', 'model', 'data_15nov2025_az592.rds'))
+data$N_stand_trees <- array(data$N_stand_trees, dim = 1)
+data$N_stand_years <- array(data$N_stand_years, dim = 1)
+data$stand_start_years_idxs <- array(data$stand_start_years_idxs, dim = 1)
+data$stand_trees_end_idxs <- array(data$stand_trees_end_idxs, dim = 1)
+data$stand_trees_start_idxs <- array(data$stand_trees_start_idxs, dim = 1)
+
+if(FALSE){
+  fit <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks.stan'),
+            data=data, seed=5838293, chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit, file.path(wd, 'model/shocks/output/marginal', 'fit.rds'))
+}else{
+  fit <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit.rds'))
+}
+
+```
+
+Let's look at the diagnostics:
+
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit)
+util$check_all_hmc_diagnostics(diagnostics)
+
+samples <- util$extract_expectand_vals(fit)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'eta', 'nu',
+                                         'phi_sck', 'omega_conc_sck', 'omega_nonconc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+
+```
+
+Clean! Let's continue. \
+These are the latent shock states:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+set.seed(123456)
+random_trees <- sample(1:data$N_trees, 4)
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("Shock state - tree ",t), 
+                                       display_ylim=c(-0.1, 1.1), display_xlim = c(1980, 2010))
+}
+
+```
+
+## Next step
+
+Is it possible to recover the posterior of $\delta_\text{shock}(k) ~|~ y(k)$, without having ${\tau_\text{inner}^\text{shock}}$ or ${\tau_\text{outer}^\text{shock}}$? \
+Maybe a first step could be to fix: ${\tau_\text{inner}^\text{shock}} = 0$?
+
+Because for now my predictions look like:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("Shock state - tree ",t), 
+                                       display_ylim=c(-10, 5), display_xlim = c(1980, 2010))
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.7, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.4, col="black")
+}
+
+```
+
+## Assuming that tau_inner = 0
+
+If I assume that ${\tau_\text{inner}^\text{shock}} = 0$, I can reconstruct the large shocks using the normal-normal conjugancy (*merci* Google):
+$$\delta_\text{shock}(k) ~|~ y_k \sim \text{normal} \left( ({\tau_\text{outer}^\text{shock}}^2 / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)) \times y_k ~,~ \sqrt{({\tau_\text{outer}^\text{shock}}^2 \times \sigma^2) / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)}\right)$$
+
+In the generated quantities block, we can then have:
+
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks_zerotauinner.stan'))[395:405])
+```
+
+
+```{r}
+
+if(FALSE){
+  fit2 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner.stan'),
+            data=data, seed=5838293, chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit2, file.path(wd, 'model/shocks/output/marginal', 'fit2.rds'))
+}else{
+  fit2 <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit2.rds'))
+}
+
+```
+
+Diagnostics are cleaned:
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit2)
+util$check_all_hmc_diagnostics(diagnostics)
+
+samples <- util$extract_expectand_vals(fit2)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 'outer_tau_sck',
+                                         'phi_sck', 'omega_conc_sck', 'omega_nonconc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+
+```
+
+We can look at the latent shocks:
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("Shock state - tree ",t), 
+                                       display_ylim=c(-10, 0.1), display_xlim = c(1980, 2010))
+}
+
+```
+
+And at the predictions:
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=paste0("log(rw) - tree ",t), 
+                                       display_ylim=c(-12, 1), display_xlim = c(1980, 2010))
+   points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.7, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.4, col="black")
+}
+
+```
+\newpage
+However, it seems that the shocks are bit too large...
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+
+par(mfrow = c(2,2), mar = c(2, 5, 3, 1))
+for(t in random_trees){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t], 
+                                       baseline_values = data$log_rw_obs[idxs_t],
+                                       xlab="", ylab=paste0("Residuals - tree ",t), 
+                                       display_ylim=c(-3, 1), display_xlim = c(1980, 2010),
+                                       residual = TRUE)
+}
+
+```
+
+And, let's not forget the stand-level GP, which is still wiggly:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 4
+
+s <- 1
+names <- sapply(1:data$N_all_years,
+                  function(y) paste0('f_sh[', s, ',', y, ']'))
+util$plot_realizations(samples, names, plot_xs = data$all_years[1:data$N_all_years], N_plots = 50,
+                       main = paste0('Stand ', data$uniq_stand_ids[s]), ylab = 'f_sh',
+                       display_xlim = data$all_years[c(1,data$N_all_years)], display_ylim = c(-2,2))
+```
+
+## More data!
+
+Let's expand this stuff to moooore data! \
+914 trees, this take more than 7 hours to run.
+
+```{r}
+
+data <- readRDS(file = file.path(wd, 'output/model', 'data_15nov2025_azPIPO.rds'))
+
+if(FALSE){
+  fit3 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner.stan'),
+            data=data, seed=5838293, chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit3, file.path(wd, 'model/shocks/output/marginal', 'fit3.rds'))
+}else{
+  fit3 <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit3.rds'))
+}
+
+```
+
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit3)
+util$check_all_hmc_diagnostics(diagnostics)
+
+samples <- util$extract_expectand_vals(fit3)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 'outer_tau_sck',
+                                         'phi_sck', 'omega_conc_sck', 'omega_nonconc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+
+```
+
+The model clearly wants to concentrate on lower values of $\omega_\text{shock}^\text{concordant}$. \
+
+```{r}
+#| fig-width: 7
+#| fig-height: 7
+
+util$plot_pairs_by_chain(samples[['omega_conc_sck']], 'omega_conc_sck',
+                         samples[['omega_nonconc_sck']], 'omega_nonconc_sck')
+```
+
+If we look at all shock-related parameters, we can see that both modes for $\omega_\text{shock}^\text{concordant}$ are very far from our prior domain expertise.
+
+```{r}
+#| fig-width: 7
+#| fig-height: 5
+
+# Quickly look at posteriors
+nf <- layout(
+  matrix(c(1,1,1,2,2,2,
+           3,3,4,4,5,5), 
+         ncol=6, byrow=TRUE)
+)
+util$plot_expectand_pushforward(samples[['sigma']], 50,
+                                flim = c(0,0.5), 
+                                display_name=expression(tau[shock]^inner))
+xs <- seq(0, 2, 0.01)
+ys <- dnorm(xs, 0, log(1.1) / 2.57)
+lines(xs, ys, lwd=2.7, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+
+util$plot_expectand_pushforward(samples[['outer_tau_sck']], 50,
+                                flim = c(0,10), 
+                                display_name=expression(tau[shock]^outer))
+xs <- seq(0, 10, 0.01)
+ys <- dnorm(xs, 0, 10 / 2.57)
+lines(xs, ys, lwd=2.7, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+
+util$plot_expectand_pushforward(samples[['phi_sck[1]']], 50,
+                                flim = c(0,0.5), 
+                                display_name=expression(phi[schock]))
+for(s in 2:data$N_stands){
+  util$plot_expectand_pushforward(samples[[paste0('phi_sck[',s,']')]], 50,
+                                  flim = c(0,0.5), 
+                                  display_name=expression(phi[schock]), add = T)
+}
+xs <- seq(0, 0.5, 0.01)
+ys <- dbeta(xs, 2, 20)
+lines(xs, ys, lwd=2.7, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+
+util$plot_expectand_pushforward(samples[['omega_conc_sck']], 50,
+                                flim = c(0,1), 
+                                display_name=expression(omega[shock]^concordant))
+xs <- seq(0, 1, 0.01)
+ys <- dbeta(xs, 230, 14)
+lines(xs, ys, lwd=2.5, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+util$plot_expectand_pushforward(samples[['omega_nonconc_sck']], 50,
+                                flim = c(0,0.5), 
+                                display_name=expression(omega[shock]^nonconcordant))
+xs <- seq(0, 1, 0.01)
+ys <- dbeta(xs, 1, 20)
+lines(xs, ys, lwd=2.7, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+```

@@ -32,11 +32,16 @@ datasets <- datasets[datasets$dataset != 'co691',] # temporary
 # Keep only datasets within WLDAS extent
 datasets <- datasets[datasets$north_lat >=25.065 & datasets$north_lat <=52.925 & datasets$east_lon <= -89.025 &  datasets$east_lon >= -124.925,]
 
-datasets <- datasets[datasets$last_year >= 1999,] # at least 20 years of observations
+datasets <- datasets[datasets$last_year >= 1969,] # at least 20 years of observations
 
 # Temporary, dropping Angiosperms
 angiosperms <- c('PLRA', 'QUDG', 'QULO', 'QUGA', 'PPFR', 'PPTR', 'PPDE')
-datasets <- datasets[!(datasets$species_code %in% angiosperms),]
+# length(datasets)
+# datasets <- datasets[!(datasets$species_code %in% angiosperms),]
+
+# Dropping two Mexican species whose ranges are outside WLDAS extent
+todrop <- c('PIGR', 'PICU')
+datasets <- datasets[!(datasets$species_code %in% todrop),]
 
 # Same species
 datasets[datasets$species_code == 'ABBI', c('species_name', 'species_code')] <- 
@@ -49,12 +54,17 @@ phy.plants.here$tip.label <- sppfull[match(phy.plants.here$tip.label, sppfull$ph
 # table(datasets$species_code)
 # datasets <- datasets[datasets$species_code == 'PIED',]
 
+# Test with only one genus
+# unique(datasets[,c("species_code", 'species_name')])
+# length(datasets)
+# datasets <- datasets[grepl('Pinus', datasets$species_name),]
+
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
   
   raw_data_d <- ringwidth_series[ringwidth_series$dataset == datasets[d, 'dataset'], ]
   
-  raw_data_d <- raw_data_d[raw_data_d$year >= 1902 & raw_data_d$year <= 2024 & !is.na(raw_data_d$year), ]
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1950 & raw_data_d$year <= 1980 & !is.na(raw_data_d$year), ]
   # raw_data_d <- raw_data_d[ , colSums(is.na(raw_data_d)) < length(1980:2010)]
   
   raw_data_d$species_code <- datasets[d, 'species_code']
@@ -218,6 +228,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_24sept2025_long_gymnosperms.rds'))
-saveRDS(datasets, file.path(wd, 'output/model/climatena', 'datasets_24sept2025_long_gymnosperms.rds'))
+saveRDS(data, file = file.path(wd, 'output/model/climatena', 'data_15oct2025_long_19501980.rds'))
+saveRDS(datasets, file.path(wd, 'output/model/climatena', 'datasets_15oct2025_long_19501980.rds'))
 # saveRDS(phy.plants.here, file.path(wd, 'output/model', 'phylotree_11july2025.rds'))
