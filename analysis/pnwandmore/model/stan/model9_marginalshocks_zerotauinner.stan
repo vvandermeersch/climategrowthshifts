@@ -350,6 +350,7 @@ model {
 // }
 
 generated quantities {
+  
   vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
   array[N] int sck_state; // latent state, zt = 0 or zt = 1
    array[N] real log_rw_pred;
@@ -403,7 +404,6 @@ generated quantities {
       }else{
         log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
       }
-      
       
     }
   }

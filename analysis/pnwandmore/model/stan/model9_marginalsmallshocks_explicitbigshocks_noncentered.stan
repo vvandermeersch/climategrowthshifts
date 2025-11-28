@@ -111,6 +111,8 @@ transformed data {
   real gdd0 = 10;
   real sm0 = 25;
   real vpd0 = 8;
+  
+  real omega_nonconc_sck = 0;
 }
 
 parameters {
@@ -154,7 +156,7 @@ parameters {
   // vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  vector[N] delta_large_sck; // Latent parameter for yearly shocks
+  vector[N] delta_tilde_large_sck; // Latent parameter for yearly shocks
   // real<lower=0> inner_tau_sck; // Inner yearly log variation scale
   // real<lower=inner_tau_sck> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
   // real<lower=0> eta; // eta corresponds to sqrt(sigma^2 + tau_inner^2)
@@ -164,7 +166,7 @@ parameters {
   // Probability of shocks
   vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
   real<lower=0, upper=1> omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
-  real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Growth shock species scaling
   // vector<lower=0>[N_clades] mu_kappa_sck;
@@ -226,6 +228,9 @@ transformed parameters {
   //   beta_sm[sp] = mu_sm[clade_idxs[sp]] + tau_sm[clade_idxs[sp]] * beta_sm_tilde[sp];
   //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
   // }
+  
+   vector[N] delta_large_sck = outer_tau_sck *  delta_tilde_large_sck; ; 
+  
 
 }
 
@@ -255,8 +260,8 @@ model {
   //eta ~ gamma(3, 43.5);
   // nu ~ gamma(0.5, 0.033); 
   phi_sck ~ beta(2, 10); 
-  omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
-  omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
+  omega_conc_sck ~ beta(5.8, 2.7); // 0.3 <~ omega_conc_sck <~ 0.95 (updated...)
+  // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -292,7 +297,7 @@ model {
   }
   
   // Observational model with marginalized small shocks
-  delta_large_sck ~ normal(0, outer_tau_sck);
+  delta_tilde_large_sck ~ normal(0, 1);
   for (s in 1:N_stands) {
     
     array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], 

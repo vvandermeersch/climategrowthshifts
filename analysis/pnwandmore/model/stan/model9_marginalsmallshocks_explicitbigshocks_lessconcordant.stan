@@ -255,7 +255,7 @@ model {
   //eta ~ gamma(3, 43.5);
   // nu ~ gamma(0.5, 0.033); 
   phi_sck ~ beta(2, 10); 
-  omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
+  omega_conc_sck ~ beta(5.8, 2.7); // 0.3 <~ omega_conc_sck <~ 0.95 (updated...)
   omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)

@@ -22,7 +22,7 @@
 \usepackage{lmodern}
 \ifPDFTeX\else  
     % xetex/luatex font selection
-    \setmonofont[Scale=0.75]{Latin Modern Mono}
+    \setmonofont[Scale=0.5]{Latin Modern Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -43,7 +43,7 @@
 \usepackage{xcolor}
 \usepackage[top=20mm,left=20mm,bottom=20mm,right=20mm]{geometry}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
 \makeatletter
 \ifx\paragraph\undefined\else
@@ -201,6 +201,12 @@
 \begin{document}
 \maketitle
 
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
 
 \emph{Cover that shocks which I ought not to see.}
 
@@ -208,7 +214,7 @@
 
 \linespread{2}
 
-\subsection{Model reparameterization}\label{model-reparameterization}
+\section{Model reparameterization}\label{model-reparameterization}
 
 We marginalize the shocks in the mixture model! Going from:
 
@@ -348,13 +354,14 @@ model {
 
 \linespread{2}
 
-\subsection{But\ldots{} my shocks\ldots{}}\label{but-my-shocks}
+\section{But\ldots{} my shocks\ldots{}}\label{but-my-shocks}
 
 Our large shocks are likely tied to interesting ecological stuff\ldots{}
 But by marginalizing them, we don't have inferences on them anymore.\\
-It could be doable to ``\emph{to marginalize out eta in the ``small
-shock'' branch of the mixture model but leave eta explicit in the
-``large shock'' branch of the mixture model}'' (Mike).\\
+It could be doable to ``\emph{to marginalize out \(\delta_\text{shock}\)
+in the ``small shock'' branch of the mixture model but leave
+\(\delta_\text{shock}\) explicit in the ``large shock'' branch of the
+mixture model}'' (Mike).\\
 Since I'm not totally sure how to do that, I decided to sample the
 \(\delta_\text{shock}\) afterwards, to recover their posterior
 distributions in the generated quantities block. This is an ongoing
@@ -430,7 +437,7 @@ generated quantities {
 
 \linespread{2}
 
-\subsection{Test with a small dataset}\label{test-with-a-small-dataset}
+\section{Test with a small dataset}\label{test-with-a-small-dataset}
 
 Let's run this new model on a very small dataset, 21 trees and 1 site.\\
 The good thing here is that I don't need to tune the (non-)centered
@@ -520,11 +527,11 @@ These are the latent shock states:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-9-1.pdf}
 
 \linespread{2}
 
-\subsection{Next step}\label{next-step}
+\section{Next step}\label{next-step}
 
 Is it possible to recover the posterior of
 \(\delta_\text{shock}(k) ~|~ y(k)\), without having
@@ -553,12 +560,12 @@ Because for now my predictions look like:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-10-1.pdf}
 
 \linespread{2}
 
-\subsection{Assuming that tau\_inner =
-0}\label{assuming-that-tau_inner-0}
+\section{\texorpdfstring{Assuming that
+{\({\tau_\text{inner}^\text{shock}} = 0\)}}{Assuming that \{\textbackslash tau\_\textbackslash text\{inner\}\^{}\textbackslash text\{shock\}\} = 0}}\label{assuming-that-tau_textinnertextshock-0}
 
 If I assume that \({\tau_\text{inner}^\text{shock}} = 0\), I can
 reconstruct the large shocks using the normal-normal conjugancy
@@ -573,7 +580,7 @@ In the generated quantities block, we can then have:
 \begin{Highlighting}[]
 \FunctionTok{writeLines}\NormalTok{(}
   \FunctionTok{readLines}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }
-                      \StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner.stan\textquotesingle{}}\NormalTok{))[}\DecValTok{395}\SpecialCharTok{:}\DecValTok{405}\NormalTok{])}
+                      \StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner.stan\textquotesingle{}}\NormalTok{))[}\DecValTok{396}\SpecialCharTok{:}\DecValTok{405}\NormalTok{])}
 \end{Highlighting}
 \end{Shaded}
 
@@ -588,7 +595,6 @@ In the generated quantities block, we can then have:
         log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]] + delta_sck[tree_idxs[y]], sigma);
       }else{
         log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
-      }
 \end{verbatim}
 
 \linespread{2}
@@ -666,7 +672,7 @@ We can look at the latent shocks:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-13-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-14-1.pdf}
 
 \linespread{2}
 
@@ -690,7 +696,7 @@ And at the predictions:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-14-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-15-1.pdf}
 
 \linespread{2}
 
@@ -716,7 +722,7 @@ However, it seems that the shocks are bit too large\ldots{}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-15-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-16-1.pdf}
 
 \linespread{2}
 
@@ -726,6 +732,7 @@ And, let's not forget the stand-level GP, which is still wiggly:
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
 \NormalTok{s }\OtherTok{\textless{}{-}} \DecValTok{1}
 \NormalTok{names }\OtherTok{\textless{}{-}} \FunctionTok{sapply}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{data}\SpecialCharTok{$}\NormalTok{N\_all\_years,}
                   \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{paste0}\NormalTok{(}\StringTok{\textquotesingle{}f\_sh[\textquotesingle{}}\NormalTok{, s, }\StringTok{\textquotesingle{},\textquotesingle{}}\NormalTok{, y, }\StringTok{\textquotesingle{}]\textquotesingle{}}\NormalTok{))}
@@ -735,11 +742,11 @@ And, let's not forget the stand-level GP, which is still wiggly:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-16-1.pdf}
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-17-1.pdf}
 
 \linespread{2}
 
-\subsection{More data!}\label{more-data}
+\section{More data!}\label{more-data}
 
 Let's expand this stuff to moooore data!\\
 914 trees, this take more than 7 hours to run.
@@ -769,16 +776,7 @@ Let's expand this stuff to moooore data!\\
 \begin{Highlighting}[]
 \NormalTok{diagnostics }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_hmc\_diagnostics}\NormalTok{(fit3)}
 \NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_hmc\_diagnostics}\NormalTok{(diagnostics)}
-\end{Highlighting}
-\end{Shaded}
 
-\begin{verbatim}
-  All Hamiltonian Monte Carlo diagnostics are consistent with reliable
-Markov chain Monte Carlo.
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{extract\_expectand\_vals}\NormalTok{(fit3)}
 \NormalTok{base\_samples }\OtherTok{\textless{}{-}}\NormalTok{ util}\SpecialCharTok{$}\FunctionTok{filter\_expectands}\NormalTok{(samples,}
                                        \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}alpha\textquotesingle{}}\NormalTok{, }
@@ -791,59 +789,6 @@ Markov chain Monte Carlo.
 \NormalTok{util}\SpecialCharTok{$}\FunctionTok{check\_all\_expectand\_diagnostics}\NormalTok{(base\_samples)}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-alpha:
-  Chain 2: hat{ESS} (94.815) is smaller than desired (100).
-  Chain 3: hat{ESS} (96.226) is smaller than desired (100).
-
-beta_gdd[1]:
-  Chain 2: hat{ESS} (83.445) is smaller than desired (100).
-
-beta_sm[1]:
-  Chain 2: hat{ESS} (70.945) is smaller than desired (100).
-
-rho_sp[1]:
-  Chain 1: hat{ESS} (76.078) is smaller than desired (100).
-  Chain 2: hat{ESS} (37.400) is smaller than desired (100).
-  Chain 3: hat{ESS} (56.188) is smaller than desired (100).
-  Chain 4: hat{ESS} (65.237) is smaller than desired (100).
-
-sigma:
-  Chain 2: hat{ESS} (38.755) is smaller than desired (100).
-  Chain 3: hat{ESS} (36.254) is smaller than desired (100).
-  Chain 4: hat{ESS} (89.635) is smaller than desired (100).
-
-outer_tau_sck:
-  Chain 3: hat{ESS} (46.249) is smaller than desired (100).
-
-phi_sck[12]:
-  Chain 3: hat{ESS} (68.030) is smaller than desired (100).
-
-omega_conc_sck:
-  Chain 2: Right tail hat{xi} (0.871) exceeds 0.25.
-  Chain 4: Right tail hat{xi} (0.657) exceeds 0.25.
-  Split hat{R} (1.685) exceeds 1.1.
-  Chain 2: hat{ESS} (7.744) is smaller than desired (100).
-  Chain 3: hat{ESS} (4.191) is smaller than desired (100).
-  Chain 4: hat{ESS} (10.152) is smaller than desired (100).
-
-omega_nonconc_sck:
-  Split hat{R} (1.353) exceeds 1.1.
-  Chain 2: hat{ESS} (10.463) is smaller than desired (100).
-  Chain 3: hat{ESS} (5.389) is smaller than desired (100).
-  Chain 4: hat{ESS} (15.782) is smaller than desired (100).
-
-
-Large tail hat{xi}s suggest that the expectand might not be
-sufficiently integrable.
-
-Split Rhat larger than 1.1 suggests that at least one of the Markov
-chains has not reached an equilibrium.
-
-Small empirical effective sample sizes result in imprecise Markov chain
-Monte Carlo estimators.
-\end{verbatim}
 
 \linespread{2}
 
@@ -858,8 +803,6 @@ The model clearly wants to concentrate on lower values of
 \NormalTok{                         samples[[}\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{]], }\StringTok{\textquotesingle{}omega\_nonconc\_sck\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-19-1.pdf}
 
 \linespread{2}
 
@@ -923,7 +866,101 @@ prior domain expertise.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-20-1.pdf}
+\linespread{2}
+
+\section{What are concordant shocks?}\label{what-are-concordant-shocks}
+
+Previous results clearly call for an update of our domain expertise.\\
+What do we expect for \(\omega_\text{shock}^\text{concordant}\)? Let's
+run the model with a less restricted prior.\\
+
+\linespread{0.5}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-22-1.pdf}
+
+\linespread{2}
+
+I also want to implement a partial pooling on the stand-specific
+\(\phi_\text{shock}\). I consider a parameterization in terms of the
+log-odds \(\alpha_\text{shock} = \text{logit}(\phi_\text{shock})\), so
+we can then use a simple normal hierarchical prior:
+\[ \alpha_\text{shock} \sim \text{normal}(\mu_{\alpha_\text{shock}}, \tau_{\alpha_\text{shock}})\]
+We thus have to define hyperpriors on \(\mu_{\alpha_\text{shock}}\) and
+\(\tau_{\alpha_\text{shock}}\) that are coherent with the prior we
+initally set: \[\phi_\text{shock} \sim \text{beta}(2,20)\]
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\NormalTok{phi\_sck }\OtherTok{\textless{}{-}} \FunctionTok{rbeta}\NormalTok{(}\FloatTok{1e6}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(phi\_sck, }\AttributeTok{yaxt=}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_dark, }\AttributeTok{border=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks =} \DecValTok{30}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{logit}\NormalTok{(phi\_sck), }\AttributeTok{yaxt=}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_dark, }\AttributeTok{border=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-23-1.pdf}
+
+\linespread{2}
+
+The distribution of \(\text{logit}(\phi_\text{shock})\) is skewed, but
+as a rough approximation we will choose a normal hyperprior:
+\[\mu_{\alpha_\text{shock}} \sim \text{normal}(-2.5,0.8)\]
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu\_alpha\_sck }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\FloatTok{1e6}\NormalTok{, }\AttributeTok{mean =} \SpecialCharTok{{-}}\FloatTok{2.5}\NormalTok{, }\AttributeTok{sd =} \FloatTok{0.8}\NormalTok{)}
+\FunctionTok{hist}\NormalTok{(mu\_alpha\_sck, }\AttributeTok{yaxt=}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_dark, }\AttributeTok{border=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{,  }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{inv\_logit}\NormalTok{(mu\_alpha\_sck), }\AttributeTok{yaxt=}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_dark, }\AttributeTok{border=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks =} \DecValTok{30}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-24-1.pdf}
+
+\linespread{2}
+
+For \(\tau_{\alpha_\text{shock}}\), I don't have a really good domain
+expertise, so I will set \(\text{normal}(0,1)\). If
+\(\mu_{\alpha_\text{shock}} = -2.5\), we would obtain:
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mu\_alpha\_sck }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\FloatTok{2.5}
+\NormalTok{tau }\OtherTok{\textless{}{-}} \FunctionTok{abs}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\FloatTok{1e6}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{alpha\_sck }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\FloatTok{1e6}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ mu\_alpha\_sck, }\AttributeTok{sd =}\NormalTok{ tau)}
+\FunctionTok{hist}\NormalTok{(}\FunctionTok{inv\_logit}\NormalTok{(alpha\_sck), }\AttributeTok{yaxt=}\StringTok{\textquotesingle{}n\textquotesingle{}}\NormalTok{, }\AttributeTok{ylab =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{col=}\NormalTok{util}\SpecialCharTok{$}\NormalTok{c\_dark, }\AttributeTok{border=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{main =} \StringTok{\textquotesingle{}\textquotesingle{}}\NormalTok{, }\AttributeTok{breaks =} \DecValTok{50}\NormalTok{, }\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{inv\_logit}\NormalTok{(mu\_alpha\_sck), }\AttributeTok{col =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \FunctionTok{inv\_logit}\NormalTok{(mu\_alpha\_sck), }\AttributeTok{col =}\NormalTok{ util}\SpecialCharTok{$}\NormalTok{c\_dark\_teal, }\AttributeTok{lwd =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{marginal_shocks_files/figure-pdf/unnamed-chunk-25-1.pdf}
+
+\linespread{2}
+
+Let's run the model!
+
+\linespread{0.5}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\AttributeTok{file =} \FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}output/model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}data\_15nov2025\_azPIPO.rds\textquotesingle{}}\NormalTok{))}
+
+\ControlFlowTok{if}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)\{}
+\NormalTok{  fit4 }\OtherTok{\textless{}{-}} \FunctionTok{stan}\NormalTok{(}\AttributeTok{file=}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}stan\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}model9\_marginalshocks\_zerotauinner\_lessconcordant\_ppphi.stan\textquotesingle{}}\NormalTok{),}
+            \AttributeTok{data=}\NormalTok{data, }\AttributeTok{seed=}\DecValTok{5838293}\NormalTok{, }\AttributeTok{chains =} \DecValTok{4}\NormalTok{,}
+            \AttributeTok{warmup=}\DecValTok{1000}\NormalTok{, }\AttributeTok{iter=}\DecValTok{2024}\NormalTok{, }\AttributeTok{refresh=}\DecValTok{10}\NormalTok{)}
+  \FunctionTok{saveRDS}\NormalTok{(fit4, }\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit4.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{  fit4 }\OtherTok{\textless{}{-}} \FunctionTok{readRDS}\NormalTok{(}\FunctionTok{file.path}\NormalTok{(wd, }\StringTok{\textquotesingle{}model/shocks/output/marginal\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}fit4.rds\textquotesingle{}}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \linespread{2}
 

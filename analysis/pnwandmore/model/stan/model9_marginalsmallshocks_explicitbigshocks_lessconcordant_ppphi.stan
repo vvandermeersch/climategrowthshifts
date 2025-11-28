@@ -162,7 +162,9 @@ parameters {
    real<lower=0> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
   
   // Probability of shocks
-  vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
+  real mu_alpha_sck; // Population mean for stand-level shock log-odds
+  real<lower=0> tau_alpha_sck; // Population scale for stand-level shock log-odds
+  vector[N_stands] alpha_sck; // Individual stand-level shock log-odds
   real<lower=0, upper=1> omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
   real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
@@ -226,6 +228,12 @@ transformed parameters {
   //   beta_sm[sp] = mu_sm[clade_idxs[sp]] + tau_sm[clade_idxs[sp]] * beta_sm_tilde[sp];
   //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
   // }
+  
+  // Individual stand-level shock probabilities
+  vector<lower=0, upper=1>[N_stands] phi_sck;  
+  for (s in 1:N_stands) {
+    phi_sck[s] = inv_logit(alpha_sck[s]);
+  }
 
 }
 
@@ -252,11 +260,13 @@ model {
   
   // inner_tau_sck ~ normal(0, log(1.2) / 2.57);
   outer_tau_sck ~ normal(0, 10/ 2.57); 
-  //eta ~ gamma(3, 43.5);
-  // nu ~ gamma(0.5, 0.033); 
-  phi_sck ~ beta(2, 10); 
-  omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
+  omega_conc_sck ~ beta(5.8, 2.7); // 0.3 <~ omega_conc_sck <~ 0.95 (updated...)
   omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
+  
+  // (hyper)priors on log-odds (hierarchical)
+  mu_alpha_sck ~ normal(-2.5, 0.8); 
+  tau_alpha_sck ~ normal(0, 1); 
+  alpha_sck ~ normal(mu_alpha_sck, tau_alpha_sck); 
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -328,9 +338,9 @@ model {
 
 generated quantities {
   
-  vector[N] delta_sck_post = rep_vector(0,N); // latent amplitude of shock, reconstructed?
-  array[N] int sck_state; // latent state, zt = 0 or zt = 1
-   array[N] real log_rw_pred;
+  vector[N] delta_sck_post = rep_vector(0,N); // latent shocks (amplitude), reconstructed?
+  array[N] int sck_state; // latent shock states, zt = 0 or zt = 1
+  array[N] real log_rw_pred;
 
   for (t in 1:N_trees) {
     

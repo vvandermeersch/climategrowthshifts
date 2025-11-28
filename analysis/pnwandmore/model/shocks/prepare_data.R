@@ -47,7 +47,7 @@ datasets <- datasets[datasets$state %in% c('az', 'nm', 'ca', 'nv', 'ut', 'co'),]
 datasets <- datasets[datasets$state %in% c('az'),]
 
 # Keep only 1 dataset
-# datasets <- datasets[datasets$dataset %in% c('az592', 'az575', 'az585', 'az598'),]
+datasets <- datasets[datasets$dataset %in% c('az592', 'az628'),]
 
 # Keep only some species (temporary)
 datasets <- datasets[datasets$species_code %in% c('PIPO'),]
@@ -340,7 +340,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_azPIPO.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_azPIPO.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_az592_az628.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_az592_az628.rds'))
 
 
