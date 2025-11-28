@@ -906,6 +906,46 @@ util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
 abline(v = data$years[1712], lty = 2)
 ```
 
+# Move to a Cauchy
+
+Before any marginalization, we had this:
+```{stan output.var = 'foo'}
+#| eval: false
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, outer_tau_sck)
+```
+Moving to a Cauchy, we would have this:
+```{stan output.var = 'foo'}
+#| eval: false
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += cauchy_lpdf(delta_sck[n] | 0, outer_tau_sck)
+```
+$\tau_\text{outer}^\text{shock}$ is now the scale of the Cauchy distribution:
+$$\delta_\text{shock} \sim \text{Cauchy}(0, \tau_\text{outer}^\text{shock})$$
+I came across Mike's [writing on Cauchy](https://betanalpha.github.io/assets/case_studies/fitting_the_cauchy.html#4_second_alternative_implementation), and in particular the second implementation. If I understood correctly, the Cauchy is a scale mixture of Gaussian density functions, and in particular we would have:
+$\tau_\text{outer}^\text{shock}$ is now the scale of the Cauchy distribution:
+$$\delta_\text{shock} \mid \tau_\text{outer}^\text{aux} \sim \text{normal}(0, \tau_\text{outer}^\text{aux})$$
+$${\tau_\text{outer}^\text{aux}}^2  \sim \text{InvGamma}(0.5, 0.5*{\tau_\text{outer}^\text{shock}}^2)$$
+So, I think we could write:
+```{stan output.var = 'foo'}
+#| eval: false
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, sqrt(outer_tau2_aux))
+target += inv_gamma_lpdf(outer_tau2_aux | 0.5, 0.5*outer_tau_sck^2)
+```
+And thus marginalize the two first lines and obtain:
+```{stan output.var = 'foo'}
+#| eval: false
+target += normal_lpdf(y[n] | mu[n], sqrt(outer_tau2_aux+sigma^2))
+target += inv_gamma_lpdf(outer_tau2_aux | 0.5, 0.5*outer_tau_sck^2)
+```
+Which may allow to keep the normal-normal conjugancy to reconstruct $\delta_\text{shock}$ afterwards..? I never thought I would be so much into conjugate distributions.\
+In terms of domain expertise, we have to rethink about our prior on $\tau_\text{outer}^\text{shock}$. Playing with this [magic tool](https://distribution-explorer.github.io/continuous/cauchy.html#cauchy), we could set a prior to have $0\lesssim\tau_\text{outer}^\text{shock}\lesssim1$, as it would imply rougly shocks between -12 and 12. So something like:
+```{stan output.var = 'foo'}
+#| eval: false
+outer_tau_sck ~ normal(0, 1/ 2.57);
+```
+
 <!-- # Remove non-concordant shocks -->
 
 <!-- There is a geometry issue that is likely due to the centered parametrization (I think?). \ -->

@@ -3152,6 +3152,7 @@ window.Quarto = {
   <li><a href="#what-are-the-concordant-shocks-captured-by-the-model" id="toc-what-are-the-concordant-shocks-captured-by-the-model" class="nav-link" data-scroll-target="#what-are-the-concordant-shocks-captured-by-the-model"><span class="header-section-number">7</span> What are the concordant shocks captured by the model?</a></li>
   <li><a href="#a-new-implementation-to-keep-only-the-large-shocks" id="toc-a-new-implementation-to-keep-only-the-large-shocks" class="nav-link" data-scroll-target="#a-new-implementation-to-keep-only-the-large-shocks"><span class="header-section-number">8</span> A new implementation to keep only the large shocks</a></li>
   <li><a href="#exploring-the-shocks-that-are-not-captured" id="toc-exploring-the-shocks-that-are-not-captured" class="nav-link" data-scroll-target="#exploring-the-shocks-that-are-not-captured"><span class="header-section-number">9</span> Exploring the shocks that are not captured</a></li>
+  <li><a href="#move-to-a-cauchy" id="toc-move-to-a-cauchy" class="nav-link" data-scroll-target="#move-to-a-cauchy"><span class="header-section-number">10</span> Move to a Cauchy</a></li>
   </ul>
 </nav>
 </div>
@@ -4724,6 +4725,35 @@ Monte Carlo estimators.</code></pre>
 </figure>
 </div>
 </div>
+</div>
+</section>
+<section id="move-to-a-cauchy" class="level1" data-number="10">
+<h1 data-number="10"><span class="header-section-number">10</span> Move to a Cauchy</h1>
+<p>Before any marginalization, we had this:</p>
+<div class="cell" data-output.var="foo">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(delta_sck[n] | <span class="dv">0</span>, outer_tau_sck)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Moving to a Cauchy, we would have this:</p>
+<div class="cell" data-output.var="foo">
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> cauchy_lpdf(delta_sck[n] | <span class="dv">0</span>, outer_tau_sck)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><span class="math inline">\tau_\text{outer}^\text{shock}</span> is now the scale of the Cauchy distribution: <span class="math display">\delta_\text{shock} \sim \text{Cauchy}(0, \tau_\text{outer}^\text{shock})</span> I came across Mike’s <a href="https://betanalpha.github.io/assets/case_studies/fitting_the_cauchy.html#4_second_alternative_implementation">writing on Cauchy</a>, and in particular the second implementation. If I understood correctly, the Cauchy is a scale mixture of Gaussian density functions, and in particular we would have: <span class="math inline">\tau_\text{outer}^\text{shock}</span> is now the scale of the Cauchy distribution: <span class="math display">\delta_\text{shock} \mid \tau_\text{outer}^\text{aux} \sim \text{normal}(0, \tau_\text{outer}^\text{aux})</span> <span class="math display">{\tau_\text{outer}^\text{aux}}^2  \sim \text{InvGamma}(0.5, 0.5*{\tau_\text{outer}^\text{shock}}^2)</span> So, I think we could write:</p>
+<div class="cell" data-output.var="foo">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(delta_sck[n] | <span class="dv">0</span>, sqrt(outer_tau2_aux))</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> inv_gamma_lpdf(outer_tau2_aux | <span class="fl">0.5</span>, <span class="fl">0.5</span>*outer_tau_sck^<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And thus marginalize the two first lines and obtain:</p>
+<div class="cell" data-output.var="foo">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> normal_lpdf(y[n] | mu[n], sqrt(outer_tau2_aux+sigma^<span class="dv">2</span>))</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="kw">target +=</span> inv_gamma_lpdf(outer_tau2_aux | <span class="fl">0.5</span>, <span class="fl">0.5</span>*outer_tau_sck^<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Which may allow to keep the normal-normal conjugancy to reconstruct <span class="math inline">\delta_\text{shock}</span> afterwards..? I never thought I would be so much into conjugate distributions.<br>
+In terms of domain expertise, we have to rethink about our prior on <span class="math inline">\tau_\text{outer}^\text{shock}</span>. Playing with this <a href="https://distribution-explorer.github.io/continuous/cauchy.html#cauchy">magic tool</a>, we could set a prior to have <span class="math inline">0\lesssim\tau_\text{outer}^\text{shock}\lesssim1</span>, as it would imply rougly shocks between -12 and 12. So something like:</p>
+<div class="cell" data-output.var="foo">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>outer_tau_sck ~ normal(<span class="dv">0</span>, <span class="dv">1</span>/ <span class="fl">2.57</span>);</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- # Remove non-concordant shocks -->
 <!-- There is a geometry issue that is likely due to the centered parametrization (I think?). \ -->
