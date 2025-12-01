@@ -111,8 +111,6 @@ transformed data {
   real gdd0 = 10;
   real sm0 = 25;
   real vpd0 = 8;
-  
-  real upsilon = 1e-3;
 }
 
 parameters {
