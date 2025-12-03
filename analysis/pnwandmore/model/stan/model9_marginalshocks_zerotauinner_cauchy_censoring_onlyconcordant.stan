@@ -126,7 +126,6 @@ transformed data {
   real vpd0 = 8;
   
   real epsilon = 1e-3;
-  real omega_nonconc_sck = 0;
 }
 
 parameters {
@@ -315,22 +314,16 @@ model {
         int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
         
         if(rw_obs[tree_idxs[y]] > epsilon){
-          log_p0[ys] += log_mix(omega_nonconc_sck,
-                          normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sqrt(outer_tau2_aux[tree_idxs[y]] + sigma^2)),
-                          normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sigma));
+          log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], sigma);
           log_p1[ys] += log_mix(omega_conc_sck,
                           normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sqrt(outer_tau2_aux[tree_idxs[y]] + sigma^2)),
                           normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sigma));
         }else{
-          log_p0[ys] += log_mix(omega_nonconc_sck,
-                          normal_lcdf(log(epsilon)| mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sqrt(outer_tau2_aux[tree_idxs[y]] + sigma^2)),
-                          normal_lpdf(log(epsilon) | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sigma));
+          log_p0[ys] += normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], sigma);
           log_p1[ys] += log_mix(omega_conc_sck,
                           normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sqrt(outer_tau2_aux[tree_idxs[y]] + sigma^2)),
@@ -386,7 +379,8 @@ model {
 // }
 
 generated quantities {
-
+  
+  vector[N] mu;
   vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
   array[N] int sck_state; // latent state, zt = 0 or zt = 1
   array[N] real log_rw_pred;
@@ -408,14 +402,14 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
 
-    vector[N_years[t]] mu =  alpha
+    mu[tree_idxs] =  alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
     + f_sh[stand_idx, all_years_idxs_tree];
 
     // mixture weight for shock
-    real mw_shock = phi_sck[stand_idx]*omega_conc_sck + (1-phi_sck[stand_idx])*omega_nonconc_sck;
+    real mw_shock = phi_sck[stand_idx]*omega_conc_sck;
     real log_pshock;
     real log_pshock_plus_pnonshock;
     for(y in 1:N_years[t]){

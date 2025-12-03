@@ -1,0 +1,451 @@
+---
+title: "Marginalizing shocks:\nA step back to stay on track" 
+toc: true
+number-sections: true
+highlight: pygments
+pdf-engine: lualatex
+format:
+  html:
+    html-math-method: katex
+    theme:
+      - lux
+      - custom.scss
+    standalone: true
+    embed-resources: true
+    code-overflow: wrap
+    linkcolor: "#B97C7C"
+    fontsize: '11pt'
+    code-block-border-left: "#8F2727"
+    code-block-bg: "#f8f8f8"
+    highlight-style: github
+  pdf:
+    keep-tex: true
+    fig-width: 4
+    fig-height: 4
+    code-overflow: wrap
+    monofont: 'Latin Modern Mono'
+    monofontoptions:
+      - Scale=0.5
+format-links: false
+knitr:
+  opts_chunk:
+    comment: ''
+    cache.lazy: FALSE
+  opts_knit:
+    global.par: TRUE
+geometry:
+  - top=20mm
+  - left=20mm
+  - bottom=20mm
+  - right=20mm
+---
+
+```{css, echo=FALSE}
+.cell-output { border-left: #B97C7C 2px solid; border-radius: 0px;}
+```
+
+*Cover that shocks which I ought not to see.* 
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+setwd(file.path(wd, 'model/shocks'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+# source('functions/custom_functions.R', local=util)
+setwd(wd)
+library(rstan)
+options(mc.cores = parallel::detectCores())
+
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\\linespread{0.5}\n", x, "\n\n\\linespread{2}")
+})
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=1,
+    xaxs="i", yaxs="i", mar = c(5, 5, 3, 1))
+
+logit <- function(x) log(x/(1-x))
+inv_logit <- function(x) return(exp(x) / (1 + exp(x)))
+```
+
+# Model reparameterization
+
+We marginalize the shocks in the mixture model!
+Going from:
+```{stan output.var = 'foo'}
+#| eval: false
+# Non-shocky
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, inner_tau_sck)
+
+# Shocky
+target += normal_lpdf(y[n] | mu[n] + delta_sck[n], sigma)
+target += normal_lpdf(delta_sck[n] | 0, outer_tau_sck)
+```
+
+to a log-likelihood where shocks are marginalized out:
+```{stan output.var = 'foo'}
+#| eval: false
+# Non-shocky
+target += normal_lpdf(y[n] | mu[n], eta)
+
+# Shocky
+target += normal_lpdf( y[n] | mu[n], eta * sqrt{1 + nu / eta^2})
+```
+
+where:
+$$\eta = \sqrt{ \sigma^2 + {\tau_\text{inner}^\text{shock}}^2 }$$
+$$\nu = {\tau_\text{outer}^\text{shock}}^2-{\tau_\text{inner}^\text{shock}}^2$$
+
+:::{.callout-tip collapse=true title="Expand to see he new model block"}
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks.stan'))[230:315])
+```
+:::
+
+# Recover the shocks afterwards
+
+Our large shocks are likely tied to interesting ecological stuff... But by marginalizing them, we don't have inferences on them anymore. \
+It's easy to recover the shock state, but what about the shock amplitude?\
+If I assume that ${\tau_\text{inner}^\text{shock}} = 0$, I can reconstruct the large shocks using the normal-normal conjugancy:
+$$\delta_\text{shock}(k) ~|~ y_k \sim \text{normal} \left( ({\tau_\text{outer}^\text{shock}}^2 / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)) \times y_k ~,~ \sqrt{({\tau_\text{outer}^\text{shock}}^2 \times \sigma^2) / ({\tau_\text{outer}^\text{shock}}^2 + \sigma^2)}\right)$$
+
+# Time to deal with those zeros!
+
+Before digging too much on the shocks, I should first consider to deal with the missing rings.\
+We have domain expertise to say that zeros are a signature of extreme tree stress and very low growth.
+These missing rings correspond to observations that are below the measurement precision, which should be around $1\mathrm{e}{-3} ~\text{mm}$! We should thus consider that the probability of having a missing ring corresponds to the probability of getting values from `-Inf` to some threshold `epsilon` (which can be fixed, or a parameter to infer). The pseudo-code would be:
+
+```{stan output.var = 'foo'}
+#| eval: false
+
+if(rw_obs[tree_idxs[y]] >= epsilon){
+  target += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[n], sqrt(outer_tau2_aux+sigma^2))
+}else{
+  target += normal_lcdf(log(epsilon)) | mu[n], sqrt(outer_tau2_aux+sigma^2))
+}
+```
+
+:::{.callout-warning}
+Here I used the condition `rw_obs[tree_idxs[y]] >= epsilon`, because `epsilon` is the "last" observed value before zero. I do have a minor concern, though: `log(epsilon)` is also included in the normal_lcdf integral... Is it a big issue?
+:::
+
+I modified the Stan code to include this censoring.
+
+:::{.callout-tip collapse=true title="Expand to see a portion of the new model block"}
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks_zerotauinner_censoring_onlyconcordant.stan'))[310:326])
+```
+:::
+
+But I am less sure on how to handle this in the `generated quantities` block. \
+For now, when the observation $y$ is below the threshold $\epsilon$, I sample a $\log(y)$ in a truncated normal distribution (between $-\infty$ and $\log(\epsilon)$).
+
+:::{.callout-tip collapse=true title="Expand to see a portion of the new generated quantities block"}
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks_zerotauinner_censoring_onlyconcordant.stan'))[394:411])
+```
+:::
+
+I defined the truncated normal sampling function with the help of Stan manual.\
+I add a condition to deal with `p_ub = 0`, when the probability that a sample from `normal(mu, sigma)` is below `ub` is zero. In this case, I consider that the entire density collapses to a single point, `ub` (i.e. $\log(\epsilon)$).
+
+```{r}
+writeLines(
+  readLines(file.path(wd, 'model', 'stan', 
+                      'model9_marginalshocks_zerotauinner_censoring_onlyconcordant.stan'))[57:67])
+```
+
+Currently I just set: `real epsilon = 1e-3;`. But we could fit this parameter later.
+
+# A first fit on two stands
+
+Here, we consider that:
+
+- we have a normal population model for the shocks, with ${\tau_\text{inner}^\text{shock}} = 0$ (see above)  
+- $\phi_\text{shock}$, the stand-level shock probability, varies across stands (heterogeneous)  
+- $\omega_\text{shock}^\text{concordant}$, the tree-level shock probability given the stand is shocking, does not vary across stands (homogeneous)  
+- $\omega_\text{shock}^\text{non-concordant} = 0$ (no tree-level shock without a stand-level shock)  
+
+```{r}
+data <- readRDS(file = file.path(wd, 'output', 'model', 'data_15nov2025_az592_az628.rds'))
+data$rw_obs <- ifelse(data$log_rw_obs == log(1e-4), 0, exp(data$log_rw_obs))
+
+if(FALSE){
+  fit <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner_censoring.stan'),
+            data=data, seed=5838293, chains = 4,
+            warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit, file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring.rds'))
+}else{
+  fit <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring.rds'))
+}
+``` 
+
+Woaa! A flood of tree depth warnings.
+
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit)
+util$check_all_hmc_diagnostics(diagnostics)
+
+samples <- util$extract_expectand_vals(fit)
+base_samples <- util$filter_expectands(samples,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 
+                                         'phi_sck', 'omega_conc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+``` 
+
+Let's do some retrodictive checks! Let's look at 4 trees on the first stand:
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9.4
+#| echo: false
+
+par(mfcol = c(4,2), cex.lab = 1.5)
+for(t in 1:4){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab='Predictions (log)', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-8, 2), display_xlim = c(1980, 2010))
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  ticks <- c(unlist(lapply(seq(1980, 2000,10), function(x) c(x, rep(NA, 9)))), '2010')
+  util$plot_disc_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab='Shock state', 
+                                       display_ylim=c(-0.1, 1.1), 
+                                       xticklabs =  ticks)
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$years[idxs_t],
+                                       xlab="", ylab=expression(delta[shock]), 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
+  util$plot_conn_pushforward_quantiles(samples, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v = c(2002,1996), lty = 3, col="darkgrey")
+}
+``` 
+
+The model seems to over-regularize the large negative shocks. And for the first tree, it compensates for the stand-level GP shock in 2022 with a positive shock. We obtain a $\tau_\text{outer}^\text{shock}$ rather small compared to what our broad prior would suggest:
+
+```{r}
+#| fig-width: 7
+#| fig-height: 3
+#| echo: false
+
+par(mfcol = c(1,2), cex.lab = 0.9)
+util$plot_expectand_pushforward(samples[['outer_tau_sck']], 50,
+                                flim = c(0,5), 
+                                display_name=expression(tau[shock]^outer))
+plot(1, type = "n", xlab = "", ylab = "", xlim = c(0, 10), ylim = c(0, 0.12),
+     xaxs = "i", yaxs = "i", bty = "n", yaxt = "n")  
+xs <- seq(0, 10, 0.01)
+ys <- dnorm(xs, 0, 10 / 2.57)
+lines(xs, ys, lwd=2.7, col='white')
+lines(xs, ys, lwd=1.7, col=util$c_mid_teal)
+``` 
+
+# Considering a heterogeneous [$\omega_\text{shock}^\text{concordant}$]{style="text-transform:none;"}
+
+We add some flexibility to our model! Now, we consider that:
+
+- $\phi_\text{shock}$ and $\omega_\text{shock}^\text{concordant}$ varies across stands (heterogeneous)   
+
+```{r}
+if(FALSE){
+  fit2 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner_censoring_onlyconcordant_heterogeneous.stan'),
+              data=data, seed=5838293, chains = 4,
+              warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit2, file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring_heterogeneous.rds'))
+}else{
+  fit2 <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring_heterogeneous.rds'))
+}
+``` 
+
+Still a good amount of warnings! But only for one chain now.
+
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit2)
+util$check_all_hmc_diagnostics(diagnostics)
+```
+
+However the parameter-level warnings are more concerning.
+```{r}
+samples2 <- util$extract_expectand_vals(fit2)
+base_samples <- util$filter_expectands(samples2,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 
+                                         'phi_sck', 'omega_conc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+``` 
+
+We can look at the pair plot between $\sigma$ and $\gamma_\text{short}$:
+```{r}
+#| fig-width: 5.5
+#| fig-height: 5.5
+#| echo: false
+
+util$plot_pairs_by_chain(samples2[['sigma']], expression(sigma),
+                         samples2[['gamma_sh']], expression(gamma[short]))
+``` 
+
+Looking at the two stand GPs reveals the two modes for $\gamma_\text{short}$... at least on stand 1.
+```{r}
+#| fig-width: 8
+#| fig-height: 3.5
+#| echo: false
+
+par(mfrow= c(1,2))
+s <- 1
+names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', s,',',x, ']'))
+util$plot_realizations(samples2, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+
+s <- 2
+names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', s,',',x, ']'))
+util$plot_realizations(samples2, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+``` 
+
+If we look at the pair plot between $\phi_\text{shock}$ and $\omega_\text{shock}^\text{concordant}$, for stand 1:
+```{r}
+#| fig-width: 5.5
+#| fig-height: 5.5
+#| echo: false
+
+util$plot_pairs_by_chain(samples2[['phi_sck[1]']], expression(sigma),
+                         samples2[['omega_conc_sck[1]']], expression(gamma[short]))
+
+``` 
+
+And stand 2:
+```{r}
+#| fig-width: 5.5
+#| fig-height: 5.5
+#| echo: false
+
+util$plot_pairs_by_chain(samples2[['phi_sck[2]']], expression(sigma),
+                         samples2[['omega_conc_sck[2]']], expression(gamma[short]))
+``` 
+
+However, the retrodictive check on the trees of stand 1 seems to indicate that we are on a good path!
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9.4
+#| echo: false
+
+par(mfcol = c(4,2), cex.lab = 1.5)
+for(t in 1:4){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab='Predictions (log)', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-8, 2), display_xlim = c(1980, 2010))
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  ticks <- c(unlist(lapply(seq(1980, 2000,10), function(x) c(x, rep(NA, 9)))), '2010')
+  util$plot_disc_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab='Shock state', 
+                                       display_ylim=c(-0.1, 1.1), 
+                                       xticklabs =  ticks)
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab=expression(delta[shock]), 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v = c(2002,1996), lty = 3, col="darkgrey")
+}
+``` 
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9.4
+
+par(mfcol = c(4,2))
+for(t in 41:44){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab='log_rw_pred', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-10, 2), display_xlim = c(1980, 2022))
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=1, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.6, col="black")
+  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  ticks <- c(unlist(lapply(seq(1980, 2010,10), function(x) c(x, rep(NA, 9)))), '2020',NA,NA)
+  util$plot_disc_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab='Shock state', 
+                                       display_ylim=c(-0.1, 1.1), 
+                                       xticklabs =  ticks)
+  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
+                                       xlab="", ylab=expression(delta[shock]), 
+                                       display_ylim=c(-10, 2), display_xlim = c(1980, 2022))
+  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  
+  names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
+  util$plot_conn_pushforward_quantiles(samples2, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-2, 2), display_xlim = c(1980, 2022))
+  abline(v = c(2002,2006), lty = 3, col="darkgrey")
+}
+```

@@ -179,7 +179,7 @@ parameters {
   // Probability of shocks
   vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
   real<lower=0, upper=1> omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
-  real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Growth shock species scaling
   // vector<lower=0>[N_clades] mu_kappa_sck;
@@ -328,7 +328,7 @@ model {
           log_p0[ys] += log_mix(omega_nonconc_sck,
                           normal_lcdf(log(epsilon)| mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sqrt(outer_tau2_aux[tree_idxs[y]] + sigma^2)),
-                          normal_lpdf(log(epsilon) | mu[tree_idxs[y]] 
+                          normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sigma));
           log_p1[ys] += log_mix(omega_conc_sck,
                           normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 

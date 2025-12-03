@@ -53,6 +53,19 @@ functions {
     }
     return f2;
   }
+  
+  // see truncated-random-number-generation on Stan's user guide
+  real normal_ub_rng(real mu, real sigma, real ub) {
+    real p_ub = normal_cdf(ub, mu, sigma);
+    // deal with the limit case of the truncated normal
+    // to avoid error: "Exception: uniform_rng: Upper bound parameter is 0"
+    if (p_ub == 0)
+      return ub;
+    real u = uniform_rng(0, p_ub);
+    real y = mu + sigma * inv_Phi(u);
+    return y;
+  }
+
 }
 
 data {
@@ -94,7 +107,7 @@ data {
   array[N_stands] int<lower=1, upper=N> stand_trees_start_idxs;
   array[N_stands] int<lower=1, upper=N> stand_trees_end_idxs;
   
-  vector[N] rw_obs; // Observed Ring Width
+  vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
   vector[N] gdd_obs; // Observed gdd (all year) (x100 degC)
   vector[N] sm_obs; // Observed soil moisture (MJJ) (%)
   vector[N] vpd_obs; // Observed VPD (JJMJJA) (hPa)
@@ -111,6 +124,8 @@ transformed data {
   real gdd0 = 10;
   real sm0 = 25;
   real vpd0 = 8;
+  
+  real epsilon = 1e-3;
 }
 
 parameters {
@@ -155,14 +170,17 @@ parameters {
   
   // Growth shocks
   // real<lower=0> inner_tau_sck; // Inner yearly log variation scale
-  real<lower=0> outer_tau_sck; // Outer yearly log variation scale (the shocks!)
+  real<lower=0> outer_tau_sck; // Outer yearly log variation scale (the shocks!) Now it's a Cauchy scale!
   //real<lower=0> eta; // eta corresponds to sqrt(sigma^2 + tau_inner^2)
   // real<lower=0> nu; // nu corresponds to tau_outer^2 - tau_inner^2
+  
+  // vector<lower=0>[N] outer_tau2_aux; // latent variances for Cauchy
+  real<lower=1> nu; // degrees of freedom in Student's t 
   
   // Probability of shocks
   vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
   real<lower=0, upper=1> omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
-  real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Growth shock species scaling
   // vector<lower=0>[N_clades] mu_kappa_sck;
@@ -244,10 +262,9 @@ model {
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   
-  outer_tau_sck ~ normal(0, 10/ 2.57); 
   phi_sck ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
-  omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
+  // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -277,6 +294,11 @@ model {
     f_tilde[tree_idxs] ~ normal(0,1);
   }
   
+  // Cauchy is a scale mixture of Gaussian density functions!
+  outer_tau_sck ~ normal(0, 0.4/ 2.57); // outer_tau_sck is now the scale of Cauchy. With outer_tau_sck = 1, we get a Cauchy between -12 and 12
+  // outer_tau2_aux ~ inv_gamma(0.5, 0.5 * square(outer_tau_sck)); 
+  nu ~ gamma(2,0.1);
+  
   // Observational model with marginalized shocks
   for (s in 1:N_stands) {
     
@@ -293,30 +315,26 @@ model {
       for(y in 1:N_years[t]) {
         int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
         
-        if(rw_obs[tree_idxs[y]] > upsilon){
-          real log_rw_obs = log(rw_obs[tree_idxs[y]]);
-          log_p0[ys] += log_mix(omega_nonconc_sck,
-                          normal_lpdf(log_rw_obs | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-                          normal_lpdf(log_rw_obs | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sigma));
+        if(rw_obs[tree_idxs[y]] > epsilon){
+          log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], sigma);
           log_p1[ys] += log_mix(omega_conc_sck,
-                          normal_lpdf(log_rw_obs| mu[tree_idxs[y]] 
+                          student_t_lpdf(log(rw_obs[tree_idxs[y]]) | nu, mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-                          normal_lpdf(log_rw_obs | mu[tree_idxs[y]] 
+                          normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sigma));
         }else{
-          log_p0[ys] += log_mix(omega_nonconc_sck,
-                          normal_lcdf( log(upsilon) | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-                          normal_lcdf( log(upsilon) | mu[tree_idxs[y]] 
-                          + f[tree_idxs[y]], sigma));
+          log_p0[ys] += normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
+                          + f[tree_idxs[y]], sigma);
           log_p1[ys] += log_mix(omega_conc_sck,
-                          normal_lcdf( log(upsilon) | mu[tree_idxs[y]] 
+                          student_t_lcdf(log(epsilon) | nu, mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-                          normal_lcdf( log(upsilon) | mu[tree_idxs[y]] 
+                          normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
                           + f[tree_idxs[y]], sigma));
+          
         }
+        
+        
       }
     }
     
@@ -328,12 +346,14 @@ model {
 }
 
 generated quantities {
+  
+  vector[N] mu;
   vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
   array[N] int sck_state; // latent state, zt = 0 or zt = 1
   array[N] real log_rw_pred;
 
   for (t in 1:N_trees) {
-    
+
     array[N_years[t]] int tree_idxs
     = linspaced_int_array(N_years[t],
                           tree_start_idxs[t],
@@ -349,49 +369,65 @@ generated quantities {
     vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
     vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
 
-    vector[N_years[t]] mu =  alpha
+    mu[tree_idxs] =  alpha
     + beta_gdd[species_idx] * (gdd_obs_tree - gdd0)
     + beta_sm[species_idx] * (sm_obs_tree - sm0)
     + beta_vpd[species_idx] * (vpd_obs_tree - vpd0)
     + f_sh[stand_idx, all_years_idxs_tree];
-    
+
     // mixture weight for shock
-    real mw_shock = phi_sck[stand_idx]*omega_conc_sck + (1-phi_sck[stand_idx])*omega_nonconc_sck;
-    
+    real mw_shock = phi_sck[stand_idx]*omega_conc_sck;
+    real log_pshock;
+    real log_pshock_plus_pnonshock;
     for(y in 1:N_years[t]){
-      
+
       // mixture components
-      real log_pshock;
-      real log_pshock_plus_pnonshock;
-      if(rw_obs[tree_idxs[y]] > upsilon){
-        real log_rw_obs = log(rw_obs[tree_idxs[y]]);
-        log_pshock = log(mw_shock) + normal_lpdf(log_rw_obs | mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2));
-        log_pshock_plus_pnonshock = log_mix(mw_shock, 
-          normal_lpdf(log_rw_obs | mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-          normal_lpdf(log_rw_obs | mu[y] + f[tree_idxs[y]], sigma));
+      if(rw_obs[tree_idxs[y]] > epsilon){
+        log_pshock = log(mw_shock) + student_t_lpdf(log(rw_obs[tree_idxs[y]]) | nu, mu[y] + f[tree_idxs[y]],
+          sqrt(outer_tau_sck^2 + sigma^2));
+        log_pshock_plus_pnonshock = log_mix(mw_shock,
+          student_t_lpdf(log(rw_obs[tree_idxs[y]])| nu, mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
+          normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] + f[tree_idxs[y]], sigma));
       }else{
-        log_pshock = log(mw_shock) + normal_lcdf( log(upsilon) | mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2));
-        log_pshock_plus_pnonshock = log_mix(mw_shock, 
-          normal_lcdf( log(upsilon) | mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
-          normal_lcdf( log(upsilon) | mu[y] + f[tree_idxs[y]], sigma));
+        log_pshock = log(mw_shock) + student_t_lcdf(log(epsilon) | nu, mu[y] + f[tree_idxs[y]],
+          sqrt(outer_tau_sck^2 + sigma^2));
+        log_pshock_plus_pnonshock = log_mix(mw_shock,
+          student_t_lcdf(log(epsilon)| nu, mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2)),
+          normal_lcdf(log(epsilon) | mu[y] + f[tree_idxs[y]], sigma));
       }
-      
+
+
       // probability of shock state
       real lambda_shock = exp(log_pshock - log_pshock_plus_pnonshock);
-      
+
       sck_state[tree_idxs[y]] = bernoulli_rng(lambda_shock); // or something like categorical_rng(lambda_shock);?
 
-      // if(sck_state[tree_idxs[y]] == 1) {
-      //   // we can reconstruct shock posterior using the normal-normal conjugancy 
-      //   real conjugate_mean = (outer_tau_sck^2 / (outer_tau_sck^2 + sigma^2)) * log_rw_obs[tree_idxs[y]];
-      //   real conjugate_sd   = sqrt((outer_tau_sck^2 * sigma^2) / (outer_tau_sck^2 + sigma^2));
-      //   delta_sck[tree_idxs[y]] = normal_rng(conjugate_mean, conjugate_sd);
-      //   log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]] + delta_sck[tree_idxs[y]], sigma);
-      // }else{
-      //   log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
-      // }
-      
-      
+      if(rw_obs[tree_idxs[y]] > epsilon){
+        if(sck_state[tree_idxs[y]] == 1) {
+          // we can reconstruct shock posterior using the normal-normal conjugancy
+          real residual = log(rw_obs[tree_idxs[y]]) - mu[y] - f[tree_idxs[y]];
+          real conjugate_mean = (outer_tau_sck^2 / (outer_tau_sck^2 + sigma^2)) * residual;
+          real conjugate_sd   = sqrt((outer_tau_sck^2 * sigma^2) / (outer_tau_sck^2 + sigma^2));
+          delta_sck[tree_idxs[y]] = normal_rng(conjugate_mean, conjugate_sd);
+          log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]] + delta_sck[tree_idxs[y]], sigma);
+        }else{
+          log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
+        }
+      }else{
+        if(sck_state[tree_idxs[y]] == 1) {
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          real log_y = normal_ub_rng(mu[y] + f[tree_idxs[y]], sqrt(outer_tau_sck^2 + sigma^2), log(epsilon));
+          real residual = log_y - mu[y] - f[tree_idxs[y]];
+          real conjugate_mean = (outer_tau_sck^2 / (outer_tau_sck^2 + sigma^2)) * residual;
+          real conjugate_sd   = sqrt((outer_tau_sck^2 * sigma^2) / (outer_tau_sck^2 + sigma^2));
+          delta_sck[tree_idxs[y]] = normal_rng(conjugate_mean, conjugate_sd);
+          log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]] + delta_sck[tree_idxs[y]], sigma);
+        }else{
+          log_rw_pred[tree_idxs[y]] = normal_rng(mu[y] + f[tree_idxs[y]], sigma);
+        }
+      }
+
+
     }
   }
 }
