@@ -280,6 +280,8 @@ We add some flexibility to our model! Now, we consider that:
 
 - $\phi_\text{shock}$ and $\omega_\text{shock}^\text{concordant}$ varies across stands (heterogeneous)   
 
+## On 2 stands
+
 ```{r}
 if(FALSE){
   fit2 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner_censoring_onlyconcordant_heterogeneous.stan'),
@@ -391,7 +393,7 @@ for(t in 1:4){
                                        xlab="", ylab='Shock state', 
                                        display_ylim=c(-0.1, 1.1), 
                                        xticklabs =  ticks)
-  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  abline(v =  which(data$all_years %in% c(2002, 1996)), lty = 3, col="darkgrey")
   
   names <- sapply(idxs_t,
                   function(x) paste0('delta_sck[', x, ']'))
@@ -409,6 +411,8 @@ for(t in 1:4){
 }
 ``` 
 
+On stand 2, almost no years are considered as shocks.
+
 ```{r}
 #| fig-width: 8
 #| fig-height: 9.4
@@ -419,8 +423,8 @@ for(t in 41:44){
   names <- sapply(idxs_t,
                   function(x) paste0('log_rw_pred[', x, ']'))
   util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
-                                       xlab="", ylab='log_rw_pred', main = paste0('Tree ', data$uniq_tree_ids[t]),
-                                       display_ylim=c(-10, 2), display_xlim = c(1980, 2022))
+                                       xlab="", ylab='Predictions (log)', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
   points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=1, col="white")
   points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.6, col="black")
   abline(v =  c(2002,2006), lty = 3, col="darkgrey")
@@ -432,20 +436,162 @@ for(t in 41:44){
                                        xlab="", ylab='Shock state', 
                                        display_ylim=c(-0.1, 1.1), 
                                        xticklabs =  ticks)
-  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  abline(v =  which(data$all_years %in% c(2002, 2006)), lty = 3, col="darkgrey")
   
   names <- sapply(idxs_t,
                   function(x) paste0('delta_sck[', x, ']'))
   util$plot_conn_pushforward_quantiles(samples2, names, data$years[idxs_t],
                                        xlab="", ylab=expression(delta[shock]), 
-                                       display_ylim=c(-10, 2), display_xlim = c(1980, 2022))
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
   abline(v =  c(2002,2006), lty = 3, col="darkgrey")
   
   names <- sapply(1:data$N_all_years,
                   function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
   util$plot_conn_pushforward_quantiles(samples2, names, data$all_years,
                                        xlab="", ylab='Stand GP', 
-                                       display_ylim=c(-2, 2), display_xlim = c(1980, 2022))
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
   abline(v = c(2002,2006), lty = 3, col="darkgrey")
 }
 ```
+
+## On 20 stands
+
+We now use more data. This model took 10 hours to run on less than 1000 trees.
+
+```{r}
+
+data <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model/data_15nov2025_azPIPO.rds")
+data$rw_obs <- ifelse(data$log_rw_obs == log(1e-4), 0, exp(data$log_rw_obs))
+
+if(FALSE){
+  fit3 <- stan(file=file.path(wd, 'model', 'stan', 'model9_marginalshocks_zerotauinner_censoring_onlyconcordant_heterogeneous.stan'),
+              data=data, seed=5838293, chains = 4,
+              warmup=1000, iter=2024, refresh=10)
+  saveRDS(fit3, file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring_heterogeneous_morestands.rds'))
+}else{
+  fit3 <- readRDS(file.path(wd, 'model/shocks/output/marginal', 'fit_normal_censoring_heterogeneous_morestands.rds'))
+}
+``` 
+
+When considering more data, we do not see warnings anymore.
+
+```{r}
+diagnostics <- util$extract_hmc_diagnostics(fit3)
+util$check_all_hmc_diagnostics(diagnostics)
+```
+
+```{r}
+samples3 <- util$extract_expectand_vals(fit3)
+base_samples <- util$filter_expectands(samples3,
+                                       c('alpha', 
+                                         'beta_gdd', 'beta_sm', 'beta_vpd',
+                                         'rho_sh', 'gamma_sh',
+                                         'rho_sp', 'gamma_sp',
+                                         'sigma', 
+                                         'phi_sck', 'omega_conc_sck'),
+                                       check_arrays = TRUE)
+util$check_all_expectand_diagnostics(base_samples)
+``` 
+
+Let's look at the pair plot between $\sigma$ and $\gamma_\text{short}$ again!
+```{r}
+#| fig-width: 5.5
+#| fig-height: 5.5
+#| echo: false
+#| 
+par(cex.lab = 1)
+util$plot_pairs_by_chain(samples3[['sigma']], expression(sigma),
+                         samples3[['gamma_sh']], expression(gamma[short]))
+``` 
+
+Let's look at the retrodictive check for the same stand (1) than before:
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9.4
+#| echo: false
+
+trees <- which(grepl('az592', data$uniq_tree_ids))
+
+par(mfcol = c(4,2), cex.lab = 1.5)
+for(t in trees[1:4]){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab='Predictions (log)', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-8, 2), display_xlim = c(1980, 2010))
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+  points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  ticks <- c(unlist(lapply(seq(1980, 2000,10), function(x) c(x, rep(NA, 9)))), '2010')
+  util$plot_disc_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab='Shock state', 
+                                       display_ylim=c(-0.1, 1.1), 
+                                       xticklabs =  ticks)
+  abline(v =  which(data$all_years %in% c(2002, 1996)), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab=expression(delta[shock]), 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+  
+  names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2010))
+  abline(v = c(2002,1996), lty = 3, col="darkgrey")
+}
+``` 
+
+And stand 2:
+
+```{r}
+#| fig-width: 8
+#| fig-height: 9.4
+#| echo: false
+
+trees <- which(grepl('az628', data$uniq_tree_ids))
+
+par(mfcol = c(4,2), cex.lab = 1.5)
+for(t in trees[1:4]){
+  idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- sapply(idxs_t,
+                  function(x) paste0('log_rw_pred[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab='Predictions (log)', main = paste0('Tree ', data$uniq_tree_ids[t]),
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=1, col="white")
+  points(data$years[idxs_t], data$log_rw_obs[idxs_t], pch=16, cex=0.6, col="black")
+  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('sck_state[', x, ']'))
+  ticks <- c(unlist(lapply(seq(1980, 2010,10), function(x) c(x, rep(NA, 9)))), '2020',NA,NA)
+  util$plot_disc_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab='Shock state', 
+                                       display_ylim=c(-0.1, 1.1), 
+                                       xticklabs =  ticks)
+  abline(v =  which(data$all_years %in% c(2002, 2006)), lty = 3, col="darkgrey")
+  
+  names <- sapply(idxs_t,
+                  function(x) paste0('delta_sck[', x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$years[idxs_t],
+                                       xlab="", ylab=expression(delta[shock]), 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
+  abline(v =  c(2002,2006), lty = 3, col="darkgrey")
+  
+  names <- sapply(1:data$N_all_years,
+                  function(x) paste0('f_sh[', data$stand_idxs[t],',',x, ']'))
+  util$plot_conn_pushforward_quantiles(samples3, names, data$all_years,
+                                       xlab="", ylab='Stand GP', 
+                                       display_ylim=c(-8, 3), display_xlim = c(1980, 2022))
+  abline(v = c(2002,2006), lty = 3, col="darkgrey")
+}
+``` 
