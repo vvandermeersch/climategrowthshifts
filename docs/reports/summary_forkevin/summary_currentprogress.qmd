@@ -1,0 +1,250 @@
+---
+title: 'How do trees grow in Western North America:\newline A new modeling approach'
+toc: false
+number-sections: true
+highlight: pygments
+pdf-engine: lualatex
+format:
+  html:
+    html-math-method: katex
+    theme:
+      - lux
+      - custom.scss
+    standalone: true
+    embed-resources: true
+    code-overflow: wrap
+    linkcolor: "#B97C7C"
+    fontsize: '11pt'
+    code-block-border-left: "#8F2727"
+    code-block-bg: "#f8f8f8"
+    highlight-style: github
+  pdf:
+    keep-tex: true
+    code-overflow: wrap
+    monofont: 'Latin Modern Mono'
+    monofontoptions:
+      - Scale=0.5
+format-links: false
+knitr:
+  opts_chunk:
+    comment: ''
+    cache.lazy: FALSE
+  opts_knit:
+    global.par: TRUE
+geometry:
+  - top=20mm
+  - left=20mm
+  - bottom=20mm
+  - right=20mm
+---
+
+```{css, echo=FALSE}
+.cell-output { border-left: #B97C7C 2px solid; border-radius: 0px;}
+```
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+setwd(file.path(wd, 'model/shocks'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+```
+
+# The motivations behind the project
+
+::: {.callout-tip}
+## The technical motivation
+
+Bayesian magic! We fit all together the low frequency, decadal (to centennial) variations (the _detrending_) **and** the climatic variations (of interest). We let the model and the data speak, i.e. disentangle allometry (age/size trends in growth) from climate. This way, we avoid many arbitrary modeling decision (e.g. when one has to choose the frequency cut-off of a spline). And all the uncertainties get propagated to any decisions/predictions.
+:::
+
+\
+
+::: {.callout-tip}
+## The ecological motivation
+
+Tree ring data offers offer an unique opportunity to learn how trees grow in a changing climate, through the complex interactions between external events and size-dependent developmental stages. While dendrochronology has mostly focus on past climate reconstructions, our approach do not try to standardize away the complexities of individual-level growth and species-specific variations. On the contrary, we believe that this complexity---if handle correctly by a model---can help us understand how tree growth varies within and **across species, ecosystems, and climates**. And _in fine_ our approach could improve our forecasts of forest dynamics, carbon sequestration, and thus climate change itself!
+
+:::
+
+# A quick summary of the model
+
+Before diving into the results of our first inferences, let's describe the model! \
+We can divide the model in two main parts:
+
+- the mid- to long-term processes that are not directly related to climate, \newline such as **allometric constraints**, neighbour competition dynamics, ...
+
+- the short-term variations that are related to external conditions, \newline mostly **climate**, but also pest outbreaks, ...
+
+## Mid- to long-term processes
+
+When we think about these low frequency variations, we mainly think about the age/size trends that affect tree growth, due to the natural size and shape of trees. We want this part of the model to be **flexible** enough to accommodates phase shifts, since tree growth is rarely perfectly smooth.\
+
+```{r, fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+#| fig-heigth: 2
+#| fig-width: 8
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=1,
+    xaxs="i", yaxs="i", mar = c(5, 3, 3, 1))
+
+gompertz <- function(dmax, beta, tau, t){
+  return(dmax*exp(-log(2)*exp(-2/log(2)*beta/dmax*(t-tau))))
+}
+
+par(mfrow = c(1,2))
+
+t <- seq(1900, 1984, 7)
+dbh <- gompertz(dmax = 80, beta = 2, tau = 1940, t)
+dbh[3] <- dbh[3] + 3; dbh[4] <- dbh[4] + 5; dbh[5] <- dbh[5] - 2;
+dbh[8] <- dbh[8] - 6; dbh[9] <- dbh[9] - 12; dbh[10] <- dbh[10] - 8;
+dbh[12] <- dbh[12] - 1; dbh[13] <- dbh[13] +3;
+plot(dbh ~ t, type = 'p', axes = FALSE, frame = FALSE, xlab = '', ylab = '',
+     pch = 20, col = util$c_mid, xlim = c(1900-1,2000+1), ylim = c(-2, 82))
+title(xlab = 'Time', ylab = 'Diameter', line = 1, main = 'Observed diameter growth...')
+axis(1, at = seq(1900-1, 2000+1, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+axis(2, at = seq(-2, 82, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+
+
+t2 <- seq(1900, 2000, 1)
+dbh2 <- gompertz(dmax = 80, beta = 2, tau = 1940, t2)
+plot(dbh ~ t, type = 'p', axes = FALSE, frame = FALSE, xlab = '', ylab = '',
+     pch = 20, col = util$c_light, xlim = c(1900-1,2000+1), ylim = c(-2, 82), cex = 0.85)
+lines(dbh2 ~ t2, type = 'l', lwd = 1.5, col = util$c_dark, lty = 2)
+title(xlab = 'Time', ylab = 'Diameter', line = 1, main = '...is rarely smooth')
+axis(1, at = seq(1900-1, 2000+1, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+axis(2, at = seq(-2, 82, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+```
+
+We believe that these variations are "_not directly related to climate_", but not totally independent of the climate neither: a big storm could knock down surrounding trees and reduce competition for an individual.
+
+We model these variations with a first **Gaussian process** (GP). The GP is characterized by a covariance function that captures the temporal correlation between ring widths that persists over one or several decades. The **length scale** $\mathbf{\rho}$ of this covariance function determined how quickly the correlations between ring widths decay. In the example below, ring width $x_2$ is more related to $x_1$ than $x_3$ is. \
+
+```{r, fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+
+expquad <- function(alpha, rho, deltat){
+  return(alpha^2*exp(-1/2*(deltat/rho)^2))
+}
+
+deltat <- seq(0, 47, 1)
+cov <- expquad(alpha = 1, rho = 15, deltat)
+plot(cov ~ deltat, type = 'l', axes = FALSE, frame = FALSE, xlab = '', ylab = '',
+    lwd = 1.5, col = util$c_light_highlight,, ylim = c(0, 1.1))
+title(xlab = expression(paste(Delta, 'time (between two rings)')), ylab = 'Correlation', line = 1,
+      main = 'A covariance function...')
+axis(1, at = seq(0, 47, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+axis(2, at = seq(0, 1.03, 0.01), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+points(x = c(0, 7, 20), y = expquad(alpha = 1, rho = 15, c(0,7,20)), pch = 20, col = 'white', xpd=NA, cex = 1.5)
+points(x = c(0, 7, 20), y = expquad(alpha = 1, rho = 15, c(0,7,20)), pch = 20, col = util$c_dark, xpd=NA, cex = 1)
+text(x = c(0, 7, 20), y = expquad(alpha = 1, rho = 15, c(0,7,20)) + 0.1, labels = c(expression(x[1]), expression(x[2]), expression(x[3])), col = util$c_dark, xpd=NA)
+
+plot(cov ~ deltat, type = 'l', axes = FALSE, frame = FALSE, xlab = '', ylab = '',
+    lwd = 1.5, col = util$c_light_highlight, ylim = c(0, 1.1))
+title(main = expression(bold(paste('...mainly determined by a length scale ', rho))), line = 1)
+segments(x0 = 15, x1 = 15, y0 = 0, y1 = 1*exp(-1/2), lty = 2, col = util$c_dark, lwd = 1.5)
+segments(x0 = 0, x1 = 15, y0 = 1*exp(-1/2), y1 = 1*exp(-1/2), lty = 2, col = util$c_dark, lwd = 1.5)
+# title(xlab = expression(paste(Delta, 'time (between two rings)')), ylab = 'Correlation', line = 1)
+axis(1, at = c(0, 15, 47), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+axis(2, at = seq(0, 1.02, 0.01), tick = TRUE, labels = FALSE, lwd.ticks = 0)
+text(x = 15, y = -0.07, labels = expression(rho), xpd=NA, col = util$c_dark)
+text(x = 45, y = -0.07, labels = expression(3*rho), xpd=NA, col = util$c_dark)
+
+```
+
+The correlation across ring widths becomes negligeable around $3\rho$ years. \newpage
+
+This mid- to long-term GP allows to capture, at the individual tree level, the low frequency variations that appear in the ring width measurements. \
+
+```{r, fig.height=3.5, fig.width=6, fig.align="center"}
+#| echo: false
+
+example_samples <- readRDS("/home/victor/projects/climategrowthshifts/docs/reports/summary_forkevin/aux_files/example_samples.rds")
+data <- readRDS(file = file.path('/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model', 'data_05dec2025_PIPO_5stands.rds'))
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=0.9,
+    xaxs="i", yaxs="i", mar = c(5, 10, 3, 1))
+t <- 20
+idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+
+# names <- sapply(idxs_t,
+#                 function(x) paste0('f[', x, ']'))
+# util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+#                                      xlab="", ylab='Ring width (log scale)', main = 'A long-term GP',
+#                                      display_ylim=c(-0.5, 1.7), display_xlim = c(1979.5, 2010.5))
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+# abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+# 
+# 
+for(i in idxs_t){
+
+  example_samples[[paste0('exp_', 'f[', i, ']')]] <- exp(example_samples[[paste0('f[', i, ']')]])
+
+}
+
+par(mfrow = c(1,1))
+names <- sapply(idxs_t,
+                function(x) paste0('exp_f[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='', main = 'Low frequency variations captured by the long-term GP',
+                                     display_ylim=c(1, 5), display_xlim = c(1979.5, 2010.5))
+title(ylab = 'Ring width (mm)', line = 2)
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
+abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+
+```
+
+Since we expect some difference across fast- or slow-growing species, we allow the length scale parameter to **vary across species**.
+
+## Short-term variations
+
+When we think about these low frequency variations, we mainly think about the yearly climatic conditions that explain short-term variations in growth. We first believed that these climatic effects were shared across conspecific trees within the same stand---in other words, that the trees from the same species on the same stand would have the same decrease/increase in growth because they experience similar climatic conditions. But we will see that it's a bit more complex than!
+
+### Climatic predictors (stand-level)
+
+This part of the model is quite simple. \
+We selected three climatic predictors that are believed to have a strong impact on tree growth:
+
+- growing degree days (GDD, between )  
+- soil moisture (SM, ) -- which is mostly driven by winter precipitation  
+- vapor pressure deficit (VPD, )  
+
+::: {.callout-note}
+We extracted climate from `WLDAS`,  which is available from 1980, at a X-m resolution. \
+Since we plan to run our model from 1900 onward, we will also use `PRISM` (with simpler predictors, likely GDD and winter precipitation only).
+:::
+
+These 3 predictors are combined within a simple linear regression. We allow the effect of each predictor to **vary across species** (i.e. we estimate species-specific slopes $\beta$). \
+This allows to identify different sensitivities between species, and differentiate between Gymnosperms (in blue) and Angiosperms (in green).
+
+
+```{r, out.width="70%", fig.align="center"}
+#| echo: false
+
+knitr::include_graphics("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/figures/newyork2025/model_estimates/climate_slopes_posterior_distributions.pdf")
+
+
+```
+
+In the left panel of this figure, each bar represents the posterior distribution of a species-specific slope. The right part shows the clade-level estimate (i.e. Gymnosperms or Angiosperms).
+
+### Shared residual variations (stand-level)
+
+The above predictors are not sufficient to capture the **shared variations** of growth across trees within the same stand. \
+We added a short-term GP, initially with the goal to capture 3 to 5-year patterns. But the model consistently finds some yearly residual variation. In other words, the length scale of this GP is consistently around 1 year.
+
+::: {.callout-note}
+While the long-term GP was at the individual level (each tree gets its own individual GP, determined by a species-specific length scale), this short-term GP is shared across all trees in the same stand -- and we estimate only one length scale across all stands.
+:::
+
+### Shocks!
+
+Show that it's on drought years, but some other years are similarly dry.
