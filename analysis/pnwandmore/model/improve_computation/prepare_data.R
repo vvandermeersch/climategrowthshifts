@@ -195,7 +195,7 @@ for(stands_tokeep in stands_sequence){
   N_all_years <- length(all_years)
   
   # Format data into ragged arrays
-  log_rw_obs <- c()
+  rw_obs <- c()
   gdd_obs <- c()
   gdd_amjjas_obs  <- c()
   sm_obs <- c()
@@ -231,10 +231,10 @@ for(stands_tokeep in stands_sequence){
     }
     gdd_obs <- c(gdd_obs, gdd_obs_tree)
     
-    log_rw_obs_tree <- sapply(years_tree, 
+    rw_obs_tree <- sapply(years_tree, 
                               function(y) 
-                                log(aconstant + raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
-    log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
+                                raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1])
+    rw_obs <- c(rw_obs, rw_obs_tree)
     
     gdd_obs_amjjas_tree <- sapply(years_tree, 
                                   function(y) 
@@ -309,7 +309,7 @@ for(stands_tokeep in stands_sequence){
   
   # Cross check sizes
   N_trees
-  length(log_rw_obs)
+  length(rw_obs)
   length(gdd_obs)
   length(sm_obs)
   length(years)
@@ -324,7 +324,7 @@ for(stands_tokeep in stands_sequence){
   N <- length(years)
   N_clades <- 1
   data <- mget(c('N', 'N_all_years', 'N_trees', 
-                 'log_rw_obs', 'gdd_obs', 'gdd_amjjas_obs', 
+                 'rw_obs', 'gdd_obs', 'gdd_amjjas_obs', 
                  'sm_obs', 'vpd_obs', 'pre_jja_obs',
                  'all_years', 'years', 'all_years_idxs', 'N_years', 
                  'stand_idxs', 'N_stands', 
