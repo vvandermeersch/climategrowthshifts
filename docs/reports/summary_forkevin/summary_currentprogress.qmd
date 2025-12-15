@@ -3,7 +3,7 @@ title: 'How do trees grow in Western North America:\newline A new modeling appro
 toc: false
 number-sections: true
 highlight: pygments
-pdf-engine: lualatex
+pdf-engine: pdflatex
 format:
   html:
     html-math-method: katex
@@ -23,7 +23,14 @@ format:
     code-overflow: wrap
     monofont: 'Latin Modern Mono'
     monofontoptions:
-      - Scale=0.5
+      - Scale=0.9
+    include-in-header:
+      - text: |
+          \usepackage{bm}
+          \usepackage{xcolor}
+          \definecolor{mid}{HTML}{B97C7C}
+          \definecolor{light_teal}{HTML}{6B8E8E}
+          \usepackage{amsmath}
 format-links: false
 knitr:
   opts_chunk:
@@ -52,6 +59,12 @@ setwd(file.path(wd, 'model/shocks'))
 util <- new.env()
 source('mcmc_analysis_tools_rstan.R', local=util)
 source('mcmc_visualization_tools.R', local=util)
+
+library(tikzDevice)
+options(tikzLatexPackages = c(getOption("tikzLatexPackages"), "\\definecolor{mid}{HTML}{B97C7C}"))
+options(tikzLatexPackages = c(getOption("tikzLatexPackages"), "\\definecolor{light_teal}{HTML}{6B8E8E}"))
+options(tikzLatexPackages = c(getOption("tikzLatexPackages"), "\\usepackage{amsmath}"))
+options(tikzLatexPackages = c(getOption("tikzLatexPackages"), "\\usepackage{bm}"))
 ```
 
 # The motivations behind the project
@@ -67,22 +80,22 @@ Bayesian magic! We fit all together the low frequency, decadal (to centennial) v
 ::: {.callout-tip}
 ## The ecological motivation
 
-Tree ring data offers offer an unique opportunity to learn how trees grow in a changing climate, through the complex interactions between external events and size-dependent developmental stages. While dendrochronology has mostly focus on past climate reconstructions, our approach do not try to standardize away the complexities of individual-level growth and species-specific variations. On the contrary, we believe that this complexity---if handle correctly by a model---can help us understand how tree growth varies within and **across species, ecosystems, and climates**. And _in fine_ our approach could improve our forecasts of forest dynamics, carbon sequestration, and thus climate change itself!
+Tree ring data offers offer an unique opportunity to learn how trees grow in a changing climate, through the complex interactions between external events and size-dependent developmental stages. While dendrochronology has mostly focus on past climate reconstructions, our approach do not try to standardize away the complexities of individual-level growth and species-specific variations. On the contrary, we believe that this complexity---if handle correctly by a model---can help us understand how tree growth varies within and **across species, ecosystems, and climates**. And finally our approach could improve our forecasts of forest dynamics, carbon sequestration, and thus climate change itself!
 
 :::
 
-# A quick summary of the model
+# A brief summary of the model
 
-Before diving into the results of our first inferences, let's describe the model! \
+Let's describe the model! And get a sense of the inferences we can get.\
 We can divide the model in two main parts:
 
 - the mid- to long-term processes that are not directly related to climate, \newline such as **allometric constraints**, neighbour competition dynamics, ...
 
 - the short-term variations that are related to external conditions, \newline mostly **climate**, but also pest outbreaks, ...
 
-## Mid- to long-term processes
+## Mid- to long-term processes (tree-level)
 
-When we think about these low frequency variations, we mainly think about the age/size trends that affect tree growth, due to the natural size and shape of trees. We want this part of the model to be **flexible** enough to accommodates phase shifts, since tree growth is rarely perfectly smooth.\
+When we think about these low frequency variations, we mainly think about the age/size trends that affect tree growth, due to the natural size and shape of trees. We want this part of the model to be **flexible** enough to accommodate phase shifts, since tree growth is rarely perfectly smooth.\
 
 ```{r, fig.height=3.5, fig.width=8, fig.align="center"}
 #| echo: false
@@ -123,7 +136,7 @@ axis(2, at = seq(-2, 82, 1), tick = TRUE, labels = FALSE, lwd.ticks = 0)
 
 We believe that these variations are "_not directly related to climate_", but not totally independent of the climate neither: a big storm could knock down surrounding trees and reduce competition for an individual.
 
-We model these variations with a first **Gaussian process** (GP). The GP is characterized by a covariance function that captures the temporal correlation between ring widths that persists over one or several decades. The **length scale** $\mathbf{\rho}$ of this covariance function determined how quickly the correlations between ring widths decay. In the example below, ring width $x_2$ is more related to $x_1$ than $x_3$ is. \
+We model these variations with a first **Gaussian process** (GP). The GP is characterized by a covariance function that captures the temporal correlation between ring widths that persists over one or several decades. The **length scale** $\mathbf{\rho}$ of this covariance function determine how quickly the correlations between ring widths decay. In the example below, ring width $x_2$ is more related to $x_1$ than $x_3$ is. \
 
 ```{r, fig.height=3.5, fig.width=8, fig.align="center"}
 #| echo: false
@@ -157,72 +170,118 @@ text(x = 45, y = -0.07, labels = expression(3*rho), xpd=NA, col = util$c_dark)
 
 ```
 
-The correlation across ring widths becomes negligeable around $3\rho$ years. \newpage
+The correlation across ring widths becomes negligible around $3\rho$ years. \newpage
 
-This mid- to long-term GP allows to capture, at the individual tree level, the low frequency variations that appear in the ring width measurements. \
+This mid- to long-term GP allows to capture, at the individual tree level, the low frequency variations that appear in the ring width measurements.
 
-```{r, fig.height=3.5, fig.width=6, fig.align="center"}
+Let's look at one tree (a _Pinus ponderosa_ in Arizona). The black dots correspond to the measured ring widths (and the crosses on the x-axis represent the missing rings). The red curve corresponds to these low frequency variations.
+
+```{r, fig.height=3.5, fig.width=8, fig.align="center", dev = 'tikz'}
 #| echo: false
 
 example_samples <- readRDS("/home/victor/projects/climategrowthshifts/docs/reports/summary_forkevin/aux_files/example_samples.rds")
 data <- readRDS(file = file.path('/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model', 'data_05dec2025_PIPO_5stands.rds'))
 
 par(family="serif", las=1, bty="l",
-    cex.axis=0.8, cex.lab=0.85, cex.main=0.9,
-    xaxs="i", yaxs="i", mar = c(5, 10, 3, 1))
-t <- 20
+    cex.axis=0.8, cex.lab=0.85, cex.main=0.85,
+    xaxs="i", yaxs="i", mar = c(5, 4, 3, 1))
+t <- 102
 idxs_t <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
 
 # names <- sapply(idxs_t,
 #                 function(x) paste0('f[', x, ']'))
 # util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
 #                                      xlab="", ylab='Ring width (log scale)', main = 'A long-term GP',
-#                                      display_ylim=c(-0.5, 1.7), display_xlim = c(1979.5, 2010.5))
+#                                      display_ylim=c(-0.5, 1.7), display_xlim = c(1979.5, 2011.5))
 # points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
 # points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
 # abline(v =  c(2002,1996), lty = 3, col="darkgrey")
 # 
 # 
+# for(i in idxs_t){
+# 
+#   example_samples[[paste0('exp_', 'f[', i, ']')]] <- exp(example_samples[[paste0('f[', i, ']')]])
+# 
+# }
+
 for(i in idxs_t){
-
-  example_samples[[paste0('exp_', 'f[', i, ']')]] <- exp(example_samples[[paste0('f[', i, ']')]])
-
+  example_samples[[paste0('others[', i, ']')]] <- example_samples[[paste0('mu_clim_fsh[', i, ']')]]
 }
 
-par(mfrow = c(1,1))
+
+# for(i in idxs_t){
+#   example_samples[[paste0('f_plusmean[', i, ']')]] <- example_samples[[paste0('f[', i, ']')]] + 
+#     mean(sapply(idxs_t, function(i) util$ensemble_mcmc_quantile_est(example_samples[[paste0('others[', i, ']')]], c(0.5))))
+# }
+# 
+# 
+# par(mfrow = c(1,2))
+# names <- sapply(idxs_t,
+#                 function(x) paste0('f_plusmean[', x, ']'))
+# util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+#                                      xlab="", ylab='Ring width (log-scale) ', main = 'Low frequency variations captured by the long-term GP',
+#                                      display_ylim=c(-8, 1), display_xlim = c(1979.5, 2011.5))
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+# 
+# names <- sapply(idxs_t,
+#                 function(x) paste0('f_plusmean[', x, ']'))
+# util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+#                                      xlab="", ylab='GP functional behavior ', main = 'Zoom',
+#                                      display_ylim=c(-2.5, -1), display_xlim = c(1979.5, 2011.5))
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+# points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+
+for(i in idxs_t){
+  example_samples[[paste0('exp_f_plusmean[', i, ']')]] <- exp(example_samples[[paste0('f[', i, ']')]] + 
+    mean(sapply(idxs_t, function(i) util$ensemble_mcmc_quantile_est(example_samples[[paste0('others[', i, ']')]], c(0.5)))))
+}
+
+
+par(mfrow = c(1,2))
 names <- sapply(idxs_t,
-                function(x) paste0('exp_f[', x, ']'))
+                function(x) paste0('exp_f_plusmean[', x, ']'))
 util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
-                                     xlab="", ylab='', main = 'Low frequency variations captured by the long-term GP',
-                                     display_ylim=c(1, 5), display_xlim = c(1979.5, 2010.5))
-title(ylab = 'Ring width (mm)', line = 2)
-points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
-points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-4), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
-abline(v =  c(2002,1996), lty = 3, col="darkgrey")
+                                     xlab="", ylab='Ring width (mm)', main = 'Long-term variations captured by the GP',
+                                     display_ylim=c(0, 0.6), display_xlim = c(1979.5, 2011.5))
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="white", xpd=NA, lwd = 6)
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="black", xpd=NA, lwd = 2)
+
+
+names <- sapply(idxs_t,
+                function(x) paste0('exp_f_plusmean[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (mm)', main = 'Zoom',
+                                     display_ylim=c(0.05, 0.25), display_xlim = c(1979.5, 2011.5))
+# points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
+# points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
 
 ```
 
-Since we expect some difference across fast- or slow-growing species, we allow the length scale parameter to **vary across species**.
+Since we expect some difference across fast- or slow-growing species, we allow the length scale parameter to **vary across species**. Note that the covariance function is determined by a second parameter, $\gamma$, that controls the amplitude of the variation -- and we also allow this parameter to vary by species. \
+In the following, we will refer to this long-term Gaussian process as $\bm{\mathcal{GP}}^\text{\textcolor{mid}{ tree-level}}_\text{long-term}\{ \rho_\text{\textcolor{light_teal}{species}}, \gamma_\text{\textcolor{light_teal}{species}}\}$, to indicate that this a tree-level GP characterized by species-specific parameters.
 
 ## Short-term variations
 
-When we think about these low frequency variations, we mainly think about the yearly climatic conditions that explain short-term variations in growth. We first believed that these climatic effects were shared across conspecific trees within the same stand---in other words, that the trees from the same species on the same stand would have the same decrease/increase in growth because they experience similar climatic conditions. But we will see that it's a bit more complex than!
+When we think about high frequency variations, we mainly think about the yearly climatic conditions that explain short-term variations in growth. We first believed that these climatic effects were shared across conspecific trees within the same stand---in other words, that the trees from the same species on the same stand would have the same decrease/increase in growth because they experience similar climatic conditions. But we will see that it's a bit more complex than, as some trees seem more sensible to harsh conditions.
 
 ### Climatic predictors (stand-level)
 
 This part of the model is quite simple. \
 We selected three climatic predictors that are believed to have a strong impact on tree growth:
 
-- growing degree days (GDD, between )  
-- soil moisture (SM, ) -- which is mostly driven by winter precipitation  
-- vapor pressure deficit (VPD, )  
+- growing degree days (GDD, April to September)  
+- soil moisture (SM, May to July) -- which is mostly driven by winter precipitation  
+- vapor pressure deficit (VPD, May to July)  
 
 ::: {.callout-note}
-We extracted climate from `WLDAS`,  which is available from 1980, at a X-m resolution. \
-Since we plan to run our model from 1900 onward, we will also use `PRISM` (with simpler predictors, likely GDD and winter precipitation only).
+We extracted climate from `WLDAS`,  which is available from 1980, at a 1-km resolution. \
+Since we also plan to run our model from 1900 onward, we will also use `PRISM` (with simpler predictors, likely GDD and winter precipitation only).
 :::
 
-These 3 predictors are combined within a simple linear regression. We allow the effect of each predictor to **vary across species** (i.e. we estimate species-specific slopes $\beta$). \
+These 3 predictors are combined within a simple linear regression. We allow the effect of each predictor to **vary across species** (i.e. we estimate species-specific slopes $\bm{\beta}$). \
 This allows to identify different sensitivities between species, and differentiate between Gymnosperms (in blue) and Angiosperms (in green).
 
 
@@ -234,17 +293,369 @@ knitr::include_graphics("/home/victor/projects/climategrowthshifts/analysis/pnwa
 
 ```
 
-In the left panel of this figure, each bar represents the posterior distribution of a species-specific slope. The right part shows the clade-level estimate (i.e. Gymnosperms or Angiosperms).
+In the left panel of this figure, each bar represents the posterior distribution of a species-specific slope. The right part shows the clade-level estimate (i.e. Gymnosperms or Angiosperms). As expected, GDD and soil moisture have mostly a positive effect on growth, whereas VPD has a negative effect.
+
+In the following, we will refer to this climatic predictors linear combination as $\bm{\beta}_\text{\textcolor{light_teal}{species}} \cdot \bm{X}^\text{\textcolor{mid}{stand-level}}_\text{climate}$ -- to indicate that the slopes vary between species and that the climate predictors have the same value within a stand.
+
+In the _Pinus ponderosa_ we took for example, the climate regression captures these variations:
+
+```{r, dev = 'tikz', fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+
+
+for(i in idxs_t){
+  example_samples[[paste0('others[', i, ']')]] <- example_samples[[paste0('f[', i, ']')]] + example_samples[[paste0('mu_clim_fsh[', i, ']')]] - example_samples[[paste0('mu_clim[', i, ']')]]
+}
+
+for(i in idxs_t){
+  example_samples[[paste0('exp_mu_plusmean[', i, ']')]] <- exp(example_samples[[paste0('mu_clim[', i, ']')]] +
+    mean(sapply(idxs_t, function(i) util$ensemble_mcmc_quantile_est(example_samples[[paste0('others[', i, ']')]], c(0.5)))))
+}
+
+
+
+par(mfrow = c(1,2))
+
+names <- sapply(idxs_t,
+                function(x) paste0('exp_mu_plusmean[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (mm)', 
+                                     main = "$\\bm{\\beta}_\\text{\\textcolor{light_teal}{species}} \\cdot \\bm{X}^\\text{\\textcolor{mid}{stand-level}}_\\text{climate}$",
+                                       # TeX('High frequency residual variations captured by $\\bm{\\mathcal{GP}_\\text{\\textcolor{mid}{stand-level}}^\\text{ short-term}}$'),
+                                     display_ylim=c(0, 0.6), display_xlim = c(1979.5, 2011.5))
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="white", xpd=NA, lwd = 6)
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="black", xpd=NA, lwd = 2)
+
+
+```
 
 ### Shared residual variations (stand-level)
 
-The above predictors are not sufficient to capture the **shared variations** of growth across trees within the same stand. \
+However, the above predictors are not sufficient to capture all the **shared variations** of growth across trees within the same stand. \
 We added a short-term GP, initially with the goal to capture 3 to 5-year patterns. But the model consistently finds some yearly residual variation. In other words, the length scale of this GP is consistently around 1 year.
 
 ::: {.callout-note}
 While the long-term GP was at the individual level (each tree gets its own individual GP, determined by a species-specific length scale), this short-term GP is shared across all trees in the same stand -- and we estimate only one length scale across all stands.
 :::
 
-### Shocks!
+In the following, we will refer to this short-term Gaussian process as $\bm{\mathcal{GP}}^\text{\textcolor{mid}{ stand-level}}_\text{short-term}$. 
 
-Show that it's on drought years, but some other years are similarly dry.
+\newpage
+
+This short-term GP looks like this on the stand of our _Pinus ponderosa_:
+
+```{r, dev = 'tikz', fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+
+
+for(i in idxs_t){
+  example_samples[[paste0('others[', i, ']')]] <- example_samples[[paste0('f[', i, ']')]] + example_samples[[paste0('mu_clim[', i, ']')]]
+}
+
+for(i in idxs_t){
+  example_samples[[paste0('exp_fsh_plusmean[', i, ']')]] <- exp(example_samples[[paste0('mu_clim_fsh[', i, ']')]] - example_samples[[paste0('mu_clim[', i, ']')]] +
+    mean(sapply(idxs_t, function(i) util$ensemble_mcmc_quantile_est(example_samples[[paste0('others[', i, ']')]], c(0.5)))))
+}
+
+
+
+par(mfrow = c(1,2))
+
+names <- sapply(idxs_t,
+                function(x) paste0('exp_fsh_plusmean[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (mm)', main = "$\\bm{\\mathcal{GP}}^\\text{\\textcolor{mid}{ stand-level}}_\\text{short-term}$",
+                                       # TeX('High frequency residual variations captured by $\\bm{\\mathcal{GP}_\\text{\\textcolor{mid}{stand-level}}^\\text{ short-term}}$'),
+                                     display_ylim=c(0, 0.6), display_xlim = c(1979.5, 2011.5))
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=1, col="white")
+points(data$years[idxs_t], exp(ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t])), pch=16, cex=0.6, col="black")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="white", xpd=NA, lwd = 6)
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), 0, NA), pch=4, cex=1, col="black", xpd=NA, lwd = 2)
+
+```
+
+### Latent shocks (tree-level given a stand-level)
+
+This is the latest addition to our model. We realized that some years were quite _extreme_. Consistently, during these years, the majority of trees on a stand experienced **an exceptional low growth** (a _shock_!) -- well beyond what our climatic predictors could explain. In some cases, such low growth can even manifest as a missing ring. 
+
+Because the $\bm{\mathcal{GP}}^\text{\textcolor{mid}{stand-level}}_\text{short-term}$ is intended to capture multi-year variations---not abrupt spikes---we introduced a more robust mechanism to model these shocks. 
+
+In short, we modeled the shock behavior of trees within a stand. We estimate both the **probability of shocks at the stand-level** (noted $\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}$), and the **probability of a tree-level shock given the stand in shock** (noted $\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}$). In other words, $\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}$ captures the probability of extreme environmental events in a stand (extreme drought, cold snap...), while $\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}$ captures a tree's response to these extreme events. 
+
+So, we expect $\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}$ to be quite small---the extreme events are not frequent---and $\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}$ to be quite high---most trees respond to these extremes. And when a tree is in shock, it means that its growth decrease by some important value, i.e. that we observe a very small ring width (or a missing ring). This value of growth decrease is modeled with a normal distribution whose standard deviation $\bm{\tau}_\text{shock}$ determines the **amplitude** of the shock.
+
+In the following, we will refer to this short-term Gaussian process as $\bm{\delta}^\text{\textcolor{mid}{tree-level $\in$ stand}}_\text{shock}$.  
+
+\newpage
+
+So, what is the shock behavior of our _Pinus ponderosa_? To better represent it, I use a log scale below---which is the scale we're actually using in our model. \
+On the right panel, the grey line represents the model without the shocks.
+
+
+```{r, dev = 'tikz', fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+
+
+for(i in idxs_t){
+  example_samples[[paste0('others[', i, ']')]] <- example_samples[[paste0('f[', i, ']')]] + example_samples[[paste0('mu_clim_fsh[', i, ']')]]
+}
+
+# for(i in idxs_t){
+#   example_samples[[paste0('exp_delta_sck[', i, ']')]] <- exp(example_samples[[paste0('delta_sck[', i, ']')]]  +
+#     mean(sapply(idxs_t, function(i) util$ensemble_mcmc_quantile_est(example_samples[[paste0('others[', i, ']')]], c(0.5)))))
+# }
+
+
+
+par(mfrow = c(1,2))
+
+names <- sapply(idxs_t,
+                function(x) paste0('delta_sck[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', 
+                                     main = "$\\bm{\\delta}^\\text{\\textcolor{mid}{tree-level $\\in$ stand}}_\\text{shock}$",
+                                     display_ylim=c(-5, -0), display_xlim = c(1979.5, 2011.5))
+
+
+# Construct quantiles for bin contents
+N <- length(names)
+probs <- c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+
+
+  
+display_ylim=c(-7, 0)
+display_xlim = c(1979.5, 2011.5)
+plot_xs = data$years[idxs_t]
+xlab=""
+ylab='Ring width (log scale)'
+main = '$\\text{\\textcolor{gray}{Rest of the model}} + \\bm{\\delta}^\\text{\\textcolor{mid}{tree-level $\\in$ stand}}_\\text{shock}$'
+plot(1, type="n", main=main,
+       xlim=display_xlim, xlab=xlab,
+       ylim=display_ylim, ylab=ylab)
+
+for(i in idxs_t){
+  example_samples[[paste0('all[', i, ']')]] <- example_samples[[paste0('f[', i, ']')]] + example_samples[[paste0('mu_clim_fsh[', i, ']')]]  + example_samples[[paste0('delta_sck[', i, ']')]]
+}
+
+names <- sapply(idxs_t,
+                function(x) paste0('all[', x, ']'))
+
+calc <- function(n) {
+  util$ensemble_mcmc_quantile_est(example_samples[[names[n]]], probs)
+}
+plot_quantiles <- sapply(1:N, calc)
+
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[1,], rev(plot_quantiles[9,])),
+          col = util$c_light, border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[2,], rev(plot_quantiles[8,])),
+          col = util$c_light_highlight, border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[3,], rev(plot_quantiles[7,])),
+          col = util$c_mid, border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[4,], rev(plot_quantiles[6,])),
+          col = util$c_mid_highlight, border = NA)
+lines(plot_xs, plot_quantiles[5,], col=util$c_dark, lwd=2)
+
+names <- sapply(idxs_t,
+                function(x) paste0('others[', x, ']'))
+calc <- function(n) {
+  util$ensemble_mcmc_quantile_est(example_samples[[names[n]]], probs)
+}
+plot_quantiles <- sapply(1:N, calc)
+
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[1,], rev(plot_quantiles[9,])),
+          col = 'grey90', border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[2,], rev(plot_quantiles[8,])),
+          col = 'grey85', border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[3,], rev(plot_quantiles[7,])),
+          col = 'grey80', border = NA)
+polygon(c(plot_xs, rev(plot_xs)),
+          c(plot_quantiles[4,], rev(plot_quantiles[6,])),
+          col = 'grey75', border = NA)
+lines(plot_xs, plot_quantiles[5,], col='grey50', lwd=2)
+
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), -7, NA), pch=4, cex=1, col="white", xpd=NA, lwd = 6)
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), -7, NA), pch=4, cex=1, col="black", xpd=NA, lwd = 2)
+
+```
+
+We do not consider the missing rings as one specific small values, but rather model the probability that the missing ring was any value between $-\infty$ and a measurement precision $\epsilon$. Right now, we consider that $\epsilon = 0.001 \text{mm}$ (the precision of measuring systems). But we could easily let the model fit this precision threshold.
+
+\emph{``But, these shock years correspond to droughts! These extreme low growth values should be picked by the climatic predictors, no?''}. If we look at the drought-related variables we include in our model, we do observe that these shock years (highlighted in red below) correspond mostly to dry years. But, the values of these climatic variables are not enough _extreme_ to explain these very small rings---for example, 2000 (in blue) was also a dry year on this stand, yet not a _shocky_ year.
+
+```{r, dev = 'tikz', fig.height=4.5, fig.width=8, fig.align="center"}
+#| echo: false
+#| eval: false
+
+
+par(mfcol = c(2,2))
+
+display_ylim=c(10, 30)
+display_xlim = c(1979.5, 2011.5)
+plot_xs = data$years[idxs_t]
+xlab=""
+ylab='Soil moisture (\\%)'
+main = ''
+plot(1, type="n", main=main,
+       xlim=display_xlim, xlab=xlab,
+       ylim=display_ylim, ylab=ylab)
+points(data$years[idxs_t], data$sm_obs[idxs_t], pch=16, cex=1, col="white")
+points(data$years[idxs_t], data$sm_obs[idxs_t], pch=16, cex=0.6, col="black")
+
+names <- sapply(idxs_t,
+                function(x) paste0('sck_state[', x, ']'))
+ticks <- c(unlist(lapply(seq(1980, 2000,10), function(x) c(x, rep(NA, 9)))), '2010', NA)
+util$plot_disc_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Shock probability', main = "",
+                                       # TeX('High frequency residual variations captured by $\\bm{\\mathcal{GP}_\\text{\\textcolor{mid}{stand-level}}^\\text{ short-term}}$'),
+                                     display_ylim=c(0, 1), xticklabs =  ticks)
+
+```
+
+```{r, dev = 'tikz', fig.height=3.5, fig.width=8, fig.align="center"}
+#| echo: false
+
+par(mfrow = c(1,2))
+
+display_ylim=c(10, 30)
+display_xlim = c(1979.5, 2011.5)
+plot_xs = data$years[idxs_t]
+xlab=""
+ylab='Soil moisture (\\%)'
+main = ''
+plot(1, type="n", main=main,
+       xlim=display_xlim, xlab=xlab,
+       ylim=display_ylim, ylab=ylab)
+points(data$years[idxs_t], data$sm_obs[idxs_t], pch=16, cex=1, col="white")
+points(data$years[idxs_t], data$sm_obs[idxs_t], pch=16, cex=0.6, col="black")
+names <- sapply(idxs_t,
+                function(x) paste0('sck_state[', x, ']'))
+shock_idxs <- as.numeric(which(sapply(names, function(i) util$ensemble_mcmc_quantile_est(example_samples[[i]], c(0.2)))==1))
+points(data$years[idxs_t][shock_idxs], data$sm_obs[idxs_t][shock_idxs], pch=16, cex=1.2, col= util$c_light)
+points(data$years[idxs_t][shock_idxs], data$sm_obs[idxs_t][shock_idxs], pch=16, cex=0.8, col= util$c_mid_highlight)
+points(data$years[idxs_t][21], data$sm_obs[idxs_t][21], pch=16, cex=1.2, col= '#a6bbbb')
+points(data$years[idxs_t][21], data$sm_obs[idxs_t][21], pch=16, cex=0.8, col= util$c_mid_teal)
+
+
+display_ylim=c(5, 20)
+display_xlim = c(1979.5, 2011.5)
+plot_xs = data$years[idxs_t]
+xlab=""
+ylab='VPD (hPa)'
+main = ''
+plot(1, type="n", main=main,
+       xlim=display_xlim, xlab=xlab,
+       ylim=display_ylim, ylab=ylab)
+points(data$years[idxs_t], data$vpd_obs[idxs_t], pch=16, cex=1, col="white")
+points(data$years[idxs_t], data$vpd_obs[idxs_t], pch=16, cex=0.6, col="black")
+points(data$years[idxs_t][shock_idxs], data$vpd_obs[idxs_t][shock_idxs], pch=16, cex=1.2, col= util$c_light)
+points(data$years[idxs_t][shock_idxs], data$vpd_obs[idxs_t][shock_idxs], pch=16, cex=0.8, col= util$c_mid_highlight)
+points(data$years[idxs_t][21], data$vpd_obs[idxs_t][21], pch=16, cex=1.2, col= '#a6bbbb')
+points(data$years[idxs_t][21], data$vpd_obs[idxs_t][21], pch=16, cex=0.8, col= util$c_mid_teal)
+
+
+```
+
+Also, we're still developing this shock model, but in the future we will likely consider a different amplitude $\bm{\tau}_\text{shock}$ by species, i.e. it will become a species-specific $\bm{\tau}_\text{shock}^\text{\textcolor{light_teal}{species}}$!
+
+## The full model
+
+Taken all together, we obtain:
+
+
+```{r, dev = 'tikz', fig.height=8, fig.width=8, fig.align="center"}
+#| echo: false
+#| eval: true
+
+mat <- c(1,2,2,3,4,4,
+         5, 6,6,7,8,8,
+         9,10,11,11,11, 12)
+
+
+
+mat <- matrix(mat, nrow = 3, ncol = 6, byrow = TRUE)
+
+layout(mat, widths = c(0.3,1,1,0.3,1,1))
+
+par(mar = c(1, 1, 1, 1),  cex.main = 1.4)
+plot.new()
+
+par(mar = c(5, 4, 3, 1))
+names <- sapply(idxs_t,
+                function(x) paste0('f[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', main = '$\\bm{\\mathcal{GP}}^\\text{\\textcolor{mid}{ tree-level}}_\\text{long-term}\\{ \\rho_\\text{\\textcolor{light_teal}{species}}, \\gamma_\\text{\\textcolor{light_teal}{species}}\\}$',
+                                     display_ylim=c(-7, 1), display_xlim = c(1979.5, 2011.5))
+
+par(mar = c(1, 1, 1, 1))
+plot.new()
+text(x = 0.5, y = 0.5, labels = '$+$', cex = 2)
+
+par(mar = c(5, 4, 3, 1))
+names <- sapply(idxs_t,
+                function(x) paste0('mu_clim[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', 
+                                     main = "$\\bm{\\beta}_\\text{\\textcolor{light_teal}{species}} \\cdot \\bm{X}^\\text{\\textcolor{mid}{stand-level}}_\\text{climate}$",
+                                     display_ylim=c(-7, 1), display_xlim = c(1979.5, 2011.5))
+
+par(mar = c(1, 1, 1, 1))
+plot.new()
+text(x = 0.5, y = 0.5, labels = '$+$', cex = 2)
+
+for(i in idxs_t){
+  example_samples[[paste0('fsh[', i, ']')]] <- example_samples[[paste0('mu_clim_fsh[', i, ']')]] - example_samples[[paste0('mu_clim[', i, ']')]]
+}
+par(mar = c(5, 4, 3, 1))
+names <- sapply(idxs_t,
+                function(x) paste0('fsh[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', 
+                                     main = "$\\bm{\\mathcal{GP}}^\\text{\\textcolor{mid}{ stand-level}}_\\text{short-term}$",
+                                     display_ylim=c(-7, 1), display_xlim = c(1979.5, 2011.5))
+
+par(mar = c(1, 1, 1, 1))
+plot.new()
+text(x = 0.5, y = 0.5, labels = '$+$', cex = 2)
+
+par(mar = c(5, 4, 3, 1))
+names <- sapply(idxs_t,
+                function(x) paste0('delta_sck[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', 
+                                     main = "$\\bm{\\delta}^\\text{\\textcolor{mid}{tree-level $\\in$ stand}}_\\text{shock}$",
+                                     display_ylim=c(-7, 1), display_xlim = c(1979.5, 2011.5))
+
+par(mar = c(1, 1, 1, 1))
+plot.new()
+
+plot.new()
+text(x = 0.5, y = 0.5, labels = '$=$', cex = 2)
+
+par(mar = c(5, 4, 3, 1))
+names <- sapply(idxs_t,
+                function(x) paste0('log_rw_pred[', x, ']'))
+util$plot_conn_pushforward_quantiles(example_samples, names, data$years[idxs_t],
+                                     xlab="", ylab='Ring width (log scale)', 
+                                     main = "The full predictions",
+                                     display_ylim=c(-7, 1), display_xlim = c(1979.5, 2011.5))
+
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=1, col="white")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), NA, data$log_rw_obs[idxs_t]), pch=16, cex=0.6, col="black")
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), -7, NA), pch=4, cex=1, col="white", xpd=NA, lwd = 6)
+points(data$years[idxs_t], ifelse(data$log_rw_obs[idxs_t] == log(1e-3), -7, NA), pch=4, cex=1, col="black", xpd=NA, lwd = 2)
+
+par(mar = c(1, 1, 1, 1))
+plot.new()
+
+```

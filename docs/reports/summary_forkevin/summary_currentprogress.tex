@@ -22,7 +22,7 @@
 \usepackage{lmodern}
 \ifPDFTeX\else  
     % xetex/luatex font selection
-    \setmonofont[Scale=0.5]{Latin Modern Mono}
+    \setmonofont[Scale=0.9]{Latin Modern Mono}
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -94,6 +94,11 @@
 \def\fps@figure{htbp}
 \makeatother
 
+\usepackage{bm}
+\usepackage{xcolor}
+\definecolor{mid}{HTML}{B97C7C}
+\definecolor{light_teal}{HTML}{6B8E8E}
+\usepackage{amsmath}
 \KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{tcolorbox}{}{\usepackage[skins,breakable]{tcolorbox}}
@@ -182,7 +187,7 @@ modeling approach}
 \section{The motivations behind the
 project}\label{the-motivations-behind-the-project}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, arc=.35mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, titlerule=0mm, toprule=.15mm, rightrule=.15mm, left=2mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{The technical motivation}, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, arc=.35mm, breakable, coltitle=black, colback=white, colframe=quarto-callout-tip-color-frame, opacityback=0, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{The technical motivation}, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, opacitybacktitle=0.6]
 
 Bayesian magic! We fit all together the low frequency, decadal (to
 centennial) variations (the \emph{detrending}) \textbf{and} the climatic
@@ -196,7 +201,7 @@ get propagated to any decisions/predictions.
 
 \hfill\break
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, arc=.35mm, colframe=quarto-callout-tip-color-frame, bottomrule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, titlerule=0mm, toprule=.15mm, rightrule=.15mm, left=2mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{The ecological motivation}, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, arc=.35mm, breakable, coltitle=black, colback=white, colframe=quarto-callout-tip-color-frame, opacityback=0, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-tip-color}{\faLightbulb}\hspace{0.5em}{The ecological motivation}, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-tip-color!10!white, leftrule=.75mm, opacitybacktitle=0.6]
 
 Tree ring data offers offer an unique opportunity to learn how trees
 grow in a changing climate, through the complex interactions between
@@ -206,17 +211,17 @@ approach do not try to standardize away the complexities of
 individual-level growth and species-specific variations. On the
 contrary, we believe that this complexity---if handle correctly by a
 model---can help us understand how tree growth varies within and
-\textbf{across species, ecosystems, and climates}. And \emph{in fine}
-our approach could improve our forecasts of forest dynamics, carbon
+\textbf{across species, ecosystems, and climates}. And finally our
+approach could improve our forecasts of forest dynamics, carbon
 sequestration, and thus climate change itself!
 
 \end{tcolorbox}
 
-\section{A quick summary of the
-model}\label{a-quick-summary-of-the-model}
+\section{A brief summary of the
+model}\label{a-brief-summary-of-the-model}
 
-Before diving into the results of our first inferences, let's describe
-the model!\\
+Let's describe the model! And get a sense of the inferences we can
+get.\\
 We can divide the model in two main parts:
 
 \begin{itemize}
@@ -229,13 +234,13 @@ We can divide the model in two main parts:
   \newline mostly \textbf{climate}, but also pest outbreaks, \ldots{}
 \end{itemize}
 
-\subsection{Mid- to long-term
-processes}\label{mid--to-long-term-processes}
+\subsection{Mid- to long-term processes
+(tree-level)}\label{mid--to-long-term-processes-tree-level}
 
 When we think about these low frequency variations, we mainly think
 about the age/size trends that affect tree growth, due to the natural
 size and shape of trees. We want this part of the model to be
-\textbf{flexible} enough to accommodates phase shifts, since tree growth
+\textbf{flexible} enough to accommodate phase shifts, since tree growth
 is rarely perfectly smooth.\\
 
 \begin{center}
@@ -251,7 +256,7 @@ We model these variations with a first \textbf{Gaussian process} (GP).
 The GP is characterized by a covariance function that captures the
 temporal correlation between ring widths that persists over one or
 several decades. The \textbf{length scale} \(\mathbf{\rho}\) of this
-covariance function determined how quickly the correlations between ring
+covariance function determine how quickly the correlations between ring
 widths decay. In the example below, ring width \(x_2\) is more related
 to \(x_1\) than \(x_3\) is.\\
 
@@ -259,29 +264,42 @@ to \(x_1\) than \(x_3\) is.\\
 \includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-4-1.pdf}
 \end{center}
 
-The correlation across ring widths becomes negligeable around \(3\rho\)
+The correlation across ring widths becomes negligible around \(3\rho\)
 years. \newpage
 
 This mid- to long-term GP allows to capture, at the individual tree
 level, the low frequency variations that appear in the ring width
-measurements.\\
+measurements.
+
+Let's look at one tree (a \emph{Pinus ponderosa} in Arizona). The black
+dots correspond to the measured ring widths (and the crosses on the
+x-axis represent the missing rings). The red curve corresponds to these
+low frequency variations.
 
 \begin{center}
 \includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-5-1.pdf}
 \end{center}
 
 Since we expect some difference across fast- or slow-growing species, we
-allow the length scale parameter to \textbf{vary across species}.
+allow the length scale parameter to \textbf{vary across species}. Note
+that the covariance function is determined by a second parameter,
+\(\gamma\), that controls the amplitude of the variation -- and we also
+allow this parameter to vary by species.\\
+In the following, we will refer to this long-term Gaussian process as
+\(\bm{\mathcal{GP}}^\text{\textcolor{mid}{ tree-level}}_\text{long-term}\{ \rho_\text{\textcolor{light_teal}{species}}, \gamma_\text{\textcolor{light_teal}{species}}\}\),
+to indicate that this a tree-level GP characterized by species-specific
+parameters.
 
 \subsection{Short-term variations}\label{short-term-variations}
 
-When we think about these low frequency variations, we mainly think
-about the yearly climatic conditions that explain short-term variations
-in growth. We first believed that these climatic effects were shared
-across conspecific trees within the same stand---in other words, that
-the trees from the same species on the same stand would have the same
+When we think about high frequency variations, we mainly think about the
+yearly climatic conditions that explain short-term variations in growth.
+We first believed that these climatic effects were shared across
+conspecific trees within the same stand---in other words, that the trees
+from the same species on the same stand would have the same
 decrease/increase in growth because they experience similar climatic
-conditions. But we will see that it's a bit more complex than!
+conditions. But we will see that it's a bit more complex than, as some
+trees seem more sensible to harsh conditions.
 
 \subsubsection{Climatic predictors
 (stand-level)}\label{climatic-predictors-stand-level}
@@ -293,19 +311,19 @@ impact on tree growth:
 \begin{itemize}
 \tightlist
 \item
-  growing degree days (GDD, between )\\
+  growing degree days (GDD, April to September)\\
 \item
-  soil moisture (SM, ) -- which is mostly driven by winter
+  soil moisture (SM, May to July) -- which is mostly driven by winter
   precipitation\\
 \item
-  vapor pressure deficit (VPD, )
+  vapor pressure deficit (VPD, May to July)
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, arc=.35mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, titlerule=0mm, toprule=.15mm, rightrule=.15mm, left=2mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, arc=.35mm, breakable, coltitle=black, colback=white, colframe=quarto-callout-note-color-frame, opacityback=0, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, opacitybacktitle=0.6]
 
 We extracted climate from \texttt{WLDAS}, which is available from 1980,
-at a X-m resolution.\\
-Since we plan to run our model from 1900 onward, we will also use
+at a 1-km resolution.\\
+Since we also plan to run our model from 1900 onward, we will also use
 \texttt{PRISM} (with simpler predictors, likely GDD and winter
 precipitation only).
 
@@ -313,7 +331,7 @@ precipitation only).
 
 These 3 predictors are combined within a simple linear regression. We
 allow the effect of each predictor to \textbf{vary across species}
-(i.e.~we estimate species-specific slopes \(\beta\)).\\
+(i.e.~we estimate species-specific slopes \(\bm{\beta}\)).\\
 This allows to identify different sensitivities between species, and
 differentiate between Gymnosperms (in blue) and Angiosperms (in green).
 
@@ -323,19 +341,35 @@ differentiate between Gymnosperms (in blue) and Angiosperms (in green).
 
 In the left panel of this figure, each bar represents the posterior
 distribution of a species-specific slope. The right part shows the
-clade-level estimate (i.e.~Gymnosperms or Angiosperms).
+clade-level estimate (i.e.~Gymnosperms or Angiosperms). As expected, GDD
+and soil moisture have mostly a positive effect on growth, whereas VPD
+has a negative effect.
+
+In the following, we will refer to this climatic predictors linear
+combination as
+\(\bm{\beta}_\text{\textcolor{light_teal}{species}} \cdot \bm{X}^\text{\textcolor{mid}{stand-level}}_\text{climate}\)
+-- to indicate that the slopes vary between species and that the climate
+predictors have the same value within a stand.
+
+In the \emph{Pinus ponderosa} we took for example, the climate
+regression captures these variations:
+
+\begin{center}
+\includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-7-1.pdf}
+\end{center}
 
 \subsubsection{Shared residual variations
 (stand-level)}\label{shared-residual-variations-stand-level}
 
-The above predictors are not sufficient to capture the \textbf{shared
-variations} of growth across trees within the same stand.\\
+However, the above predictors are not sufficient to capture all the
+\textbf{shared variations} of growth across trees within the same
+stand.\\
 We added a short-term GP, initially with the goal to capture 3 to 5-year
 patterns. But the model consistently finds some yearly residual
 variation. In other words, the length scale of this GP is consistently
 around 1 year.
 
-\begin{tcolorbox}[enhanced jigsaw, breakable, arc=.35mm, colframe=quarto-callout-note-color-frame, bottomrule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, opacityback=0, opacitybacktitle=0.6, toptitle=1mm, colback=white, bottomtitle=1mm, titlerule=0mm, toprule=.15mm, rightrule=.15mm, left=2mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, coltitle=black]
+\begin{tcolorbox}[enhanced jigsaw, left=2mm, rightrule=.15mm, arc=.35mm, breakable, coltitle=black, colback=white, colframe=quarto-callout-note-color-frame, opacityback=0, bottomtitle=1mm, toptitle=1mm, titlerule=0mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, bottomrule=.15mm, toprule=.15mm, colbacktitle=quarto-callout-note-color!10!white, leftrule=.75mm, opacitybacktitle=0.6]
 
 While the long-term GP was at the individual level (each tree gets its
 own individual GP, determined by a species-specific length scale), this
@@ -344,9 +378,103 @@ estimate only one length scale across all stands.
 
 \end{tcolorbox}
 
-\subsubsection{Shocks!}\label{shocks}
+In the following, we will refer to this short-term Gaussian process as
+\(\bm{\mathcal{GP}}^\text{\textcolor{mid}{ stand-level}}_\text{short-term}\).
 
-Show that it's on drought years, but some other years are similarly dry.
+\newpage
+
+This short-term GP looks like this on the stand of our \emph{Pinus
+ponderosa}:
+
+\begin{center}
+\includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-8-1.pdf}
+\end{center}
+
+\subsubsection{Latent shocks (tree-level given a
+stand-level)}\label{latent-shocks-tree-level-given-a-stand-level}
+
+This is the latest addition to our model. We realized that some years
+were quite \emph{extreme}. Consistently, during these years, the
+majority of trees on a stand experienced \textbf{an exceptional low
+growth} (a \emph{shock}!) -- well beyond what our climatic predictors
+could explain. In some cases, such low growth can even manifest as a
+missing ring.
+
+Because the
+\(\bm{\mathcal{GP}}^\text{\textcolor{mid}{stand-level}}_\text{short-term}\)
+is intended to capture multi-year variations---not abrupt spikes---we
+introduced a more robust mechanism to model these shocks.
+
+In short, we modeled the shock behavior of trees within a stand. We
+estimate both the \textbf{probability of shocks at the stand-level}
+(noted \(\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}\)),
+and the \textbf{probability of a tree-level shock given the stand in
+shock} (noted
+\(\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}\)). In
+other words,
+\(\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}\) captures
+the probability of extreme environmental events in a stand (extreme
+drought, cold snap\ldots), while
+\(\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}\) captures
+a tree's response to these extreme events.
+
+So, we expect
+\(\bm{\phi}^\text{\textcolor{mid}{stand-level}}_\text{shock}\) to be
+quite small---the extreme events are not frequent---and
+\(\bm{\omega}^\text{\textcolor{mid}{tree-level}}_\text{shock}\) to be
+quite high---most trees respond to these extremes. And when a tree is in
+shock, it means that its growth decrease by some important value,
+i.e.~that we observe a very small ring width (or a missing ring). This
+value of growth decrease is modeled with a normal distribution whose
+standard deviation \(\bm{\tau}_\text{shock}\) determines the
+\textbf{amplitude} of the shock.
+
+In the following, we will refer to this short-term Gaussian process as
+\(\bm{\delta}^\text{\textcolor{mid}{tree-level $\in$ stand}}_\text{shock}\).
+
+\newpage
+
+So, what is the shock behavior of our \emph{Pinus ponderosa}? To better
+represent it, I use a log scale below---which is the scale we're
+actually using in our model.\\
+On the right panel, the grey line represents the model without the
+shocks.
+
+\begin{center}
+\includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-9-1.pdf}
+\end{center}
+
+We do not consider the missing rings as one specific small values, but
+rather model the probability that the missing ring was any value between
+\(-\infty\) and a measurement precision \(\epsilon\). Right now, we
+consider that \(\epsilon = 0.001 \text{mm}\) (the precision of measuring
+systems). But we could easily let the model fit this precision
+threshold.
+
+\emph{``But, these shock years correspond to droughts! These extreme low growth values should be picked by the climatic predictors, no?''}.
+If we look at the drought-related variables we include in our model, we
+do observe that these shock years (highlighted in red below) correspond
+mostly to dry years. But, the values of these climatic variables are not
+enough \emph{extreme} to explain these very small rings---for example,
+2000 (in blue) was also a dry year on this stand, yet not a
+\emph{shocky} year.
+
+\begin{center}
+\includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-11-1.pdf}
+\end{center}
+
+Also, we're still developing this shock model, but in the future we will
+likely consider a different amplitude \(\bm{\tau}_\text{shock}\) by
+species, i.e.~it will become a species-specific
+\(\bm{\tau}_\text{shock}^\text{\textcolor{light_teal}{species}}\)!
+
+\subsection{The full model}\label{the-full-model}
+
+Taken all together, we obtain:
+
+\begin{center}
+\includegraphics{summary_currentprogress_files/figure-pdf/unnamed-chunk-12-1.pdf}
+\end{center}
 
 
 
