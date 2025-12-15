@@ -40,14 +40,14 @@ todrop <- c('PIGR', 'PICU')
 datasets <- datasets[!(datasets$species_code %in% todrop),]
 
 # Dropping Angiosperms (temporary)
-datasets <- datasets[!(datasets$species_code %in% angiosperms),]
+#datasets <- datasets[!(datasets$species_code %in% angiosperms),]
 
 # Keep only some states (temporary)
-datasets <- datasets[datasets$state %in% c('az', 'nm', 'ca', 'nv', 'ut', 'co'),]
-datasets <- datasets[datasets$state %in% c('az'),]
+# datasets <- datasets[datasets$state %in% c('az', 'nm', 'ca', 'nv', 'ut', 'co'),]
+# datasets <- datasets[datasets$state %in% c('az'),]
 
 # Keep only 1 dataset
-datasets <- datasets[datasets$dataset %in% c('az592', 'az628'),]
+# datasets <- datasets[datasets$dataset %in% c('az592', 'az628'),]
 
 # Keep only some species (temporary)
 datasets <- datasets[datasets$species_code %in% c('PIPO'),]
@@ -75,7 +75,8 @@ datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 # datasets <- datasets[datasets$grouped_stand %in% selected_stands,]
 
 # Some subset
-# datasets <- datasets[datasets$grouped_stand == 'S32',]
+set.seed(23071996)
+datasets <- datasets[datasets$grouped_stand %in% sample(unique(datasets$grouped_stand), 4),]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_all.rds'))
@@ -137,8 +138,8 @@ raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = '
 # Deal with potential duplicates
 # If several trees from different ITRDB datasets are on the same site and have the same ID, the same number of years
 # and the same mean ringwidth, we keep only one of them
-potential_duplicates <- aggregate(dataset ~ original_tree_id, data = raw_data, FUN = function(x) length(unique(x)))
-potential_duplicates_groupedstand <- aggregate(grouped_stand ~ original_tree_id, data = raw_data, FUN = function(x) length(unique(x)))
+potential_duplicates <- aggregate(dataset ~ original_tree_id+ species_code, data = raw_data, FUN = function(x) length(unique(x)))
+potential_duplicates_groupedstand <- aggregate(grouped_stand ~ original_tree_id + species_code, data = raw_data, FUN = function(x) length(unique(x)))
 potential_duplicates <- merge(potential_duplicates, potential_duplicates_groupedstand)
 potential_duplicates <- potential_duplicates[potential_duplicates$dataset > 1 & potential_duplicates$grouped_stand == 1,]
 cat(paste0(nrow(potential_duplicates), ' trees are potential duplicates!\n'))
@@ -183,10 +184,10 @@ uniq_tree_ids <- unique(raw_data$tree_id_uniq)
 N_trees <- length(uniq_tree_ids)
 
 uniq_stand_ids <- unique(raw_data$grouped_stand)
-N_stands <- length(unique(raw_data$grouped_stand))
+N_stands <- length(uniq_stand_ids)
 
-# uniq_substand_ids <- unique(raw_data$substand)
-# N_substands <- length(unique(raw_data$substand))
+uniq_stand_species_ids <- unique(paste(raw_data$grouped_stand, raw_data$species_code, sep = '_'))
+N_stand_species <- length(uniq_stand_species_ids)
 
 uniq_species_ids <- unique(raw_data$species_code)
 N_species <- length(uniq_species_ids)
@@ -196,7 +197,7 @@ all_years <-  min(raw_data$year):max(raw_data$year)
 N_all_years <- length(all_years)
 
 # Format data into ragged arrays
-log_rw_obs <- c()
+rw_obs <- c()
 gdd_obs <- c()
 gdd_amjjas_obs  <- c()
 sm_obs <- c()
@@ -206,14 +207,13 @@ years <- c()
 all_years_idxs <- c()
 N_years <- c()
 stand_idxs <- c()
-# substand_idxs <- c()
+stand_species_idxs <- c()
 species_idxs <- c()
 
 idx <- 1
 tree_start_idxs <- c()
 tree_end_idxs <- c()
 
-aconstant <- 1e-03
 for(tid in uniq_tree_ids) {
   print(tid)
   
@@ -232,10 +232,10 @@ for(tid in uniq_tree_ids) {
   }
   gdd_obs <- c(gdd_obs, gdd_obs_tree)
   
-  log_rw_obs_tree <- sapply(years_tree, 
+  rw_obs_tree <- sapply(years_tree, 
                             function(y) 
-                              log(aconstant + raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1]))
-  log_rw_obs <- c(log_rw_obs, log_rw_obs_tree)
+                              raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1])
+  rw_obs <- c(rw_obs, rw_obs_tree)
   
   gdd_obs_amjjas_tree <- sapply(years_tree, 
                                 function(y) 
@@ -262,11 +262,10 @@ for(tid in uniq_tree_ids) {
   N_years <- c(N_years, N_years_tree)
   
   stand_tree <- which(uniq_stand_ids == raw_data_tree$grouped_stand[1])
-  # stand_tree <- which(uniq_stand_ids == raw_data_tree$region[1])
   stand_idxs <- c(stand_idxs, stand_tree)
   
-  # substand_tree <- which(uniq_substand_ids == raw_data_tree$substand[1])
-  # substand_idxs <- c(substand_idxs, substand_tree)
+  stand_species_tree <- which(uniq_stand_species_ids == paste0(raw_data_tree$grouped_stand[1], '_', raw_data_tree$species_code[1]))
+  stand_species_idxs <- c(stand_species_idxs, stand_species_tree)
   
   species_tree <- which(uniq_species_ids == raw_data_tree$species_code[1])
   species_idxs <- c(species_idxs, species_tree)
@@ -310,7 +309,7 @@ for(s in uniq_stand_ids){
 
 # Cross check sizes
 N_trees
-length(log_rw_obs)
+length(rw_obs)
 length(gdd_obs)
 length(sm_obs)
 length(years)
@@ -325,13 +324,13 @@ sum(is.na(gdd_obs)) # check clim. pred
 N <- length(years)
 N_clades <- 1
 data <- mget(c('N', 'N_all_years', 'N_trees', 
-               'log_rw_obs', 'gdd_obs', 'gdd_amjjas_obs', 
+               'rw_obs', 'gdd_obs', 'gdd_amjjas_obs', 
                'sm_obs', 'vpd_obs', 'pre_jja_obs',
                'all_years', 'years', 'all_years_idxs', 'N_years', 
                'stand_idxs', 'N_stands', 
                'N_stand_trees', 'stand_trees_start_idxs', 'stand_trees_end_idxs',
                'N_stand_years', 'stand_start_years_idxs',
-               # 'substand_idxs', 'N_substands', 'substand_species_idxs',
+               'stand_species_idxs', 'N_stand_species', 
                'species_idxs', 'N_species',
                'clade_idxs', 'N_clades',
                'tree_start_idxs', 'tree_end_idxs',
@@ -340,7 +339,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_15nov2025_az592_az628.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15nov2025_az592_az628.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_14dec2025_PIPO_4stands.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_14dec2025_PIPO_4stands.rds'))
 
 
