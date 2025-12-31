@@ -1,0 +1,188 @@
+---
+title: "Profiling and parallelization" 
+toc: true
+number-sections: true
+highlight: pygments
+pdf-engine: lualatex
+format:
+  html:
+    html-math-method: katex
+    theme:
+      - lux
+      - custom.scss
+    standalone: true
+    embed-resources: true
+    code-overflow: wrap
+    linkcolor: "#B97C7C"
+    fontsize: '11pt'
+    code-block-border-left: "#8F2727"
+    code-block-bg: "#f8f8f8"
+    highlight-style: github
+  pdf:
+    keep-tex: true
+    fig-width: 4
+    fig-height: 4
+    code-overflow: wrap
+    monofont: 'Latin Modern Mono'
+    monofontoptions:
+      - Scale=0.5
+format-links: false
+knitr:
+  opts_chunk:
+    comment: ''
+    cache.lazy: FALSE
+  opts_knit:
+    global.par: TRUE
+geometry:
+  - top=20mm
+  - left=20mm
+  - bottom=20mm
+  - right=20mm
+---
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+setwd(file.path(wd, 'model/shocks'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+# source('functions/custom_functions.R', local=util)
+setwd(wd)
+library(rstan)
+options(mc.cores = parallel::detectCores())
+
+chunk_hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- chunk_hook(x, options)
+  paste0("\\linespread{0.5}\n", x, "\n\n\\linespread{2}")
+})
+
+par(family="serif", las=1, bty="l",
+    cex.axis=0.8, cex.lab=0.85, cex.main=1,
+    xaxs="i", yaxs="i", mar = c(5, 5, 3, 1))
+
+logit <- function(x) log(x/(1-x))
+inv_logit <- function(x) return(exp(x) / (1 + exp(x)))
+```
+
+```{r}
+fit_5stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_5stands.rds")
+
+diagnostics_5stands <- util$extract_hmc_diagnostics(fit_5stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_5stands)
+
+dataplot <-
+  data.frame(ndata = rep(fit_5stands@par_dims[["f_tilde_sh"]][1],4),
+        time = rowSums(get_elapsed_time(fit_5stands)))
+
+```
+
+```{r}
+fit_15stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_15stands.rds")
+
+diagnostics_15stands <- util$extract_hmc_diagnostics(fit_15stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_15stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_15stands@par_dims[["f_tilde_sh"]][1],4),
+        time = rowSums(get_elapsed_time(fit_15stands))))
+
+
+```
+
+```{r}
+fit_25stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_25stands.rds")
+
+diagnostics_25stands <- util$extract_hmc_diagnostics(fit_25stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_25stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_25stands@par_dims[["f_tilde_sh"]][1],4),
+        time =  rowSums(get_elapsed_time(fit_25stands))))
+
+```
+
+```{r}
+fit_35stands <- readRDS(
+  "/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_35stands.rds")
+
+diagnostics_35stands <- util$extract_hmc_diagnostics(fit_35stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_35stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_35stands@par_dims[["f_tilde_sh"]][1],4),
+        time =  rowSums(get_elapsed_time(fit_35stands))))
+
+```
+
+```{r}
+fit_45stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_45stands.rds")
+
+diagnostics_45stands <- util$extract_hmc_diagnostics(fit_45stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_45stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_45stands@par_dims[["f_tilde_sh"]][1],4),
+                  time = rowSums(get_elapsed_time(fit_45stands))))
+
+```
+
+```{r}
+fit_55stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_55stands.rds")
+
+diagnostics_55stands <- util$extract_hmc_diagnostics(fit_55stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_55stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_55stands@par_dims[["f_tilde_sh"]][1],4),
+                   time = rowSums(get_elapsed_time(fit_55stands))))
+
+```
+
+```{r}
+fit_65stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_65stands.rds")
+
+diagnostics_65stands <- util$extract_hmc_diagnostics(fit_65stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_65stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_65stands@par_dims[["f_tilde_sh"]][1],4),
+                   time = rowSums(get_elapsed_time(fit_65stands))))
+
+```
+
+```{r}
+#| eval: false
+
+fit_75stands <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/model/improve_computation/output/model/fit_05dec2025_PIPO_75stands.rds")
+
+diagnostics_75stands <- util$extract_hmc_diagnostics(fit_75stands)
+util$plot_num_leapfrogs_by_chain(diagnostics_75stands)
+
+dataplot <-
+  rbind(dataplot,
+        data.frame(ndata = rep(fit_75stands@par_dims[["f_tilde_sh"]][1],4),
+                   time = rowSums(get_elapsed_time(fit_75stands))))
+
+```
+
+
+```{r}
+
+
+plot(dataplot$time/3600 ~ dataplot$ndata)
+dataplot_mean <- aggregate(time ~ ndata, data = dataplot, FUN = mean) 
+lines(dataplot_mean$time/3600 ~ dataplot_mean$ndata)
+  
+
+```
