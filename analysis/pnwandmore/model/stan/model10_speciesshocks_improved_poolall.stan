@@ -281,13 +281,13 @@ parameters {
   
   // Probability of stand-level shock
   real<lower=0, upper=1> phi_sck0; // Population means of stand-level shock probability
-  real tau_phi_sck; // Population sds of stand-level shock log-odds
+  real<lower=0> tau_phi_sck; // Population sds of stand-level shock log-odds
   vector[N_stands] alpha_phi_sck; // Stand-level shock log-odds
   
   // Probability of tree-level shock given stand in shock (concordant shock)
-  real<lower=0, upper=1> omega_conc_sck0; // Population means of stand-level shock probability
-  real tau_omega_conc_sck; // Population sds of stand-level shock log-odds
-  vector[N_stand_species] alpha_omega_conc_sck; // Stand-level shock log-odds
+  real<lower=0, upper=1> omega_conc_sck0; // Population means of tree-level shock probability
+  real<lower=0> tau_omega_conc_sck; // Population sds of tree-level shock log-odds
+  vector[N_stand_species] alpha_omega_conc_sck; // Tree-level shock log-odds
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -387,7 +387,7 @@ model {
   phi_sck0 ~ beta(2, 20); 
   tau_phi_sck ~ normal(0, 1); 
   
-  omega_conc_sck0 ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
+  omega_conc_sck0 ~ beta(36, 3.7); // 0.8 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   tau_omega_conc_sck ~ normal(0, 1); 
   
   // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
