@@ -19,6 +19,7 @@ wl <- "analysis/pnwandmore/data/other_treerings/direct_searching/others/doi_10_5
 
 ```{r pressure, echo=FALSE}
 rawRingDatas <- list.files(here(wd),pattern="avgRingWidth.*",recursive=TRUE,full.names=FALSE)
+rawRingDatas
 ```
 
 ```{r data cleaning}
@@ -41,7 +42,8 @@ for (d in 1:length(rawRingDatas)) {
     names_prefix = "X",
     values_to = "Ring_width(mm)") %>%
   select(-Species,-Elev) %>%
-    left_join(treeinfo,by="Tag")
+    left_join(treeinfo,by="Tag")%>%
+    mutate(species = substr(Tag,1,4))
 
   head(rawRingData_long)
   write.csv(rawRingData_long,here(wo,df_name))
@@ -88,6 +90,9 @@ arrrd <- read.table(here(arw),sep="\t",skip = 2,col.names = c("years","Tag","Tre
   rename("Ring_width(mm)"=Ring_width)%>%
   bind_cols(Lat,Long)
 
+arrrd$speciesfull <- "Picea mariana"
+arrrd$species <- "PIMA"
+
 write.csv(arrrd,here(arwo,"bog_tree_ring_data.csv"))
 ```
 
@@ -104,6 +109,8 @@ arrrd1 <- read.table(here(arw1),sep="\t",skip=1,
          Long = LON,
          "Ring_width(mm)"=Ring_width,
          Tag = CORE_CN)
+arrrd1$species <- "PIPO"
+arrrd1$speciesfull <- "Pinus ponderosa"
 write.csv(arrrd1,here(arwo,"PIPOCores518RingWidths.csv"))
 ```
 
@@ -117,6 +124,8 @@ arc1 <- read.csv(here(arc)) %>%
          "Ring_width(mm)"=RW,
          Long = x,
          Lat = y)
+arc1$species <- "PIPO"
+arc1$speciesfull <- "Pinus ponderosa"
 write.csv(arc1,here(arwo,"core_data_22dec2023.csv"))
 ```
 
@@ -125,40 +134,94 @@ BC datasearch
 wdb <- "analysis/pnwandmore/data/other_treerings/direct_searching/BC/datasearch/RawTreeRing/EN22_Tree_Ring_Widths.tab"
 savebc<-'analysis/pnwandmore/input/other_tree_rings/direct_searching/Bc'
 
+species_key <- data.frame(
+  speciesfull = c(
+    "Picea mariana",
+    "Larix laricina",
+    "Betula papyrifera",
+    "Picea glauca",
+    "Picea sitchensis",
+    "Populus tremuloides",
+    "Pinus contorta",
+    "Populus balsamifera",
+    "Abies lasiocarpa",
+    "Pinus ponderosa"
+  ),
+  species = c(
+    "PIMA",
+    "LALA",
+    "BEPA",
+    "PIGL",
+    "PISI",
+    "POTR",
+    "PICO",
+    "POBA",
+    "ABLA",
+    "PIPO"
+  ),
+  stringsAsFactors = FALSE
+)
+
+
 bcdata <- read_tsv(here(wdb),skip = 52) %>%
   rename(Lat=Latitude,
          Long=Longitude,
          "Ring_width(mm)"="TRW [mm]" ,
          years="Age [a AD/CE]",
-         Tag="Subsample ID")%>%
-  select(Tag,Lat,Long,years,"Ring_width(mm)")
+         Tag="Subsample ID",
+         speciesfull=Species)%>%
+  select(Tag,Lat,Long,years,"Ring_width(mm)",speciesfull)%>%
+  left_join(species_key,by="speciesfull")
 write.csv(bcdata,here(savebc,"EN22_Tree_Ring_Widths.csv"))
+#unique(bcdata$speciesfull)
 #head(bcdata)
 ```
 
 Colorado datasearch
+*** Duke, combine,Bonaza left
 ```{r} 
-wdco <-"analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/ring_widths_LPP.csv"
-spatialco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/spatial_LPP.csv"
-growthco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/US_State/RDS-2024-0066/Data/growth_LPP.csv"
-saveco<-"analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/US_state"
+#TreeBase2021
+wdco <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/TreeBase2021/731f7ef6-1930-453c-b838-f06ec61431ac/data-EP-WC-RING-WIDTH-INDEX-Clemons.csv"
+
+saveco<-"analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/treeBase2021"
 
 
-cospatial <- read_csv(here(spatialco))
-cogrowth <- read_csv(here(growthco))
+#cospatial <- read_csv(here(spatialco))
+#cogrowth <- read_csv(here(growthco))
 codata <- read_csv(here(wdco))%>%
   pivot_longer(cols=-1,
-               names_to = "TREE_ID",
+               names_to = "Tag",
                values_to = "Ring_width(mm)")%>%
-  left_join(cogrowth,by="TREE_ID")%>%
-  left_join(cospatial,by=c("STATE","PROV"))%>%
-  select(YEAR,TREE_ID,"Ring_width(mm)",LAT,LONG)%>%
-  rename(years=YEAR,
-         Tag=TREE_ID,
-         Lat=LAT,
-         Long=LONG)
+  bind_cols(Long = -105.47203,
+            Lat = 40.44473) %>%
+  mutate(
+    species = case_when(
+      str_detect(Tag, regex("Pip", ignore_case = TRUE)) ~ "PIPO",
+      str_detect(Tag, regex("Pien|Pie", ignore_case = TRUE)) ~ "PIEN",
+      str_detect(Tag, regex("Psm", ignore_case = TRUE)) ~ "PSME",
+      str_detect(Tag, regex("Unkn", ignore_case = TRUE)) ~ "UNKN",
+      TRUE ~ NA_character_
+    ),
+    speciesfull = case_when(
+      species == "PIPO" ~ "Pinus ponderosa",
+      species == "PIEN" ~ "Picea engelmannii",
+      species == "PSME" ~ "Pseudotsuga menziesii",
+      species == "UNKN" ~ "Unkown",
+      TRUE ~ NA_character_
+    )
+  )
   
-write.csv(codata,here(saveco,"ring_widths_LPP.csv"))
+  #left_join(cogrowth,by="TREE_ID")%>%
+  #left_join(cospatial,by=c("STATE","PROV"))%>%
+  #select(YEAR,TREE_ID,"Ring_width(mm)",LAT,LONG)%>%
+  #rename(years=YEAR,
+         #Tag=TREE_ID,
+         #Lat=LAT,
+         #Long=LONG)
+
+head(codata)
+unique(codata$Tag)
+write.csv(codata,here(saveco,"ata-EP-WC-RING-WIDTH-INDEX-Clemons.csv"))
 ```
 
 idaho dataCite
