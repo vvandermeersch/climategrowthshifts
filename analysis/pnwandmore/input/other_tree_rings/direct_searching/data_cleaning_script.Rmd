@@ -209,7 +209,8 @@ codata <- read_csv(here(wdco))%>%
       species == "UNKN" ~ "Unkown",
       TRUE ~ NA_character_
     )
-  )
+  )%>%
+  rename(years = Year)
   
   #left_join(cogrowth,by="TREE_ID")%>%
   #left_join(cospatial,by=c("STATE","PROV"))%>%
@@ -219,9 +220,54 @@ codata <- read_csv(here(wdco))%>%
          #Lat=LAT,
          #Long=LONG)
 
-head(codata)
-unique(codata$Tag)
 write.csv(codata,here(saveco,"ata-EP-WC-RING-WIDTH-INDEX-Clemons.csv"))
+head(codata)
+```
+```{r}
+#Duke
+wdco1 <- "analysis/pnwandmore/data/other_treerings/direct_searching/colorado/datasearch/rawTreeRing/Dukes/edi.1969.1/Dukes_tree_rings.csv"
+
+saveco1 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/Duke"
+
+codata1 <- read_csv(here(wdco1))%>%
+  mutate(Tag = paste0(stem,side),
+         species = toupper(sp),speciesfull = case_when(
+      species == "PIGL" ~ "Picea glauca",
+      species == "ACRU" ~ "Acer rubrum",
+      species == "ACSA" ~ "Acer saccharum",
+      species == "BEAL" ~ "Betula alleghaniensis",
+      species == "FAGR" ~ "Fagus grandifolia",
+      species == "OSVI" ~ "Ostrya virginiana",
+      species == "TSCA" ~ "Tsuga canadensis",
+      TRUE ~ NA_character_
+    ))%>%
+  select(ring.width,year,species,speciesfull,Tag)%>%
+  rename("Ring_width(mm)"="ring.width",
+         years=year)%>%
+  bind_cols(Lat = 46.370,
+            Long = -87.151)
+head(codata1)
+write.csv(codata1,here(saveco1,"Dukes_tree_rings.csv"))
+```
+
+```{r}
+#Bonaza
+wdco2 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018/775_birch.csv"
+codata2 <- read_csv(here(wdco2))%>%
+  bind_cols(species = "BEPA",
+            speciesfull = "Betula papyrifera")
+
+wdco3 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018/775_spruce.csv"
+codata3 <- read_csv(here(wdco3))%>%
+  bind_cols(species = "PIGL", speciesfull = "Picea glauca")
+
+write.csv(codata2,here("analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018","775_birch.csv"))
+write.csv(codata3,here("analysis/pnwandmore/input/other_tree_rings/direct_searching/Colorado/BonanzaCreek2018","775_spruce.csv"))
+```
+
+```{r}
+#combine
+# no coordinates found
 ```
 
 idaho dataCite
