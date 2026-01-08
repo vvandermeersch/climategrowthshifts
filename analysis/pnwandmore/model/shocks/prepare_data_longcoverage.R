@@ -37,17 +37,24 @@ group_keys <- interaction(
 )
 datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 
-# Temp
-set.seed(12345)
-datasets <- datasets[datasets$grouped_stand %in% sample(datasets$grouped_stand, 5),]
+# Remove the angiosperms
+datasets <- datasets[!(datasets$species_code %in% angiosperms),]
+
+# Remove species that occur at only one stand
+toremove <- names(table(datasets$species_code))[table(datasets$species_code) == 1]
+datasets <- datasets[!(datasets$species_code %in% toremove),]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly_from1896.rds'))
 
+all_years <-  1920:1960
+
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
   
-  raw_data_d <- ringwidth_series[ringwidth_series$dataset == datasets[d, 'dataset'], ]
+  raw_data_d <- ringwidth_series[ringwidth_series$dataset %in% datasets[d, 'dataset'], ]
+  
+  raw_data_d <- raw_data_d[raw_data_d$year %in% all_years, ]
   
   raw_data_d$species_code <- datasets[d, 'species_code']
   
@@ -161,7 +168,7 @@ uniq_species_ids <- unique(raw_data$species_code)
 N_species <- length(uniq_species_ids)
 clade_idxs <- as.numeric(uniq_species_ids %in% angiosperms)+1 # Gymnosperms=1, Angiosperms=2
 
-all_years <-  min(raw_data$year):max(raw_data$year)
+# all_years <-  min(raw_data$year):max(raw_data$year)
 N_all_years <- length(all_years)
 
 # Format data into ragged arrays
@@ -288,7 +295,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_26dec2025_test.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_26dec2025_test.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_19201960.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_19201960.rds'))
 
 

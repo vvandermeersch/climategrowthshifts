@@ -38,8 +38,8 @@ group_keys <- interaction(
 datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 
 # Temp
-set.seed(12345)
-datasets <- datasets[datasets$grouped_stand %in% sample(datasets$grouped_stand, 5),]
+# set.seed(12345)
+# datasets <- datasets[datasets$grouped_stand %in% sample(datasets$grouped_stand, 5),]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly_from1896.rds'))
@@ -298,7 +298,7 @@ sum(is.na(gdd_obs)) # check clim. pred
 
 # Collection data into list
 N <- length(years)
-N_clades <- 1
+N_clades <- 2
 data <- mget(c('N', 'N_all_years', 'N_trees', 
                'rw_obs', 'gdd_obs', 
                'vpd_obs', 'pre_obs',
@@ -316,6 +316,6 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
 ))
 data$years <- as.numeric(data$years)
 saveRDS(data, file = file.path(wd, 'output/model', 'data_26dec2025_allspecies_longcoverage_improved.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'data_26dec2025_allspecies_longcoverage_improved.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_26dec2025_allspecies_longcoverage_improved.rds'))
 
 
