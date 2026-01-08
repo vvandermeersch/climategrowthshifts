@@ -1,0 +1,211 @@
+---
+title: "Tree Ring Tag Maps"
+format: html
+editor: visual
+---
+
+## Maps of Tag Locations
+
+```{r}
+library(sf) 
+library(mapview)
+```
+
+#### Alberta
+
+```{r}
+
+alberta <- read.csv("alberta.csv", header=TRUE)
+
+lngalberta = alberta$Long
+latalberta = alberta$Lat
+namesalberta = alberta$Tag
+
+points_alberta = data.frame(lngalberta, latalberta, namesalberta)
+coords_alberta = st_as_sf(points_alberta, coords = c("lngalberta", "latalberta"), crs=4326)
+
+map_alberta = mapview(coords_alberta, label=coords_alberta$namesalberta)
+
+map_alberta
+```
+
+#### Arizona
+
+```{r}
+arizonabog <- read.csv("arizonabog.csv", header=TRUE)
+arizonadec <- read.csv("arizonadec.csv", header=TRUE)
+arizonaPIPO <- read.csv("arizonaPIPO.csv", header=TRUE)
+
+#append arizona data sets into one
+arizona <- rbind(arizonabog, arizonadec, arizonaPIPO)
+
+lngarizona = arizona$Long
+latarizona = arizona$Lat
+namesarizona = arizona$Tag
+
+points_arizona = data.frame(lngarizona, latarizona, namesarizona)
+coords_arizona = st_as_sf(points_arizona, coords = c("lngarizona", "latarizona"), crs=4326)
+
+map_arizona = mapview(coords_arizona, label=coords_arizona$namesarizona)
+
+map_arizona
+```
+
+#### British Columbia
+
+```{r}
+bc <- read.csv("bc.csv", header=TRUE)
+
+lngbc = bc$Long
+latbc = bc$Lat
+namesbc = bc$Tag
+
+points_bc = data.frame(lngbc, latbc, namesbc)
+coords_bc = st_as_sf(points_bc, coords = c("lngbc", "latbc"), crs=4326)
+
+map_bc = mapview(coords_bc, label=coords_bc$namesbc)
+
+map_bc
+```
+
+#### Colorado
+
+```{r}
+#no coords are available for coloradocolumbine data set
+
+coloradoclemons <- read.csv("coloradoclemons.csv", header=TRUE)
+
+coloradobirch <- read.csv("coloradobonanzacreekbirch.csv", header=TRUE)
+
+coloradospruce <- read.csv("coloradobonanzacreekspruce.csv", header=TRUE)
+
+coloradoduke <- read.csv("coloradoduke.csv", header=TRUE)
+
+coloradoLPP <- read.csv("coloradoLPP.csv", header=TRUE)
+
+
+
+#subset datasets into only the needed columns
+subset_coloradoclemons <- coloradoclemons[, c("X", "Tag","Lat", "Long")]
+
+subset_coloradobirch <- coloradobirch[, c("X", "Tag","Lat", "Long")]
+
+subset_coloradospruce <- coloradospruce[, c("X", "Tag","Lat", "Long")]
+
+subset_coloradoduke <- coloradoduke[, c("X", "Tag","Lat", "Long")]
+
+subset_coloradoLPP <- coloradoLPP[, c("X", "Tag","Lat", "Long")]
+
+
+#append all colorado datasets into one
+colorado <- rbind(subset_coloradoclemons, subset_coloradobirch, subset_coloradospruce, subset_coloradoduke, subset_coloradoLPP)
+
+lngcolorado = colorado$Long
+latcolorado = colorado$Lat
+namescolorado = colorado$Tag
+
+points_colorado = data.frame(lngcolorado, latcolorado, namescolorado)
+
+coords_colorado = st_as_sf(points_colorado, coords = c("lngcolorado", "latcolorado"), crs=4326)
+
+map_colorado = mapview(coords_colorado, label=coords_colorado$namescolorado)
+
+map_colorado
+```
+
+#### New Mexico
+
+```{r}
+newmexico <- read.csv("newmexico.csv", header=TRUE)
+
+lngnewmexico = newmexico$Long
+latnewmexico = newmexico$Lat
+namesnewmexico = newmexico$Tag
+
+points_newmexico = data.frame(lngnewmexico, latnewmexico, namesnewmexico)
+coords_newmexico = st_as_sf(points_newmexico, coords = c("lngnewmexico", "latnewmexico"), crs=4326)
+
+map_newmexico = mapview(coords_newmexico, label=coords_newmexico$namesnewmexico)
+
+map_newmexico
+```
+
+#### Idaho
+
+```{r}
+idaho <- read.csv("idaho.csv", header=TRUE)
+
+lngidaho = idaho$Long
+latidaho = idaho$Lat
+namesidaho = idaho$Tag
+
+points_idaho = data.frame(lngidaho, latidaho, namesidaho)
+coords_idaho = st_as_sf(points_idaho, coords = c("lngidaho", "latidaho"), crs=4326)
+
+map_idaho = mapview(coords_idaho, label=coords_idaho$namesidaho)
+
+map_idaho
+```
+
+#### Montana
+
+```{r}
+montanacore <- read.csv("montanacore.csv", header=TRUE)
+montanagrowth <- read.csv("montanagrowth.csv", header=TRUE)
+ACRUm <- read.csv("ACRUmesic.csv", header=TRUE)
+ACRUup <- read.csv("ACRUupslope.csv", header=TRUE)
+BELEm <- read.csv("BELEmesic.csv", header=TRUE)
+LITUm <- read.csv("LITUmesic.csv", header=TRUE)
+LITUup <- read.csv("LITUupslope.csv", header=TRUE)
+QUALm <- read.csv("QUALmesic.csv", header=TRUE)
+QUALup <- read.csv("QUALupslope.csv", header=TRUE)
+QUMOm <- read.csv("QUMOmesic.csv", header=TRUE)
+QUMOup <- read.csv("QUMOupslope.csv", header=TRUE)
+QURUm <- read.csv("QURUmesic.csv", header=TRUE)
+QURUup <- read.csv("QURUupslope.csv", header=TRUE)
+
+
+#subset datasets into only the needed columns
+subset_montanacore <- montanacore[, c("X", "Tag","LatN", "LongW")]
+subset_montanagrowth <- montanagrowth[, c("X", "Tag","LatN", "LongW")]
+subset_ACRUm <- ACRUm[, c("X", "Tag","LatN", "LongW")]
+subset_ACRUup <- ACRUup[, c("X", "Tag","LatN", "LongW")]
+subset_BELEm <- BELEm[, c("X", "Tag","LatN", "LongW")]
+subset_LITUm <- LITUm[, c("X", "Tag","LatN", "LongW")]
+subset_LITUup <- LITUup[, c("X", "Tag","LatN", "LongW")]
+subset_QUALm <- QUALm[, c("X", "Tag","LatN", "LongW")]
+subset_QUALup <- QUALup[, c("X", "Tag","LatN", "LongW")]
+subset_QUMOm <- QUMOm[, c("X", "Tag","LatN", "LongW")]
+subset_QUMOup <- QUMOup[, c("X", "Tag","LatN", "LongW")]
+subset_QURUm <- QURUm[, c("X", "Tag","LatN", "LongW")]
+subset_QURUup <- QURUup[, c("X", "Tag","LatN", "LongW")]
+
+
+#append all montana datasets into one
+montana <- rbind(subset_montanacore, subset_montanagrowth, subset_ACRUm, subset_ACRUup, subset_BELEm, subset_LITUm, subset_LITUup, subset_QUALm, subset_QUALup, subset_QUMOm, subset_QUMOup, subset_QURUm, subset_QURUup)
+
+lngmontana = montana$Long
+latmontana = montana$Lat
+namesmontana = montana$Tag
+
+points_montana = data.frame(lngmontana, latmontana, namesmontana)
+coords_montana = st_as_sf(points_montana, coords = c("lngmontana", "latmontana"), crs=4326)
+
+map_montana = mapview(coords_montana, label=coords_montana$namesmontana)
+
+map_montana
+```
+
+#### 
+
+Note: no coordinates are available for the Utah file and all Nevada files (Santa Rosa, Ruby, and Jarbidge).
+
+[Weird Alaska coordinates are located in the following datasets on Github:]{.underline}
+
+Arizona:
+
+-   Arizona Bog dataset - lat: 64.641; long: -148.333
+
+Colorado:
+
+-   Bonanza Creek Birch and Bonanza Creek Spruce datasets - lat: 64.875; long: -148.394
