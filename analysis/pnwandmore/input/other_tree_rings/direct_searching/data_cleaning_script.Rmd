@@ -281,7 +281,8 @@ iddata <- read_csv(here(wdid))%>%
          years=Year,
          "Ring_width(mm)"=RW,
          Long=x,
-         Lat=y)
+         Lat=y)%>%
+  bind_cols()
 write.csv(iddata,here(saveid,"core_data_22dec2023.csv"))
 ```
 montana datasearch-coweetaLab
@@ -299,11 +300,21 @@ for (i in 1:length(montdatas)) {
   mutate("Ring_width(mm)"=Ring_width/1000)%>%
   rename(years=X)%>%
   select(-Ring_width)%>%
-  bind_cols(LongW=-83.47845,LongE=-83.42166,LatN=35.07382,LatS=35.02734)
+  bind_cols(LongW=-83.47845,LongE=-83.42166,LatN=35.07382,LatS=35.02734,species = substr(dfname,1,4))%>%
+    mutate(speciesfull = case_when(
+      species == "ACRU" ~ "Acer rubrum",
+      species == "BELE" ~ "Betula lenta",
+      species == "LITU" ~ "Liriodendron tulipifera",
+      species == "QUAL" ~ "Quercus alba",
+      species == "QUMO" ~ "Quercus montana",
+      species == "QURU" ~ "Quercus rubra",
+      TRUE ~ NA_character_
+    ))
+    
   write.csv(mondata,here(savemon,dfname))
 }
 ```
-montana datasearch-treeGrowthData
+***montana datasearch-treeGrowthData
 ```{r}
 wdmon1 <- "analysis/pnwandmore/data/other_treerings/direct_searching/montana/datasearch/rawTreeRing/Tree growth data/Treegrowthdata_/LSWL_2017_AVE_CNT_BAI.csv"
 savemon1 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/montana/treeGrowth"
