@@ -314,7 +314,7 @@ for (i in 1:length(montdatas)) {
   write.csv(mondata,here(savemon,dfname))
 }
 ```
-***montana datasearch-treeGrowthData
+montana datasearch-treeGrowthData
 ```{r}
 wdmon1 <- "analysis/pnwandmore/data/other_treerings/direct_searching/montana/datasearch/rawTreeRing/Tree growth data/Treegrowthdata_/LSWL_2017_AVE_CNT_BAI.csv"
 savemon1 <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/montana/treeGrowth"
@@ -377,14 +377,24 @@ wdmx <- "analysis/pnwandmore/data/other_treerings/direct_searching/NewMexico/dat
 savemx <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/NewMexico"
 
 mxdata <- read_csv(here(wdmx))%>%
-  select(Year,"Sample tree ID","Longitude","Latitude","Ring width (mm)")%>%
+  select(Year,"Sample tree ID","Longitude","Latitude","Ring width (mm)",Species)%>%
   rename(years=Year,
          Tag="Sample tree ID",
          Long = Longitude,
          Lat = Latitude,
-         "Ring_width(mm)"="Ring width (mm)")
+         "Ring_width(mm)"="Ring width (mm)",
+         speciesfull = Species)%>%
+  mutate(species = case_when(
+      speciesfull == "Picea engelmannii" ~ "PIEN",
+      speciesfull == "Abies lasiocarpa" ~ "ABLA",
+      speciesfull == "Pinus contorta var. latifolia" ~ "PICO",
+      speciesfull == "Pinus ponderosa" ~ "PIPO",
+      speciesfull == "Pseudotsuga menziesii" ~ "PSME",
+      TRUE ~ NA_character_
+    ))
 write.csv(mxdata,here(savemx,"sample+tree+growth+data+with+locations.csv"))
 head(mxdata)
+unique(mxdata$speciesfull)
 ```
 
 Utah dataCite
@@ -392,14 +402,33 @@ Utah dataCite
 wdu <- "analysis/pnwandmore/data/other_treerings/direct_searching/Utah/datasearch/rawTreeRing/1/UT_rw.csv"
 saveu <- "analysis/pnwandmore/input/other_tree_rings/direct_searching/Utah"
 
+spcd_lookup <- tibble::tribble(
+  ~SPCD, ~species, ~speciesfull,
+  15,   "ABCO", "Abies concolor",
+  19,   "ABLA", "Abies lasiocarpa",
+  65,   "JUSC", "Juniperus scopulorum",
+  93,   "PIEN", "Picea engelmannii",
+  96,   "PISI", "Picea sitchensis",
+  106,  "PIED", "Pinus edulis",
+  108,  "PICO", "Pinus contorta",
+  122,  "PIPO", "Pinus ponderosa",
+  133,  "PIMO", "Pinus monophylla",
+  202,  "PSME", "Pseudotsuga menziesii",
+  321,  "ACGL", "Acer glabrum",
+  NA,NA,NA
+)
+
+
 udata <- read_csv(here(wdu)) %>%
   mutate(Tag=paste(PLT_CN,TRE_CN,sep="-"))%>%
   rename(years=Year,
          "Ring_width(mm)"=RW) %>%
-  select(years,Tag,"Ring_width(mm)")
+  select(years,Tag,"Ring_width(mm)",SPCD)%>%
+  left_join(spcd_lookup,by = "SPCD")
 
 write.csv(udata,here(saveu,"UT_rw.csv"))
 head(udata)
+#unique(udata$SPCD)
 ```
 Wyoming datasearch 
 "I don't know how to read this file Cottonwood_Wind_Ring_Widths"
