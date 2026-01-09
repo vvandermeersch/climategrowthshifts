@@ -83,8 +83,6 @@ functions {
                               array[] int stand_species_idxs,
                               vector rw_obs,
                               array[] vector mu_stand_species,
-                              vector kappa_sh,
-                              array[] vector f_sh,
                               vector f_tilde,
                               array[] matrix L_cov,
                               real epsilon,
@@ -115,9 +113,7 @@ functions {
         
         vector[N_years[t]] f = block(L_cov[sp], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_idxs];
         
-        vector[N_years[t]] mu = 
-        + mu_stand_species[stsp, all_years_idxs_tree] 
-        + kappa_sh[sp] * f_sh[stand_idx, all_years_idxs_tree];
+        vector[N_years[t]] mu = mu_stand_species[stsp, all_years_idxs_tree];
         
         for(y in 1:N_years[t]) {
           int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
@@ -174,6 +170,7 @@ data {
   // Indices of tree stand_species (species within a stand)
   int<lower=1> N_stand_species;
   array[N_stand_species] int<lower=1, upper=N_species> stand_species_species_idxs;
+  array[N_stand_species] int<lower=1, upper=N_species> stand_species_stand_idxs;
   array[N_trees] int<lower=1, upper=N_stand_species> stand_species_idxs;
   
   // Indices of tree species
@@ -302,10 +299,13 @@ transformed parameters {
         int start = 1+(s-1)*N_all_years;
         int end = s*N_all_years;
         int sp = stand_species_species_idxs[s];
+        int st = stand_species_stand_idxs[st];
+        
         mu_stand_species[s] = alpha
         + beta_gdd[sp] * (gdd_obs[start:end] - gdd0)
         + beta_pre[sp] * (pre_obs[start:end] - pre0)
-        + beta_vpd[sp] * (vpd_obs[start:end] - vpd0);
+        + beta_vpd[sp] * (vpd_obs[start:end] - vpd0) 
+        + kappa_sh[sp] * f_sh[st, start:end];
       }
     }
   }
@@ -395,8 +395,6 @@ model {
       stand_species_idxs,
       rw_obs,
       mu_stand_species,
-      kappa_sh,
-      f_sh,
       f_tilde,
       L_cov,
       epsilon,

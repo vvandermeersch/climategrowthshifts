@@ -78,11 +78,24 @@ functions {
                               array[] int N_years,
                               array[] int all_years_idxs,
                               array[] int stand_start_years_idxs,
+                              array[] int stand_idxs,
                               array[] int species_idxs,
                               array[] int stand_species_idxs,
                               vector rw_obs,
-                              vector mu,
-                              vector f,
+                              vector gdd_obs,
+                              vector pre_obs,
+                              vector vpd_obs,
+                              real gdd0,
+                              real pre0,
+                              real vpd0,
+                              real alpha,
+                              vector beta_gdd, 
+                              vector beta_pre,
+                              vector beta_vpd,
+                              vector kappa_sh,
+                              array[] vector f_sh,
+                              vector f_tilde,
+                              array[] matrix L_cov,
                               real epsilon,
                               real sigma,
                               vector tau_sck,
@@ -101,30 +114,41 @@ functions {
       
       for(ts in 1:N_stand_trees[s]){
         int t = stand_trees_idxs[ts];
+        
+        int stand_idx = stand_idxs[ts];
         int sp = species_idxs[ts];
         int stsp = stand_species_idxs[ts];
+        
         array[N_years[t]] int tree_idxs = linspaced_int_array(N_years[t], tree_start_idxs[t], tree_end_idxs[t]);
         array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
+        
+        vector[N_years[t]] f = block(L_cov[sp], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_idxs];
+        
+        vector[N_years[t]] mu = alpha
+        + beta_gdd[sp] * (gdd_obs[tree_idxs] - gdd0)
+        + beta_pre[sp] * (pre_obs[tree_idxs] - pre0)
+        + beta_vpd[sp] * (vpd_obs[tree_idxs] - vpd0)
+        + kappa_sh[sp] * f_sh[stand_idx, all_years_idxs_tree];
         
         for(y in 1:N_years[t]) {
           int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
           
           if(rw_obs[tree_idxs[y]] >= epsilon){
-            log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sigma);
+            log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                            + f[y], sigma);
             log_p1[ys] += log_mix(omega_conc_sck[stsp],
-                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sqrt(tau_sck[sp]^2 + sigma^2)),
-                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sigma));
+                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                            + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
+                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                            + f[y], sigma));
           }else{
-            log_p0[ys] += normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sigma);
+            log_p0[ys] += normal_lcdf(log(epsilon) | mu[y] 
+                            + f[y], sigma);
             log_p1[ys] += log_mix(omega_conc_sck[stsp],
-                            normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sqrt(tau_sck[sp]^2 + sigma^2)),
-                            normal_lcdf(log(epsilon) | mu[tree_idxs[y]] 
-                            + f[tree_idxs[y]], sigma));
+                            normal_lcdf(log(epsilon) | mu[y] 
+                            + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
+                            normal_lcdf(log(epsilon) | mu[y] 
+                            + f[y], sigma));
           }
           
         }
@@ -149,7 +173,7 @@ data {
   int<lower=1> N_trees;     // Number of trees
   int<lower=1> N_all_years; // Max number of years
   int<lower=1> N_stands;    // Number of stands
-  // int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
+  int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
   
   array[N_stands] int<lower=1, upper=N> N_stand_trees; // Number of trees per stand
   array[N_stands] int<lower=1, upper=N> N_stand_years; // Max. number of observed years per stand
@@ -158,6 +182,7 @@ data {
   // Indices of tree stands
   array[N_trees] int<lower=1, upper=N_stands> stand_idxs;
   
+  // Indices of tree stand_species (species within a stand)
   int<lower=1> N_stand_species;
   array[N_trees] int<lower=1, upper=N_stand_species> stand_species_idxs;
   
@@ -186,11 +211,11 @@ data {
   
   vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
   vector[N] gdd_obs; // Observed gdd (all year) (x100 degC)
-  vector[N] pre_obs; // Observed soil moisture (MJJ) (%)
+  vector[N] pre_obs; // Observed winter precipitation (NDJFMA) (dm)
   vector[N] vpd_obs; // Observed VPD (JJMJJA) (hPa)
   
   // Indices of species clades (Gymnosperms=1 or Angiosperms=2)
-  // array[N_species] int<lower=1, upper=N_clades> clade_idxs;
+  array[N_species] int<lower=1, upper=N_clades> clade_idxs;
   
   // Partial centering parameters for growth shocks
   // vector<lower=0, upper=1>[N] w_sck;
@@ -220,8 +245,8 @@ parameters {
   vector[N_species] beta_gdd;
   
   // SM slope (1/%)
-  // vector[N_clades] mu_sm;
-  //vector<lower=0>[N_clades] tau_sm;
+  // vector[N_clades] mu_pre;
+  // vector<lower=0>[N_clades] tau_pre;
   vector[N_species] beta_pre;
   
   // VPD slope (1/hPa)
@@ -250,20 +275,14 @@ parameters {
   vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  // real<lower=0> inner_tau_sck; // Inner yearly log variation scale
+  // vector<lower=0>[N_clades] mu_tau_sck;
+  // vector<lower=0>[N_clades] tau_tau_sck;
   vector<lower=0>[N_species] tau_sck; // Outer yearly log variation scale (the shocks!)
-  //real<lower=0> eta; // eta corresponds to sqrt(sigma^2 + tau_inner^2)
-  // real<lower=0> nu; // nu corresponds to tau_outer^2 - tau_inner^2
   
   // Probability of shocks
   vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
   vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
   // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
-  
-  // Growth shock species scaling
-  // vector<lower=0>[N_clades] mu_kappa_sck;
-  // vector<lower=0>[N_clades] tau_kappa_sck;
-  // vector<lower=0>[N_species] kappa_sck; 
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -286,10 +305,8 @@ transformed parameters {
     }
   }
   
-  vector[N] f;
+  array[N_species] matrix[N_all_years, N_all_years] L_cov;
   profile("f_lg") {
-    {
-      array[N_species] matrix[N_all_years, N_all_years] L_cov;
       for (sp in 1:N_species) {
         matrix[N_all_years, N_all_years] cov
         =  gp_exp_quad_cov(all_years, gamma_sp[sp], rho_sp[sp])
@@ -297,40 +314,7 @@ transformed parameters {
         
         L_cov[sp] = cholesky_decompose(cov);
       }
-      
-      for (t in 1:N_trees) {
-        // array[N_years[t]] int tree_idxs
-        // = linspaced_int_array(N_years[t],
-        //                     tree_start_idxs[t],
-        //                     tree_end_idxs[t]);
-        
-        int start = tree_start_idxs[t];
-        int end = tree_end_idxs[t];
-                            
-        int species_idx = species_idxs[t];
-        
-        // L_cov needs to be marginalized to the specific
-        // observation years for each tree.
-        // matrix[N_years[t], N_years[t]] L_cov_tree = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]);
-        
-        //f[tree_idxs] = L_cov_tree * f_tilde[tree_idxs];
-        
-        f[start:end] = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]) * f_tilde[start:end];
-
-      }
-      
-    }
   }
-  
-  // vector[N_species] beta_gdd;
-  // vector[N_species] beta_sm;
-  // vector[N_species] beta_vpd;
-  // 
-  // for (sp in 1:N_species) {
-  //   beta_gdd[sp] = mu_gdd[clade_idxs[sp]] + tau_gdd[clade_idxs[sp]] * beta_gdd_tilde[sp];
-  //   beta_sm[sp] = mu_sm[clade_idxs[sp]] + tau_sm[clade_idxs[sp]] * beta_sm_tilde[sp];
-  //   beta_vpd[sp] = mu_vpd[clade_idxs[sp]] + tau_vpd[clade_idxs[sp]] * beta_vpd_tilde[sp];
-  // }
 
 }
 
@@ -339,56 +323,50 @@ model {
   alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
   
   beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
+  beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_vpd <~ log(1.8)
+  // tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  // tau_pre ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  // tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
   
   rho_sp ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
+  // tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
   
   gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
+  // tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
   
+  kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  // tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
+  
+  tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
+  // tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
+  
+  // for (sp in 1:N_species) {
+  //   beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
+  //   beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
+  //   beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+  //   
+  //   rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
+  //   gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
+  //   
+  //   kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
+  //   
+  //   tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
+  // }
+  // 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
-  tau_sck ~ normal(0, 10/ 2.57); 
   phi_sck ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
-  vector[N] mu;
   profile("prepare") {
-    for (t in 1:N_trees) {
-      // array[N_years[t]] int tree_idxs
-      // = linspaced_int_array(N_years[t],
-      //                       tree_start_idxs[t],
-      //                       tree_end_idxs[t]);
-  
-      // array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
-      // array[N_years[t]] real years_tree = years[tree_idxs];
-      
-      int start = tree_start_idxs[t];
-      int end   = tree_end_idxs[t];
-  
-      int stand_idx = stand_idxs[t];
-      int species_idx = species_idxs[t];
-  
-      // vector[N_years[t]] gdd_obs_tree = gdd_obs[tree_idxs];
-      // vector[N_years[t]] sm_obs_tree = sm_obs[tree_idxs];
-      // vector[N_years[t]] vpd_obs_tree = vpd_obs[tree_idxs];
-  
-      mu[start:end] =  alpha
-      + beta_gdd[species_idx] * (gdd_obs[start:end] - gdd0)
-      + beta_pre[species_idx] * (pre_obs[start:end] - pre0)
-      + beta_vpd[species_idx] * (vpd_obs[start:end] - vpd0)
-      + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs[start:end]];
-      
-      // f_tilde[tree_idxs] ~ normal(0,1); vectorized below
-    }
-    
     f_tilde ~ normal(0,1);
   }
   
@@ -407,11 +385,24 @@ model {
       N_years,
       all_years_idxs,
       stand_start_years_idxs,
+      stand_idxs,
       species_idxs,
       stand_species_idxs,
       rw_obs,
-      mu,
-      f,
+      gdd_obs,
+      pre_obs,
+      vpd_obs,
+      gdd0,
+      pre0,
+      vpd0,
+      alpha,
+      beta_gdd, 
+      beta_pre,
+      beta_vpd,
+      kappa_sh,
+      f_sh,
+      f_tilde,
+      L_cov,
       epsilon,
       sigma,
       tau_sck,
