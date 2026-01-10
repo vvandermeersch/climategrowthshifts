@@ -38,7 +38,7 @@ group_keys <- interaction(
 datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
 
 # Temporary
-# datasets <- datasets[datasets$species_code == 'PIPO',]
+datasets <- datasets[datasets$species_code == 'PIPO',]
 # datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
 #                                              'or085', 'wy032', 'id018', 'az599'),]
 # datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
@@ -57,6 +57,9 @@ for(d in 1:nrow(datasets)){
   raw_data_d$species_code <- datasets[d, 'species_code']
   
   # raw_data_long[raw_data_long$rw_core %in% c(-8, -9999), 'rw_core'] <- NA # dealing with weird values in or_105 dataset
+  
+  # temporary
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1960,]
   
   # create a unique tree id (across all datasets)
   raw_data_d$original_tree_id <- raw_data_d$tree_id
@@ -248,10 +251,9 @@ vpd_obs <- c()
 N_substands_stand <- c()
 stand_substand_start_idxs <- c()
 stand_substand_end_idxs <- c()
-substand_species_idxs <- c()
 
 for(s in uniq_stand_ids){
-
+  
   N_trees_stand_s <- sum(stand_idxs == which(uniq_stand_ids == s))
   N_trees_stand <- c(N_trees_stand, N_trees_stand_s)
   
@@ -289,9 +291,12 @@ for(s in uniq_stand_ids){
   stand_substand_start_idxs <- c(stand_substand_start_idxs, idx_sbs)
   idx_sbs <- idx_sbs + N_substands_stand_s
   stand_substand_end_idxs <- c(stand_substand_end_idxs, idx_sbs - 1)
-  
-  stand_species <- unique(species_idxs[stand_idxs == which(uniq_stand_ids == s)])
-  substand_species_idxs <- c(substand_species_idxs, stand_species)
+}
+
+substand_species_idxs <- c()
+for(s in uniq_substand_ids){
+  sp <- which(uniq_species_ids == stringr::str_split_i(s, '_', 2))
+  substand_species_idxs <- c(substand_species_idxs, sp)
 }
 
 substand_idxs <- c()
@@ -306,7 +311,6 @@ for(tid in uniq_tree_ids){
   stand <- stand_idxs[uniq_tree_ids == tid]
   stand_species <- substand_species_idxs[stand_substand_start_idxs[stand]:stand_substand_end_idxs[stand]]
   species <- species_idxs[uniq_tree_ids == tid]
-  if(!(species %in% stand_species)){stop()} # safety check
   substand_rel_idxs <- c(substand_rel_idxs, which(stand_species == species))
   
 }
@@ -329,7 +333,7 @@ sum(is.na(gdd_obs)) # check clim. pred
 
 # Collection data into list
 N <- length(years)
-N_clades <- 2
+N_clades <- 1
 data <- mget(c('N', 'N_all_years', 'N_trees', 
                'rw_obs', 'gdd_obs', 
                'vpd_obs', 'pre_obs',
@@ -350,7 +354,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_standpred_improved.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_stanpred_improved.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_standpred_improved_PIPOfrom1960.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_stanpred_improved_PIPOfrom1960.rds'))
 
 

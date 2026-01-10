@@ -44,10 +44,24 @@ datasets <- datasets[!(datasets$species_code %in% angiosperms),]
 toremove <- names(table(datasets$species_code))[table(datasets$species_code) == 1]
 datasets <- datasets[!(datasets$species_code %in% toremove),]
 
+# Temporary
+datasets <- datasets[datasets$species_code == 'PIPO',]
+# datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
+#                                              'or085', 'wy032', 'id018', 'az599'),]
+# datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
+#                                              'or085', 'wy032', 'id018', 'az599',
+#                                              'ca729', 'co623', 'id033', 'az608',
+#                                              'az601', 'nm610', 'mt167', 'id015'),]
+set.seed(1234)
+datasets32 <- sample(datasets$dataset, 32)
+datasets <- datasets[datasets$dataset %in% datasets32,]
+
+
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly_from1896.rds'))
 
-all_years <-  1920:1960
+# all_years <-  1920:1960
+all_years <- min(ringwidth_series$year): max(ringwidth_series$year)
 
 raw_data <- data.frame()
 for(d in 1:nrow(datasets)){
@@ -295,7 +309,7 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_19201960.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_19201960.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_32standsPIPO.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_32standsPIPO.rds'))
 
 
