@@ -69,8 +69,8 @@ functions {
   // create a function for reduce_sum
   real loglikelihood_partial_sum(array[] int stand_ids_slice,
                               int start, int end,
-                              array[] int N_trees_stand,
-                              array[] int N_years_stand,
+                              array[] int N_stand_trees,
+                              array[] int N_stand_years,
                               array[] int stand_trees_start_idxs,
                               array[] int stand_trees_end_idxs,
                               array[] int tree_start_idxs,
@@ -81,15 +81,7 @@ functions {
                               array[] int stand_start_years_idxs,
                               array[] int stand_idxs,
                               array[] int species_idxs,
-                              
-                              array[] int N_substands_stand,
-                              array[] int stand_substand_start_idxs,
-                              array[] int stand_substand_end_idxs,
-                              array[] int substand_species_idxs,
-                              
-                              array[] int substand_idxs,
-                              array[] int substand_rel_idxs,
-                              
+                              array[] int stand_species_idxs,
                               vector rw_obs,
                               vector gdd_obs,
                               vector pre_obs,
@@ -112,79 +104,79 @@ functions {
                               vector phi_sck) {
 
     real lp = 0;
-    for (i in 1:(end-start+1)) {
-
-      int s = stand_ids_slice[i];
-      
-      vector[N_years_stand[s]] log_p0 = rep_vector(0, N_years_stand[s]);
-      vector[N_years_stand[s]] log_p1 = rep_vector(0, N_years_stand[s]);
-      
-      array[N_trees_stand[s]] int stand_trees_idxs = linspaced_int_array(N_trees_stand[s], 
-      stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
-      
-      array[N_substands_stand[s]] int stand_substand_idxs = linspaced_int_array(N_substands_stand[s], 
-      stand_substand_start_idxs[s], stand_substand_end_idxs[s]);
-      
-      array[N_substands_stand[s]] vector[N_all_years] mu_substand;
-      int stand_start = 1+(s-1)*N_all_years;
-      int stand_end = s*N_all_years;
-      
-      for (sbs in 1:N_substands_stand[s]) {
+    
+    profile("slice_loop") {
+      for (i in 1:(end-start+1)) {
+  
+        int s = stand_ids_slice[i];
         
-        int sbs_sp = substand_species_idxs[stand_substand_idxs[sbs]]; 
+        array[N_stand_trees[s]] int stand_trees_idxs = linspaced_int_array(N_stand_trees[s], 
+          stand_trees_start_idxs[s], stand_trees_end_idxs[s]);
         
-        mu_substand[sbs] = alpha
-        + beta_gdd[sbs_sp] * (gdd_obs[stand_start:stand_end] - gdd0)
-        + beta_pre[sbs_sp] * (pre_obs[stand_start:stand_end] - pre0)
-        + beta_vpd[sbs_sp] * (vpd_obs[stand_start:stand_end] - vpd0) 
-        + kappa_sh[sbs_sp] * f_sh[s, 1:N_all_years];
+        array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years, 
+          1+(s-1)*N_all_years, s*N_all_years);
         
-      }
-      
-      for(ts in 1:N_trees_stand[s]){
-        int t = stand_trees_idxs[ts];
+        vector[N_stand_years[s]] log_p0 = rep_vector(0, N_stand_years[s]);
+        vector[N_stand_years[s]] log_p1 = rep_vector(0, N_stand_years[s]);
         
-        int stand_idx = stand_idxs[ts];
-        int sp = species_idxs[ts];
-        int sbs = substand_idxs[ts];
-        
-        int sbs_rel = substand_rel_idxs[ts];
-        
-        array[N_years[t]] int tree_idxs = linspaced_int_array(N_years[t], tree_start_idxs[t], tree_end_idxs[t]);
-        array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
-        
-        vector[N_years[t]] f = block(L_cov[sp], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_idxs];
-        
-        vector[N_years[t]] mu = mu_substand[sbs_rel, all_years_idxs_tree];
-        
-        for(y in 1:N_years[t]) {
-          int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
-          
-          if(rw_obs[tree_idxs[y]] >= epsilon){
-            log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
-                            + f[y], sigma);
-            log_p1[ys] += log_mix(omega_conc_sck[sbs],
-                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
-                            + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
-                            normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
-                            + f[y], sigma));
-          }else{
-            log_p0[ys] += normal_lcdf(log(epsilon) | mu[y] 
-                            + f[y], sigma);
-            log_p1[ys] += log_mix(omega_conc_sck[sbs],
-                            normal_lcdf(log(epsilon) | mu[y] 
-                            + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
-                            normal_lcdf(log(epsilon) | mu[y] 
-                            + f[y], sigma));
+        profile("trees_loop") {
+          for(ts in 1:N_stand_trees[s]){
+            int t = stand_trees_idxs[ts];
+            
+            int stand_idx = stand_idxs[ts];
+            int sp = species_idxs[ts];
+            int stsp = stand_species_idxs[ts];
+            
+            array[N_years[t]] int tree_idxs = linspaced_int_array(N_years[t], tree_start_idxs[t], tree_end_idxs[t]);
+            array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_idxs];
+            
+            vector[N_years[t]] f;
+            profile("compute_f") {
+              f = block(L_cov[sp], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_idxs];
+            }
+            
+            vector[N_years[t]] mu;
+            profile("compute_mu") {
+              mu = alpha
+              + beta_gdd[sp] * (gdd_obs[stand_clim_idxs[all_years_idxs_tree]] - gdd0)
+              + beta_pre[sp] * (pre_obs[stand_clim_idxs[all_years_idxs_tree]] - pre0)
+              + beta_vpd[sp] * (vpd_obs[stand_clim_idxs[all_years_idxs_tree]] - vpd0)
+              + kappa_sh[sp] * f_sh[stand_idx, all_years_idxs_tree];
+            }
+            
+            profile("store_trees") {
+              for(y in 1:N_years[t]) {
+                int ys = all_years_idxs_tree[y]-stand_start_years_idxs[s]+1;
+                
+                if(rw_obs[tree_idxs[y]] >= epsilon){
+                  log_p0[ys] += normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                                  + f[y], sigma);
+                  log_p1[ys] += log_mix(omega_conc_sck[stsp],
+                                  normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                                  + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lpdf(log(rw_obs[tree_idxs[y]]) | mu[y] 
+                                  + f[y], sigma));
+                }else{
+                  log_p0[ys] += normal_lcdf(log(epsilon) | mu[y] 
+                                  + f[y], sigma);
+                  log_p1[ys] += log_mix(omega_conc_sck[stsp],
+                                  normal_lcdf(log(epsilon) | mu[y] 
+                                  + f[y], sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lcdf(log(epsilon) | mu[y] 
+                                  + f[y], sigma));
+                }
+              }
+            }
           }
-          
         }
+        
+        profile("compute_logmix") {
+          for(y in 1:N_stand_years[s]) {
+            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
+          }
+        }
+        
       }
-      
-      for(y in 1:N_years_stand[s]) {
-        lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
-      }
-      
     }
 
     return lp;
@@ -200,31 +192,18 @@ data {
   int<lower=1> N_trees;     // Number of trees
   int<lower=1> N_all_years; // Max number of years
   int<lower=1> N_stands;    // Number of stands
-  int<lower=1> N_substands; // Number of substands (species within a stand)
   int<lower=1> N_clades;    // Number of clades - for now, Gymnosperms=1 or Angiosperms=2
   
-  array[N_stands] int<lower=1, upper=N> N_trees_stand; // Number of trees per stand
-  array[N_stands] int<lower=1, upper=N> N_years_stand; // Max. number of observed years per stand
+  array[N_stands] int<lower=1, upper=N> N_stand_trees; // Number of trees per stand
+  array[N_stands] int<lower=1, upper=N> N_stand_years; // Max. number of observed years per stand
   array[N_stands] int<lower=1, upper=N> stand_start_years_idxs; // Indice of first year observed per stand
-  
-  // Number of species (substands) per stand
-  array[N_stands] int<lower=1, upper=N_species> N_substands_stand;
-  
-  // Species indices in a substand
-  array[N_substands] int<lower=1, upper=N_species> substand_species_idxs;
-  
-  // Ragged array indexing for substands 
-  array[N_stands] int<lower=1, upper=N_substands> stand_substand_start_idxs;
-  array[N_stands] int<lower=1, upper=N_substands> stand_substand_end_idxs;
   
   // Indices of tree stands
   array[N_trees] int<lower=1, upper=N_stands> stand_idxs;
-
-  // Indices of tree substands
-  array[N_trees] int<lower=1, upper=N_substands> substand_idxs;
   
-  // Relative indices of tree substands (within a stand)
-  array[N_trees] int<lower=1, upper=N_species> substand_rel_idxs;
+  // Indices of tree stand_species (species within a stand)
+  int<lower=1> N_stand_species;
+  array[N_trees] int<lower=1, upper=N_stand_species> stand_species_idxs;
   
   // Indices of tree species
   array[N_trees] int<lower=1, upper=N_species> species_idxs;
@@ -250,6 +229,8 @@ data {
   array[N_stands] int<lower=1, upper=N> stand_trees_end_idxs;
   
   vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
+  
+  // Climate (at stand level)
   vector[N_stands*N_all_years] gdd_obs; // Observed gdd (all year) (x100 degC)
   vector[N_stands*N_all_years] pre_obs; // Observed winter precipitation (NDJFMA) (dm)
   vector[N_stands*N_all_years] vpd_obs; // Observed VPD (JJMJJA) (hPa)
@@ -265,7 +246,7 @@ data {
 transformed data {
   real gdd0 = 10;
   real pre0 = 5;
-  real vpd0 = 8;
+  real vpd0 = 23;
   
   real epsilon = 1e-3;
   
@@ -321,7 +302,7 @@ parameters {
   
   // Probability of shocks
   vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
-  vector<lower=0, upper=1>[N_substands] omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
+  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
   // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Proportional measurement error
@@ -345,24 +326,6 @@ transformed parameters {
     }
   }
   
-  // array[N_stand_species] vector[N_all_years] mu_stand_species;
-  // profile("mu_stand_species") {
-  //   {
-  //     for (s in 1:N_stand_species) {
-  //       int start = 1+(s-1)*N_all_years;
-  //       int end = s*N_all_years;
-  //       int sp = stand_species_species_idxs[s];
-  //       int st = stand_species_stand_idxs[s];
-  //       
-  //       mu_stand_species[s] = alpha
-  //       + beta_gdd[sp] * (gdd_obs[start:end] - gdd0)
-  //       + beta_pre[sp] * (pre_obs[start:end] - pre0)
-  //       + beta_vpd[sp] * (vpd_obs[start:end] - vpd0) 
-  //       + kappa_sh[sp] * f_sh[st, 1:N_all_years];
-  //     }
-  //   }
-  // }
-  // 
   array[N_species] matrix[N_all_years, N_all_years] L_cov;
   profile("f_lg") {
       for (sp in 1:N_species) {
@@ -396,8 +359,8 @@ model {
   kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   // tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  tau_sck ~ normal(0, log(20) / 2.57); 
-  // tau_tau_sck ~ normal(0, log(2) / 2.57);
+  tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
+  // tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
   
   // for (sp in 1:N_species) {
   //   beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
@@ -411,7 +374,7 @@ model {
   //   
   //   tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
   // }
-  
+  // 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
@@ -434,8 +397,8 @@ model {
       loglikelihood_partial_sum,
       stand_ids,
       1, // grain size
-      N_trees_stand,
-      N_years_stand,
+      N_stand_trees,
+      N_stand_years,
       stand_trees_start_idxs,
       stand_trees_end_idxs,
       tree_start_idxs,
@@ -446,12 +409,7 @@ model {
       stand_start_years_idxs,
       stand_idxs,
       species_idxs,
-      N_substands_stand,
-      stand_substand_start_idxs,
-      stand_substand_end_idxs,
-      substand_species_idxs,
-      substand_idxs,
-      substand_rel_idxs,
+      stand_species_idxs,
       rw_obs,
       gdd_obs,
       pre_obs,
@@ -473,8 +431,6 @@ model {
       omega_conc_sck,
       phi_sck);
    }
-  
-  
   
 }
 
