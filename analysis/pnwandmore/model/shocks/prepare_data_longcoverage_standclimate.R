@@ -33,9 +33,11 @@ group_keys <- interaction(
   round(datasets$south_lat,2),
   round(datasets$east_lon,2),
   round(datasets$west_lon,2),
-  drop = TRUE
+  drop = TRUE,
+  sep = '/'
 )
 datasets$grouped_stand <- paste0("S", as.integer(factor(group_keys)))
+group_coordinates <- data.frame(group_keys, grouped_stand = paste0("S", as.integer(factor(group_keys))))
 
 # Remove the angiosperms
 datasets <- datasets[!(datasets$species_code %in% angiosperms),]
@@ -45,16 +47,16 @@ toremove <- names(table(datasets$species_code))[table(datasets$species_code) == 
 datasets <- datasets[!(datasets$species_code %in% toremove),]
 
 # Temporary
-datasets <- datasets[datasets$species_code == 'PIPO',]
+# datasets <- datasets[datasets$species_code == 'PIPO',]
 # datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
 #                                              'or085', 'wy032', 'id018', 'az599'),]
 # datasets <- datasets[datasets$dataset %in% c('co591', 'mt128', 'wa136', 'ut539',
 #                                              'or085', 'wy032', 'id018', 'az599',
 #                                              'ca729', 'co623', 'id033', 'az608',
 #                                              'az601', 'nm610', 'mt167', 'id015'),]
-set.seed(1234)
-datasets32 <- sample(datasets$dataset, 32)
-datasets <- datasets[datasets$dataset %in% datasets32,]
+# set.seed(1234)
+# datasets32 <- sample(datasets$dataset, 32)
+# datasets <- datasets[datasets$dataset %in% datasets32,]
 
 
 # Prepare tree ring data!
@@ -72,7 +74,8 @@ for(d in 1:nrow(datasets)){
   
   raw_data_d$species_code <- datasets[d, 'species_code']
   
-  # raw_data_long[raw_data_long$rw_core %in% c(-8, -9999), 'rw_core'] <- NA # dealing with weird values in or_105 dataset
+  # temporary
+  raw_data_d <- raw_data_d[raw_data_d$year >= 1980 & raw_data_d$year <= 2025,]
   
   # create a unique tree id (across all datasets)
   raw_data_d$original_tree_id <- raw_data_d$tree_id
@@ -116,6 +119,8 @@ for(d in 1:nrow(datasets)){
 }
 raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 length( unique(datasets$grouped_stand))
+
+all_years <- min(raw_data$year): max(raw_data$year)
 
 # Deal with potential duplicates
 # If several trees from different ITRDB datasets are on the same site and have the same ID, the same number of years
@@ -187,9 +192,6 @@ N_all_years <- length(all_years)
 
 # Format data into ragged arrays
 rw_obs <- c()
-gdd_obs  <- c()
-pre_obs <- c()
-vpd_obs <- c()
 years <- c()
 all_years_idxs <- c()
 N_years <- c()
@@ -211,28 +213,10 @@ for(tid in uniq_tree_ids) {
   N_years_tree <- length(years_tree)
   # if(N_years_tree > 45 | N_years_tree < 20){stop()}
   
-  gdd_obs_tree <- sapply(years_tree, 
-                         function(y) 
-                           as.numeric(clim_pred$gdd_all[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  if(any(is.na(gdd_obs_tree))){
-    stop(paste0('Missing predictors for stand ', raw_data_tree$dataset[1]))
-  }
-  gdd_obs <- c(gdd_obs, gdd_obs_tree)
-  
   rw_obs_tree <- sapply(years_tree, 
-                            function(y) 
-                              raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1])
+                        function(y) 
+                          raw_data_tree$rw_avg_mm[raw_data_tree$year == y][1])
   rw_obs <- c(rw_obs, rw_obs_tree)
-  
-  pre_obs_tree <- sapply(years_tree, 
-                             function(y) 
-                               as.numeric(clim_pred$ppt_ndjfma[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  pre_obs <- c(pre_obs, pre_obs_tree)
-  
-  vpd_obs_tree <- sapply(years_tree, 
-                         function(y) 
-                           as.numeric(clim_pred$vpd_mjja[clim_pred$year == y & clim_pred$dataset == raw_data_tree$dataset[1]][1]))
-  vpd_obs <- c(vpd_obs, vpd_obs_tree)
   
   years <- c(years, years_tree)
   all_years_idxs <- c(all_years_idxs, all_years_idxs_tree)
@@ -259,6 +243,10 @@ idx <- 1
 stand_trees_start_idxs <- c()
 stand_trees_end_idxs <- c()
 
+gdd_obs  <- c()
+pre_obs <- c()
+vpd_obs <- c()
+
 for(s in uniq_stand_ids){
   N_stand_trees_s <- sum(stand_idxs == which(uniq_stand_ids == s))
   N_stand_trees <- c(N_stand_trees, N_stand_trees_s)
@@ -273,7 +261,23 @@ for(s in uniq_stand_ids){
   
   N_stand_years <- c(N_stand_years, length(min_year:max_year))
   stand_start_years_idxs <- c(stand_start_years_idxs, min_year)
-
+  
+  dataset <- datasets[datasets$grouped_stand ==s, 'dataset'][1]
+  
+  gdd_obs_stand <- sapply(all_years, 
+                          function(y) 
+                            as.numeric(clim_pred$gdd_all[clim_pred$year == y & clim_pred$dataset == dataset]))
+  gdd_obs <- c(gdd_obs, gdd_obs_stand)
+  
+  pre_obs_stand <- sapply(all_years, 
+                          function(y) 
+                            as.numeric(clim_pred$ppt_ndjfma[clim_pred$year == y & clim_pred$dataset == dataset]))
+  pre_obs <- c(pre_obs, pre_obs_stand)
+  
+  vpd_obs_stand <- sapply(all_years, 
+                          function(y) 
+                            as.numeric(clim_pred$vpd_mjja[clim_pred$year == y & clim_pred$dataset == dataset]))
+  vpd_obs <- c(vpd_obs, vpd_obs_stand)
 }
 
 # Cross check sizes
@@ -309,7 +313,13 @@ data <- mget(c('N', 'N_all_years', 'N_trees',
                'uniq_tree_ids', 'uniq_stand_ids', 'uniq_species_ids'
 ))
 data$years <- as.numeric(data$years)
-saveRDS(data, file = file.path(wd, 'output/model', 'data_28dec2025_32standsPIPO.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_28dec2025_32standsPIPO.rds'))
+
+group_coordinates <- unique(group_coordinates)
+data$uniq_stand_lat <- stringr::str_split_i(group_coordinates[group_coordinates$grouped_stand %in% data$uniq_stand_ids, "group_keys"], '/', 1)
+data$uniq_stand_lon <- stringr::str_split_i(group_coordinates[group_coordinates$grouped_stand %in% data$uniq_stand_ids, "group_keys"], '/', 3)
+
+
+saveRDS(data, file = file.path(wd, 'output/model', 'data_15jan2025_gymnosperms_standclimate_19802024.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_15jan2025_gymnosperms_standclimate_19802024.rds'))
 
 
