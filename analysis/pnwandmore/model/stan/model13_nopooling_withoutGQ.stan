@@ -101,7 +101,8 @@ functions {
                               real sigma,
                               vector tau_sck,
                               vector omega_conc_sck,
-                              vector phi_sck) {
+                              vector phi_sck0,
+                              real beta_shock_pre) {
 
     real lp = 0;
     
@@ -171,7 +172,8 @@ functions {
         
         profile("compute_logmix") {
           for(y in 1:N_stand_years[s]) {
-            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
+            real phi_sck = inv_logit(logit(phi_sck0[s]) + beta_shock_pre * (pre_obs[stand_start_years_idxs[s] + y]-pre0));
+            lp += log_mix(phi_sck, log_p1[y], log_p0[y]);
           }
         }
         
@@ -302,9 +304,12 @@ parameters {
   // vector<lower=0>[N_clades] tau_tau_sck;
   vector<lower=0>[N_species] tau_sck; // Outer yearly log variation scale (the shocks!)
   
-  // Probability of shocks
-  vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
+  // Probability of stand-level shocks
+  vector<lower=0, upper=1>[N_stands] phi_sck0; // Probability of stand-level shock at pre_obs = pre0
+  real beta_shock_pre; // how winter precipitation (as a proxy of soil moisture) influences shock probability!
+  
+  // Probability of tree-level shock given stand in shock (concordant shock)
+  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; 
   // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Proportional measurement error
@@ -384,7 +389,7 @@ model {
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
-  phi_sck ~ beta(2, 20); 
+  phi_sck0 ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
@@ -432,7 +437,8 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      phi_sck);
+      phi_sck0,
+      beta_shock_pre);
    }
   
 }

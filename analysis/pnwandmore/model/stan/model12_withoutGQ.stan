@@ -69,6 +69,8 @@ functions {
   // create a function for reduce_sum
   real loglikelihood_partial_sum(array[] int stand_ids_slice,
                               int start, int end,
+                              
+                              # these are data, so low copy cost
                               array[] int N_stand_trees,
                               array[] int N_stand_years,
                               array[] int stand_trees_start_idxs,
@@ -89,7 +91,9 @@ functions {
                               real gdd0,
                               real pre0,
                               real vpd0,
-                              real alpha,
+                              
+                              # these are parameters, so higher copy cost?
+                              vector alpha,
                               vector beta_gdd, 
                               vector beta_pre,
                               vector beta_vpd,
@@ -116,7 +120,7 @@ functions {
         vector[N_stand_years[s]] log_p0 = rep_vector(0, N_stand_years[s]);
         vector[N_stand_years[s]] log_p1 = rep_vector(0, N_stand_years[s]);
         
-        profile("trees_loop") {
+        
           for(t in stand_trees_start_idxs[s]:stand_trees_end_idxs[s]){
             
             int sp = species_idxs[t];
@@ -136,7 +140,7 @@ functions {
             
             vector[N_years[t]] mu;
             profile("compute_mu") {
-              mu = alpha
+              mu = alpha[sp]
               + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
               + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
               + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
@@ -166,7 +170,7 @@ functions {
                 }
               }
             }
-          }
+          
         }
         
         profile("compute_logmix") {
@@ -258,23 +262,28 @@ transformed data {
 }
 
 parameters {
-  real alpha; // Log ring width baseline
+  
+  // Log ring width baseline
+  vector[N_clades] mu_alpha;
+  vector<lower=0>[N_clades] tau_alpha;
+  vector[N_species] alpha;
+  
   
   vector[N] f_tilde;
   
   // GDD slope (1/100degC)
-  // vector[N_clades] mu_gdd;
-  // vector<lower=0>[N_clades] tau_gdd;
+  vector[N_clades] mu_gdd;
+  vector<lower=0>[N_clades] tau_gdd;
   vector[N_species] beta_gdd;
   
   // SM slope (1/%)
-  // vector[N_clades] mu_pre;
-  // vector<lower=0>[N_clades] tau_pre;
+  vector[N_clades] mu_pre;
+  vector<lower=0>[N_clades] tau_pre;
   vector[N_species] beta_pre;
   
   // VPD slope (1/hPa)
-  // vector[N_clades] mu_vpd;
-  // vector<lower=0>[N_clades] tau_vpd;
+  vector[N_clades] mu_vpd;
+  vector<lower=0>[N_clades] tau_vpd;
   vector[N_species] beta_vpd;
   
   // Short-term proportional growth functional behavior
@@ -283,23 +292,23 @@ parameters {
   // real<lower=0> gamma_sh; // Marginal variation - now fixed to 1! (and scaled by kappa)
   
   // Lifetime proportional growth scale (here I implement the hard contraint on both clade and species parameters?)
-  // vector<lower=rho_sh>[N_clades] mu_rho;
-  // vector<lower=0>[N_clades] tau_rho;
+  vector<lower=rho_sh>[N_clades] mu_rho;
+  vector<lower=0>[N_clades] tau_rho;
   vector<lower=rho_sh>[N_species] rho_sp; 
   
   // Lifetime proportional growth variation
-  // vector<lower=0>[N_clades] mu_gamma;
-  // vector<lower=0>[N_clades] tau_gamma;
+  vector<lower=0>[N_clades] mu_gamma;
+  vector<lower=0>[N_clades] tau_gamma;
   vector<lower=0>[N_species] gamma_sp; 
   
   // Short-term proportional growth species scaling
-  // vector<lower=0>[N_clades] mu_kappa;
-  // vector<lower=0>[N_clades] tau_kappa;
+  vector<lower=0>[N_clades] mu_kappa;
+  vector<lower=0>[N_clades] tau_kappa;
   vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  // vector<lower=0>[N_clades] mu_tau_sck;
-  // vector<lower=0>[N_clades] tau_tau_sck;
+  vector<lower=0>[N_clades] mu_tau_sck;
+  vector<lower=0>[N_clades] tau_tau_sck;
   vector<lower=0>[N_species] tau_sck; // Outer yearly log variation scale (the shocks!)
   
   // Probability of shocks
@@ -344,40 +353,43 @@ transformed parameters {
 
 model {
   
-  alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  mu_alpha ~ normal(0, log(5)/2.32); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  tau_alpha ~ normal(0, log(5^0.25)/2.32);
   
-  beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
-  beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_vpd <~ log(1.8)
-  // tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
-  // tau_pre ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
-  // tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
+  mu_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_vpd <~ log(1.8)
+  tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_pre ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
   
-  rho_sp ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
-  // tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
+  mu_rho ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
+  tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
   
-  gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
-  // tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
+  mu_gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
+  tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
   
-  kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  // tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
+  mu_kappa ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
-  // tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
+  mu_tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
+  tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  // for (sp in 1:N_species) {
-  //   beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
-  //   beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
-  //   beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
-  // 
-  //   rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
-  //   gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
-  // 
-  //   kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
-  // 
-  //   tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
-  // }
-  // 
+  for (sp in 1:N_species) {
+    alpha ~ normal(mu_alpha[clade_idxs[sp]], tau_alpha[clade_idxs[sp]]);
+    
+    beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
+    beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
+    beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+
+    rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
+    gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
+
+    kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
+
+    tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
+  }
+  
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
@@ -465,7 +477,7 @@ model {
 //             
 //     
 //     vector[N_years[t]] mu;
-//     mu = alpha
+//     mu = alpha[species_idx]
 //     + beta_gdd[species_idx] * (gdd_obs[tree_clim_idxs] - gdd0)
 //     + beta_pre[species_idx] * (pre_obs[tree_clim_idxs] - pre0)
 //     + beta_vpd[species_idx] * (vpd_obs[tree_clim_idxs] - vpd0)
