@@ -89,7 +89,7 @@ functions {
                               real gdd0,
                               real pre0,
                               real vpd0,
-                              real alpha,
+                              vector alpha,
                               vector beta_gdd, 
                               vector beta_pre,
                               vector beta_vpd,
@@ -137,7 +137,7 @@ functions {
             
             vector[N_years[t]] mu;
             profile("compute_mu") {
-              mu = alpha
+              mu = alpha[sp]
               + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
               + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
               + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
@@ -265,7 +265,11 @@ transformed data {
 }
 
 parameters {
-  real alpha; // Log ring width baseline
+  
+   // Log ring width baseline
+  vector[N_clades] mu_alpha;
+  vector<lower=0>[N_clades] tau_alpha;
+  vector[N_species] alpha;
   
   vector[N] f_tilde;
   
@@ -375,7 +379,8 @@ transformed parameters {
 
 model {
   
-  alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  mu_alpha ~ normal(0, log(5)/2.32); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  tau_alpha ~ normal(0, log(5^0.25)/2.32);
   
   mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
   mu_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
@@ -397,6 +402,8 @@ model {
   tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
   
   for (sp in 1:N_species) {
+    alpha[sp] ~ normal(mu_alpha[clade_idxs[sp]], tau_alpha[clade_idxs[sp]]);
+    
     beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
     beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
     beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
@@ -413,7 +420,6 @@ model {
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
-  kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
   phi_sck0 ~ beta(2, 20); 
   tau_phi_sck ~ normal(0, 1); // TO MODIFY!

@@ -70,7 +70,7 @@ functions {
   real loglikelihood_partial_sum(array[] int stand_ids_slice,
                               int start, int end,
                               
-                              # these are data, so low copy cost
+                              // these are data, so low copy cost
                               array[] int N_stand_trees,
                               array[] int N_stand_years,
                               array[] int stand_trees_start_idxs,
@@ -92,7 +92,7 @@ functions {
                               real pre0,
                               real vpd0,
                               
-                              # these are parameters, so higher copy cost?
+                              // these are parameters, so higher copy cost?
                               vector alpha,
                               vector beta_gdd, 
                               vector beta_pre,
@@ -267,7 +267,6 @@ parameters {
   vector[N_clades] mu_alpha;
   vector<lower=0>[N_clades] tau_alpha;
   vector[N_species] alpha;
-  
   
   vector[N] f_tilde;
   
