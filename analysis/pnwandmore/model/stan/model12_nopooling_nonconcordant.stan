@@ -101,8 +101,8 @@ functions {
                               real sigma,
                               vector tau_sck,
                               vector omega_conc_sck,
-                              vector phi_sck0,
-                              real beta_shock_pre) {
+                              vector omega_nonconc_sck,
+                              vector phi_sck) {
 
     real lp = 0;
     
@@ -155,12 +155,18 @@ functions {
                 
                 if(rw_obs[idx] >= epsilon){
                   real log_rw = log(rw_obs[idx]);
-                  log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  // log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                                  normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lpdf(log_rw | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lpdf(log_rw | mu_f, sigma));
                 }else{
-                  log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  // log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lcdf(log(epsilon) | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lcdf(log(epsilon) | mu_f, sigma));
@@ -172,8 +178,7 @@ functions {
         
         profile("compute_logmix") {
           for(y in 1:N_stand_years[s]) {
-            real phi_sck = inv_logit(logit(phi_sck0[s]) + beta_shock_pre * (pre_obs[stand_start_years_idxs[s] + y - 1]-pre0));
-            lp += log_mix(phi_sck, log_p1[y], log_p0[y]);
+            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
           }
         }
         
@@ -304,13 +309,14 @@ parameters {
   // vector<lower=0>[N_clades] tau_tau_sck;
   vector<lower=0>[N_species] tau_sck; // Outer yearly log variation scale (the shocks!)
   
-  // Probability of stand-level shocks
-  vector<lower=0, upper=1>[N_stands] phi_sck0; // Probability of stand-level shock at pre_obs = pre0
-  real beta_shock_pre; // how winter precipitation (as a proxy of soil moisture) influences shock probability!
+  // Probability of shocks
+  vector<lower=0, upper=1>[N_stands] phi_sck; // Probability of stand-level shock
+  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; // Probability of tree-level shock given stand in shock (concordant shock)
   
-  // Probability of tree-level shock given stand in shock (concordant shock)
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; 
-  // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  // Non-concordant shocks! We want the upper bound to be omega_conc_shock...
+  // It's a bound that varies! 
+  // For now we decide that there is no particular bound
+  vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -389,11 +395,9 @@ model {
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
   kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
-  phi_sck0 ~ beta(2, 20); 
-  beta_shock_pre ~ normal(0, 0.15 / 2.57); // at phi_sck0 = 0.1, doubling the precipitation (2*pre0) halves the probability of shock at -0.15
-  
+  phi_sck ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
-  // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
+  omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -439,98 +443,98 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      phi_sck0,
-      beta_shock_pre);
+      omega_nonconc_sck,
+      phi_sck);
    }
   
 }
 
-// generated quantities {
-// 
-//   vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
-//   array[N] int sck_state; // latent state, zt = 0 or zt = 1
-//   array[N] real log_rw_pred;
-// 
-//   for (t in 1:N_trees) {
-//     
-//     int stand_idx = stand_idxs[t]; 
-//     int species_idx = species_idxs[t];
-//     int stand_species_idx = stand_species_idxs[t];
-//             
-//     array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years, 
-//           1+(stand_idx-1)*N_all_years, stand_idx*N_all_years);
-//     
-//     int tree_start = tree_start_idxs[t];
-//     int tree_end  = tree_end_idxs[t];
-//           
-//     vector[N_years[t]] f;
-//     
-//     // f = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_start:tree_end];
-//     f = L_cov[species_idx][1:N_years[t], 1:N_years[t]] * f_tilde[tree_start:tree_end]; // 7% faster
-//             
-//     array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
-//     array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
-//             
-//     
-//     vector[N_years[t]] mu;
-//     mu = alpha
-//     + beta_gdd[species_idx] * (gdd_obs[tree_clim_idxs] - gdd0)
-//     + beta_pre[species_idx] * (pre_obs[tree_clim_idxs] - pre0)
-//     + beta_vpd[species_idx] * (vpd_obs[tree_clim_idxs] - vpd0)
-//     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
-// 
-//     // mixture weight for shock
-//     // real mw_shock = phi_sck[stand_idx]*omega_conc_sck + (1-phi_sck[stand_idx])*omega_nonconc_sck;
-//     real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx];
-//     real log_pshock;
-//     real log_pshock_plus_pnonshock;
-//     
-//     for(y in 1:N_years[t]){
-//       
-//       int idx = tree_start + y - 1;
-//       real mu_f = mu[y] + f[y];
-//       
-//       if(rw_obs[idx] >= epsilon){
-//         real log_rw = log(rw_obs[idx]);
-//         
-//         log_pshock = log(mw_shock) + normal_lpdf(log_rw | mu_f,
-//           sqrt(tau_sck[species_idx]^2 + sigma^2));
-//         log_pshock_plus_pnonshock = log_mix(mw_shock,
-//           normal_lpdf(log_rw | mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2)),
-//           normal_lpdf(log_rw | mu_f, sigma));
-//       }else{
-//         log_pshock = log(mw_shock) + normal_lcdf(log(epsilon) | mu_f,
-//           sqrt(tau_sck[species_idx]^2 + sigma^2));
-//         log_pshock_plus_pnonshock = log_mix(mw_shock,
-//           normal_lcdf(log(epsilon)| mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2)),
-//           normal_lcdf(log(epsilon) | mu_f, sigma));
-//       }
-// 
-//       // probability of shock state
-//       real lambda_shock = exp(log_pshock - log_pshock_plus_pnonshock);
-// 
-//       sck_state[idx] = bernoulli_rng(lambda_shock); // or something like categorical_rng(lambda_shock);?
-// 
-//       if(sck_state[idx] == 0){
-//         log_rw_pred[idx] = normal_rng(mu_f, sigma);
-//       }else if(rw_obs[idx] >= epsilon){
-//         real log_rw = log(rw_obs[idx]);
-//         // we can reconstruct shock posterior using the normal-normal conjugancy
-//         real residual = log_rw - mu_f;
-//         real conjugate_mean = (tau_sck[species_idx]^2 / (tau_sck[species_idx]^2 + sigma^2)) * residual;
-//         real conjugate_sd   = sqrt((tau_sck[species_idx]^2 * sigma^2) / (tau_sck[species_idx]^2 + sigma^2));
-//         delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
-//         log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
-//       }else{
-//         // sample from a truncated normal distribution? between -inf and log(epsilon)
-//         real log_y = normal_ub_rng(mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2), log(epsilon));
-//         real residual = log_y - mu_f;
-//         real conjugate_mean = (tau_sck[species_idx]^2 / (tau_sck[species_idx]^2 + sigma^2)) * residual;
-//         real conjugate_sd   = sqrt((tau_sck[species_idx]^2 * sigma^2) / (tau_sck[species_idx]^2 + sigma^2));
-//         delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
-//         log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
-//       }
-// 
-//     }
-//   }
-// }
+generated quantities {
+
+  vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
+  array[N] int sck_state; // latent state, zt = 0 or zt = 1
+  array[N] real log_rw_pred;
+
+  for (t in 1:N_trees) {
+
+    int stand_idx = stand_idxs[t];
+    int species_idx = species_idxs[t];
+    int stand_species_idx = stand_species_idxs[t];
+
+    array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
+          1+(stand_idx-1)*N_all_years, stand_idx*N_all_years);
+
+    int tree_start = tree_start_idxs[t];
+    int tree_end  = tree_end_idxs[t];
+
+    vector[N_years[t]] f;
+
+    // f = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_start:tree_end];
+    f = L_cov[species_idx][1:N_years[t], 1:N_years[t]] * f_tilde[tree_start:tree_end]; // 7% faster
+
+    array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
+    array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
+
+
+    vector[N_years[t]] mu;
+    mu = alpha
+    + beta_gdd[species_idx] * (gdd_obs[tree_clim_idxs] - gdd0)
+    + beta_pre[species_idx] * (pre_obs[tree_clim_idxs] - pre0)
+    + beta_vpd[species_idx] * (vpd_obs[tree_clim_idxs] - vpd0)
+    + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
+
+    // mixture weight for shock
+    real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx] + (1-phi_sck[stand_idx])*omega_nonconc_sck[stand_species_idx];
+    // real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx];
+    real log_pshock;
+    real log_pshock_plus_pnonshock;
+
+    for(y in 1:N_years[t]){
+
+      int idx = tree_start + y - 1;
+      real mu_f = mu[y] + f[y];
+
+      if(rw_obs[idx] >= epsilon){
+        real log_rw = log(rw_obs[idx]);
+
+        log_pshock = log(mw_shock) + normal_lpdf(log_rw | mu_f,
+          sqrt(tau_sck[species_idx]^2 + sigma^2));
+        log_pshock_plus_pnonshock = log_mix(mw_shock,
+          normal_lpdf(log_rw | mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2)),
+          normal_lpdf(log_rw | mu_f, sigma));
+      }else{
+        log_pshock = log(mw_shock) + normal_lcdf(log(epsilon) | mu_f,
+          sqrt(tau_sck[species_idx]^2 + sigma^2));
+        log_pshock_plus_pnonshock = log_mix(mw_shock,
+          normal_lcdf(log(epsilon)| mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2)),
+          normal_lcdf(log(epsilon) | mu_f, sigma));
+      }
+
+      // probability of shock state
+      real lambda_shock = exp(log_pshock - log_pshock_plus_pnonshock);
+
+      sck_state[idx] = bernoulli_rng(lambda_shock); // or something like categorical_rng(lambda_shock);?
+
+      if(sck_state[idx] == 0){
+        log_rw_pred[idx] = normal_rng(mu_f, sigma);
+      }else if(rw_obs[idx] >= epsilon){
+        real log_rw = log(rw_obs[idx]);
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real residual = log_rw - mu_f;
+        real conjugate_mean = (tau_sck[species_idx]^2 / (tau_sck[species_idx]^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_sck[species_idx]^2 * sigma^2) / (tau_sck[species_idx]^2 + sigma^2));
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      }else{
+        // sample from a truncated normal distribution? between -inf and log(epsilon)
+        real log_y = normal_ub_rng(mu_f, sqrt(tau_sck[species_idx]^2 + sigma^2), log(epsilon));
+        real residual = log_y - mu_f;
+        real conjugate_mean = (tau_sck[species_idx]^2 / (tau_sck[species_idx]^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_sck[species_idx]^2 * sigma^2) / (tau_sck[species_idx]^2 + sigma^2));
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      }
+
+    }
+  }
+}
