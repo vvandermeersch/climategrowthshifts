@@ -372,11 +372,11 @@ model {
   mu_kappa ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  mu_tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
-  tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
+  mu_tau_sck ~ normal(0, log(20) / 2.57); // 
+  tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10%?
   
   for (sp in 1:N_species) {
-    alpha ~ normal(mu_alpha[clade_idxs[sp]], tau_alpha[clade_idxs[sp]]);
+    alpha[sp] ~ normal(mu_alpha[clade_idxs[sp]], tau_alpha[clade_idxs[sp]]);
     
     beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
     beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
@@ -392,9 +392,9 @@ model {
   
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
+    
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
-  kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
   phi_sck ~ beta(2, 20); 
   omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
