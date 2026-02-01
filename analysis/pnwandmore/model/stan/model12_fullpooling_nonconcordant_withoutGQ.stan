@@ -373,7 +373,7 @@ transformed parameters {
   vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(alpha_omega_conc_sck); // probabilities
 
   real mu_omega_nonconc_sck = logit(omega_nonconc_sck0); // log-odds
-  vector[N_stand_species] alpha_omega_nonconc_sck = mu_omega_nonconc_sck + tau_omega_nonconc_sck*alpha_tilde_omega_nonconc_sck; // log-odds
+  vector<upper=alpha_omega_conc_sck>[N_stand_species] alpha_omega_nonconc_sck = mu_omega_nonconc_sck + tau_omega_nonconc_sck*alpha_tilde_omega_nonconc_sck; // log-odds
   vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
 }
 
