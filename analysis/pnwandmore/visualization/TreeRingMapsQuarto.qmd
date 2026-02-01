@@ -196,7 +196,67 @@ map_montana = mapview(coords_montana, label=coords_montana$namesmontana)
 map_montana
 ```
 
-#### 
+#### Others
+
+```{r}
+CO_ABLA <- read.csv("others_CO_ABLA.csv", header=TRUE)
+CO_PIPO <- read.csv ("others_CO_PIPO.csv", header=TRUE)
+CO_POTR <- read.csv("others_CO_POTR.csv", header=TRUE)
+
+#append all CO datasets into one
+CO <- rbind(CO_ABLA, CO_PIPO, CO_POTR)
+
+lngCO = CO$Long
+latCO = CO$Lat
+namesCO = CO$Tag
+
+points_CO = data.frame(lngCO, latCO, namesCO)
+coords_CO = st_as_sf(points_CO, coords = c("lngCO", "latCO"), crs=4326)
+
+map_CO = mapview(coords_CO, label=coords_CO$namesCO)
+
+map_CO
+```
+
+```{r}
+MT_ABLA <- read.csv("others_MT_ABLA.csv", header=TRUE)
+MT_PSME <- read.csv("others_MT_PSME.csv", header=TRUE)
+MT_TSHE <- read.csv("others_MT_TSHE.csv", header=TRUE)
+
+#append all MT datasets into one
+MT <- rbind(MT_ABLA, MT_PSME, MT_TSHE)
+
+lngMT = MT$Long
+latMT = MT$Lat
+namesMT = MT$Tag
+
+points_MT = data.frame(lngMT, latMT, namesMT)
+coords_MT = st_as_sf(points_MT, coords = c("lngMT", "latMT"), crs=4326)
+
+map_MT = mapview(coords_MT, label=coords_MT$namesMT)
+
+map_MT
+```
+
+```{r}
+WA_ABLA <- read.csv("others_WA_ABLA.csv", header=TRUE)
+WA_PSME <- read.csv("others_WA_PSME.csv", header=TRUE)
+WA_TSHE <- read.csv("others_WA_TSHE.csv", header=TRUE)
+
+#append all WA datasets into one
+WA <- rbind(WA_ABLA, WA_PSME, WA_TSHE)
+
+lngWA = WA$Long
+latWA = WA$Lat
+namesWA = WA$Tag
+
+points_WA = data.frame(lngWA, latWA, namesWA)
+coords_WA = st_as_sf(points_WA, coords = c("lngWA", "latWA"), crs=4326)
+
+map_WA = mapview(coords_WA, label=coords_WA$namesWA)
+
+map_WA
+```
 
 Note: no coordinates are available for the Utah file and all Nevada files (Santa Rosa, Ruby, and Jarbidge).
 
