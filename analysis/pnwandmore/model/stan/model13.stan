@@ -89,7 +89,7 @@ functions {
                               real gdd0,
                               real pre0,
                               real vpd0,
-                              real alpha,
+                              vector alpha,
                               vector beta_gdd, 
                               vector beta_pre,
                               vector beta_vpd,
@@ -101,8 +101,8 @@ functions {
                               real sigma,
                               vector tau_sck,
                               vector omega_conc_sck,
-                              vector phi_sck0,
-                              real beta_shock_pre) {
+                              vector omega_nonconc_sck,
+                              vector phi_sck) {
 
     real lp = 0;
     
@@ -137,7 +137,7 @@ functions {
             
             vector[N_years[t]] mu;
             profile("compute_mu") {
-              mu = alpha
+              mu = alpha[sp]
               + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
               + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
               + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
@@ -155,12 +155,18 @@ functions {
                 
                 if(rw_obs[idx] >= epsilon){
                   real log_rw = log(rw_obs[idx]);
-                  log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  // log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                                  normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lpdf(log_rw | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lpdf(log_rw | mu_f, sigma));
                 }else{
-                  log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  // log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                                  normal_lcdf(log(epsilon) | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lcdf(log(epsilon) | mu_f, sigma));
@@ -172,8 +178,7 @@ functions {
         
         profile("compute_logmix") {
           for(y in 1:N_stand_years[s]) {
-            real phi_sck = inv_logit(logit(phi_sck0[s]) + beta_shock_pre * (pre_obs[stand_start_years_idxs[s] + y - 1]-pre0));
-            lp += log_mix(phi_sck, log_p1[y], log_p0[y]);
+            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
           }
         }
         
@@ -260,23 +265,27 @@ transformed data {
 }
 
 parameters {
-  real alpha; // Log ring width baseline
+  
+   // Log ring width baseline
+  vector[N_clades] mu_alpha;
+  vector<lower=0>[N_clades] tau_alpha;
+  vector[N_species] alpha;
   
   vector[N] f_tilde;
   
   // GDD slope (1/100degC)
-  // vector[N_clades] mu_gdd;
-  // vector<lower=0>[N_clades] tau_gdd;
+  vector[N_clades] mu_gdd;
+  vector<lower=0>[N_clades] tau_gdd;
   vector[N_species] beta_gdd;
   
   // SM slope (1/%)
-  // vector[N_clades] mu_pre;
-  // vector<lower=0>[N_clades] tau_pre;
+  vector[N_clades] mu_pre;
+  vector<lower=0>[N_clades] tau_pre;
   vector[N_species] beta_pre;
   
   // VPD slope (1/hPa)
-  // vector[N_clades] mu_vpd;
-  // vector<lower=0>[N_clades] tau_vpd;
+  vector[N_clades] mu_vpd;
+  vector<lower=0>[N_clades] tau_vpd;
   vector[N_species] beta_vpd;
   
   // Short-term proportional growth functional behavior
@@ -285,32 +294,45 @@ parameters {
   // real<lower=0> gamma_sh; // Marginal variation - now fixed to 1! (and scaled by kappa)
   
   // Lifetime proportional growth scale (here I implement the hard contraint on both clade and species parameters?)
-  // vector<lower=rho_sh>[N_clades] mu_rho;
-  // vector<lower=0>[N_clades] tau_rho;
+  vector<lower=rho_sh>[N_clades] mu_rho;
+  vector<lower=0>[N_clades] tau_rho;
   vector<lower=rho_sh>[N_species] rho_sp; 
   
   // Lifetime proportional growth variation
-  // vector<lower=0>[N_clades] mu_gamma;
-  // vector<lower=0>[N_clades] tau_gamma;
+  vector<lower=0>[N_clades] mu_gamma;
+  vector<lower=0>[N_clades] tau_gamma;
   vector<lower=0>[N_species] gamma_sp; 
   
   // Short-term proportional growth species scaling
-  // vector<lower=0>[N_clades] mu_kappa;
-  // vector<lower=0>[N_clades] tau_kappa;
+  vector<lower=0>[N_clades] mu_kappa;
+  vector<lower=0>[N_clades] tau_kappa;
   vector<lower=0>[N_species] kappa_sh; 
   
   // Growth shocks
-  // vector<lower=0>[N_clades] mu_tau_sck;
-  // vector<lower=0>[N_clades] tau_tau_sck;
+  vector<lower=0>[N_clades] mu_tau_sck;
+  vector<lower=0>[N_clades] tau_tau_sck;
   vector<lower=0>[N_species] tau_sck; // Outer yearly log variation scale (the shocks!)
   
-  // Probability of stand-level shocks
-  vector<lower=0, upper=1>[N_stands] phi_sck0; // Probability of stand-level shock at pre_obs = pre0
-  real beta_shock_pre; // how winter precipitation (as a proxy of soil moisture) influences shock probability!
+  // Probability of stand-level shock 
+  real<lower=0, upper=1> phi_sck0; // probability
+  real<lower=0> tau_phi_sck; // log-odds
+  vector[N_stands] alpha_tilde_phi_sck; // log-odds
   
   // Probability of tree-level shock given stand in shock (concordant shock)
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck; 
-  // real<lower=0, upper=omega_conc_sck> omega_nonconc_sck; // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  real<lower=0, upper=1> omega_conc_sck0; // probability
+  real<lower=0> tau_omega_conc_sck; // log-odds
+  vector[N_stand_species] alpha_tilde_omega_conc_sck; // log-odds
+  
+  // Probability of tree-level shock given stand NOT in shock (nonconcordant shock)
+  // We want the upper bound to be omega_conc_shock...
+  // It's a bound that varies! 
+  // For now we decide that there is no particular bound (the prior should be enough!)
+  // real<lower=0, upper=1> omega_nonconc_sck0; 
+  // real<lower=0> tau_omega_nonconc_sck; // log-odds
+  // vector[N_stand_species] alpha_tilde_omega_nonconc_sck; // log-odds
+  real mu_delta_omega_nonconc_sck;
+  real<lower=0> tau_delta_omega_nonconc_sck;
+  vector[N_stand_species] delta_tilde_omega_nonconc_sck;
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -344,56 +366,85 @@ transformed parameters {
         L_cov[sp] = cholesky_decompose(cov);
       }
   }
+  
+  real mu_phi_sck = logit(phi_sck0); // log-odds
+  vector[N_stands] alpha_phi_sck = mu_phi_sck + tau_phi_sck*alpha_tilde_phi_sck; // log-odds
+  vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(alpha_phi_sck); // probabilities
+  
+  real mu_omega_conc_sck = logit(omega_conc_sck0); // log-odds
+  vector[N_stand_species] alpha_omega_conc_sck = mu_omega_conc_sck + tau_omega_conc_sck*alpha_tilde_omega_conc_sck; // log-odds
+  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(alpha_omega_conc_sck); // probabilities
 
+  // real mu_omega_nonconc_sck = logit(omega_nonconc_sck0); // log-odds
+  // vector<upper=alpha_omega_conc_sck>[N_stand_species] alpha_omega_nonconc_sck = mu_omega_nonconc_sck + tau_omega_nonconc_sck*alpha_tilde_omega_nonconc_sck; // log-odds
+  // vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
+  
+  // positive shift
+  vector[N_stand_species] delta_omega_nonconc_sck = exp(mu_delta_omega_nonconc_sck 
+    + tau_delta_omega_nonconc_sck * delta_tilde_omega_nonconc_sck);
+  vector[N_stand_species] alpha_omega_nonconc_sck = alpha_omega_conc_sck-delta_omega_nonconc_sck;
+  vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
 }
 
 model {
   
-  alpha ~ normal(0, 0.69); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  mu_alpha ~ normal(0, log(5)/2.32); // 0.2 mm <~ exp(alpha) * 1 mm <~ 5 mm
+  tau_alpha ~ normal(0, log(5^0.25)/2.32);
   
-  beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
-  beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
-  beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_vpd <~ log(1.8)
-  // tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
-  // tau_pre ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
-  // tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  mu_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_gsl <~ log(1.8)
+  mu_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_pre <~ log(1.8)
+  mu_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) <~ beta_vpd <~ log(1.8)
+  tau_gdd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_pre ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
+  tau_vpd ~ normal(0, log(1.8^0.25) / 2.57); // variation of the order of 25%?
   
-  rho_sp ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
-  // tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
+  mu_rho ~ lognormal(2.65, 0.135); // 10 <~ rho <~ 20
+  tau_rho ~ normal(0, 6 / 2.57); // max. variation of the order of 10% for max. rho = 60 years? 
   
-  gamma_sp ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
-  // tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
+  mu_gamma ~ normal(0, log(10) / 2.57); // 0 <~ gamma <~ log(10)
+  tau_gamma ~ normal(0, 0.23 / 2.57); // max. variation of the order of 10% for max. gamma = log(10)? 
   
-  kappa_sh ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  // tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
+  mu_kappa ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
+  tau_kappa ~ normal(0, 0.2 / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
-  // tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
+  mu_tau_sck ~ normal(0, log(20) / 2.57); // 2/3 <~ kappa_sh <~ 3/2
+  tau_tau_sck ~ normal(0, log(2) / 2.57); // variation of the order of 10% for max. kappa = 2?
   
-  // for (sp in 1:N_species) {
-  //   beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
-  //   beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
-  //   beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
-  // 
-  //   rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
-  //   gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
-  // 
-  //   kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
-  // 
-  //   tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
-  // }
-  // 
+  for (sp in 1:N_species) {
+    alpha[sp] ~ normal(mu_alpha[clade_idxs[sp]], tau_alpha[clade_idxs[sp]]);
+    
+    beta_gdd[sp] ~ normal(mu_gdd[clade_idxs[sp]], tau_gdd[clade_idxs[sp]]);
+    beta_pre[sp] ~ normal(mu_pre[clade_idxs[sp]], tau_pre[clade_idxs[sp]]);
+    beta_vpd[sp] ~ normal(mu_vpd[clade_idxs[sp]], tau_vpd[clade_idxs[sp]]);
+
+    rho_sp[sp] ~ normal(mu_rho[clade_idxs[sp]], tau_rho[clade_idxs[sp]]);
+    gamma_sp[sp] ~ normal(mu_gamma[clade_idxs[sp]] , tau_gamma[clade_idxs[sp]]);
+
+    kappa_sh[sp] ~ normal(mu_kappa[clade_idxs[sp]], tau_kappa[clade_idxs[sp]]);
+
+    tau_sck[sp] ~ normal(mu_tau_sck[clade_idxs[sp]], tau_tau_sck[clade_idxs[sp]]);
+  }
+
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   rho_sh ~ lognormal(1.7, 0.26);       // 3 <~ rho_sh <~ 10
   //gamma_sh ~ normal(0, log(3) / 2.57); // 0 <~ gamma_sh <~ log(3)
-  kappa_sh ~ lognormal(1, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
   phi_sck0 ~ beta(2, 20); 
-  beta_shock_pre ~ normal(0, 0.15 / 2.57); // at phi_sck0 = 0.1, doubling the precipitation (2*pre0) halves the probability of shock at -0.15
+  tau_phi_sck ~ normal(0, 1); // TO MODIFY!
+  alpha_tilde_phi_sck ~ normal(0, 1);
   
-  omega_conc_sck ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
-  // omega_nonconc_sck ~ beta(1, 20); // 0 <~ omega_conc_sck <~ 0.15 (should be rare, but... who knows?)
+  omega_conc_sck0 ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
+  tau_omega_conc_sck ~ normal(0, 2/2.57); // TO MODIFY!
+  alpha_tilde_omega_conc_sck ~ normal(0, 1);
+  
+  // omega_nonconc_sck0 ~ beta(1, 72); // 0 <~ omega_conc_sck <~ 0.05 (should be rare, but... who knows?)
+  // tau_omega_nonconc_sck ~ normal(0, 1/2.57); 
+  // alpha_tilde_omega_nonconc_sck ~ normal(0, 1);
+  
+  mu_delta_omega_nonconc_sck ~ normal(log(6), 0.5);
+  tau_delta_omega_nonconc_sck ~ normal(0, 0.5);
+  delta_tilde_omega_nonconc_sck ~ normal(0, 1);
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -439,12 +490,12 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      phi_sck0,
-      beta_shock_pre);
+      omega_nonconc_sck,
+      phi_sck);
    }
   
 }
-
+// 
 // generated quantities {
 // 
 //   vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
@@ -452,26 +503,26 @@ model {
 //   array[N] real log_rw_pred;
 // 
 //   for (t in 1:N_trees) {
-//     
-//     int stand_idx = stand_idxs[t]; 
+// 
+//     int stand_idx = stand_idxs[t];
 //     int species_idx = species_idxs[t];
 //     int stand_species_idx = stand_species_idxs[t];
-//             
-//     array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years, 
+// 
+//     array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
 //           1+(stand_idx-1)*N_all_years, stand_idx*N_all_years);
-//     
+// 
 //     int tree_start = tree_start_idxs[t];
 //     int tree_end  = tree_end_idxs[t];
-//           
+// 
 //     vector[N_years[t]] f;
-//     
+// 
 //     // f = block(L_cov[species_idx], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_start:tree_end];
 //     f = L_cov[species_idx][1:N_years[t], 1:N_years[t]] * f_tilde[tree_start:tree_end]; // 7% faster
-//             
+// 
 //     array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
 //     array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
-//             
-//     
+// 
+// 
 //     vector[N_years[t]] mu;
 //     mu = alpha
 //     + beta_gdd[species_idx] * (gdd_obs[tree_clim_idxs] - gdd0)
@@ -480,19 +531,19 @@ model {
 //     + kappa_sh[species_idx] * f_sh[stand_idx, all_years_idxs_tree];
 // 
 //     // mixture weight for shock
-//     // real mw_shock = phi_sck[stand_idx]*omega_conc_sck + (1-phi_sck[stand_idx])*omega_nonconc_sck;
-//     real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx];
+//     real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx] + (1-phi_sck[stand_idx])*omega_nonconc_sck[stand_species_idx];
+//     // real mw_shock = phi_sck[stand_idx]*omega_conc_sck[stand_species_idx];
 //     real log_pshock;
 //     real log_pshock_plus_pnonshock;
-//     
+// 
 //     for(y in 1:N_years[t]){
-//       
+// 
 //       int idx = tree_start + y - 1;
 //       real mu_f = mu[y] + f[y];
-//       
+// 
 //       if(rw_obs[idx] >= epsilon){
 //         real log_rw = log(rw_obs[idx]);
-//         
+// 
 //         log_pshock = log(mw_shock) + normal_lpdf(log_rw | mu_f,
 //           sqrt(tau_sck[species_idx]^2 + sigma^2));
 //         log_pshock_plus_pnonshock = log_mix(mw_shock,
