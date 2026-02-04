@@ -10,7 +10,13 @@ setwd(wd)
 
 
 data <-readRDS(file.path(wd, 'output/model', 'data_30jan2025_gymnosperms_standclimate_19502024_6species.rds'))
-fit <- readRDS(file.path(wd, 'output/model', 'fit_30jan2025_gymnosperms_standclimate_19502024_6species.rds'))
+fit_old <- readRDS(file.path(wd, 'output/model', 'fit_30jan2025_gymnosperms_standclimate_19502024_6species.rds'))
+fit <- readRDS(file.path(wd, 'output/model', 'fit_30jan2025_gymnosperms_standclimate_19502024_6species_fullmodel.rds'))
+
+fit_old$time()
+fit$time()
+
+fit$diagnostic_summary()
 
 param_samples <- fit$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu_pre", 
                                          "tau_alpha","tau_gdd", "tau_vpd", "tau_pre",
@@ -28,6 +34,9 @@ param_samples <- fit$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu_pre"
                                          "sigma"))
 
 
+param_samples <- fit$draws(variables = c("mu_omega_nonconc_sck", "tau_omega_nonconc_sck"))
+
+
 # Transform as a Rstan object (to be able to use Mike's functions)
 samples <- lapply(1:dim(param_samples)[3], function(k){t(matrix(param_samples[1:dim(param_samples)[1],1:dim(param_samples)[2],k], 
                                                                 nrow = dim(param_samples)[1], ncol = dim(param_samples)[2]))})
@@ -35,8 +44,8 @@ names(samples) <- dimnames(param_samples)$variable
 util$check_all_expectand_diagnostics(samples)
 
 
-util$plot_pairs_by_chain(samples[['rho_sp[3]']], 'rho_sp[3]',
-                         log(samples[['tau_rho[1]']]), 'log(tau_rho[1])')
+util$plot_pairs_by_chain(samples[['mu_omega_nonconc_sck']], 'mu_omega_nonconc_sck',
+                         samples[['tau_omega_nonconc_sck']], 'tau_omega_nonconc_sck')
 
 util$plot_pairs_by_chain(samples[['rho_sp[1]']], 'rho_sp[1]',
                          log(samples[['tau_rho[1]']]), 'log(tau_rho[1])')
