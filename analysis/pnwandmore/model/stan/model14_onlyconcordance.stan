@@ -71,7 +71,6 @@ functions {
                               int start, int end,
                               array[] int N_stand_trees,
                               array[] int N_stand_years,
-                              array[] int stand_tree_idxs,
                               array[] int stand_trees_start_idxs,
                               array[] int stand_trees_end_idxs,
                               array[] int tree_start_idxs,
@@ -102,8 +101,10 @@ functions {
                               real sigma,
                               vector tau_sck,
                               vector omega_conc_sck,
-                              vector omega_nonconc_sck,
-                              vector phi_sck) {
+                              // vector omega_nonconc_sck,
+                              vector phi_sck_baseline,
+                              vector beta_pre_phi,
+                              vector beta_vpd_phi) {
 
     real lp = 0;
     
@@ -119,7 +120,7 @@ functions {
         vector[N_stand_years[s]] log_p1 = rep_vector(0, N_stand_years[s]);
         
         profile("trees_loop") {
-          for(t in stand_tree_idxs[stand_trees_start_idxs[s]:stand_trees_end_idxs[s]]){
+          for(t in stand_trees_start_idxs[s]:stand_trees_end_idxs[s]){
             
             int sp = species_idxs[t];
             int stsp = stand_species_idxs[t];
@@ -156,18 +157,18 @@ functions {
                 
                 if(rw_obs[idx] >= epsilon){
                   real log_rw = log(rw_obs[idx]);
-                  // log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
-                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
-                                  normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
-                                  normal_lpdf(log_rw | mu_f, sigma));
+                  log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  // log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                  //                 normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                  //                 normal_lpdf(log_rw | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lpdf(log_rw | mu_f, sigma));
                 }else{
-                  // log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
-                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
-                                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
-                                  normal_lcdf(log(epsilon) | mu_f, sigma));
+                  log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  // log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                  //                 normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                  //                 normal_lcdf(log(epsilon) | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lcdf(log(epsilon) | mu_f, sigma));
@@ -179,7 +180,10 @@ functions {
         
         profile("compute_logmix") {
           for(y in 1:N_stand_years[s]) {
-            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
+            real phi_sck = inv_logit(logit(phi_sck_baseline[s])
+            + beta_pre_phi[s]*(pre_obs[stand_clim_idxs[y]]-pre0)
+            + beta_vpd_phi[s]*(vpd_obs[stand_clim_idxs[y]]-vpd0));
+            lp += log_mix(phi_sck, log_p1[y], log_p0[y]);
           }
         }
         
@@ -232,9 +236,8 @@ data {
   array[N_trees] int<lower=1, upper=N> tree_end_idxs;
   
   // Ragged array indexing for stands
-  array[N_stands] int<lower=1, upper=N_trees> stand_trees_start_idxs;
-  array[N_stands] int<lower=1, upper=N_trees> stand_trees_end_idxs;
-  array[N_trees] int<lower=1, upper=N_trees> stand_tree_idxs;
+  array[N_stands] int<lower=1, upper=N> stand_trees_start_idxs;
+  array[N_stands] int<lower=1, upper=N> stand_trees_end_idxs;
   
   vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
   
@@ -320,6 +323,16 @@ parameters {
   real<lower=0> tau_phi_sck; // log-odds
   vector[N_stands] alpha_phi_sck; // log-odds
   
+  // Winter drought potential impact on phi
+  real mu_pre_phi; 
+  real<lower=0> tau_pre_phi; 
+  vector[N_stands] beta_pre_phi; 
+  
+  // Summer drought potential impact on phi
+  real mu_vpd_phi; 
+  real<lower=0> tau_vpd_phi; 
+  vector[N_stands] beta_vpd_phi; 
+  
   // Probability of tree-level shock given stand in shock (concordant shock)
   real<lower=0, upper=1> omega_conc_sck0; // probability
   real<lower=0> tau_omega_conc_sck; // log-odds
@@ -333,10 +346,10 @@ parameters {
   // real<lower=0, upper=1> omega_nonconc_sck0; 
   // real<lower=0> tau_omega_nonconc_sck; // log-odds
   // vector[N_stand_species] alpha_tilde_omega_nonconc_sck; // log-odds
-  real mu_logdelta_omega_nonconc_sck;
-  real<lower=0> tau_logdelta_omega_nonconc_sck;
+  // real mu_logdelta_omega_nonconc_sck;
+  // real<lower=0> tau_logdelta_omega_nonconc_sck;
   // vector[N_stand_species] delta_tilde_omega_nonconc_sck;
-  vector<lower=0>[N_stand_species] logdelta_omega_nonconc_sck;
+  // vector<lower=0>[N_stand_species] logdelta_omega_nonconc_sck;
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -373,7 +386,7 @@ transformed parameters {
   
   real mu_phi_sck = logit(phi_sck0); // log-odds
   // vector[N_stands] alpha_phi_sck = mu_phi_sck + tau_phi_sck*alpha_tilde_phi_sck; // log-odds
-  vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(alpha_phi_sck); // probabilities
+  vector<lower=0, upper=1>[N_stands] phi_sck_baseline = inv_logit(alpha_phi_sck); // probabilities
   
   real mu_omega_conc_sck = logit(omega_conc_sck0); // log-odds
   // vector[N_stand_species] alpha_omega_conc_sck = mu_omega_conc_sck + tau_omega_conc_sck*alpha_tilde_omega_conc_sck; // log-odds
@@ -386,9 +399,12 @@ transformed parameters {
   // positive shift
   // vector[N_stand_species] delta_omega_nonconc_sck = exp(mu_delta_omega_nonconc_sck 
   //   + tau_delta_omega_nonconc_sck * delta_tilde_omega_nonconc_sck);
-  vector[N_stand_species] delta_omega_nonconc_sck = exp(logdelta_omega_nonconc_sck);
-  vector[N_stand_species] alpha_omega_nonconc_sck = alpha_omega_conc_sck-delta_omega_nonconc_sck;
-  vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
+  // vector[N_stand_species] delta_omega_nonconc_sck = exp(logdelta_omega_nonconc_sck);
+  // vector[N_stand_species] alpha_omega_nonconc_sck = alpha_omega_conc_sck-delta_omega_nonconc_sck;
+  // vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
+  
+  
+  
 }
 
 model {
@@ -439,6 +455,13 @@ model {
   tau_phi_sck ~ normal(0, 1); // TO MODIFY!
   alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck);
   
+  mu_pre_phi ~ normal(0, 0.16/2.57); // max. 15% variation with one unit variation
+  tau_pre_phi ~ normal(0, 0.05/2.57); // allows for 20% maaax
+  beta_pre_phi ~ normal(mu_pre_phi, tau_pre_phi);
+  mu_vpd_phi ~ normal(0, 0.16/2.57); // max. 15% variation with one unit variation
+  tau_vpd_phi ~ normal(0, 0.05/2.57); // allows for 20% maaax
+  beta_vpd_phi ~ normal(mu_vpd_phi, tau_vpd_phi);
+  
   omega_conc_sck0 ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   tau_omega_conc_sck ~ normal(0, 0.3/2.57); // TO MODIFY!
   // alpha_tilde_omega_conc_sck ~ normal(0, 1);
@@ -448,10 +471,10 @@ model {
   // tau_omega_nonconc_sck ~ normal(0, 1/2.57); 
   // alpha_tilde_omega_nonconc_sck ~ normal(0, 1);
   
-  mu_logdelta_omega_nonconc_sck ~ normal(log(8), log(2)/2.57);
-  tau_logdelta_omega_nonconc_sck ~ normal(0, 0.3/2.57);
+  // mu_logdelta_omega_nonconc_sck ~ normal(log(8), log(2)/2.57);
+  // tau_logdelta_omega_nonconc_sck ~ normal(0, 0.3/2.57);
   // delta_tilde_omega_nonconc_sck ~ normal(0, 1);
-  logdelta_omega_nonconc_sck ~ normal(mu_logdelta_omega_nonconc_sck, tau_logdelta_omega_nonconc_sck);
+  // logdelta_omega_nonconc_sck ~ normal(mu_logdelta_omega_nonconc_sck, tau_logdelta_omega_nonconc_sck);
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -467,7 +490,6 @@ model {
       grainsize, // grain size
       N_stand_trees,
       N_stand_years,
-      stand_tree_idxs,
       stand_trees_start_idxs,
       stand_trees_end_idxs,
       tree_start_idxs,
@@ -498,8 +520,10 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      omega_nonconc_sck,
-      phi_sck);
+      // omega_nonconc_sck,
+      phi_sck_baseline,
+      beta_pre_phi,
+      beta_vpd_phi);
    }
   
 }

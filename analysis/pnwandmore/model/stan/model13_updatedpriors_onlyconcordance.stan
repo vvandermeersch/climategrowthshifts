@@ -102,7 +102,7 @@ functions {
                               real sigma,
                               vector tau_sck,
                               vector omega_conc_sck,
-                              vector omega_nonconc_sck,
+                              // vector omega_nonconc_sck,
                               vector phi_sck) {
 
     real lp = 0;
@@ -156,18 +156,18 @@ functions {
                 
                 if(rw_obs[idx] >= epsilon){
                   real log_rw = log(rw_obs[idx]);
-                  // log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
-                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
-                                  normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
-                                  normal_lpdf(log_rw | mu_f, sigma));
+                  log_p0[ys] += normal_lpdf(log_rw | mu_f, sigma);
+                  // log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                  //                 normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                  //                 normal_lpdf(log_rw | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lpdf(log_rw | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lpdf(log_rw | mu_f, sigma));
                 }else{
-                  // log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
-                  log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
-                                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
-                                  normal_lcdf(log(epsilon) | mu_f, sigma));
+                  log_p0[ys] += normal_lcdf(log(epsilon) | mu_f, sigma);
+                  // log_p0[ys] += log_mix(omega_nonconc_sck[stsp],
+                  //                 normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
+                  //                 normal_lcdf(log(epsilon) | mu_f, sigma));
                   log_p1[ys] += log_mix(omega_conc_sck[stsp],
                                   normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck[sp]^2 + sigma^2)),
                                   normal_lcdf(log(epsilon) | mu_f, sigma));
@@ -232,8 +232,8 @@ data {
   array[N_trees] int<lower=1, upper=N> tree_end_idxs;
   
   // Ragged array indexing for stands
-  array[N_stands] int<lower=1, upper=N_trees> stand_trees_start_idxs;
-  array[N_stands] int<lower=1, upper=N_trees> stand_trees_end_idxs;
+  array[N_stands] int<lower=1, upper=N> stand_trees_start_idxs;
+  array[N_stands] int<lower=1, upper=N> stand_trees_end_idxs;
   array[N_trees] int<lower=1, upper=N_trees> stand_tree_idxs;
   
   vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
@@ -333,10 +333,10 @@ parameters {
   // real<lower=0, upper=1> omega_nonconc_sck0; 
   // real<lower=0> tau_omega_nonconc_sck; // log-odds
   // vector[N_stand_species] alpha_tilde_omega_nonconc_sck; // log-odds
-  real mu_logdelta_omega_nonconc_sck;
-  real<lower=0> tau_logdelta_omega_nonconc_sck;
+  // real mu_logdelta_omega_nonconc_sck;
+  // real<lower=0> tau_logdelta_omega_nonconc_sck;
   // vector[N_stand_species] delta_tilde_omega_nonconc_sck;
-  vector<lower=0>[N_stand_species] logdelta_omega_nonconc_sck;
+  // vector<lower=0>[N_stand_species] logdelta_omega_nonconc_sck;
   
   // Proportional measurement error
   real<lower=0> sigma; 
@@ -386,9 +386,9 @@ transformed parameters {
   // positive shift
   // vector[N_stand_species] delta_omega_nonconc_sck = exp(mu_delta_omega_nonconc_sck 
   //   + tau_delta_omega_nonconc_sck * delta_tilde_omega_nonconc_sck);
-  vector[N_stand_species] delta_omega_nonconc_sck = exp(logdelta_omega_nonconc_sck);
-  vector[N_stand_species] alpha_omega_nonconc_sck = alpha_omega_conc_sck-delta_omega_nonconc_sck;
-  vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
+  // vector[N_stand_species] delta_omega_nonconc_sck = exp(logdelta_omega_nonconc_sck);
+  // vector[N_stand_species] alpha_omega_nonconc_sck = alpha_omega_conc_sck-delta_omega_nonconc_sck;
+  // vector<lower=0, upper=1>[N_stand_species] omega_nonconc_sck = inv_logit(alpha_omega_nonconc_sck); // probabilities
 }
 
 model {
@@ -448,10 +448,10 @@ model {
   // tau_omega_nonconc_sck ~ normal(0, 1/2.57); 
   // alpha_tilde_omega_nonconc_sck ~ normal(0, 1);
   
-  mu_logdelta_omega_nonconc_sck ~ normal(log(8), log(2)/2.57);
-  tau_logdelta_omega_nonconc_sck ~ normal(0, 0.3/2.57);
+  // mu_logdelta_omega_nonconc_sck ~ normal(log(8), log(2)/2.57);
+  // tau_logdelta_omega_nonconc_sck ~ normal(0, 0.3/2.57);
   // delta_tilde_omega_nonconc_sck ~ normal(0, 1);
-  logdelta_omega_nonconc_sck ~ normal(mu_logdelta_omega_nonconc_sck, tau_logdelta_omega_nonconc_sck);
+  // logdelta_omega_nonconc_sck ~ normal(mu_logdelta_omega_nonconc_sck, tau_logdelta_omega_nonconc_sck);
   
   sigma ~ normal(0, log(1.1) / 2.57);   // 0 <~ sigma <~ +log(1.1)
   
@@ -498,7 +498,7 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      omega_nonconc_sck,
+      // omega_nonconc_sck,
       phi_sck);
    }
   
