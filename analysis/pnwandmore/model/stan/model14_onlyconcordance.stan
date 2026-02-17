@@ -71,6 +71,7 @@ functions {
                               int start, int end,
                               array[] int N_stand_trees,
                               array[] int N_stand_years,
+                              array[] int stand_tree_idxs,
                               array[] int stand_trees_start_idxs,
                               array[] int stand_trees_end_idxs,
                               array[] int tree_start_idxs,
@@ -120,7 +121,7 @@ functions {
         vector[N_stand_years[s]] log_p1 = rep_vector(0, N_stand_years[s]);
         
         profile("trees_loop") {
-          for(t in stand_trees_start_idxs[s]:stand_trees_end_idxs[s]){
+          for(t in stand_tree_idxs[stand_trees_start_idxs[s]:stand_trees_end_idxs[s]]){
             
             int sp = species_idxs[t];
             int stsp = stand_species_idxs[t];
@@ -238,6 +239,7 @@ data {
   // Ragged array indexing for stands
   array[N_stands] int<lower=1, upper=N> stand_trees_start_idxs;
   array[N_stands] int<lower=1, upper=N> stand_trees_end_idxs;
+  array[N_trees] int<lower=1, upper=N_trees> stand_tree_idxs;
   
   vector[N] rw_obs; // Log of Observed Ring Width Per 1 mm
   
@@ -490,6 +492,7 @@ model {
       grainsize, // grain size
       N_stand_trees,
       N_stand_years,
+      stand_tree_idxs,
       stand_trees_start_idxs,
       stand_trees_end_idxs,
       tree_start_idxs,
