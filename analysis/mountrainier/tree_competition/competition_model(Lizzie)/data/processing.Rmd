@@ -1,0 +1,86 @@
+---
+title: "data_processing"
+output: html_document
+date: "2026-01-10"
+---
+
+```{r setup, include=FALSE}
+library(dplyr)
+library(tidyverse)
+```
+
+```{r data input}
+neighbour_df <- read_csv("neighborhooddatacored2008to2011.csv")
+
+focal_df <- read_csv("SouthSidecoresX.csv")
+
+head(neighbour_df)
+head(focal_df)
+
+unique(neighbour_df$Year)
+colnames(focal_df)
+```
+
+```{r pressure, echo=FALSE}
+# add basel area
+tree_rw <- focal_df %>%
+  group_by(Tag) %>%
+  summarise(`2009` = mean(`2009`,na.rm=TRUE),
+            `2008`=mean(`2008`,na.rm=TRUE))
+
+focal_df <- focal_df %>%
+  mutate(DBH = as.numeric(DBH)) %>%
+  mutate(ba_f = (pi*(DBH/2)^2)/1e3)%>% # X1000cm^2
+  select(ba_f,Species,Tag) %>%
+  distinct() %>%   
+  left_join(tree_rw,by="Tag")
+```
+```{r neighbours}
+neighbour_df_2008 <- read_csv("neighborhooddatacored2008to2011.csv") %>%
+  mutate(ba_n = (pi*(`DBH(neighbor)`/2)^2)/1e3) %>% # X1000cm^2
+  filter(Year==2008)
+
+neighbour_df_2009 <- read_csv("neighborhooddatacored2008to2011.csv") %>%
+  mutate(ba_n = (pi*(`DBH(neighbor)`/2)^2)/1e3) %>% # X1000cm^2
+  filter(Year==2009)
+
+ft_2009 <- unique(neighbour_df_2009$Treeid)
+ft_2008 <- unique(neighbour_df_2008$Treeid)
+```
+```{r focal trees}
+focal_df_2009 <- focal_df %>%
+  filter(Tag %in% ft_2009)%>%
+  select(-`2008`)
+
+focal_df_2008 <- focal_df %>%
+  filter(Tag %in% ft_2008)%>%
+  select(-`2009`)
+
+write.csv(focal_df_2009,"processed data/focal_2009.csv",row.names = FALSE)
+
+write.csv(focal_df_2008,"processed data/focal_2008.csv",row.names = FALSE)
+write.csv(neighbour_df_2009,"processed data/neighbour_2009.csv",row.names = FALSE)
+
+write.csv(neighbour_df_2008,"processed data/neighbour_2008.csv",row.names = FALSE)
+```
+
+```{r sperate the neighbouring species info}
+#colnames(focal_df_2008)
+# species_2008 <- focal_df_2008 %>%
+#   group_by(Tag,Species)%>%
+#   summarize(ba_sum = sum(ba_f))
+
+species_2008 <- neighbour_df_2008 %>%
+  group_by(Treeid,`Species(neighbor)`) %>%
+  summarize(ba_sum = sum(ba_n)) %>%
+  rename("Tag" = Treeid) %>%
+  left_join(focal_df_2008,by = "Tag")%>%
+  mutate(`Species(neighbor)`=ifelse(`Species(neighbor)`%in% c("Thse","Tshe"),"Tshe",`Species(neighbor)`))%>%
+  mutate(`Species`=ifelse(`Species(neighbor)`%in% c("Cano","Xano"),"Cano",`Species(neighbor)`))
+
+species_2008 <- na.omit(species_2008)
+
+write.csv(species_2008,"processed data/species_2008.csv",row.names = FALSE)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
