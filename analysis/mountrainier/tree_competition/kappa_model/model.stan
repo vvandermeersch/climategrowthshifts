@@ -11,8 +11,9 @@ data{
 }
 
 transformed data {
-   real BA_compet0 = 16;
-   real bf0 = 2;
+   // baselines to have a meaningful interpretation of your parameters
+   real bf0 = 2; // for a focal tree with a basal area of 2000cm2
+   real BA_compet0 = 16; // surrounded by 8 trees of basal area 2000cm2 each
 }
 
 parameters{
