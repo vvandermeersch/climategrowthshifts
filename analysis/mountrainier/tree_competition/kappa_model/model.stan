@@ -60,6 +60,3 @@ model{
     log(y) ~ normal(mu,sigma);
 }
 
-
-
-

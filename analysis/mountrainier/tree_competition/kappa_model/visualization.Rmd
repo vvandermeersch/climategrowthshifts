@@ -25,34 +25,34 @@ util$check_all_expectand_diagnostics(samples)
 ```{r sigma visualization}
 util$plot_expectand_pushforward(samples[["sigma"]], 25,
      display_name="sigma",
-     baseline=sigma,
+     #baseline=sigma,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r y0 visualization}
 util$plot_expectand_pushforward(samples[["y0"]], 25,
      display_name="y0",
-     baseline=y0,
+     #baseline=y0,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r k visualization}
 util$plot_expectand_pushforward(samples[["k"]], 25,
      display_name="k",
-     baseline=k,
+     #baseline=k,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r r visualization}
 util$plot_expectand_pushforward(samples[["r"]], 25,
      display_name="r",
-     baseline=r,
+     #baseline=r,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r beta visualization}
 util$plot_expectand_pushforward(samples[["beta"]], 25,
      display_name="beta",
-     baseline=beta,
+     #baseline=beta,
      baseline_col=util$c_mid_teal) 
 ```

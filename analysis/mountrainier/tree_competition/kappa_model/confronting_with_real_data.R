@@ -11,7 +11,6 @@ phy_correlation_matrix <- readRDS("phy_correlation_matrix.rds")
 set.seed(1000)
 focal_tags <- unique(species_df$Tag)
 Nf <- length(focal_tags)
-#N <- sample(4:8,Nf,replace=TRUE)
 
 N <- integer(0)
 b <- numeric(0)

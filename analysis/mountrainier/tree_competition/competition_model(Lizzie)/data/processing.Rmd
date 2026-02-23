@@ -80,7 +80,7 @@ species_2008 <- neighbour_df_2008 %>%
   rename("Tag" = Treeid) %>%
   left_join(focal_df_2008,by = "Tag") %>%
   mutate(`Species(neighbor)`=ifelse(`Species(neighbor)`%in% c("Thse","Tshe"),"Tshe",`Species(neighbor)`))%>%
-  mutate(`Species`=ifelse(`Species`%in% c("Cano","Xano"),"Cano",`Species`))
+  mutate(`Species(neighbor)`=ifelse(`Species(neighbor)`%in% c("Cano","Xano"),"Cano",`Species(neighbor)`))
 
 species_2008 <- na.omit(species_2008)
 
