@@ -1,7 +1,6 @@
 rm(list = ls());gc()
 wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
-library(terra)
-library(rnaturalearth)
+library(cmdstanr)
 setwd(file.path(wd, 'model'))
 util <- new.env()
 source('mcmc_analysis_tools_rstan.R', local=util)
@@ -10,11 +9,11 @@ setwd(wd)
 
 
 data <-readRDS(file.path(wd, 'output/model', 'data_30jan2025_gymnosperms_standclimate_19502024_7species.rds'))
-fit <- readRDS(file.path(wd, 'output/model/model13', 'fit_30jan2025_gymnosperms_standclimate_19502024_7species_model13_updatedpriors_onlyconcordance.rds'))
-fit_nonc <- readRDS(file.path(wd, 'output/model/model13', 'fit_30jan2025_gymnosperms_standclimate_19502024_7species_model13_updatedpriors.rds'))
+fit <- readRDS(file.path(wd, 'output/model/model13', 'fit_16feb2026_gymnosperms_standclimate_19502024_7species_model13_updatedpriors_onlyconcordance.rds'))
+fit_nonc_old <- readRDS(file.path(wd, 'output/model/model13', 'fit_30jan2025_gymnosperms_standclimate_19502024_7species_model13_updatedpriors.rds'))
 
 # Parameter samples
-param_samples <- fit_nonc$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu_pre", 
+param_samples <- fit$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu_pre", 
                                              "tau_alpha","tau_gdd", "tau_vpd", "tau_pre",
                                              "alpha","beta_gdd", "beta_vpd", "beta_pre",
                                              
@@ -29,7 +28,7 @@ param_samples <- fit_nonc$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu
                                              
                                              "phi_sck0", "tau_phi_sck", "alpha_phi_sck",
                                              "omega_conc_sck0", "mu_omega_conc_sck", "tau_omega_conc_sck", "alpha_omega_conc_sck",
-                                             "mu_logdelta_omega_nonconc_sck", "tau_logdelta_omega_nonconc_sck", "logdelta_omega_nonconc_sck", "omega_nonconc_sck",
+                                             # "mu_logdelta_omega_nonconc_sck", "tau_logdelta_omega_nonconc_sck", "logdelta_omega_nonconc_sck", "omega_nonconc_sck",
                                              
                                              "sigma"))
 names <- dimnames(param_samples)$variable
@@ -37,6 +36,14 @@ param_samples <- lapply(1:dim(param_samples)[3], function(k){t(matrix(param_samp
                                                                 nrow = dim(param_samples)[1], ncol = dim(param_samples)[2]))})
 names(param_samples) <- names
 util$check_all_expectand_diagnostics(param_samples)
+gc()
+
+
+standgp_samples <- fit_nonc$draws(variables = c("f_sh"))
+names <- dimnames(standgp_samples)$variable
+standgp_samples <- lapply(1:dim(standgp_samples)[3], function(k){t(matrix(standgp_samples[1:dim(standgp_samples)[1],1:dim(standgp_samples)[2],k], 
+                                                                      nrow = dim(standgp_samples)[1], ncol = dim(standgp_samples)[2]))})
+names(standgp_samples) <- names
 
 # Generate quantities
 mod_gq <- cmdstan_model(file.path(wd, 'model/stan', 'model13_updatedpriors_wGQ.stan'))
@@ -48,8 +55,20 @@ data_gq$uniq_stand_ids <- NULL
 data_gq$N_clades <- 1
 data_gq$uniq_stand_lat <- NULL
 data_gq$uniq_stand_lon <- NULL
-fit_gq <- mod_gq$generate_quantities(fit_nonc, data = data_gq, seed = 5838293, parallel_chains = 4)
-gq_samples <- fit_gq$draws()
+
+data_gq$tree_pred_idxs <- which(grepl('wy067', data$uniq_tree_ids))
+data_gq$tree_pred_idxs <- which(data$stand_idxs == 6)
+data_gq$N_pred <- sum(sapply(data_gq$tree_pred_idxs , function(t) length(data$tree_start_idxs[t]:data$tree_end_idxs[t])))
+data_gq$N_trees_pred <- length(data_gq$tree_pred_idxs )
+
+data_gq$tree_pred_idxs <- 1:data$N_trees
+data_gq$N_pred <- sum(sapply(data_gq$tree_pred_idxs , function(t) length(data$tree_start_idxs[t]:data$tree_end_idxs[t])))
+data_gq$N_trees_pred <- length(data_gq$tree_pred_idxs )
+  
+fit_gq <- mod_gq$generate_quantities(fit_nonc, data = data_gq, seed = 5838293, parallel_chains = 1)
+gc()
+gq_samples <- fit_gq$draws(variables = c('sck_nonconc_state','sck_conc_state'))
+gc()
 names <- dimnames(gq_samples)$variable
 gq_samples <- lapply(1:dim(gq_samples)[3], function(k){t(matrix(gq_samples[1:dim(gq_samples)[1],1:dim(gq_samples)[2],k], 
                                                                 nrow = dim(gq_samples)[1], ncol = dim(gq_samples)[2]))})
@@ -134,3 +153,9 @@ shock_prob <- param_samples[[paste0('phi_sck[',stand,']')]]*
   (1-param_samples[[paste0('phi_sck[',stand,']')]])*
   param_samples[[paste0('omega_nonconc_sck[',substand,']')]]
 util$ensemble_mcmc_quantile_est(shock_prob, c(0.05, 0.5, 0.95))
+
+
+# Look at concordant vs. non-concordant shocks
+
+
+
