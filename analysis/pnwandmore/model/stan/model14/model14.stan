@@ -103,7 +103,8 @@ functions {
                               vector tau_sck,
                               vector omega_conc_sck,
                               vector omega_nonconc_sck,
-                              vector phi_sck) {
+                              vector phi_sck_baseline,
+                              real beta_vpd_phi) {
 
     real lp = 0;
     
@@ -179,7 +180,13 @@ functions {
         
         profile("compute_logmix") {
           for(y in 1:N_stand_years[s]) {
-            lp += log_mix(phi_sck[s], log_p1[y], log_p0[y]);
+            
+            int ys =  y-stand_start_years_idxs[s]+1;
+            
+            real phi_sck = inv_logit(logit(phi_sck_baseline[s])
+            + beta_vpd_phi*(vpd_obs[stand_clim_idxs[ys]]-15));
+            
+            lp += log_mix(phi_sck, log_p1[y], log_p0[y]);
           }
         }
         
@@ -320,6 +327,8 @@ parameters {
   real<lower=0> tau_phi_sck; // log-odds
   vector[N_stands] alpha_phi_sck; // log-odds
   
+  real beta_vpd_phi;
+  
   // Probability of tree-level shock given stand in shock (concordant shock)
   real<lower=0, upper=1> omega_conc_sck0; // probability
   real<lower=0> tau_omega_conc_sck; // log-odds
@@ -373,7 +382,7 @@ transformed parameters {
   
   real mu_phi_sck = logit(phi_sck0); // log-odds
   // vector[N_stands] alpha_phi_sck = mu_phi_sck + tau_phi_sck*alpha_tilde_phi_sck; // log-odds
-  vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(alpha_phi_sck); // probabilities
+  vector<lower=0, upper=1>[N_stands] phi_sck_baseline = inv_logit(alpha_phi_sck); // probabilities
   
   real mu_omega_conc_sck = logit(omega_conc_sck0); // log-odds
   // vector[N_stand_species] alpha_omega_conc_sck = mu_omega_conc_sck + tau_omega_conc_sck*alpha_tilde_omega_conc_sck; // log-odds
@@ -439,6 +448,8 @@ model {
   tau_phi_sck ~ normal(0, 1); // TO MODIFY!
   alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck);
   
+  beta_vpd_phi ~ normal(0, 0.16/2.57); // max. 15% variation with one unit variation
+  
   omega_conc_sck0 ~ beta(230, 14); // 0.9 <~ omega_conc_sck <~ 0.97 (most trees, but not ALL trees)
   tau_omega_conc_sck ~ normal(0, 0.3/2.57); // TO MODIFY!
   // alpha_tilde_omega_conc_sck ~ normal(0, 1);
@@ -499,7 +510,8 @@ model {
       tau_sck,
       omega_conc_sck,
       omega_nonconc_sck,
-      phi_sck);
+      phi_sck_baseline,
+      beta_vpd_phi);
    }
   
 }
