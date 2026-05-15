@@ -307,7 +307,7 @@ model {
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
   // rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
-  rho_sh ~ lognormal(0.4, 0.3);
+  rho_sh ~ lognormal(0.7, 0.4); // 1 < rho_ind < 4
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
   rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_ind < 11
