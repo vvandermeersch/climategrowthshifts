@@ -108,7 +108,6 @@ functions {
                               real sigma,
                               real tau_sck,
                               vector omega_conc_sck,
-                              real pi_idsc_sck,
                               vector phi_sck){
 
     real lp = 0;
@@ -149,21 +148,18 @@ functions {
           
           real lp_shock;
           real lp_noshock;
-          real lp_doubleshock;
           
           if (rw_obs[idx] >= epsilon){
             real log_rw = log(rw_obs[idx]);
             lp_shock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lpdf(log_rw | mu_f, sigma);
-            lp_doubleshock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }else{
             lp_shock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lcdf(log(epsilon) | mu_f, sigma);
-            lp_doubleshock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }
           
-          real lp_conc = log_mix(pi_idsc_sck, lp_doubleshock, lp_shock);
-          real lp_nonconc = log_mix(pi_idsc_sck, lp_shock, lp_noshock);
+          real lp_conc = lp_shock;
+          real lp_nonconc = lp_noshock;
           
           log_p0[ys] += lp_nonconc;
           log_p1[ys] += log_mix(omega_conc_sck[s], lp_conc, lp_nonconc);
@@ -245,7 +241,7 @@ parameters {
   real<lower=0> gamma_ind; // marginal variation
   
   matrix[M, N_trees] f_tilde; // mid- to long-term tree-level func. behavior (allometry) -- approx. with HS
-  real<lower=1> rho_sp; // length scale (should vary per species)
+  real<lower=rho_ind> rho_sp; // length scale (should vary per species) + ADDED lower constraint
   real<lower=0> gamma_sp; // marginal variation (should vary per species)
   
   real<lower=0> tau_sck; // log variation scale (the shocks!)
@@ -259,8 +255,6 @@ parameters {
   real<lower=0, upper=1> omega_conc_sck0;
   real<lower=0> tau_omega_conc_sck;
   vector[N_stands] alpha_omega_conc_sck;
-  
-  real pi_idsc_sck; // probability of tree-level idiosyncratic shocks (indep. of stand state)
   
   real<lower=0> sigma; // proportional measurement error
 }
@@ -314,22 +308,20 @@ model {
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
-  # rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
+  // rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
   rho_sh ~ lognormal(0.4, 0.3);
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
   rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_ind < 11
   gamma_ind ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
-  phi_sck0 ~ beta(2, 20); // 2% < phi_sck0 < 20%
+  phi_sck0 ~ beta(2, 13); // 2% < phi_sck0 < 30% (30% is already a lot)
   tau_phi_sck ~ normal(0, 1); // at tau_phi_sck = 1, we would have rougly for alphas:
-  alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck); // 2% < inv_logit(alpha_phi_sck) < 40%
+  alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck); // 2% < inv_logit(alpha_phi_sck) < 
   
-  omega_conc_sck0 ~ beta(12.28, 34); // 15% < omega_conc_sck0 < 40% (mode at 25%)
+  omega_conc_sck0 ~ beta(3, 12); // 5% < omega_conc_sck0 < 40%
   tau_omega_conc_sck ~ normal(0, 1); // at tau_omega_conc_sck = 1, we would have rougly for alphas:
   alpha_omega_conc_sck ~ normal(mu_omega_conc_sck, tau_omega_conc_sck); // 5% < inv_logit(alpha_omega_conc_sck) < 70%
-  
-  pi_idsc_sck ~ beta(2, 100); // 0 < pi_idsc_sck < 5%...
   
   sigma ~ normal(0, log(1.1) / 2.57); // 0 < sigma < log(1.1)
   
@@ -374,7 +366,6 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      pi_idsc_sck,
       phi_sck);
   }
 }

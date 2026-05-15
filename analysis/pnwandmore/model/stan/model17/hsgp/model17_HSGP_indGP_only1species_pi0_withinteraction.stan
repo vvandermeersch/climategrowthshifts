@@ -63,6 +63,7 @@ functions {
     return y;
   }
   
+  
   // HS basis functions, from https://users.aalto.fi/~ave/casestudies/Motorcycle/motorcycle.html
   vector diagSPD_EQ(real alpha, real rho, real L, int M) {
     return alpha * sqrt(sqrt(2*pi()) * rho) * exp(-0.25*(rho*pi()/2/L)^2 * linspaced_vector(M, 1, M)^2);
@@ -98,6 +99,7 @@ functions {
                               real beta_gdd,
                               real beta_pre,
                               real beta_vpd,
+                              real beta_pre_vpd,
                               array[] vector f_sh,
                               matrix f_tilde,
                               vector f_ind_tilde,
@@ -108,7 +110,7 @@ functions {
                               real sigma,
                               real tau_sck,
                               vector omega_conc_sck,
-                              real pi_idsc_sck,
+                              //real pi_idsc_sck,
                               vector phi_sck){
 
     real lp = 0;
@@ -138,6 +140,7 @@ functions {
           + beta_gdd * (gdd_obs[tree_clim_idxs] - gdd0)
           + beta_pre * (pre_obs[tree_clim_idxs] - pre0)
           + beta_vpd * (vpd_obs[tree_clim_idxs] - vpd0)
+          + beta_pre_vpd  * ((pre_obs[tree_clim_idxs] - pre0) .* (vpd_obs[tree_clim_idxs] - vpd0))
           + f_sh[s, all_years_idxs_tree];
         
         for (y in 1:N_years[t]) {
@@ -149,21 +152,23 @@ functions {
           
           real lp_shock;
           real lp_noshock;
-          real lp_doubleshock;
+          // real lp_doubleshock;
           
           if (rw_obs[idx] >= epsilon){
             real log_rw = log(rw_obs[idx]);
             lp_shock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lpdf(log_rw | mu_f, sigma);
-            lp_doubleshock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
+            // lp_doubleshock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }else{
             lp_shock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lcdf(log(epsilon) | mu_f, sigma);
-            lp_doubleshock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
+            // lp_doubleshock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }
           
-          real lp_conc = log_mix(pi_idsc_sck, lp_doubleshock, lp_shock);
-          real lp_nonconc = log_mix(pi_idsc_sck, lp_shock, lp_noshock);
+          // real lp_conc = log_mix(pi_idsc_sck, lp_doubleshock, lp_shock);
+          // real lp_nonconc = log_mix(pi_idsc_sck, lp_shock, lp_noshock);
+          real lp_conc = lp_shock;
+          real lp_nonconc = lp_noshock;
           
           log_p0[ys] += lp_nonconc;
           log_p1[ys] += log_mix(omega_conc_sck[s], lp_conc, lp_nonconc);
@@ -202,7 +207,7 @@ data {
   array[N_stands] int<lower=1, upper=N_trees> stand_trees_end_idxs; //  ... and end idx
   array[N_trees] int<lower=1, upper=N_trees> stand_tree_idxs;
   
-  vector[N] rw_obs; // the observations! ring widths in mm
+  vector[N] rw_obs; // the observations! the ring widths in mm
   
   // climate covariates, at the stand-level
   vector[N_stands*N_all_years] gdd_obs; // GDD during entire year (x100 degC, kdegC?!)
@@ -235,6 +240,7 @@ parameters {
   real beta_gdd; // GDD slope (1/kdegC)
   real beta_pre; // Precipitation slope (1/dm)
   real beta_vpd; // VPD slope (1/hPa)
+  real beta_pre_vpd; // Precipitation*VPD slope (1/(hPa.dm))
   
   array[N_stands] vector[N_all_years] f_tilde_sh; // short-term proportional growth functional behavior
   real<lower=1> rho_sh; // length scale
@@ -245,7 +251,7 @@ parameters {
   real<lower=0> gamma_ind; // marginal variation
   
   matrix[M, N_trees] f_tilde; // mid- to long-term tree-level func. behavior (allometry) -- approx. with HS
-  real<lower=1> rho_sp; // length scale (should vary per species)
+  real<lower=rho_ind> rho_sp; // length scale (should vary per species) + ADDED lower constraint
   real<lower=0> gamma_sp; // marginal variation (should vary per species)
   
   real<lower=0> tau_sck; // log variation scale (the shocks!)
@@ -255,12 +261,12 @@ parameters {
   real<lower=0> tau_phi_sck;
   vector[N_stands] alpha_phi_sck;
   
-  // Probabilities of tree-level shock given stand in 'concordant state' (partially pooled by stands)
+  // Probabilities of tree-level shock given shock in 'concordant state' (partially pooled by stands)
   real<lower=0, upper=1> omega_conc_sck0;
   real<lower=0> tau_omega_conc_sck;
   vector[N_stands] alpha_omega_conc_sck;
   
-  real pi_idsc_sck; // probability of tree-level idiosyncratic shocks (indep. of stand state)
+  // real pi_idsc_sck; // probability of tree-level idiosyncratic shocks (indep. of stand state)
   
   real<lower=0> sigma; // proportional measurement error
 }
@@ -306,6 +312,7 @@ model {
   beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_gsl < log(1.8)
   beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_pre < log(1.8)
   beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_vpd < log(1.8)
+  beta_pre_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_pre_vpd < log(1.8)
   
   rho_sp ~ lognormal(3.7, 0.35); // 20 < rho < 90
   gamma_sp ~ normal(0, log(10) / 2.57); // 0 < gamma < log(10)
@@ -314,22 +321,21 @@ model {
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
-  # rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
-  rho_sh ~ lognormal(0.4, 0.3);
+  rho_sh ~ lognormal(0.4, 0.3); // changed!
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
   rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_ind < 11
   gamma_ind ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
-  phi_sck0 ~ beta(2, 20); // 2% < phi_sck0 < 20%
+  phi_sck0 ~ beta(2, 13); // 2% < phi_sck0 < 30% (30% is already a lot)
   tau_phi_sck ~ normal(0, 1); // at tau_phi_sck = 1, we would have rougly for alphas:
   alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck); // 2% < inv_logit(alpha_phi_sck) < 40%
   
-  omega_conc_sck0 ~ beta(12.28, 34); // 15% < omega_conc_sck0 < 40% (mode at 25%)
+  omega_conc_sck0 ~ beta(3, 12); // 5% < omega_conc_sck0 < 40%
   tau_omega_conc_sck ~ normal(0, 1); // at tau_omega_conc_sck = 1, we would have rougly for alphas:
   alpha_omega_conc_sck ~ normal(mu_omega_conc_sck, tau_omega_conc_sck); // 5% < inv_logit(alpha_omega_conc_sck) < 70%
   
-  pi_idsc_sck ~ beta(2, 100); // 0 < pi_idsc_sck < 5%...
+  // pi_idsc_sck ~ beta(2, 100); // 0 < pi_idsc_sck < 5%...
   
   sigma ~ normal(0, log(1.1) / 2.57); // 0 < sigma < log(1.1)
   
@@ -364,6 +370,7 @@ model {
       beta_gdd,
       beta_pre,
       beta_vpd,
+      beta_pre_vpd,
       f_sh,
       f_tilde,
       f_ind_tilde,
@@ -374,7 +381,7 @@ model {
       sigma,
       tau_sck,
       omega_conc_sck,
-      pi_idsc_sck,
+      //pi_idsc_sck,
       phi_sck);
   }
 }

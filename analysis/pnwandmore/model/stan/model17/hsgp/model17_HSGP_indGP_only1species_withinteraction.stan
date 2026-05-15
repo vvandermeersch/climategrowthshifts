@@ -63,6 +63,7 @@ functions {
     return y;
   }
   
+  
   // HS basis functions, from https://users.aalto.fi/~ave/casestudies/Motorcycle/motorcycle.html
   vector diagSPD_EQ(real alpha, real rho, real L, int M) {
     return alpha * sqrt(sqrt(2*pi()) * rho) * exp(-0.25*(rho*pi()/2/L)^2 * linspaced_vector(M, 1, M)^2);
@@ -98,6 +99,7 @@ functions {
                               real beta_gdd,
                               real beta_pre,
                               real beta_vpd,
+                              real beta_pre_vpd,
                               array[] vector f_sh,
                               matrix f_tilde,
                               vector f_ind_tilde,
@@ -138,6 +140,7 @@ functions {
           + beta_gdd * (gdd_obs[tree_clim_idxs] - gdd0)
           + beta_pre * (pre_obs[tree_clim_idxs] - pre0)
           + beta_vpd * (vpd_obs[tree_clim_idxs] - vpd0)
+          + beta_pre_vpd  * ((pre_obs[tree_clim_idxs] - pre0) .* (vpd_obs[tree_clim_idxs] - vpd0))
           + f_sh[s, all_years_idxs_tree];
         
         for (y in 1:N_years[t]) {
@@ -202,7 +205,7 @@ data {
   array[N_stands] int<lower=1, upper=N_trees> stand_trees_end_idxs; //  ... and end idx
   array[N_trees] int<lower=1, upper=N_trees> stand_tree_idxs;
   
-  vector[N] rw_obs; // the observations! ring widths in mm
+  vector[N] rw_obs; // the observations! the ring widths in mm
   
   // climate covariates, at the stand-level
   vector[N_stands*N_all_years] gdd_obs; // GDD during entire year (x100 degC, kdegC?!)
@@ -235,6 +238,7 @@ parameters {
   real beta_gdd; // GDD slope (1/kdegC)
   real beta_pre; // Precipitation slope (1/dm)
   real beta_vpd; // VPD slope (1/hPa)
+  real beta_pre_vpd; // Precipitation*VPD slope (1/(hPa.dm))
   
   array[N_stands] vector[N_all_years] f_tilde_sh; // short-term proportional growth functional behavior
   real<lower=1> rho_sh; // length scale
@@ -255,7 +259,7 @@ parameters {
   real<lower=0> tau_phi_sck;
   vector[N_stands] alpha_phi_sck;
   
-  // Probabilities of tree-level shock given stand in 'concordant state' (partially pooled by stands)
+  // Probabilities of tree-level shock given shock in 'concordant state' (partially pooled by stands)
   real<lower=0, upper=1> omega_conc_sck0;
   real<lower=0> tau_omega_conc_sck;
   vector[N_stands] alpha_omega_conc_sck;
@@ -306,6 +310,7 @@ model {
   beta_gdd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_gsl < log(1.8)
   beta_pre ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_pre < log(1.8)
   beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_vpd < log(1.8)
+  beta_pre_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_pre_vpd < log(1.8)
   
   rho_sp ~ lognormal(3.7, 0.35); // 20 < rho < 90
   gamma_sp ~ normal(0, log(10) / 2.57); // 0 < gamma < log(10)
@@ -314,11 +319,10 @@ model {
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
-  # rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
-  rho_sh ~ lognormal(0.4, 0.3);
+  rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
-  rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_ind < 11
+  rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_sh < 11
   gamma_ind ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
   phi_sck0 ~ beta(2, 20); // 2% < phi_sck0 < 20%
@@ -364,6 +368,7 @@ model {
       beta_gdd,
       beta_pre,
       beta_vpd,
+      beta_pre_vpd,
       f_sh,
       f_tilde,
       f_ind_tilde,

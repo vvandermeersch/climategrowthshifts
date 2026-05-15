@@ -63,15 +63,6 @@ functions {
     return y;
   }
   
-  // HS basis functions, from https://users.aalto.fi/~ave/casestudies/Motorcycle/motorcycle.html
-  vector diagSPD_EQ(real alpha, real rho, real L, int M) {
-    return alpha * sqrt(sqrt(2*pi()) * rho) * exp(-0.25*(rho*pi()/2/L)^2 * linspaced_vector(M, 1, M)^2);
-  }
-
-  matrix PHI(int N, int M, real L, vector x) {
-    return sin(diag_post_multiply(rep_matrix(pi()/(2*L) * (x+L), M), linspaced_vector(M, 1, M)))/sqrt(L);
-  }
-  
   // For parallelization with reduce_sum
   real loglikelihood_partial_sum(array[] int stand_ids_slice,
                               int start, int end,
@@ -99,16 +90,14 @@ functions {
                               real beta_pre,
                               real beta_vpd,
                               array[] vector f_sh,
-                              matrix f_tilde,
+                              vector f_tilde,
+                              matrix L_cov,
                               vector f_ind_tilde,
                               matrix L_cov_ind,
-                              matrix PHI_sp,
-                              vector sqrt_spd_sp,
                               real epsilon,
                               real sigma,
                               real tau_sck,
                               vector omega_conc_sck,
-                              real pi_idsc_sck,
                               vector phi_sck){
 
     real lp = 0;
@@ -131,7 +120,8 @@ functions {
         array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
         array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
 
-        vector[N_years[t]] f = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_sp .* f_tilde[, t]);
+        // f = block(L_cov[sp], 1, 1, N_years[t], N_years[t]) * f_tilde[tree_start:tree_end];
+        vector[N_years[t]] f = L_cov[1:N_years[t], 1:N_years[t]] * f_tilde[tree_start:tree_end]; // 7% faster
         vector[N_years[t]] f_ind = L_cov_ind[1:N_years[t], 1:N_years[t]] * f_ind_tilde[tree_start:tree_end];
         
         vector[N_years[t]] mu = alpha
@@ -149,21 +139,18 @@ functions {
           
           real lp_shock;
           real lp_noshock;
-          real lp_doubleshock;
           
           if (rw_obs[idx] >= epsilon){
             real log_rw = log(rw_obs[idx]);
             lp_shock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lpdf(log_rw | mu_f, sigma);
-            lp_doubleshock = normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }else{
             lp_shock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + sigma^2));
             lp_noshock = normal_lcdf(log(epsilon) | mu_f, sigma);
-            lp_doubleshock = normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + tau_sck^2 + sigma^2));
           }
           
-          real lp_conc = log_mix(pi_idsc_sck, lp_doubleshock, lp_shock);
-          real lp_nonconc = log_mix(pi_idsc_sck, lp_shock, lp_noshock);
+          real lp_conc = lp_shock;
+          real lp_nonconc = lp_noshock;
           
           log_p0[ys] += lp_nonconc;
           log_p1[ys] += log_mix(omega_conc_sck[s], lp_conc, lp_nonconc);
@@ -177,9 +164,11 @@ functions {
 
     return lp;
   }
+  
 }
 
 data {
+  
   int<lower=1> N; // number of observations
   int<lower=1> N_trees; // number of trees
   int<lower=1> N_all_years; // max. number of years observed
@@ -210,9 +199,11 @@ data {
   vector[N_stands*N_all_years] vpd_obs; // VPD, JJA (hPa)
   
   int<lower=1> grainsize; // to tweak reduce_sum efficiency
+  
 }
 
 transformed data {
+  
   // baselines
   real gdd0 = 10;
   real pre0 = 5;
@@ -220,16 +211,13 @@ transformed data {
   
   real epsilon = 1e-3; // measurement precision threshold (could be estimated...)
   
-  // HS approximation (see Riutort-Mayol et al. 2023)
-  int M = 20; // number of inducing points
-  real L_sp = 1.5 * N_all_years; // boundary conditions
-  matrix[N_all_years, M] PHI_sp = PHI(N_all_years, M, L_sp, to_vector(all_years)); // doesn't depend on parameters!
-  
   array[N_stands] int stand_ids;
     for (s in 1:N_stands) stand_ids[s] = s;
+    
 }
 
 parameters {
+  
   real alpha; // log(ring width) baseline
   
   real beta_gdd; // GDD slope (1/kdegC)
@@ -241,11 +229,11 @@ parameters {
   real<lower=0> gamma_sh; // marginal variation
   
   vector[N] f_ind_tilde; // short-term tree-level func. behavior(canopy dynamics)
-  real<lower=1> rho_ind; // length scale
-  real<lower=0> gamma_ind; // marginal variation
+  real<lower=1> rho_ind; // length scale (could vary per species?)
+  real<lower=0> gamma_ind; // marginal variation (could vary per species?)
   
-  matrix[M, N_trees] f_tilde; // mid- to long-term tree-level func. behavior (allometry) -- approx. with HS
-  real<lower=1> rho_sp; // length scale (should vary per species)
+  vector[N] f_tilde; // mid- to long-term tree-level func. behavior (allometry)
+  real<lower=rho_ind> rho_sp; // length scale (should vary per species) + ADDED lower constraint
   real<lower=0> gamma_sp; // marginal variation (should vary per species)
   
   real<lower=0> tau_sck; // log variation scale (the shocks!)
@@ -256,28 +244,35 @@ parameters {
   vector[N_stands] alpha_phi_sck;
   
   // Probabilities of tree-level shock given stand in 'concordant state' (partially pooled by stands)
+  // (should likely vary per species within the same stand)
   real<lower=0, upper=1> omega_conc_sck0;
   real<lower=0> tau_omega_conc_sck;
   vector[N_stands] alpha_omega_conc_sck;
   
-  real pi_idsc_sck; // probability of tree-level idiosyncratic shocks (indep. of stand state)
-  
   real<lower=0> sigma; // proportional measurement error
+  
 }
 
 transformed parameters {
   
   array[N_stands] vector[N_all_years] f_sh;
   matrix[N_all_years, N_all_years] L_cov_sh;
-  profile("L_cov_fsh") {
-    {
-      matrix[N_all_years, N_all_years] cov
-        = gp_exp_quad_cov(all_years, gamma_sh, rho_sh)
-        + diag_matrix(rep_vector(1e-10, N_all_years));
-      L_cov_sh = cholesky_decompose(cov);
-      for (s in 1:N_stands)
+  {
+    matrix[N_all_years, N_all_years] cov
+      = gp_exp_quad_cov(all_years, gamma_sh, rho_sh)
+      + diag_matrix(rep_vector(1e-10, N_all_years));
+    L_cov_sh = cholesky_decompose(cov);
+    for (s in 1:N_stands)
         f_sh[s] = L_cov_sh * f_tilde_sh[s];
-    }
+  }
+  
+  matrix[N_all_years, N_all_years] L_cov;
+  {
+    matrix[N_all_years, N_all_years] cov
+      =  gp_exp_quad_cov(all_years, gamma_sp, rho_sp)
+      + diag_matrix(rep_vector(1e-10, N_all_years));
+        
+    L_cov = cholesky_decompose(cov);
   }
   
   matrix[N_all_years, N_all_years] L_cov_ind;
@@ -287,9 +282,6 @@ transformed parameters {
       + diag_matrix(rep_vector(1e-10, N_all_years));
     L_cov_ind = cholesky_decompose(cov_ind);
   }
-  
-  // Hilbert space approximatino for long-term GP
-  vector[M] sqrt_spd_sp = diagSPD_EQ(gamma_sp, rho_sp, L_sp, M);
   
   real mu_phi_sck = logit(phi_sck0);
   vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(alpha_phi_sck);
@@ -314,26 +306,24 @@ model {
 
   for (s in 1:N_stands)
     f_tilde_sh[s] ~ normal(0, 1);
-  # rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
+  // rho_sh ~ lognormal(1.7, 0.26); // 3 <~ rho_sh <~ 10
   rho_sh ~ lognormal(0.4, 0.3);
   gamma_sh ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
   rho_ind ~  lognormal(1.4, 0.35); // 2 < rho_ind < 11
   gamma_ind ~ normal(0, log(3) / 2.57); // 0 < gamma_sh < log(3)
   
-  phi_sck0 ~ beta(2, 20); // 2% < phi_sck0 < 20%
+  phi_sck0 ~ beta(2, 13); // 2% < phi_sck0 < 30% (30% is already a lot)
   tau_phi_sck ~ normal(0, 1); // at tau_phi_sck = 1, we would have rougly for alphas:
-  alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck); // 2% < inv_logit(alpha_phi_sck) < 40%
+  alpha_phi_sck ~ normal(mu_phi_sck, tau_phi_sck); // 2% < inv_logit(alpha_phi_sck) < 
   
-  omega_conc_sck0 ~ beta(12.28, 34); // 15% < omega_conc_sck0 < 40% (mode at 25%)
+  omega_conc_sck0 ~ beta(3, 12); // 5% < omega_conc_sck0 < 40%
   tau_omega_conc_sck ~ normal(0, 1); // at tau_omega_conc_sck = 1, we would have rougly for alphas:
   alpha_omega_conc_sck ~ normal(mu_omega_conc_sck, tau_omega_conc_sck); // 5% < inv_logit(alpha_omega_conc_sck) < 70%
   
-  pi_idsc_sck ~ beta(2, 100); // 0 < pi_idsc_sck < 5%...
-  
   sigma ~ normal(0, log(1.1) / 2.57); // 0 < sigma < log(1.1)
   
-  to_vector(f_tilde) ~ normal(0, 1);
+  f_tilde ~ normal(0, 1);
   f_ind_tilde ~ normal(0, 1);
   
   profile("likelihood") {
@@ -366,15 +356,145 @@ model {
       beta_vpd,
       f_sh,
       f_tilde,
+      L_cov,
       f_ind_tilde,
       L_cov_ind,
-      PHI_sp,
-      sqrt_spd_sp,
       epsilon,
       sigma,
       tau_sck,
       omega_conc_sck,
-      pi_idsc_sck,
       phi_sck);
   }
+  
+}
+
+generated quantities {
+
+  array[N] real log_rw_pred;
+  vector[N] f;
+  vector[N] f_ind;
+  vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
+  
+  vector[N_stands*N_all_years] num_conc_sck_stdlvl = rep_vector(0,N_stands*N_all_years);
+  
+  vector[N_stands*N_all_years] avg_exp_m1_delta_sck_stdlvl = rep_vector(0,N_stands*N_all_years);
+  vector[N_stands*N_all_years] avg_exp_m1_clim_stdlvl = rep_vector(0,N_stands*N_all_years);
+  
+  // array[N] int sck_conc_state; // latent state, zt = 0 or zt = 1
+  // array[N] int sck_nonconc_state; // latent state, zt = 0 or zt = 1
+
+  for (t in 1:N_trees) {
+
+    int stand_idx = stand_idxs[t];
+
+    array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
+          1+(stand_idx-1)*N_all_years, stand_idx*N_all_years);
+
+    int tree_start = tree_start_idxs[t];
+    int tree_end  = tree_end_idxs[t];
+
+    array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
+    array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
+    
+    f[tree_start:tree_end] = L_cov[1:N_years[t], 1:N_years[t]] * f_tilde[tree_start:tree_end];
+    f_ind[tree_start:tree_end] = L_cov_ind[1:N_years[t], 1:N_years[t]] * f_ind_tilde[tree_start:tree_end]; 
+
+    vector[N_years[t]] mu;
+    mu = alpha
+    + beta_gdd * (gdd_obs[tree_clim_idxs] - gdd0)
+    + beta_pre * (pre_obs[tree_clim_idxs] - pre0)
+    + beta_vpd * (vpd_obs[tree_clim_idxs] - vpd0)
+    + f_sh[stand_idx, all_years_idxs_tree];
+    
+    // here I dropped the baselines..?
+    vector[N_years[t]] clim;
+    clim = 
+    beta_gdd * (gdd_obs[tree_clim_idxs] - mean(gdd_obs[tree_clim_idxs]))
+    + beta_pre * (pre_obs[tree_clim_idxs] - mean(pre_obs[tree_clim_idxs]))
+    + beta_vpd * (vpd_obs[tree_clim_idxs] - mean(vpd_obs[tree_clim_idxs]));
+
+    // mixture weight for shocks!
+    real one_conc_shock = phi_sck[stand_idx]*omega_conc_sck[stand_idx];
+    real zero_shock = phi_sck[stand_idx]*(1-omega_conc_sck[stand_idx]) + (1-phi_sck[stand_idx]);
+    
+    real lp_two_shocks;
+    real lp_one_conc_shock;
+    real lp_one_idsc_shock;
+    real lp_zero_shock;
+    real lp_all;
+
+    for(y in 1:N_years[t]){
+
+      int idx = tree_start + y - 1;
+      real mu_f = mu[y] + f[idx] + f_ind[idx];
+      
+      avg_exp_m1_clim_stdlvl[tree_clim_idxs[y]] += (exp(clim[y])-1)/N_stand_trees[stand_idx];
+
+      if(rw_obs[idx] >= epsilon){
+        real log_rw = log(rw_obs[idx]);
+          
+        lp_one_conc_shock = log(one_conc_shock) + normal_lpdf(log_rw | mu_f, sqrt(tau_sck^2 + sigma^2));
+          
+        lp_zero_shock = log(zero_shock) + normal_lpdf(log_rw | mu_f, sigma);
+
+      }else{
+        
+        lp_one_conc_shock = log(one_conc_shock) + normal_lcdf(log(epsilon) | mu_f, sqrt(tau_sck^2 + sigma^2));
+          
+        lp_zero_shock = log(zero_shock) + normal_lcdf(log(epsilon) | mu_f, sigma);
+
+      }
+      
+      lp_all = log_sum_exp([lp_one_conc_shock, lp_zero_shock]');
+
+      // probability of shock state
+      real lambda_one_conc_shock = exp(lp_one_conc_shock - lp_all);
+      real lambda_zero_shock = exp(lp_zero_shock - lp_all);
+      
+      vector[2] p = to_vector({lambda_one_conc_shock, lambda_zero_shock});
+      p /= sum(p); // floationg stability
+      int sck_cat = categorical_rng(p);
+      
+      // sck_conc_state[idx] = (sck_cat == 1);
+      // sck_nonconc_state[idx] = (sck_cat == 2);
+      // real sck_state = (sck_cat != 3);
+      
+      // sck_state[idx] = bernoulli_rng(lambda_shock); // or something like categorical_rng(lambda_shock);?
+
+      if(sck_cat == 2){ // no shocks
+        log_rw_pred[idx] = normal_rng(mu_f, sigma);
+      }else if(rw_obs[idx] >= epsilon){
+        real log_rw = log(rw_obs[idx]);
+        real residual = log_rw - mu_f;
+      
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = (tau_sck^2 / (tau_sck^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_sck^2 * sigma^2) / (tau_sck^2 + sigma^2));
+          
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+        
+        num_conc_sck_stdlvl[tree_clim_idxs[y]] += 1.0/N_stand_trees[stand_idx]; // shock counter
+        avg_exp_m1_delta_sck_stdlvl[tree_clim_idxs[y]] += (exp(delta_sck[idx])-1)/N_stand_trees[stand_idx];
+
+      }else{ // sub-threshold observation
+        
+        // sample from a truncated normal distribution? between -inf and log(epsilon)
+        real log_rw = normal_ub_rng(mu_f, sqrt(tau_sck^2 + sigma^2), log(epsilon));
+        real residual = log_rw - mu_f;
+          
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = (tau_sck^2 / (tau_sck^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_sck^2 * sigma^2) / (tau_sck^2 + sigma^2));
+          
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      
+        num_conc_sck_stdlvl[tree_clim_idxs[y]] += 1.0/N_stand_trees[stand_idx]; // shock counter
+          
+        avg_exp_m1_delta_sck_stdlvl[tree_clim_idxs[y]] += (exp(delta_sck[idx])-1)/N_stand_trees[stand_idx];
+      }
+    }
+  }
+  
 }
