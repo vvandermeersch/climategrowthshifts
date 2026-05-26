@@ -318,13 +318,13 @@ parameters {
   vector<lower=0, upper=1>[N_stands] phi_conc;
   
   // Probabilities of tree-level shock given stand in 'concordant state' (partially pooled by stands)
-  array[N_stands] simplex[3] thetas_conc;
+  array[N_stands] vector[3] thetas_conc; // vector rather than simplex for a posteriori GQ
   
   // Probabilities of tree-level shutdown given stand in 'concordant state' and tree in a 'shock state' (partially pooled by stands)
   vector<lower=0, upper=1>[N_stands] omega_shutdown;
   
   // Idiosyncratic shocks!
-  array[N_trees] simplex[3] thetas_idio;
+  array[N_trees] vector[3] thetas_idio; // vector rather than simplex for a posteriori GQ
   real<lower=0> tau_idio; // log variation scale
   
   real<lower=0> sigma; // proportional measurement error
@@ -455,5 +455,319 @@ model {
       phi_conc,
       thetas_idio,
       tau_idio);
+  }
+}
+
+generated quantities {
+
+  array[N] real log_rw_pred;
+  vector[N] f;
+  vector[N] f_ind;
+  vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
+  vector[N] shutdown = rep_vector(0,N); // shutdown state
+  
+  vector[N] conc_state = rep_vector(0,N); 
+  vector[N] idio_state = rep_vector(0,N); 
+
+  for (t in 1:N_trees) {
+
+    int stand_idx = stand_idxs[t];
+
+    array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
+          1+(stand_idx-1)*N_all_years, stand_idx*N_all_years);
+
+    int tree_start = tree_start_idxs[t];
+    int tree_end  = tree_end_idxs[t];
+
+    array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
+    array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
+
+    f[tree_start:tree_end] = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_sp .* f_tilde[, t]);
+    f_ind[tree_start:tree_end] = L_cov_ind[1:N_years[t], 1:N_years[t]] * f_ind_tilde[tree_start:tree_end];
+
+    vector[N_years[t]] mu;
+    mu = alpha
+    + beta_gdd * (gdd_obs[tree_clim_idxs] - gdd0)
+    + beta_pre * (pre_obs[tree_clim_idxs] - pre0)
+    + beta_vpd * (vpd_obs[tree_clim_idxs] - vpd0)
+    + f_sh[stand_idx, all_years_idxs_tree];
+    
+    int sck_cat;
+
+    for(y in 1:N_years[t]){
+
+      int idx = tree_start + y - 1;
+      real mu_f = mu[y] + f[idx] + f_ind[idx];
+
+      if(rw_obs[idx] >= epsilon){
+        
+        real log_rw = log(rw_obs[idx]);
+        
+        vector[8] lambdas = [
+          (1-phi_conc[stand_idx])*thetas_idio[t][1], 
+          (1-phi_conc[stand_idx])*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][1]*thetas_idio[t][1], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][1]*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][2]*thetas_idio[t][1], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][2]*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*(1-omega_shutdown[stand_idx])*thetas_idio[t][1],
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*(1-omega_shutdown[stand_idx])*thetas_idio[t][2]
+        ]';
+        
+        vector[8] lpds = [
+          normal_lpdf(log_rw| mu_f, sigma), // no concordant state, no idiosync. shock
+          normal_lpdf(log_rw | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant state, idiosync. depressed growth
+      
+          normal_lpdf(log_rw | mu_f, sigma), // no concordant shock, no idiosync. shock
+          normal_lpdf(log_rw | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant shock, idiosync. depressed growth
+              
+          normal_lpdf(log_rw | mu_f, sqrt(tau_small^2 + sigma^2)), // concordant small resp., no idiosync. shock
+          normal_lpdf(log_rw | mu_f, sqrt(tau_idio^2 + tau_small^2 + sigma^2)) ,// concordant small resp., idiosync. depressed growth
+          
+          normal_lpdf(log_rw | mu_f - mu_sck, sqrt(tau_sck^2 + sigma^2)), // concordant extreme resp., no idiosync. shock
+          normal_lpdf(log_rw | mu_f - mu_sck, sqrt(tau_idio^2 + tau_sck^2 + sigma^2)) // concordant extreme resp., idiosync. depressed growth
+        ]'; 
+        
+        vector[8] jlps = log(lambdas) + lpds;
+        
+        real jlp_all = log_sum_exp(jlps);
+      
+        vector[8] jp = exp(jlps - jlp_all);
+        jp /= sum(jp); // floationg stability
+        
+        sck_cat = categorical_rng(jp);
+
+      }else{
+        
+         vector[15] lambdas = [
+          (1-phi_conc[stand_idx])*thetas_idio[t][1], 
+          (1-phi_conc[stand_idx])*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][1]*thetas_idio[t][1], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][1]*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][2]*thetas_idio[t][1], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][2]*thetas_idio[t][2], 
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*(1-omega_shutdown[stand_idx])*thetas_idio[t][1],
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*(1-omega_shutdown[stand_idx])*thetas_idio[t][2],
+          
+          (1-phi_conc[stand_idx])*thetas_idio[t][3], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][1]*thetas_idio[t][3], 
+          phi_conc[stand_idx]*thetas_conc[stand_idx][2]*thetas_idio[t][3],
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*(1-omega_shutdown[stand_idx])*thetas_idio[t][3],
+          
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*omega_shutdown[stand_idx]*thetas_idio[t][1],
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*omega_shutdown[stand_idx]*thetas_idio[t][2],
+          phi_conc[stand_idx]*thetas_conc[stand_idx][3]*omega_shutdown[stand_idx]*thetas_idio[t][3]
+        ]';
+
+         vector[15] lpds = [
+          normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant state, no idiosync. shock
+          normal_lcdf(log(epsilon) | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant state, idiosync. depressed growth
+      
+          normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant shock, no idiosync. shock
+          normal_lcdf(log(epsilon) | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant shock, idiosync. depressed growth
+              
+          normal_lcdf(log(epsilon) | mu_f, sqrt(tau_small^2 + sigma^2)), // concordant small resp., no idiosync. shock
+          normal_lcdf(log(epsilon) | mu_f, sqrt(tau_idio^2 + tau_small^2 + sigma^2)), // concordant small resp., idiosync. depressed growth
+          
+          normal_lcdf(log(epsilon) | mu_f - mu_sck, sqrt(tau_sck^2 + sigma^2)), // concordant extreme resp., no idiosync. shock
+          normal_lcdf(log(epsilon) | mu_f - mu_sck, sqrt(tau_idio^2 + tau_sck^2 + sigma^2)), // concordant extreme resp., idiosync. depressed growth
+          
+          log(1),
+          log(1),
+          log(1),
+          log(1),
+          
+          log(1),
+          log(1),
+          log(1)
+        ]'; 
+        
+        vector[15] jlps = log(lambdas) + lpds;
+        
+        real jlp_all = log_sum_exp(jlps);
+      
+        vector[15] jp = exp(jlps - jlp_all);
+        jp /= sum(jp); // floationg stability
+        
+        sck_cat = categorical_rng(jp);
+
+      }
+
+
+      if(sck_cat == 1 || sck_cat == 3){ // no concordant shock, no idiosyncratic shock
+      
+        log_rw_pred[idx] = normal_rng(mu_f, sigma);
+        
+      }else if(sck_cat == 2 || sck_cat == 4){ // no concordant shock, idiosync. depressed growth
+        
+        real log_rw;
+        real residual;
+        
+        if(rw_obs[idx] >= epsilon){
+          
+          log_rw = log(rw_obs[idx]);
+          residual = log_rw - mu_f;
+
+        }else{ // sub-threshold observation
+          
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          log_rw = normal_ub_rng(mu_f, sqrt(tau_idio^2 + sigma^2), log(epsilon));
+          residual = log_rw - mu_f;
+          
+        }
+        
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = (tau_idio^2 / (tau_idio^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_idio^2 * sigma^2) / (tau_idio^2 + sigma^2));
+
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        idio_state[idx] = 1;
+          
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      
+      }else if(sck_cat == 5){ // concordant small resp., no idiosync. shock
+      
+        real log_rw;
+        real residual;
+        
+        if(rw_obs[idx] >= epsilon){
+          
+          log_rw = log(rw_obs[idx]);
+          residual = log_rw - mu_f;
+
+        }else{ // sub-threshold observation
+          
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          log_rw = normal_ub_rng(mu_f, sqrt(tau_small^2 + sigma^2), log(epsilon));
+          residual = log_rw - mu_f;
+          
+        }
+        
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = (tau_small^2 / (tau_small^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt((tau_small^2 * sigma^2) / (tau_small^2 + sigma^2));
+
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        conc_state[idx] = 1;
+          
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      
+      }else if(sck_cat == 6){ // concordant small resp., idiosync. depressed growth
+      
+        real log_rw;
+        real residual;
+        
+        if(rw_obs[idx] >= epsilon){
+          
+          log_rw = log(rw_obs[idx]);
+          residual = log_rw - mu_f;
+
+        }else{ // sub-threshold observation
+          
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          log_rw = normal_ub_rng(mu_f, sqrt(tau_small^2 + tau_idio^2 + sigma^2), log(epsilon));
+          residual = log_rw - mu_f;
+          
+        }
+        
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = ( (tau_small^2 + tau_idio^2)/ (tau_small^2 + tau_idio^2 + sigma^2)) * residual;
+        real conjugate_sd   = sqrt(((tau_small^2 + tau_idio^2) * sigma^2) / (tau_small^2 + tau_idio^2 + sigma^2));
+
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        conc_state[idx] = 1;
+        idio_state[idx] = 1;
+          
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+      
+      }else if(sck_cat == 7){ // concordant extreme resp., no idiosync. shock
+        
+         real log_rw;
+        real residual;
+        
+        if(rw_obs[idx] >= epsilon){
+          
+          log_rw = log(rw_obs[idx]);
+          residual = log_rw - mu_f;
+
+        }else{ // sub-threshold observation
+          
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          log_rw = normal_ub_rng(mu_f - mu_sck, sqrt(tau_sck^2 + sigma^2), log(epsilon));
+          residual = log_rw - mu_f;
+          
+        }
+        
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = - mu_sck + (tau_sck^2 / (tau_sck^2 + sigma^2)) * (residual + mu_sck);
+        real conjugate_sd   = sqrt((tau_sck^2 * sigma^2) / (tau_sck^2 + sigma^2));
+
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        conc_state[idx] = 1;
+          
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+        
+      }else if(sck_cat == 8){ // concordant extreme resp., idiosync. depressed growth
+        
+        real log_rw;
+        real residual;
+        
+        if(rw_obs[idx] >= epsilon){
+          
+          log_rw = log(rw_obs[idx]);
+          residual = log_rw - mu_f;
+
+        }else{ // sub-threshold observation
+          
+          // sample from a truncated normal distribution? between -inf and log(epsilon)
+          log_rw = normal_ub_rng(mu_f - mu_sck, sqrt(tau_idio^2 + tau_sck^2 + sigma^2), log(epsilon));
+          residual = log_rw - mu_f;
+          
+        }
+        
+        // we can reconstruct shock posterior using the normal-normal conjugancy
+        real conjugate_mean = - mu_sck + ((tau_idio^2 + tau_sck^2) / (tau_idio^2 + tau_sck^2 + sigma^2)) * (residual + mu_sck);
+        real conjugate_sd   = sqrt(( (tau_idio^2  + tau_sck^2) * sigma^2) / (tau_idio^2 + tau_sck^2 + sigma^2));
+
+        delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+        idio_state[idx] = 1;
+        conc_state[idx] = 1;
+          
+        log_rw_pred[idx] = normal_rng(mu_f + delta_sck[idx], sigma);
+        
+      }else if(sck_cat == 9 || sck_cat == 10){ // idiosync. shutdown (without any hidden concordant signal)
+        
+        log_rw_pred[idx] = not_a_number();
+        idio_state[idx] = 1;
+        shutdown[idx] = 1;
+      
+      }else if(sck_cat == 11 || sck_cat == 12){ // idiosync. shutdown (with a hidden concordant depressed growth)
+        
+        log_rw_pred[idx] = not_a_number();
+        conc_state[idx] = 1;
+        idio_state[idx] = 1;
+        shutdown[idx] = 1;
+        
+      }else if(sck_cat == 13){ // concordant shutdown (without any hidden idiosync. signal)
+        
+        log_rw_pred[idx] = not_a_number();
+        conc_state[idx] = 1;
+        shutdown[idx] = 1;
+      
+      }else if(sck_cat == 14 || sck_cat == 15){ // concordant shutdown (with a hidden idiosync. signal)
+        
+        log_rw_pred[idx] = not_a_number();
+        conc_state[idx] = 1;
+        idio_state[idx] = 1;
+        shutdown[idx] = 1;
+      
+      }
+    }
   }
 }
