@@ -10,51 +10,59 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_18may2026_PIPO_3stands_19502011.rds'))
+data <- readRDS(file.path(folder,'data_18may2026_PIPO_30stands_19502022.rds'))
 
-base_samples <- readRDS(file.path(folder, 'model21', 'basesamples_model21_HGSP_PIPO_3stands_19502011_v3.rds'))
+base_samples <- readRDS(file.path(folder, 'model21', 'basesamples_model21_HGSP_PIPO_30stands_19502022_nomu_sametau_newrhos.rds'))
 util$check_all_expectand_diagnostics(base_samples)
+params <- names(base_samples)
+delta_clim_smp <- util$filter_expectands(base_samples,  params[grepl('delta', params)])
+util$check_all_expectand_diagnostics(delta_clim_smp)
+
+other_smp <- util$filter_expectands(base_samples,  params[!grepl('delta', params)])
+util$check_all_expectand_diagnostics(other_smp)
 
 
-par(mfrow = c(2,2))
-util$plot_expectand_pushforward(base_samples[['alpha']], 30,
+
+par(mfrow = c(2,2), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['alpha']], 50,
                                 display_name = 'alpha',
                                 flim = c(-log(10),log(10)))
 prior <- rnorm(1e6, 0, log(10)/2.32)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['beta_gdd']], 30,
+util$plot_expectand_pushforward(base_samples[['beta_gdd']], 50,
                                 display_name = 'beta_gdd',
                                 flim = c(-log(1.8),log(1.8)))
 prior <- rnorm(1e6, 0, log(1.8)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['beta_pre']], 30,
+util$plot_expectand_pushforward(base_samples[['beta_pre']], 50,
                                 display_name = 'beta_pre',
                                 flim = c(-log(1.8),log(1.8)))
 prior <- rnorm(1e6, 0, log(1.8)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['beta_vpd']], 30,
+util$plot_expectand_pushforward(base_samples[['beta_vpd']], 50,
                                 display_name = 'beta_vpd',
                                 flim = c(-log(1.8),log(1.8)))
 prior <- rnorm(1e6, 0, log(1.8)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
-par(mfrow = c(3,2))
-util$plot_expectand_pushforward(base_samples[['rho_sp']], 30,
+
+par(mfrow = c(3,2), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['rho_sp']], 50,
                                 display_name = 'rho_sp',
                                 flim = c(10,80))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
 prior <- rlnorm(1e6, 3.7, 0.35)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['gamma_sp']], 30,
+util$plot_expectand_pushforward(base_samples[['gamma_sp']], 50,
                                 display_name = 'gamma_sp',
                                 flim = c(0,log(10)))
 prior <- rnorm(1e6, 0, log(10)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['rho_sh']], 30,
+util$plot_expectand_pushforward(base_samples[['rho_sh']], 50,
                                 display_name = 'rho_sh',
-                                flim = c(1,10))
+                                flim = c(10,80))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
-prior <- rlnorm(1e6, 1.7, 0.26)
+prior <- rlnorm(1e6, 3.0, 0.42)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['gamma_sh']], 30,
                                 display_name = 'gamma_sh',
@@ -65,7 +73,7 @@ util$plot_expectand_pushforward(base_samples[['rho_ind']], 30,
                                 display_name = 'rho_ind',
                                 flim = c(1,10))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
-prior <- rlnorm(1e6, 1.7, 0.26)
+prior <- rlnorm(1e6, 1.3, 0.38)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['gamma_ind']], 30,
                                 display_name = 'gamma_ind',
@@ -74,12 +82,12 @@ prior <- rnorm(1e6, 0, log(3)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
 par(mfrow = c(1,2))
-util$plot_expectand_pushforward(base_samples[['tau_clim']], 30,
+util$plot_expectand_pushforward(base_samples[['tau_clim']], 50,
                                 display_name = 'tau_clim',
                                 flim = c(0,log(2)))
 prior <- rnorm(1e6, 0, log(2)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['sigma']], 30,
+util$plot_expectand_pushforward(base_samples[['sigma']], 50,
                                 display_name = 'sigma',
                                 flim = c(0,log(1.3)))
 prior <- rnorm(1e6, 0, log(1.3)/2.57)
@@ -99,8 +107,8 @@ for(i in 1:data$N_stands){
                                   display_name = 'p(tree shock | stand concordance)',
                                   flim = c(0,1), add = (i != 1), col = cols[i])
 }
-# prior <- rbeta(1e6, 3.48, 1.86)
-prior <- rbeta(1e6, 4.24, 2.80)
+prior <- rbeta(1e6, 3.48, 1.86)
+# prior <- rbeta(1e6, 4.24, 2.80)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 for(i in 1:data$N_stands){
   util$plot_expectand_pushforward(base_samples[[paste0('omega_shutdown[',i,']')]], 30,
@@ -108,61 +116,84 @@ for(i in 1:data$N_stands){
                                   flim = c(0,1), add = (i != 1), col = cols[i])
 }
 # prior <- rbeta(1e6, 1.26, 5.97)
-prior <- rbeta(1e6, 1.86, 3.48)
+prior <- rbeta(1e6, 1.08, 1.64)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 plot.new()
-for(i in 1:data$N_stands){
-  util$plot_expectand_pushforward(base_samples[[paste0('mu_conc[',i,']')]], 30,
-                                  display_name = 'mu_conc',
-                                  flim = c(0,3), add = (i != 1), col = cols[i])
-}
-# prior <- rlnorm(1e6, -0.65, 0.89)
-prior <- rnorm(1e6, 1.5, 1.5/2.57)
+util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
+                                display_name = 'tau_conc',
+                                flim = c(0,3))
+prior <- rnorm(1e6, 0, 3 / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+# for(i in 1:data$N_stands){
+#   util$plot_expectand_pushforward(base_samples[[paste0('mu_conc[',i,']')]], 30,
+#                                   display_name = 'mu_conc',
+#                                   flim = c(0,3), add = (i != 1), col = cols[i])
+# }
+# prior <- rlnorm(1e6, -0.65, 0.89)
+# prior <- rnorm(1e6, 1.5, 1.5/2.57)
+# lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 # for(i in 1:data$N_stands){
 #   util$plot_expectand_pushforward(base_samples[[paste0('tau_conc[',i,']')]], 30,
 #                                   display_name = 'tau_conc',
-#                                   flim = c(0,1.5), add = (i != 1), col = cols[i])
+#                                   flim = c(0,3), add = (i != 1), col = cols[i])
 # }
-util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
-                                  display_name = 'tau_conc',
-                                  flim = c(0,1.5))
+# util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
+#                                   display_name = 'tau_conc',
+#                                   flim = c(0,1.5))
+
+
+par(mfrow = c(2,2), mar = c(4,4,1,1))
+util$plot_disc_pushforward_quantiles(base_samples, paste0('phi_sck[',1:data$N_stands,']'), display_ylim = c(0,1),
+                                     ylab = "p(stand concordance)")
+prior <- rbeta(1e6, 2.3, 6.07)
+lines(density(prior)$y, density(prior)$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_disc_pushforward_quantiles(base_samples, paste0('omega_conc_sck[',1:data$N_stands,']'), display_ylim = c(0,1),
+                                     ylab = "p(tree shock | stand concordance)")
+prior <- rbeta(1e6, 4.24,  2.80)
+lines(density(prior)$y, density(prior)$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_disc_pushforward_quantiles(base_samples, paste0('omega_shutdown[',1:data$N_stands,']'), display_ylim = c(0,1),
+                                     ylab = "p(growth shutdown | tree shock)")
+prior <- rbeta(1e6, 1.66, 6.86)
+lines(density(prior)$y, density(prior)$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 60,
+                                display_name = 'tau_conc',
+                                flim = c(0,3))
 prior <- rnorm(1e6, 0, 3 / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+
+
+norm100 <- function(x) {
+  200 * (x - min(x)) /(max(x) - min(x))
+}
 
 par(mfrow = c(2,2))
 thetas_baseline <- c(100, 5, 0.5)
 omega_thetas <- 4
 alphas = thetas_baseline / omega_thetas + c(1, 1, 1)
 thetas_idio <- gtools::rdirichlet(1e6, alphas)
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',1]'), display_ylim = c(0,1))
-lines(density(thetas_idio[,1])$y, density(thetas_idio[,1])$x, col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',2]'), display_ylim = c(0,1))
-lines(density(thetas_idio[,2])$y, density(thetas_idio[,2])$x, col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',3]'), display_ylim = c(0,1))
-lines(density(thetas_idio[,3])$y, density(thetas_idio[,3])$x, col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['tau_idio']], 30,
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',1]'), display_ylim = c(0,1),
+                                     ylab = "p(no idio. shock)")
+lines(norm100(density(thetas_idio[,1])$y), density(thetas_idio[,1])$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',2]'), display_ylim = c(0,1),
+                                     ylab = "p(idio. perturb.)")
+lines(norm100(density(thetas_idio[,2])$y), density(thetas_idio[,2])$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',3]'), display_ylim = c(0,1),
+                                     ylab = "p(idio. shutdown)")
+lines(norm100(density(thetas_idio[,3])$y), density(thetas_idio[,3])$x, col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_expectand_pushforward(base_samples[['tau_idio']], 60,
                                 display_name = 'tau_idio',
                                 flim = c(0,1.5))
 prior <- rnorm(1e6, 0, log(5) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
-t <- 7
-util$plot_pairs_by_chain(base_samples[['delta_clim_raw[1,40]']], 'delta_clim_raw[1,40]',
-                         base_samples[[paste0('thetas_idio[',t,',1]')]], paste0('thetas_idio[',t,',1]'))
 
 
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[1]']], 'omega_conc_sck[1]',
-                         base_samples[['omega_shutdown[1]']], 'omega_shutdown[1]')
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[2]']], 'omega_conc_sck[2]',
-                         base_samples[['omega_shutdown[2]']], 'omega_shutdown[2]')
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[3]']], 'omega_conc_sck[3]',
-                         base_samples[['omega_shutdown[3]']], 'omega_shutdown[3]')
+util$plot_pairs_by_chain(base_samples[['sigma']], 'sigma',
+                         base_samples[['gamma_ind']], 'gamma_ind')
 
+util$plot_pairs_by_chain(base_samples[['rho_sp']], 'rho_sp',
+                         base_samples[['rho_ind']], 'rho_ind')
 
+util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
+                         base_samples[['gamma_ind']], 'gamma_ind')
 
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[3]']], 'omega_conc_sck[3]',
-                         base_samples[['mu_conc[3]']], 'mu_conc[3]')
-
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[1]']], 'omega_conc_sck[1]',
-                         base_samples[['tau_conc']], 'tau_conc')
