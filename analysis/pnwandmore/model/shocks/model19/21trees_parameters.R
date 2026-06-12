@@ -38,7 +38,7 @@ names(base_samples) <- names
 util$check_all_expectand_diagnostics(base_samples)
 
 
-par(mfrow = c(3,2))
+par(mfrow = c(2,2))
 for(s in 1:data$N_stands){
   util$plot_expectand_pushforward(base_samples[[paste0('phi_sck[',s,']')]], 30,
                                   display_name = 'Probability of concordant state',
@@ -73,10 +73,14 @@ prior <- rnorm(1e6, 0, 2 / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 1.5, lty = 2)
 
 par(mfrow = c(1,4))
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',1]'), display_ylim = c(0,1))
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',2]'), display_ylim = c(0,1))
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',3]'), display_ylim = c(0,1))
-util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',4]'), display_ylim = c(0,1))
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',1]'), display_ylim = c(0,1),
+                                     ylab = 'p(no idiosyncratic shock)')
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',2]'), display_ylim = c(0,1),
+                                     ylab = 'p(small idiosyncratic bump)')
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',3]'), display_ylim = c(0,1),
+                                     ylab = 'p(large idiosyncratic bump)')
+util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',4]'), display_ylim = c(0,1),
+                                     ylab = 'p(idiosyncratic shutdown)')
 
 par(mfrow=c(4,1))
 util$plot_expectand_pushforward(base_samples[['sigma']], 30,

@@ -7,26 +7,12 @@ source('mcmc_analysis_tools_rstan.R', local=util)
 source('mcmc_visualization_tools.R', local=util)
 setwd(wd)
 
-
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_18may2026_PIPO_30stands_19502022.rds'))
+data <- readRDS(file.path(folder,'data_18may2026_PIPO_10stands_19202021.rds'))
 
-base_samples <- readRDS(file.path(wd, 'output/model/model21', 'basesamples_model21_PIPO_30stands_19502022_fcombined.rds'))
+base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_PIPO_10stands_19202021.rds'))
 util$check_all_expectand_diagnostics(base_samples)
-
-# params <- names(base_samples)
-# delta_clim_smp <- util$filter_expectands(base_samples,  params[grepl('delta', params)])
-# util$check_all_expectand_diagnostics(delta_clim_smp)
-# 
-# other_smp <- util$filter_expectands(base_samples,  params[!grepl('delta', params)])
-# util$check_all_expectand_diagnostics(other_smp, min_ess_hat_per_chain= 50)
-
-fit <- readRDS(file.path(wd, 'output/model/model21/threading', 'fit_model21_PIPO_30stands_19502022.rds'))
-fit$diagnostic_summary()
-fit$time()
-
-
 
 par(mfrow = c(2,2), mar = c(4,4,1,1))
 util$plot_expectand_pushforward(base_samples[['alpha']], 50,
@@ -51,21 +37,21 @@ prior <- rnorm(1e6, 0, log(1.8)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
 
-par(mfrow = c(3,2), mar = c(4,4,1,1))
-util$plot_expectand_pushforward(base_samples[['rho_sp']], 50,
-                                display_name = 'rho_sp',
-                                flim = c(10,80))
+par(mfrow = c(2,2), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['rho_merged']], 50,
+                                display_name = 'rho_merged',
+                                flim = c(0,40))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
-prior <- rlnorm(1e6, 3.7, 0.35)
+prior <- rlnorm(1e6, log(15), 0.5)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['gamma_sp']], 50,
-                                display_name = 'gamma_sp',
-                                flim = c(0,log(10)))
-prior <- rnorm(1e6, 0, log(10)/2.57)
+util$plot_expectand_pushforward(base_samples[['gamma_merged']], 50,
+                                display_name = 'gamma_merged',
+                                flim = c(0,log(3)))
+prior <- rnorm(1e6, 0, log(2.3) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['rho_sh']], 50,
                                 display_name = 'rho_sh',
-                                flim = c(10,80))
+                                flim = c(10,100))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
 prior <- rlnorm(1e6, 3.0, 0.42)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
@@ -74,17 +60,7 @@ util$plot_expectand_pushforward(base_samples[['gamma_sh']], 30,
                                 flim = c(0,log(3)))
 prior <- rnorm(1e6, 0, log(3)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['rho_ind']], 30,
-                                display_name = 'rho_ind',
-                                flim = c(1,10))
-abline(v = data$N_all_years, lty = 2, lwd = 2)
-prior <- rlnorm(1e6, 1.3, 0.38)
-lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_expectand_pushforward(base_samples[['gamma_ind']], 30,
-                                display_name = 'gamma_ind',
-                                flim = c(0,log(3)))
-prior <- rnorm(1e6, 0, log(3)/2.57)
-lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+
 
 par(mfrow = c(1,2))
 util$plot_expectand_pushforward(base_samples[['tau_clim']], 50,
@@ -95,11 +71,11 @@ lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['sigma']], 50,
                                 display_name = 'sigma',
                                 flim = c(0,log(1.3)))
-prior <- rnorm(1e6, 0, log(1.3)/2.57)
+prior <- rnorm(1e6, 0, log(1.1) /2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
 cols <- colorRampPalette(c(util$c_light, util$c_mid, util$c_dark))(data$N_stands)
-par(mfrow = c(3,2))
+par(mfrow = c(2,2))
 for(i in 1:data$N_stands){
   util$plot_expectand_pushforward(base_samples[[paste0('phi_sck[',i,']')]], 30,
                                   display_name = 'p(stand concordance)',
@@ -123,28 +99,11 @@ for(i in 1:data$N_stands){
 # prior <- rbeta(1e6, 1.26, 5.97)
 prior <- rbeta(1e6, 1.08, 1.64)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-plot.new()
 util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
                                 display_name = 'tau_conc',
                                 flim = c(0,3))
 prior <- rnorm(1e6, 0, 3 / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-# for(i in 1:data$N_stands){
-#   util$plot_expectand_pushforward(base_samples[[paste0('mu_conc[',i,']')]], 30,
-#                                   display_name = 'mu_conc',
-#                                   flim = c(0,3), add = (i != 1), col = cols[i])
-# }
-# prior <- rlnorm(1e6, -0.65, 0.89)
-# prior <- rnorm(1e6, 1.5, 1.5/2.57)
-# lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-# for(i in 1:data$N_stands){
-#   util$plot_expectand_pushforward(base_samples[[paste0('tau_conc[',i,']')]], 30,
-#                                   display_name = 'tau_conc',
-#                                   flim = c(0,3), add = (i != 1), col = cols[i])
-# }
-# util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
-#                                   display_name = 'tau_conc',
-#                                   flim = c(0,1.5))
 
 
 par(mfrow = c(2,2), mar = c(4,4,1,1))
@@ -192,33 +151,4 @@ prior <- rnorm(1e6, 0, log(5) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
 
-
-util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
-                         base_samples[['gamma_ind']], 'gamma_ind')
-
-util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
-                         base_samples[['rho_sp']], 'rho_sp')
-
-util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
-                         base_samples[['sigma']], 'sigma')
-
-util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
-                         base_samples[['rho_sh']], 'rho_sh')
-
-util$plot_pairs_by_chain(base_samples[['rho_ind']], 'rho_ind',
-                         base_samples[['gamma_sp']], 'gamma_sp')
-
-par(mfrow = c(1,1), mar = c(4,4,1,1))
-util$plot_disc_pushforward_quantiles(base_samples, paste0('alpha_stand[',1:data$N_stands,']'), display_ylim = c(-2,2), ylab = bquote(alpha[stand]), xlab = "Stand")
-
-
-
-util$plot_pairs_by_chain(base_samples[['gamma_ind']], 'gamma_ind',
-                         base_samples[['tau_clim']], 'tau_clim')
-
-util$plot_pairs_by_chain(base_samples[['gamma_sp']], 'gamma_sp',
-                         base_samples[['tau_clim']], 'tau_clim')
-
-util$plot_pairs_by_chain(base_samples[['gamma_sh']], 'gamma_sh',
-                         base_samples[['tau_clim']], 'tau_clim')
 

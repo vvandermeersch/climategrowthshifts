@@ -75,6 +75,9 @@ util$plot_pairs_by_chain(base_samples[['delta_clim[1,7]']], 'delta_clim[1,7]',
 util$plot_pairs_by_chain(base_samples[['omega_conc_sck[1]']], 'omega_conc_sck[1]',
                          base_samples[['phi_sck[1]']], 'phi_sck[1]')
 
+util$plot_pairs_by_chain(base_samples[['alpha']], 'alpha',
+                         base_samples[['gamma_sp']], 'gamma_sp')
+
 par(mfrow = c(3,1))
 util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',1]'), display_ylim = c(0,1))
 util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$N_trees,',2]'), display_ylim = c(0,1))
@@ -83,3 +86,44 @@ util$plot_disc_pushforward_quantiles(base_samples, paste0('thetas_idio[',1:data$
 par(mfrow = c(1,1))
 util$plot_disc_pushforward_quantiles(base_samples, paste0('delta_clim_raw[1,',1:data$N_all_years,']'), 
                                      display_ylim = c(-2,2))
+
+
+par(mfrow = c(3,2), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['rho_sp']], 50,
+                                display_name = 'rho_sp',
+                                flim = c(10,80))
+abline(v = data$N_all_years, lty = 2, lwd = 2)
+prior <- rlnorm(1e6, 3.7, 0.35)
+lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_expectand_pushforward(base_samples[['gamma_sp']], 50,
+                                display_name = 'gamma_sp',
+                                flim = c(0,log(10)))
+prior <- rnorm(1e6, 0, log(10)/2.57)
+lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+
+
+
+par(mfrow=c(2,2))
+util$plot_expectand_pushforward(base_samples[['sigma']], 30,
+                                display_name = 'sigma',
+                                flim = c(0,log(1.3)))
+prior <- rnorm(1e6, 0, log(1.3) / 2.57)
+lines(density(prior), col = util$c_light_teal, lwd = 1.5, lty = 2)
+
+util$plot_expectand_pushforward(base_samples[['tau_stand']], 30,
+                                display_name = 'tau_stand',
+                                flim = c(0,1*2.57))
+prior <- rnorm(1e6, 0, 1)
+lines(density(prior), col = util$c_light_teal, lwd = 1.5, lty = 2)
+
+util$plot_expectand_pushforward(base_samples[['tau_conc']], 30,
+                                display_name = 'tau_conc',
+                                flim = c(0,3))
+prior <- rnorm(1e6, 0, 3 / 2.57)
+lines(density(prior), col = util$c_light_teal, lwd = 1.5, lty = 2)
+
+util$plot_expectand_pushforward(base_samples[['tau_idio']], 30,
+                                display_name = 'tau_idio',
+                                flim = c(0,log(5)))
+prior <- rnorm(1e6, 0, log(5) / 2.57)
+lines(density(prior), col = util$c_light_teal, lwd = 1.5, lty = 2)

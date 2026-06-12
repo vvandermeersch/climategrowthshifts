@@ -1,6 +1,9 @@
 
 library(cmdstanr)
 
+fit_upd <- readRDS("/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model/model13/fit_29jan2025_gymnosperms_standclimate_19502024_6species_model13_updatedpriors.rds")
+fit_upd$time()
+fit_upd$diagnostic_summary()
 
 # Parameters samples
 param_samples <- fit_upd$draws(variables = c("mu_alpha","mu_gdd", "mu_vpd", "mu_pre", 
@@ -63,12 +66,13 @@ phis_q50[73]
 omegas_conc_q50[73]
 omegas_nonconc_q50[73]
 
+which(omegas_conc_q50 > 0.8 & omegas_nonconc_q50 < 0.05)
 
 
 subset <- which((phis_q50)*omegas_conc_q50 > 0.1)
 
-tree_idxs <- which(data$stand_species_idxs == 57)
-par(mfrow = c(1,3), cex.lab = 1.2)
+tree_idxs <- which(data$stand_species_idxs == 29)
+par(mfrow = c(3,3), cex.lab = 1.2)
 for(t in tree_idxs){
   idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
   stand <- data$stand_idxs[t]
@@ -82,10 +86,10 @@ for(t in tree_idxs){
   text(x = .5, y = -6.9, labels = data$uniq_tree_ids[t], cex = 1, adj = 0)
   text(x = .5, y = -7.7, labels = paste0('Species:', data$uniq_species_ids[data$species_idxs[t]]), cex = 1, adj = 0)
   
-  start <- 1+(stand-1)*data$N_all_years
-  end <- stand*data$N_all_years
-  lines(1:data$N_all_years, data$pre_obs[start:end]/10, col = 'darkblue')
-  lines(1:data$N_all_years, data$vpd_obs[start:end]/20, col = 'darkred')
+  # start <- 1+(stand-1)*data$N_all_years
+  # end <- stand*data$N_all_years
+  # lines(1:data$N_all_years, data$pre_obs[start:end]/10, col = 'darkblue')
+  # lines(1:data$N_all_years, data$vpd_obs[start:end]/20, col = 'darkred')
   
   names <- paste0("sck_state[",idxs,"]")
   util$plot_disc_pushforward_quantiles(gq_samples, names, data$years[idxs],
@@ -109,3 +113,104 @@ names <- paste0("beta_gdd[",1:data$N_species,"]")
 util$plot_disc_pushforward_quantiles(samples, names, 1:data$N_species,
                                      xlab="Year", ylab="Shock state", 
                                      display_ylim=c(-0.1, 0.1))
+
+
+
+
+
+
+par(mfrow = c(1,2), cex.lab = 0.85)
+plot(1, type="n", main='',
+     xlim= c(0,1), xlab= bquote(omega[shock]^{concordant} ~ "(" * "individuals" * ")"),
+     ylim= c(0,15), ylab="",  yaxt="n",
+     bty = "n")
+title(ylab="Estimated Bin\nProbabilities / Bin Width",
+      mgp=c(1, 1, 0))
+h <- hist(rbeta(1e6, 230,14), plot = FALSE, breaks = seq(0,1,0.01))
+h$density = h$counts/sum(h$counts)*100
+# plot(h, freq=FALSE, add = T, col = util$c_light_teal, border = 'white')
+for(stsp in 1:data$N_stand_species){
+  util$plot_expectand_pushforward(samples[[paste0('omega_conc_sck[',stsp,']')]], 50,
+                                  flim = c(0,1), ylim = c(0,15),
+                                  display_name = bquote(omega[shock]^{concordant}),
+                                  col = '#8f2727', add = TRUE)
+}
+plot(1, type="n", main='',
+     xlim= c(0,1), xlab= bquote(omega[shock]^{concordant} ~ "(" * "population" * ")"),
+     ylim= c(0,15), ylab="",  yaxt="n",
+     bty = "n")
+util$plot_expectand_pushforward(samples[[paste0('omega_conc_sck0')]], 50,
+                                flim = c(0,1), ylim = c(0,15),
+                                display_name = bquote(omega[shock]^{concordant}),
+                                col = '#278f27', add = T)
+
+par(mfrow = c(1,2), cex.lab = 0.85)
+plot(1, type="n", main='',
+     xlim= c(0,1), xlab= bquote(omega[shock]^{concordant} ~ "(" * "population location" * ")"),
+     ylim= c(0,20), ylab="",  yaxt="n",
+     bty = "n", xaxs = "i")
+title(ylab="Estimated Bin\nProbabilities / Bin Width",
+      mgp=c(1, 1, 0))
+h <- hist(rbeta(1e6, 230,14), plot = FALSE, breaks = seq(0,1,0.008))
+h$density = h$counts/sum(h$counts)*100
+plot(h, freq=FALSE, add = T, col = util$c_light_teal, border = 'white')
+util$plot_expectand_pushforward(samples[[paste0('omega_conc_sck0')]], 50,
+                                flim = c(0,1), ylim = c(0,20),
+                                display_name = bquote(omega[shock]^{concordant}),
+                                add = T)
+
+plot(1, type="n", main='',
+     xlim= c(0,1.5), xlab= bquote(tau[omega[shock]^{concordant}] ~ "(" * "population scale, logit scale" * ")"),
+     ylim= c(0,10), ylab="",  yaxt="n",
+     bty = "n", xaxs = "i")
+title(ylab="Estimated Bin\nProbabilities / Bin Width",
+      mgp=c(1, 1, 0))
+h <- hist(rnorm(1e6, 0,0.3/2.57), plot = FALSE, breaks = seq(-1.5,1.5,0.008*1.5))
+h$density = h$counts/sum(h$counts)*100
+plot(h, freq=FALSE, add = T, col = util$c_light_teal, border = 'white')
+util$plot_expectand_pushforward(samples[[paste0('tau_omega_conc_sck')]], 50,
+                                flim = c(-1.5,1.5), ylim = c(0,10),
+                                display_name = bquote(omega[shock]^{concordant}),
+                                add = T)
+
+
+
+par(mfrow =c(1,2))
+plot(1, type="n", main='',
+     xlim= c(0,6), xlab= bquote(tau[shock] ~ "(" * "population location" * ")"),
+     ylim= c(0,6), ylab="",  yaxt="n",
+     bty = "n", xaxs = "i")
+title(ylab="Estimated Bin\nProbabilities / Bin Width",
+      mgp=c(1, 1, 0))
+h <- hist(rnorm(1e6, 0, log(20)/2.57), plot = FALSE, breaks = seq(-6,6,0.1))
+h$density = h$counts/sum(h$counts)*100
+plot(h, freq=FALSE, add = T, col = util$c_light_teal, border = 'white')
+util$plot_expectand_pushforward(samples[[paste0('mu_tau_sck[1]')]], 121,
+                                flim = c(-6,6), ylim = c(0,6),
+                                display_name = bquote(omega[shock]^{concordant}),
+                                add = T)
+
+plot(1, type="n", main='',
+     xlim= c(0,2), xlab= bquote(tau[shock] ~ "(" * "population scale" * ")"),
+     ylim= c(0,6), ylab="",  yaxt="n",
+     bty = "n", xaxs = "i")
+title(ylab="Estimated Bin\nProbabilities / Bin Width",
+      mgp=c(1, 1, 0))
+h <- hist(rnorm(1e6, 0, log(2)/2.57), plot = FALSE, breaks = seq(-2,2,0.03))
+h$density = h$counts/sum(h$counts)*100
+plot(h, freq=FALSE, add = T, col = util$c_light_teal, border = 'white')
+util$plot_expectand_pushforward(samples[[paste0('tau_tau_sck[1]')]], 134,
+                                flim = c(-2,2), ylim = c(0,6),
+                                display_name = bquote(omega[shock]^{concordant}),
+                                add = T)
+
+
+
+
+
+par(mfrow = c(1,1))
+util$plot_expectand_pushforward(samples[[paste0('phi_sck[29]')]], 134,
+                                flim = c(0,1), ylim = c(0,20),
+                                display_name = bquote(phi[shock]))
+
+util$check_all_expectand_diagnostics(util$filter_expectands(samples, 'phi_sck[29]'))

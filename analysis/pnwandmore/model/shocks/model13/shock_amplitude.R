@@ -9,7 +9,7 @@ setwd(wd)
 
 
 data <-readRDS(file.path(wd, 'output/model', 'data_30jan2025_gymnosperms_standclimate_19502024_7species.rds'))
-# fit <- readRDS(file.path(wd, 'output/model/model13', 'fit_16feb2026_gymnosperms_standclimate_19502024_7species_model13_updatedpriors.rds'))
+fit <- readRDS(file.path(wd, 'output/model/model13', 'fit_16feb2026_gymnosperms_standclimate_19502024_7species_model13_updatedpriors.rds'))
 
 # Standalone generated quantities
 # mod_gq <- cmdstan_model(file.path(wd, 'model/stan', 'model13_updatedpriors_wGQ.stan'))

@@ -46,18 +46,36 @@ datasets <- datasets[!(datasets$species_code %in% angiosperms),]
 toremove <- names(table(datasets$species_code))[table(datasets$species_code) == 1]
 datasets <- datasets[!(datasets$species_code %in% toremove),]
 
+# Temporary
+# datasets <- datasets[datasets$dataset != 'or112' & datasets$state %in% c('ca', 'nv', 'or', 'wa'),]
 # datasets <- datasets[datasets$species_code == 'PIPO',]
-# datasets <- datasets[!(datasets$dataset %in% c('ca739', 'az617', 'az585')),]
+# datasets <- datasets[!(datasets$dataset %in% c('az617', 'az585', 'ca739', 'co625', 'co653')),]
 
-cbs <- table(datasets$species_code)
-datasets <- datasets[datasets$species_code %in% names(cbs[cbs < 20 & cbs > 5]),]
-datasets <- datasets[!(datasets$dataset %in% c('wy071', 'wy072', 'ut555')),]
+datasets <- datasets[datasets$species_code == 'PSME',]
+# datasets <- datasets[datasets$dataset %in% c('az565', 'co654', 'nm589', 'wy058', 'wa137',
+#                                              'az602', 'co608', 'id019', 'ut539', 'wa138'),]
+# datasets <- datasets[datasets$dataset %in% c('az565', 'co654', 'wa137'),]
+# datasets <- datasets[datasets$dataset %in% c('ut539'),]
 
+# datasets <- datasets[datasets$species_code == 'PSME',]
+# datasets <- datasets[datasets$dataset %in% c('az568', 'co658', 'id023', 'mt163', 'or117',
+#                                              'wa149', 'wy062', 'mt147', 'ca682', 'az586'),]
+# datasets <- datasets[datasets$dataset %in% c('az565', 'co654', 'nm589', 'wy058', 'wa137',
+#                                              'az602', 'co608', 'id019', 'or085', 'wa138', 'nm610'),]
+
+# datasets <- datasets[datasets$dataset %in% sample(datasets$dataset,30),]
+
+
+# "S227" "S88"  "S388" have more than 50 trees for PIPO, remove for now (just to gain time), correspond to 
+# datasets <- datasets[!(datasets$dataset %in% c('az617', 'ca739', 'co625', 'co653')),]
+
+# "S88" "S24" have more than 70 trees for PSME, remove for now (just to gain time), correspond to 
+datasets <- datasets[!(datasets$dataset %in% sample(datasets$dataset , 30)),]
 
 # Prepare tree ring data!
 ringwidth_series <- readRDS(file.path(wd, 'input', 'itrdb', 'ringwidth_series_usonly_from1896_update19Apr2026_noduplicates.rds'))
 
-all_years <-  1920:2024
+all_years <-  1980:2024
 # all_years <- min(ringwidth_series$year): max(ringwidth_series$year)
 
 raw_data <- data.frame()
@@ -107,7 +125,7 @@ for(d in 1:nrow(datasets)){
   raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
   
   # remove less than 50 years observed
-  trees_to_remove <- check_length[check_length$rw_avg_mm < 50, 'tree_id_uniq']
+  trees_to_remove <- check_length[check_length$rw_avg_mm < 20, 'tree_id_uniq']
   raw_data_d <- raw_data_d[!(raw_data_d$tree_id_uniq %in% trees_to_remove),]
   
   raw_data <- rbind(raw_data, raw_data_d)
@@ -116,7 +134,7 @@ datasets <- datasets[!(datasets$dataset %in% datasets_empty),]
 raw_data <- merge(raw_data,  datasets[, c("dataset", "grouped_stand")], by.x = 'dataset', by.y = 'dataset')
 length(unique(datasets$grouped_stand))
 
-all_years <- min(raw_data$year): max(raw_data$year)
+# all_years <- min(raw_data$year): max(raw_data$year)
 
 # Deal with potential duplicates
 # Now done before!
@@ -147,7 +165,7 @@ uniq_species_ids <- unique(raw_data$species_code)
 N_species <- length(uniq_species_ids)
 clade_idxs <- as.numeric(uniq_species_ids %in% angiosperms)+1 # Gymnosperms=1, Angiosperms=2
 
-# all_years <-  min(raw_data$year):max(raw_data$year)
+all_years <-  min(raw_data$year):max(raw_data$year)
 N_all_years <- length(all_years)
 
 # Format data into ragged arrays
@@ -266,9 +284,9 @@ for(s in uniq_stand_ids){
 }
 
 # Cheap comparison
-par(mfrow = c(1,1))
-hist((pre_obs-pre_obs_climatena)/pre_obs_climatena*100)
-quantile((pre_obs-pre_obs_climatena)/pre_obs_climatena*100, c(0.05,0.95))
+# par(mfrow = c(1,1))
+# hist((pre_obs-pre_obs_climatena)/pre_obs_climatena*100)
+# quantile((pre_obs-pre_obs_climatena)/pre_obs_climatena*100, c(0.05,0.95))
 
 
 # Cross check sizes
@@ -311,9 +329,9 @@ data$uniq_stand_lat <- stringr::str_split_i(group_coordinates[group_coordinates$
 data$uniq_stand_lon <- stringr::str_split_i(group_coordinates[group_coordinates$grouped_stand %in% data$uniq_stand_ids, "group_keys"], '/', 3)
 
 hist(data$N_stand_trees, breaks= 100)
-data$uniq_stand_ids[data$N_stand_trees > 80]
+data$uniq_stand_ids[data$N_stand_trees > 70]
 stop()
-saveRDS(data, file = file.path(wd, 'output/model', 'data_12june2026_11species_99stands_19202020.rds'))
-saveRDS(datasets, file.path(wd, 'output/model', 'datasets_12june2026_11species_99stands_19202020.rds'))
+saveRDS(data, file = file.path(wd, 'output/model', 'data_18may2026_PSME_30stands_19802024.rds'))
+saveRDS(datasets, file.path(wd, 'output/model', 'datasets_18may2026_PSME_30stands_19802024.rds'))
 
 

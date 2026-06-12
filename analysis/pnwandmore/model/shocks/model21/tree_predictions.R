@@ -100,75 +100,86 @@ util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
 abline(v = c(1985, 1989), lty = 2)
 
 ## Full model
+
+pdf(file.path(wd, 'model/shocks/model21', 'trees_for_Lizzie.pdf'), width = 11, height = 8.5)
+
 chains <- c(1:4)
-par(mfrow=c(3,4), mar = c(4,4,1,1))
-t <- 10
-idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
-names <- paste0("log_rw_pred[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
-                                                  xlab="Year", ylab="Log ring width (per mm)", 
-                                                  display_ylim=c(-3, 2), display_xlim = range(data$all_years),
-                                                  main = c('Chain(s) ', paste0(chains, collapse = ", ")))
-points(data$years[idxs], log(data$rw_obs[idxs]), pch=16, cex=1, col="white")
-points(data$years[idxs], log(data$rw_obs[idxs]), pch=16, cex=0.5, col="black")
-text(x = 1950, y = 2, labels = data$uniq_tree_ids[t], cex = 0.8, adj = 0, col = "#474747")
-
-plot.new()
-
-names <- paste0("f[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
-                                                  xlab="Year", ylab="Long-term GP (allometry)", 
-                                                  display_ylim=c(-3, 2), display_xlim = range(data$all_years))
-
-names <- paste0("f_ind[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
-                                                  xlab="Year", ylab="Short-term GP (canopy)", 
-                                                  display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+par(mfrow=c(3,4), mar = c(2,4,1,1), oma = c(1,1,1,1))
 
 
-plot.new()
+for(t in c(10,12,14,16)){
+  
+  idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+  names <- paste0("log_rw_pred[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
+                                                    xlab="Year", ylab="Log ring width (per mm)", 
+                                                    display_ylim=c(-3, 2), display_xlim = range(data$all_years),
+                                                    # main = c('Chain(s) ', paste0(chains, collapse = ", "))
+  )
+  points(data$years[idxs], log(data$rw_obs[idxs]), pch=16, cex=1, col="white")
+  points(data$years[idxs], log(data$rw_obs[idxs]), pch=16, cex=0.5, col="black")
+  text(x = 1950, y = 2, labels = data$uniq_tree_ids[t], cex = 0.8, adj = 0, col = "#474747")
+  
+  plot.new()
+  
+  names <- paste0("f[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
+                                                    xlab="Year", ylab="Long-term GP (allometry)", 
+                                                    display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  names <- paste0("f_ind[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles_missingrings(temp, names, data$years[idxs],
+                                                    xlab="Year", ylab="Short-term GP (microenv., canopy)", 
+                                                    display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  
+  plot.new()
+  
+  names <- paste0("f_sh[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
+  temp <- lapply(samples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
+                                       xlab="Year", ylab="Stand GP (macroenv.)", 
+                                       display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  names <- paste0("regr_clim[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
+                                       xlab="Year", ylab="Explained climate", 
+                                       display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  names <- paste0("delta_clim[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
+  temp <- lapply(samples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
+                                       xlab="Year", ylab="Missing macroenvironment", 
+                                       display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  names <- paste0("tree_conc_state[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_disc_pushforward_quantiles(temp, names, 
+                                       xlab="Year", ylab="Concordant state", 
+                                       display_ylim=c(0, 1))
+  
+  names <- paste0("tree_idio_state[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_disc_pushforward_quantiles(temp, names, 
+                                       xlab="Year", ylab="Idiosyncratic state", 
+                                       display_ylim=c(0, 1))
+  
+  names <- paste0("delta_sck[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
+                                       xlab="Year", ylab="Shock amplitude", 
+                                       display_ylim=c(-3, 2), display_xlim = range(data$all_years))
+  
+  names <- paste0("shutdown[",idxs,"]")
+  temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
+  util$plot_disc_pushforward_quantiles(temp, names, 
+                                       xlab="Year", ylab="Shutdown state", 
+                                       display_ylim=c(0, 1))
+  
+}
 
-names <- paste0("f_sh[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
-temp <- lapply(samples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
-                                     xlab="Year", ylab="Stand GP", 
-                                     display_ylim=c(-3, 2), display_xlim = range(data$all_years))
-
-names <- paste0("regr_clim[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
-                                     xlab="Year", ylab="Explained climate", 
-                                     display_ylim=c(-3, 2), display_xlim = range(data$all_years))
-
-names <- paste0("delta_clim[",data$stand_idxs[t],",",which(data$all_years %in% data$years[idxs]),"]")
-temp <- lapply(samples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
-                                     xlab="Year", ylab="Missing climate", 
-                                     display_ylim=c(-3, 2), display_xlim = range(data$all_years))
-
-names <- paste0("tree_conc_state[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_disc_pushforward_quantiles(temp, names, 
-                                     xlab="Year", ylab="Concordant state", 
-                                     display_ylim=c(0, 1))
-
-names <- paste0("tree_idio_state[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_disc_pushforward_quantiles(temp, names, 
-                                     xlab="Year", ylab="Idiosyncratic state", 
-                                     display_ylim=c(0, 1))
-
-names <- paste0("delta_sck[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_conn_pushforward_quantiles(temp, names, data$years[idxs],
-                                     xlab="Year", ylab="Shock amplitude", 
-                                     display_ylim=c(-3, 2), display_xlim = range(data$all_years))
-
-names <- paste0("shutdown[",idxs,"]")
-temp <- lapply(treesamples[names], function(m) m[chains, , drop = FALSE])
-util$plot_disc_pushforward_quantiles(temp, names, 
-                                     xlab="Year", ylab="Shutdown state", 
-                                     display_ylim=c(0, 1))
+dev.off()
