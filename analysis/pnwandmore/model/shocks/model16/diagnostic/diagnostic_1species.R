@@ -10,8 +10,8 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model/'
 
-data <- readRDS(file.path(folder,'data_11mar2026_idahoPIPO_standclimate_18962024.rds'))
-fit <- readRDS(file.path(folder, 'model16/fit_11mar2026_idahoPIPO.rds'))
+data <- readRDS(file.path(folder,'data_26mar2026_TSME_standclimate_18962024.rds'))
+fit <- readRDS(file.path(folder, 'model16/fit_HSGP_26mar2026_TSME_NCPphi_NCPdeltaomega_newpriors.rds'))
 gc()
 
 
@@ -34,6 +34,8 @@ samples <- lapply(1:dim(samples)[3],
                   function(k){t(matrix(samples[1:dim(samples)[1],1:dim(samples)[2],k], 
                                        nrow = dim(samples)[1], ncol = dim(samples)[2]))})
 names(samples) <- names
+
+# base_samples <- util$filter_expectands(samples, c("mu_logdelta_omega_nonconc_sck"), check_arrays = TRUE)
 util$check_all_expectand_diagnostics(samples)
 
 # Intercept and slopes
@@ -47,7 +49,7 @@ lines(density(prior), col = 'darkblue')
 util$plot_expectand_pushforward(samples[['beta_vpd']], 50, flim= c(-0.5,0.5), 'beta_vpd')
 prior <- rnorm(1e6, 0, log(1.8) / 2.57)
 lines(density(prior), col = 'darkblue')
-util$plot_expectand_pushforward(samples[['beta_pre']], 50, flim= c(-0.5,0.5), 'beta_pre')
+util$plot_expectand_pushforward(samples[['beta_pre']], 50, flim= c(-2,2), 'beta_pre')
 prior <- rnorm(1e6, 0, log(1.8) / 2.57)
 lines(density(prior), col = 'darkblue')
 
@@ -56,21 +58,24 @@ par(mfrow = c(3,2))
 util$plot_expectand_pushforward(samples[['rho_sp']], 50, flim= c(0,100), 'rho_sp')
 prior <- rlnorm(1e6, 3.55, 0.24)
 lines(density(prior), col = 'darkblue')
-util$plot_expectand_pushforward(samples[['gamma_sp']], 50, flim= c(0,2), 'gamma_sp')
+util$plot_expectand_pushforward(samples[['gamma_sp']], 50, flim= c(0,10), 'gamma_sp')
 prior <- rnorm(1e6, 0, log(10) / 2.57)
 lines(density(prior), col = 'darkblue')
-util$plot_expectand_pushforward(samples[['rho_sh']], 50, flim= c(1,5), 'rho_sh')
-prior <- rlnorm(1e6, 1.7, 0.26)
+util$plot_expectand_pushforward(samples[['rho_sh']], 50, flim= c(1,10), 'rho_sh')
+prior <- rlnorm(1e6, 0.55, 0.24)
 lines(density(prior), col = 'darkblue')
-util$plot_expectand_pushforward(samples[['gamma_sp']], 50, flim= c(0,2), 'gamma_sh')
+util$plot_expectand_pushforward(samples[['gamma_sh']], 50, flim= c(0,10), 'gamma_sh')
 prior <- rnorm(1e6, 0, log(3) / 2.57)
 lines(density(prior), col = 'darkblue')
 util$plot_expectand_pushforward(samples[['rho_ind']], 50, flim= c(1,5), 'rho_ind')
 prior <- rlnorm(1e6, 0.80, 0.40)
 lines(density(prior), col = 'darkblue')
-util$plot_expectand_pushforward(samples[['gamma_ind']], 50, flim= c(0,2), 'gamma_ind')
+util$plot_expectand_pushforward(samples[['gamma_ind']], 50, flim= c(0,10), 'gamma_ind')
 prior <- rnorm(1e6, 0, log(3) / 2.57)
 lines(density(prior), col = 'darkblue')
+
+util$plot_pairs_by_chain(samples[['gamma_sh']], 'gamma_sh',
+                         samples[['rho_sh']], 'rho_sh')
 
 # Shocks
 par(mfrow = c(4,2))
@@ -104,16 +109,19 @@ shocks <- lapply(1:dim(shocks)[3],
                   function(k){t(matrix(shocks[1:dim(shocks)[1],1:dim(shocks)[2],k], 
                                        nrow = dim(shocks)[1], ncol = dim(shocks)[2]))})
 names(shocks) <- names
-par(mfrow = c(3,1))
-util$plot_disc_pushforward_quantiles(shocks, paste0('phi_sck[', 1:data$N_stands, ']'), display_ylim = c(0,1))
-util$plot_disc_pushforward_quantiles(shocks, paste0('omega_conc_sck[', 1:data$N_stands, ']'), display_ylim = c(0,1))
-util$plot_disc_pushforward_quantiles(shocks, paste0('omega_nonconc_sck[', 1:data$N_stands, ']'), display_ylim = c(0,1))
+par(mfrow = c(3,1), mar = c(4,4,1,1))
+util$plot_disc_pushforward_quantiles(shocks, paste0('phi_sck[', 1:data$N_stands, ']'), display_ylim = c(0,0.5),
+                                     ylab = 'p(stand concordance)')
+util$plot_disc_pushforward_quantiles(shocks, paste0('omega_conc_sck[', 1:data$N_stands, ']'), display_ylim = c(0,1),
+                                     ylab = 'p(tree shock | stand concordance)')
+util$plot_disc_pushforward_quantiles(shocks, paste0('omega_nonconc_sck[', 1:data$N_stands, ']'), display_ylim = c(0,0.1),
+                                     ylab = 'p(tree shock | no stand concordance)')
 
 
 
 
 # Generate predictions!
-mod_gq <- cmdstan_model(file.path(wd, 'model/stan/model16', 'model16_indGP_only1species_withGQ.stan'))
+mod_gq <- cmdstan_model(file.path(wd, 'model/stan/model16/hsgp', 'model16_HSGP_indGP_only1species_NCPphi_NCPdeltaomega_withGQ.stan'))
 data_gq <- data
 data_gq$grainsize <-  ceiling(data_gq$N_stands/4)
 data_gq$uniq_tree_ids <- NULL
@@ -131,8 +139,16 @@ gq_samples <- lapply(1:dim(gq_samples)[3],
                                        nrow = dim(gq_samples)[1], ncol = dim(gq_samples)[2]))})
 names(gq_samples) <- names
 
-pdf(file.path(wd, 'model/shocks/model16/figures', 'idahoPIPO.rds'), height = 10, width = 16)
-par(mfrow = c(8,5), cex.lab = 0.8, cex.axis = 0.8, mar = c(1.5,4,0.5,1), mgp = c(1.5, 0.2, 0),tck = -0.03)
+stand_samples <- fit$draws(c('f_sh'))
+gc()
+names <- dimnames(stand_samples)$variable
+stand_samples <- lapply(1:dim(stand_samples)[3], 
+                        function(k){t(matrix(stand_samples[1:dim(stand_samples)[1],1:dim(stand_samples)[2],k], 
+                                             nrow = dim(stand_samples)[1], ncol = dim(stand_samples)[2]))})
+names(stand_samples) <- names
+
+pdf(file.path(wd, 'model/shocks/model16/figures', 'TSME_newpriors.pdf'), height = 10, width = 19.5)
+par(mfrow = c(8,6), cex.lab = 0.8, cex.axis = 0.8, mar = c(1.5,4,0.5,1), mgp = c(1.5, 0.2, 0),tck = -0.03)
 for(t in 1:data$N_trees){
   idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
   names <- paste0("log_rw_pred[",idxs,"]")
@@ -164,5 +180,48 @@ for(t in 1:data$N_trees){
   util$plot_conn_pushforward_quantiles(gq_samples, names, data$years[idxs],
                                        xlab="Year", ylab="Short-term GP", 
                                        display_ylim=c(-5, 2), display_xlim = range(data$all_years))
+  
+  s <- unique(data$stand_idxs[t])
+  names <- paste0("f_sh[",s,',',1:data$N_all_years,"]")
+  util$plot_conn_pushforward_quantiles(stand_samples, names, data$all_years,
+                                       xlab="Year", ylab="Stand GP", 
+                                       display_ylim=c(-8, 2), display_xlim = range(data$all_years))
+  
+  
 }
 dev.off()
+
+
+
+# Diagnostics the very few divergences
+samples <- fit$draws(c('mu_phi_sck', 'tau_phi_sck', 'alpha_phi_sck_tilde',
+                       'mu_omega_conc_sck', 'tau_omega_conc_sck', 'alpha_omega_conc_sck',
+                       'mu_logdelta_omega_nonconc_sck', 'tau_logdelta_omega_nonconc_sck', 'logdelta_omega_nonconc_sck_tilde'
+))
+names <- dimnames(samples)$variable
+samples <- lapply(1:dim(samples)[3], 
+                  function(k){t(matrix(samples[1:dim(samples)[1],1:dim(samples)[2],k], 
+                                       nrow = dim(samples)[1], ncol = dim(samples)[2]))})
+names(samples) <- names
+util$check_all_expectand_diagnostics(samples)
+
+diag_array <- fit$sampler_diagnostics()
+div_matrix <- diag_array[, , "divergent__"]
+d <- dim(div_matrix)
+diagnostics <- c()
+diagnostics[['divergent__']] <- t(matrix(unclass(div_matrix), nrow = d[1], ncol = d[2]))
+sum(diagnostics[['divergent__']] )
+
+util$plot_div_pairs('mu_phi_sck', 'tau_phi_sck', samples,
+                    diagnostics, transforms=list('tau_phi_sck' = 1))
+util$plot_div_pairs('mu_omega_conc_sck', 'tau_omega_conc_sck', samples,
+                    diagnostics, transforms=list('tau_omega_conc_sck' = 1))
+util$plot_div_pairs('mu_logdelta_omega_nonconc_sck', 'tau_logdelta_omega_nonconc_sck', samples,
+                    diagnostics, transforms=list('tau_logdelta_omega_nonconc_sck' = 1))
+
+util$plot_div_pairs(paste0('alpha_phi_sck_tilde[',1:data$N_stands, ']'), 'tau_phi_sck', samples,
+                    diagnostics, transforms=list('tau_phi_sck' = 1))
+util$plot_div_pairs(paste0('alpha_omega_conc_sck[',1:data$N_stands, ']'), 'tau_omega_conc_sck', samples,
+                    diagnostics, transforms=list('tau_omega_conc_sck' = 1))
+util$plot_div_pairs(paste0('logdelta_omega_nonconc_sck_tilde[',1:data$N_stands, ']'), 'tau_logdelta_omega_nonconc_sck', samples,
+                    diagnostics, transforms=list('tau_logdelta_omega_nonconc_sck' = 1))

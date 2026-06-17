@@ -85,10 +85,10 @@ gps <- lapply(1:dim(gps)[3],
                     function(k){t(matrix(gps[1:dim(gps)[1],1:dim(gps)[2],k], 
                                          nrow = dim(gps)[1], ncol = dim(gps)[2]))})
 names(gps) <- names
+gc()
 
-
-pdf(file.path(wd, 'model/shocks/model16/figures', 'orTSME.pdf'), height = 10, width = 8)
-par(mfrow = c(8,2), cex.lab = 0.8, cex.axis = 0.8, mar = c(1,4,1,1))
+pdf(file.path(wd, 'model/shocks/model16/figures', 'orTSME_withGPs.pdf'), height = 10, width = 16)
+par(mfrow = c(8,4), cex.lab = 0.8, cex.axis = 0.8, mar = c(1,4,1,1))
 for(t in 1:data$N_trees){
   idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
   names <- paste0("log_rw_pred[",idxs,"]")
@@ -104,6 +104,16 @@ for(t in 1:data$N_trees){
   names <- paste0("delta_sck[",idxs,"]")
   util$plot_conn_pushforward_quantiles(delta_sck, names, data$years[idxs],
                                        xlab="Year", ylab="Shock amplitude", 
+                                       display_ylim=c(-5, 1), display_xlim = range(data$all_years))
+  
+  names <- paste0("f[",idxs,"]")
+  util$plot_conn_pushforward_quantiles(gps, names, data$years[idxs],
+                                       xlab="Year", ylab="Long-term GP", 
+                                       display_ylim=c(-5, 1), display_xlim = range(data$all_years))
+  
+  names <- paste0("f_ind[",idxs,"]")
+  util$plot_conn_pushforward_quantiles(gps, names, data$years[idxs],
+                                       xlab="Year", ylab="Short-term GP", 
                                        display_ylim=c(-5, 1), display_xlim = range(data$all_years))
 }
 dev.off()

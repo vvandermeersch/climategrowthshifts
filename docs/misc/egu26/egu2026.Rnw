@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\begin{document}
+\SweaveOpts{concordance=FALSE}
+
+% SESSION:
+% Extremes in temperature, vapor pressure deficit, and soil moisture severely endanger critical functions and services provided by terrestrial ecosystems. Both increasingly extreme long-term trends in environmental conditions and extreme events such as heatwaves, droughts, floods, and unseasonal freezes directly impact key physiological processes such as carbon uptake, transpiration, growth, and mortality. An abundance or scarcity of water, atmospheric dryness, heat, and cold can operate separately or in tandem to cause reductions in terrestrial gross and net primary productivity and elevated risks of plant mortality. However, due to the complexity of these interactions and the scarcity of continuous time series, it is difficult to quantify the magnitude and timing of temperature and water stress-related impacts on ecosystem function. As climate change accelerates the occurrence and severity of climatic extremes with consequences for terrestrial ecosystems, we must harmonize our efforts to characterize plant and ecosystem functions and develop frameworks for monitoring and prediction.
+% 
+% In this session, we broadly explore the roles of temperature extremes, evaporative demand, and soil moisture in carbon, water, and energy relations, along with plant mortality across various spatial and temporal scales. We encourage submissions dealing with novel approaches for measuring and modeling plant and soil water status, responses to extreme conditions, and their impacts on ecosystem function. We invite contributions on these topics at scales ranging from individual plant tissues to entire ecosystems, applying experimental, observational, or modeling approaches and dealing with diverse disciplines such as plant physiology, community ecology, ecosystem ecology, land management, and biogeochemistry.
+
+\subsubsection*{Extreme tree growth responses...}
+\textit{Victor, Ben, Mike, Lizzie}
+\newline
+
+% Must be 100–500 words
+% Currently: ~160
+
+Tree-ring data offer a unique opportunity to learn how trees grow in a non-stationary climate with increasing extremes. However, disentangling tree responses to long-term trends and extreme events remains challenging due to the complex interactions between multiple climatic drivers and size-dependent processes. We developed a new modeling framework that integrates individual-level growth trends with species-specific climate sensitivities. Our model is specifically designed to capture extreme growth responses across trees, species and ecosystems. We applied it to tree-ring records from Western North America, from 1900 to today. We identify the significant drought period of the 200X-200Y as causing exceptional reductions in tree growth, well beyond those predicted alone due to temperature, winter precipation (a proxy of soil moisture during growing season) and vapor pressure deficit. The largest declines occurred in XX species and YY regions. These results demonstrate that tree growth is a critical indicator of drought, and suggest that many current models may understimate growth declines associated with extreme drought events.
+% Integrative approaches such as ours have the potential to improve forecasts of forest dynamics and carbon sequestration under a changing climate.
+
+\vspace*{1cm}
+
+Temperature, vapor pressure deficit, and soil moisture with anthropogenic climate change are causing new extremes for trees. Understanding their impact on tree growth, however, remains challenging given limited large-scale soil moisture data and the complex interaction between multiple climate drivers and size-dependent tree growth. We developed a new modeling framework that integrates individual-level growth trends with species-specific climate sensitivities. Our model is specifically designed to capture extreme growth responses across trees, species and ecosystems. Using new WLDAS data to get soil moisture, we apply the model to 1.6  million observations of tree-ring width across Western North America. We identify the significant drought period of the 200X-200Y as causing exceptional reductions in tree growth, well beyond those predicted alone due to temperature, vapor pressure deficit and soil moisture. The largest declines occurred in XX species and YY regions. These results demonstrate that tree growth is a critical indicator of drought, and suggest that many current models may underestimate growth declines associated with extreme drought events.
+
+
+\end{document}
+
+

@@ -51,14 +51,14 @@ for(t in trees_stand){
 }
 
 
-fsh_samples <- fit$draws(variables = c("f_sh"))
+fsh_samples <- fit_upd$draws(variables = c("f_sh"))
 names <- dimnames(fsh_samples)$variable
 fsh_samples <- lapply(1:dim(fsh_samples)[3], function(k){t(matrix(fsh_samples[1:dim(fsh_samples)[1],1:dim(fsh_samples)[2],k], 
                                                                 nrow = dim(fsh_samples)[1], ncol = dim(fsh_samples)[2]))})
 names(fsh_samples) <- names
 
 par(mfrow = c(1,2), cex.lab = 0.8)
-s <- 62
+s <- 29
 idxs <- seq(1, data$N_all_years, 1)
 names <- paste0("f_sh[",s,",",idxs,"]")
 util$plot_conn_pushforward_quantiles(fsh_samples, names, 1:data$N_all_years,
