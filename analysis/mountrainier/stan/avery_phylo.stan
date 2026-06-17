@@ -31,7 +31,7 @@ parameters {
   array[S] real mu; //base growth mean
   array[S] real<lower = 0> base_var; //base growth variance
   real<lower=0> alpha; //effect of neighbor BA
-  real beta1; //slope of competition on growth
+  real<lower=0> beta1; //slope of competition on growth
   real beta2; //factor of trait distance in phylo term
   
   vector[S] traits; //latent species traits
@@ -64,7 +64,7 @@ model {
         
       real totalcomp = beta1*prod(BAcomp)*prod(phylocomp);
       
-      #If B~lognormal(u, sd), then a*B = C~lognormal(u + log(a), sd)
+      //If B~lognormal(u, sd), then a*B = C~lognormal(u + log(a), sd)
       target += lognormal_lpdf(y[i] | mu[tree_sp[i]] + log(totalcomp), base_var[tree_sp[i]]);
   }
 }

@@ -12,7 +12,8 @@ library(geiger)
 library(tidyverse)
 
 #Load data
-neighbordir <- "analysis/mountrainier/input/neighborhood/"
+#neighbordir <- "analysis/mountrainier/input/neighborhood/"
+neighbordir <- "input/neighborhood/"
 neighbordata <- read.csv(paste0(neighbordir, "neighborhooddatacored2008to2011.csv"))
 neighbordata.info <- read.csv(paste0(neighbordir, "neighborhooddatacored2008to2011treeinfo.csv"))
 
@@ -25,8 +26,10 @@ neighbordata.info$Species[neighbordata.info$Species == "PSHE"] <- "PSME" #Fixing
 
 
 #Phylo distance
-treephylo <- read.tree("analysis/mountrainier/data/rainiertree.tre")
-spcodes <- read.csv("analysis/mountrainier/data/sppcodes.csv")
+#treephylo <- read.tree("analysis/mountrainier/data/rainiertree.tre")
+treephylo <- read.tree("data/rainiertree.tre")
+#spcodes <- read.csv("analysis/mountrainier/data/sppcodes.csv")
+spcodes <- read.csv("data/sppcodes.csv")
 spcodes$Binomial <- gsub(" ","_",spcodes$Binomial)
 spcodes$Species[spcodes$Species == "CANO9"] <- "CANO"
 spcodes$Species[spcodes$Species == "PIMO3"] <- "PIMO"

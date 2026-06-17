@@ -76,7 +76,7 @@ write.csv(neighbour_df_2008,"processed data/neighbour_2008.csv",row.names = FALS
 
 species_2008 <- neighbour_df_2008 %>%
   group_by(Treeid,`Species(neighbor)`) %>%
-  summarize(ba_sum = sum(ba_n)) %>%
+  summarize(ba_sum = sum(ba_n,na.rm=TRUE)) %>%
   rename("Tag" = Treeid) %>%
   left_join(focal_df_2008,by = "Tag") %>%
   mutate(`Species(neighbor)`=ifelse(`Species(neighbor)`%in% c("Thse","Tshe"),"Tshe",`Species(neighbor)`))%>%

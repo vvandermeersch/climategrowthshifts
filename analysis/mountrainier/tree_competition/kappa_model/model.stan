@@ -1,9 +1,12 @@
 data{
+    int<lower=0>year; // *the current year
     int<lower=0> Nf; // number of focal tree
+    int<lower=0> S; // *number of species
     array[Nf] int<lower=0> N; // number of species around each focal tree
+    array[Nf] int<lower=0> tree_sp; // *focal tree species
     int <lower=0> N_total; // total number of neighbouring species(sum N)
     array[N_total] real<lower=0> b; // total basal area data of species
-    array[N_total] real<lower=0, upper=1> focal_corr; // focal tree's correlation with neighbors
+    array[N_total] real<lower=0, upper=1> focal_corr; // focal tree's correlation with neighbors (phylo distance, should we use trait distance instead?)
     array[Nf] int<lower=1,upper=N_total> start_idx; // start index of each focal tree
     array[Nf] int<lower=1,upper=N_total> end_idx; // end index of each focal tree
     array[Nf] real<lower=0> bf; // basal area of the focal tree
@@ -17,11 +20,11 @@ transformed data {
 }
 
 parameters{
-    real<lower=0> sigma; //standard deviation of tree growth
-    real<lower=0,upper=1> k; // strength of the species in competition
-    real<lower=0> beta; // Impact of inter-species competition
-    real<lower=0,upper=1> r; // scaling factor of basel area
-    real<lower=1e-10> y0; // baseline growth (mm)
+    real<lower=0> sigma; //*standard deviation of tree growth
+    real<lower=0,upper=1> k; // *strength of the species in competition
+    array[S] real<lower=0> beta; // Impact of inter-species competition
+    array[S] real<lower=0,upper=1> r; // scaling factor of basel area
+    array[S] real<lower=1e-10> y0; // *baseline growth (mm)
     // real y0_raw;
 }
 
@@ -41,11 +44,11 @@ transformed parameters{
         baphy[i]=0;
         for (t in 1:N[i]) {
             //baphy[i] += bn[t]*pow(corrn[t],k);
-            baphy[i] += bn[t] * pow(fmax(corrn[t], 1e-10), k);
+            baphy[i] += bn[t] * pow(fmax(corrn[t], 1e-2), k);
         }
-        competition[i]=beta*(baphy[i]-BA_compet0);
-        avails[i]=(bf[i]-bf0)*r;
-        mu[i]=log(y0) + avails[i]-competition[i];
+        competition[i]=beta[tree_sp[i]]*(baphy[i]-BA_compet0);
+        avails[i]=(bf[i]-bf0)*r[tree_sp[i]];
+        mu[i]=log(y0[tree_sp[i]]) + avails[i]-competition[i];
     }
 }
 
@@ -57,6 +60,7 @@ model{
     r ~ beta(4,2);
     // regard 1000 cm^2 as 1 unit of BA
     beta ~ normal(0,log(1.1)/2.57);
-    log(y) ~ normal(mu,sigma);
+    for (i in 1:Nf) {
+        log(y[i]) ~ normal(mu[i],sigma);
+    }
 }
-

@@ -12,7 +12,8 @@ source("mcmc_analysis_tools_rstan.R")
 source("mcmc_visualization_tools.R")
 
 
-treephylo <- read.tree("analysis/mountrainier/data/rainiertree.tre")
+#treephylo <- read.tree("analysis/mountrainier/data/rainiertree.tre")
+treephylo <- read.tree("data/rainiertree.tre")
 rainiercoph <- cophenetic(treephylo)
 
 sp.nums <- 1:length(treephylo$tip.label)
@@ -54,7 +55,7 @@ Comp.fun <- function(BAnb, TDnb,
                      beta.phylo = 1, kappa = 0.05){
   lnb <- length(BAnb)
   prod(unlist(sapply(1:lnb, function(x){
-    ((BAnb[x]/BA0)^-alpha)*Trait.cost(TDnb[x], beta = beta.phylo, kappa)}
+    ((BAnb[x]/BA0)^-alpha)*Trait.cost(TDnb[x], k=kappa,beta = beta.phylo)}
   )))
 }
 
@@ -84,11 +85,33 @@ Nneighb <- sample(sapply(unique(neighbordata$Treeid), function(x){sum(neighborda
 latenttraits <- fastBM(treephylo)
 
 #Simulate neighbors
+species_map <- c(
+  TSHE = "Tsuga_heterophylla",
+  THPL = "Thuja_plicata",
+  ABAM = "Abies_amabilis",
+  PSME = "Pseudotsuga_menziesii",
+  ABGR = "Abies_grandis",
+  TSME = "Tsuga_mertensiana",
+  CANO = "Callitropsis_nootkatensis",
+  PIMO = "Pinus_monticola",
+  ABLA = "Abies_lasiocarpa",
+  ACCI = "Abies_lasiocarpa"
+)
+
 Neighbors <- list()
+valid_tmpneighb <- tmpneighb[!is.na(tmpneighb$Species.neighbor.), ]
 for(i in 1:ntrees){
-  Neighbors[[i]] <- tmpneighb[sample(1:nrow(tmpneighb), Nneighb[i]),]
+  Neighbors[[i]] <- valid_tmpneighb[sample(1:nrow(valid_tmpneighb), Nneighb[i]),]
+  Neighbors[[i]]$Species.neighbor. <- species_map[Neighbors[[i]]$Species.neighbor.]
   for(j in 1:nrow(Neighbors[[i]])){
-    Neighbors[[i]]$phylodist[j] <- latenttraits[spsim[i]]-latenttraits[Neighbors[[i]]$Species.neighbor.[j]]
+    sp1 <- spsim[i]
+    sp2 <- Neighbors[[i]]$Species.neighbor.[j]
+    
+    if(!(sp1 %in% names(latenttraits)) || !(sp2 %in% names(latenttraits))){
+      stop(paste("Specieanys mismatch:", sp1, sp2))
+    }
+    
+    Neighbors[[i]]$phylodist[j] <- latenttraits[sp1]-latenttraits[sp2]
   }
   if(i %% 1000 == 0)(message(i, "..."))
 }
@@ -108,13 +131,15 @@ BaseGrowth <- c(sapply(1:ntrees, function(x){rlnorm(rpt,
 AllComps <- rep(unlist(sapply(1:ntrees, function(x){
   Comp.fun(Neighbors[[x]]$BAnb, Neighbors[[x]]$phylodist,
            alpha = alpha1, beta.phylo = Beta2, kappa = kappa,
-           BA0 = BA0)
+           BA0 = BA0) #*
 })), each = rpt)
-RingGrowth <- Beta1*BaseGrowth*AllComps
-hist(RingGrowth, breaks = seq(0,ceiling(max(RingGrowth)), 0.25))
+RingGrowth <- Beta1*BaseGrowth*AllComps #**
+hist(RingGrowth, breaks = seq(0,ceiling(max(RingGrowth,na.rm=TRUE)), 0.25))
 
 #Demo rings
-demorings <- read.csv("analysis/mountrainier/data/treerings_ailene/SouthSidecoresX.csv")
+
+#demorings <- read.csv("analysis/mountrainier/data/treerings_ailene/SouthSidecoresX.csv")
+demorings <- read.csv("data/treerings_ailene/SouthSidecoresX.csv")
 #hist(log(demorings$X2004))
 
 #Basic Stan model
@@ -144,18 +169,18 @@ standata <- list(
   tree_end_idxs = end_ids,
   
   neighbor_BA = unlist(c(sapply(1:ntrees, function(x){Neighbors[[x]]$BAnb}))),
-  neighbor_sp = unlist(c(sapply(1:ntrees, function(x){Neighbors[[x]]$sp.nums}))),
+  neighbor_sp = unlist(c(sapply(1:ntrees, function(x){sp.nums[Neighbors[[x]]$Species.neighbor.]}))),
   BA0 = 10,
   Sigma = vcv(treephylo)
   )
 
 options(mc.cores = parallel::detectCores())
-testfit <- stan("analysis/mountrainier/stan/avery_phylo.stan",
+testfit <- stan("stan/avery_phylo.stan",
      model_name = "testrun!",
      data = standata, 
      chains = 4, 
-     iter = 1000,
-     warmup = 150,
+     iter = 2000,
+     warmup = 1000,
      )
 
 summary(testfit)
@@ -164,33 +189,36 @@ plot(testfit, pars = "traits")
 
 samples <- util$extract_expectand_vals(testfit)
 dev.off()
+
+pdf("posteriro_truth.pdf",width=10,height=8)
+on.exit(dev.off())
 par(mfrow=c(3,3))
 for(i in 1:9){
-  util$plot_expectand_pushforward(samples[[paste0('mu[',i,']')]], 20, "lognormal mean")
+  util$plot_expectand_pushforward(samples[[paste0('mu[',i,']')]], 20, bquote(mu[.(i)] ~ "(lognormal mean growth)"))
   abline(v = mu[i])
 }
 
 for(i in 1:9){
-  util$plot_expectand_pushforward(samples[[paste0('base_var[',i,']')]], 20, "lognormal var")
+  util$plot_expectand_pushforward(samples[[paste0('base_var[',i,']')]], 20, paste0("mean growth variance[sp",i,"]"))
   abline(v = base_var[i])
 }
 
 for(i in 1:9){
-  util$plot_expectand_pushforward(samples[[paste0('traits[',i,']')]], 20, "latent traits")
+  util$plot_expectand_pushforward(samples[[paste0('traits[',i,']')]], 20, paste0("latent traits[sp",i,"]"))
   abline(v = latenttraits[i])
 }
 
 par(mfrow = c(2, 2))
-util$plot_expectand_pushforward(samples[[paste0('beta1')]], 20, "beta1")
+util$plot_expectand_pushforward(samples[[paste0('beta1')]], 20, bquote(beta[.(1)]~"(overall competition coefficient)"))
 abline(v = Beta1)
 
-util$plot_expectand_pushforward(samples[[paste0('beta2')]], 20, "beta2")
+util$plot_expectand_pushforward(samples[[paste0('beta2')]], 20, bquote(beta[.(2)]~"(trait-distance decay parameter)"))
 abline(v = Beta2)
 
-util$plot_expectand_pushforward(samples[[paste0('alpha')]], 20, "alpha")
+util$plot_expectand_pushforward(samples[[paste0('alpha')]], 20, bquote(alpha~"(effect of neighbor basal area)"))
 abline(v = alpha1)
 
-util$plot_expectand_pushforward(samples[[paste0('kappa')]], 20, "kappa")
+util$plot_expectand_pushforward(samples[[paste0('kappa')]], 20, bquote(kappa~"(maximum phylogenetic competition strength)"))
 abline(v = kappa)
 
 S <- max(sp.nums)
@@ -212,3 +240,135 @@ for(i in 1:(S-1)){
 abline(v = abs(latenttraits[i]-latenttraits[j]))
 }}
 #Heuristic Model
+
+# prior and posterior and true value
+par(mfrow = c(2, 2))
+
+# beta1
+prior_beta1 <- rnorm(4000, 1, 1)
+plot(density(prior_beta1),
+     lty = 2,
+     main = "beta1",
+     xlim = c(-4, 6),
+     ylim = c(0, 0.6))
+lines(density(samples[['beta1']]),col='red')
+abline(v = Beta1)
+
+# beta2
+prior_beta2 <- rnorm(4000, 1, 1)
+plot(density(prior_beta2),
+     lty = 2,
+     main = "beta2")
+lines(density(samples[['beta2']]),col='red')
+abline(v = Beta2)
+
+# alpha
+prior_alpha <- rnorm(4000, 0, 0.1)
+plot(density(prior_alpha),
+     lty = 2,
+     main = "alpha",
+     xlim = c(-0.5, 0.5),
+     ylim = c(0, 5))
+lines(density(samples[['alpha']]),col='red')
+abline(v = alpha1)
+
+# kappa
+prior_kappa <- rnorm(4000, 0.1, 0.1)
+plot(density(prior_kappa),
+     lty = 2,
+     main = "kappa")
+lines(density(samples[['kappa']]),col='red')
+abline(v = kappa)
+
+#mu
+par(mfrow=c(3,3))
+
+for (i in 1:9){
+  prior_mu <- rnorm(4000,0.7,0.3)
+  
+  d_prior <- density(prior_mu)
+  d_post <- density(samples[[paste0('mu[',i,']')]])
+  
+  plot(
+    d_prior,
+    lty = 2,
+    main = paste0("lognormal mean[", i, "]"),
+    xlim = range(c(d_prior$x,d_post$x)),
+    ylim = c(0, max(c(d_prior$y, d_post$y)))
+  )
+  
+  lines(d_post,col='red')
+  
+  abline(v = mu[i])
+}
+
+# base var
+par(mfrow = c(3,3))
+
+for(i in 1:9){
+  
+  prior_basevar <- rnorm(4000, 0.5, 0.3)
+  
+  d_prior <- density(prior_basevar)
+  d_post <- density(samples[[paste0('base_var[',i,']')]])
+  
+  plot(
+    d_prior,
+    lty = 2,
+    main = paste0("base_var[", i, "]"),
+    xlim = range(c(d_prior$x,d_post$x)),
+    ylim = c(0, max(c(d_prior$y, d_post$y)))
+  )
+  
+  lines(d_post,col='red')
+  
+  abline(v = base_var[i])
+}
+
+# traits
+library(MASS)
+
+prior_traits <- MASS::mvrnorm(
+  4000,
+  mu = rep(0, S),
+  Sigma = standata$Sigma
+)
+
+par(mfrow = c(3,3))
+
+for(i in 1:9){
+  
+  d_prior <- density(prior_traits[,i])
+  
+  d_post <- density(
+    samples[[paste0('traits[', i, ']')]]
+  )
+  
+  plot(
+    d_prior,
+    lty = 2,
+    lwd = 2,
+    main = paste0("traits[", i, "]"),
+    xlim = range(c(d_prior$x,d_post$x)),
+    ylim = c(0, max(c(d_prior$y, d_post$y)))
+  )
+  
+  lines(
+    d_post,
+    col = "red",
+    lwd = 2
+  )
+  
+  abline(
+    v = latenttraits[i],
+    col = "blue",
+    lwd = 2
+  )
+}
+
+# diagnostics
+diagnose <- extract_hmc_diagnostics(testfit)
+check_all_hmc_diagnostics(diagnose)
+
+expectant_vals <- extract_expectand_vals(testfit)
+check_all_expectand_diagnostics(expectant_vals)

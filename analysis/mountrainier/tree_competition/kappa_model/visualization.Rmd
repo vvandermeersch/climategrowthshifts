@@ -24,35 +24,35 @@ util$check_all_expectand_diagnostics(samples)
 
 ```{r sigma visualization}
 util$plot_expectand_pushforward(samples[["sigma"]], 25,
-     display_name="sigma",
+     display_name=bquote(sigma~"(standard deviation of tree growth)"),
      #baseline=sigma,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r y0 visualization}
 util$plot_expectand_pushforward(samples[["y0"]], 25,
-     display_name="y0",
+     display_name="y0(baseline growth (mm))",
      #baseline=y0,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r k visualization}
 util$plot_expectand_pushforward(samples[["k"]], 25,
-     display_name="k",
+     display_name="k (strength of the species in competition)",
      #baseline=k,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r r visualization}
 util$plot_expectand_pushforward(samples[["r"]], 25,
-     display_name="r",
+     display_name="r (scaling factor of basel area)",
      #baseline=r,
      baseline_col=util$c_mid_teal) 
 ```
 
 ```{r beta visualization}
 util$plot_expectand_pushforward(samples[["beta"]], 25,
-     display_name="beta",
+     display_name=bquote(beta~"(Impact of inter-species competition)"),
      #baseline=beta,
      baseline_col=util$c_mid_teal) 
 ```

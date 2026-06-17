@@ -123,3 +123,11 @@ fit <- stan(
   chains = 4,
   seed = 123,
 )
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+
+#diagnostics
+diagnostics <- util$extract_hmc_diagnostics(fit)
+util$check_all_hmc_diagnostics(diagnostics)
+samples <- util$extract_expectand_vals(fit)
+util$check_all_expectand_diagnostics(samples)
