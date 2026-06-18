@@ -44,7 +44,7 @@ for(i in 1:6){
 
 ```{r k visualization}
 util$plot_expectand_pushforward(samples[["k"]], 25,
-     display_name="k (strength of the species in competition)",
+     display_name=bquote(kappa~"(strength of the species in competition)"),
      #baseline=k,
      baseline_col=util$c_mid_teal)
 ```
