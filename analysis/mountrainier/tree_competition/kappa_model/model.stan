@@ -1,5 +1,4 @@
 data{
-    int<lower=0>year; // *the current year
     int<lower=0> Nf; // number of focal tree
     int<lower=0> S; // *number of species
     array[Nf] int<lower=0> N; // number of species around each focal tree

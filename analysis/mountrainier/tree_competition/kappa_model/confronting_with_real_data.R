@@ -70,11 +70,21 @@ N_total <- sum(N)
 # 
  focal_unique <- unique(species_df[,c("Tag","2008")])
  y <- focal_unique$`2008`
-
+ 
+ S <- length(unique(species_df$Species))
+ tree_sp <- species_df %>%
+   select(Tag,Species)%>%
+   unique()%>%
+   pull(Species)
+ 
+ tree_sp_numeric <- as.numeric(factor(tree_sp))
+ # levels(factor(tree_sp))
 # stan data
 stan_data <- list(
   Nf = Nf,
+  S = S,
   N = N,
+  tree_sp = tree_sp_numeric,
   N_total = N_total,
   b = b,
   focal_corr = focal_corr,

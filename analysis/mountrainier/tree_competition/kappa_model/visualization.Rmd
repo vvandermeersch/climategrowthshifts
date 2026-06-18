@@ -30,29 +30,46 @@ util$plot_expectand_pushforward(samples[["sigma"]], 25,
 ```
 
 ```{r y0 visualization}
-util$plot_expectand_pushforward(samples[["y0"]], 25,
-     display_name="y0(baseline growth (mm))",
-     #baseline=y0,
-     baseline_col=util$c_mid_teal) 
+# util$plot_expectand_pushforward(samples[["y0"]], 25,
+#      display_name="y0(baseline growth (mm))",
+#      #baseline=y0,
+#      baseline_col=util$c_mid_teal) 
+on.exit(dev.off())
+par(mfrow=c(2,3))
+for(i in 1:6){
+  util$plot_expectand_pushforward(samples[[paste0('y0[',i,']')]], 20, paste0('y0[',i,'](baseline growth mm)'))
+  abline(v = mu[i])
+}
 ```
 
 ```{r k visualization}
 util$plot_expectand_pushforward(samples[["k"]], 25,
      display_name="k (strength of the species in competition)",
      #baseline=k,
-     baseline_col=util$c_mid_teal) 
+     baseline_col=util$c_mid_teal)
 ```
 
 ```{r r visualization}
-util$plot_expectand_pushforward(samples[["r"]], 25,
-     display_name="r (scaling factor of basel area)",
-     #baseline=r,
-     baseline_col=util$c_mid_teal) 
+# util$plot_expectand_pushforward(samples[["r"]], 25,
+#      display_name="r (scaling factor of basel area)",
+#      #baseline=r,
+#      baseline_col=util$c_mid_teal) 
+on.exit(dev.off())
+par(mfrow=c(2,3))
+for(i in 1:6){
+  util$plot_expectand_pushforward(samples[[paste0('r[',i,']')]], 20, paste0('r[',i,'](scaling factor of basel area)'))
+  abline(v = mu[i])
+}
 ```
 
 ```{r beta visualization}
-util$plot_expectand_pushforward(samples[["beta"]], 25,
-     display_name=bquote(beta~"(Impact of inter-species competition)"),
-     #baseline=beta,
-     baseline_col=util$c_mid_teal) 
+# util$plot_expectand_pushforward(samples[["beta"]], 25,
+#      display_name=bquote(beta~"(Impact of inter-species competition)"),
+#      #baseline=beta,
+#      baseline_col=util$c_mid_teal)
+on.exit(dev.off())
+par(mfrow=c(2,3))
+for (i in 1:6) {
+  util$plot_expectand_pushforward(samples[[paste0("beta[",i,"]")]],20,bquote(beta[.(i)]~"(Impact of Interspecies competition)"))
+}
 ```
