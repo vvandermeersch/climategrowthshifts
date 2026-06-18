@@ -9,9 +9,9 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_18may2026_PIPO_10stands_19202021.rds'))
+data <- readRDS(file.path(folder,'data_18may2026_PIPO_30stands_19502022.rds'))
 
-base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_PIPO_10stands_19202021.rds'))
+base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands.rds'))
 util$check_all_expectand_diagnostics(base_samples)
 
 par(mfrow = c(2,2), mar = c(4,4,1,1))
@@ -40,13 +40,13 @@ lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 par(mfrow = c(2,2), mar = c(4,4,1,1))
 util$plot_expectand_pushforward(base_samples[['rho_merged']], 50,
                                 display_name = 'rho_merged',
-                                flim = c(0,40))
+                                flim = c(0,30))
 abline(v = data$N_all_years, lty = 2, lwd = 2)
 prior <- rlnorm(1e6, log(15), 0.5)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['gamma_merged']], 50,
                                 display_name = 'gamma_merged',
-                                flim = c(0,log(3)))
+                                flim = c(0,log(2.3)))
 prior <- rnorm(1e6, 0, log(2.3) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['rho_sh']], 50,
@@ -88,16 +88,14 @@ for(i in 1:data$N_stands){
                                   display_name = 'p(tree shock | stand concordance)',
                                   flim = c(0,1), add = (i != 1), col = cols[i])
 }
-prior <- rbeta(1e6, 3.48, 1.86)
-# prior <- rbeta(1e6, 4.24, 2.80)
+prior <- rbeta(1e6, 4.24, 2.80)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 for(i in 1:data$N_stands){
   util$plot_expectand_pushforward(base_samples[[paste0('omega_shutdown[',i,']')]], 30,
                                   display_name = 'p(growth shutdown | tree shock)',
                                   flim = c(0,1), add = (i != 1), col = cols[i])
 }
-# prior <- rbeta(1e6, 1.26, 5.97)
-prior <- rbeta(1e6, 1.08, 1.64)
+prior <- rbeta(1e6, 1.66, 6.86)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[[paste0('tau_conc')]], 30,
                                 display_name = 'tau_conc',
