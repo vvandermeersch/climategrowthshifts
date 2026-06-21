@@ -18,7 +18,22 @@ Nine climate variables were used to explore climate - tree growth relationships.
 5. tree_plot_climate_swe.csv - contains the maximum size of the snowpack (in mm snow water equivalent) for each stand (column) and each year (row) from 1914-2009. 
 
 
+## Follow up with Ailene about neighborhood data June 2026
 
+I originally wrote: 
+
+I now write another project. With Victor (cc-ed) and Devina (an undergraduate in the lab, cc-ed) we have been using your attached data and PhD tree cores to try a new modeling approach to competition. We are currently deciding if we need to add year to the model. For that, we need to know a little more of how the data were collected and cannot find it in the papers. My understanding is that you cored outside the PSP plots and collected your own neighborhood data (attached), correct? If so, why are there multiple years of neighboorhood data? See:
+
+https://github.com/vvandermeersch/climategrowthshifts/issues/123#issuecomment-4712348162
+
+However, there is only ever ONE year for any ONE focal tree. 
+
+And Ailene replied:
+
+ Hello Lizzie, Victor and Devina-
+So great that you're using these data! We did not collect all the neighbor data in a single year- it took us 3-4 field seasons to collect all the neighbor data for the cored trees as it is very time consuming. I believe we started by coring 10 trees per elevation on the south side in 2008, then expanded to the east side and to 20 trees per elevation (so coring 10 more at sites we had only cored 10). We decided to collect neighbor data starting in the second year of data collection, I believe, so went back to all previously cored trees that we had NOT collected neighbor data at. 
+Hope that makes sense- let me know if it does not or if you have any follow up questions.
+Ailene
 
 
 
