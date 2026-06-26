@@ -9,9 +9,9 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_18may2026_PIPO_30stands_19502022.rds'))
+data <- readRDS(file.path(folder,'data_15june2026_PIPO_60stands_19202023.rds'))
 
-base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands.rds'))
+base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_60stands_withinit.rds'))
 util$check_all_expectand_diagnostics(base_samples)
 
 par(mfrow = c(2,2), mar = c(4,4,1,1))
@@ -148,5 +148,6 @@ util$plot_expectand_pushforward(base_samples[['tau_idio']], 60,
 prior <- rnorm(1e6, 0, log(5) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 
-
+util$plot_pairs_by_chain(base_samples[['rho_sh']], 'rho_sh',
+                         base_samples[['gamma_sh']], 'gamma_sh')
 
