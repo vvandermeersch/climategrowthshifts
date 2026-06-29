@@ -9,23 +9,37 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_12june2026_11species_99stands_19202020.rds'))
+data <- readRDS(file.path(folder,'data_25june2026_11species_99stands_19502020.rds'))
 
-base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HSGP_11species_99stands_19202020_2threads_onmidge.rds'))
+fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_11species_99stands_withinit.rds'))
 
 params <- c(
-  "alpha",          "beta_gdd",        "beta_pre",        "beta_vpd",
-  #"delta_clim",     
-  "tau_clim",       # "kappa_clim",      
-  # "f_tilde_sh",
-  "rho_sh",         "gamma_sh",        
-  # "kappa_sh_free",   
-  # "f_tilde_ind",    
-  "rho_merged",      "gamma_merged",    "tau_conc",        
-  "phi_sck",
-  "omega_conc_sck", "omega_shutdown",  "thetas_idio",     "tau_idio",
+  "mu_alpha", "sigma_alpha", "alpha",
+  "mu_alpha_stand", "sigma_alpha_stand", 
+  # "alpha_stand",
+  "mu_beta_gdd", "sigma_beta_gdd", "beta_gdd",
+  "mu_beta_pre", "sigma_beta_pre", "beta_pre",
+  "mu_beta_vpd", "sigma_beta_vpd", "beta_vpd",
+  # "delta_clim", 
+  "tau_clim", "kappa_clim_free",
+  # "f_tilde_ind",
+  "mu_log_rho", "sigma_log_rho", "rho_merged",
+  "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged", 'gamma_merged',
+  "tau_conc",
+  "mu_phi", "sigma_phi", "logit_phi_sck",
+  "mu_omega_conc", "sigma_omega_conc", "logit_omega_conc_sck",
+  "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown",
+  "thetas_idio", "tau_idio",
   "sigma"
 )
+
+base_samples <- fit$draws(params)
+names <- dimnames(base_samples)$variable
+base_samples <- lapply(1:dim(base_samples)[3],
+                  function(k){t(matrix(base_samples[1:dim(base_samples)[1],1:dim(base_samples)[2],k],
+                                       nrow = dim(base_samples)[1], ncol = dim(base_samples)[2]))})
+names(base_samples) <- names
+
 
 for(p in params){
   message(paste0('\n\n---------\nParameter(s):',p))
@@ -34,11 +48,11 @@ for(p in params){
   util$check_all_expectand_diagnostics(rest)
 }
 
+util$plot_pairs_by_chain(base_samples[['mu_log_rho']], 'mu_log_rho',
+                         base_samples[['sigma_log_rho']], 'sigma_log_rho')
 
-
-
-util$plot_pairs_by_chain(base_samples[['rho_sh']], 'rho_sh',
-                         base_samples[['gamma_sh']], 'gamma_sh')
+util$plot_pairs_by_chain(base_samples[['mu_log_gamma']], 'mu_log_gamma',
+                         base_samples[['sigma_log_gamma']], 'sigma_log_gamma')
 
 util$plot_pairs_by_chain(base_samples[['tau_clim']], 'tau_clim',
                          base_samples[['tau_idio']], 'tau_idio')

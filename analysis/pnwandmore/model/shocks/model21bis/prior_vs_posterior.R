@@ -11,6 +11,9 @@ folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/
 
 data <- readRDS(file.path(folder,'data_15june2026_PIPO_60stands_19202023.rds'))
 
+fit <- readRDS(file.path(wd, 'output/model/model21bis','fit_model21bis_HGSP_PIPO_60stands_withinit.rds'))
+fit$diagnostic_summary()
+fit$metadata()$step_size_adaptation
 base_samples <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_60stands_withinit.rds'))
 util$check_all_expectand_diagnostics(base_samples)
 

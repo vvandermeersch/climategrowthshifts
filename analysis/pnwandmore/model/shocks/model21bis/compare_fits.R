@@ -12,21 +12,24 @@ folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/
 data1 <- readRDS(file.path(wd, 'output/model', 'data_18may2026_PIPO_30stands_19502022.rds'))
 base_samples1 <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands.rds'))
 fit1 <-  readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_PIPO_30stands.rds'))
-util$check_all_expectand_diagnostics(base_samples1)
+fit1$metadata()$step_size_adaptation
+# util$check_all_expectand_diagnostics(base_samples1)
 
-data2 <- readRDS(file.path(wd, 'output/model','data_18may2026_PIPO_30stands_19502022_sample2.rds'))
-base_samples2 <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands_sample2.rds'))
-fit2 <-  readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_PIPO_30stands_sample2.rds'))
-util$check_all_expectand_diagnostics(base_samples2)
+# data2 <- readRDS(file.path(wd, 'output/model','data_18may2026_PIPO_30stands_19502022_sample2.rds'))
+# base_samples2 <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands_sample2.rds'))
+# fit2 <-  readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_PIPO_30stands_sample2.rds'))
+# util$check_all_expectand_diagnostics(base_samples2)
 
 data3 <- readRDS(file.path(wd, 'output/model','data_18may2026_PIPO_30stands_19502022_sample2.rds'))
 base_samples3 <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_30stands_sample2_withinit.rds'))
 fit3 <-  readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_PIPO_30stands_sample2_withinit.rds'))
-util$check_all_expectand_diagnostics(base_samples3)
+# util$check_all_expectand_diagnostics(base_samples3)
+fit3$metadata()$step_size_adaptation
 
 data4 <- readRDS(file.path(wd, 'output/model','data_15june2026_PIPO_60stands_19202023.rds'))
 base_samples4 <- readRDS(file.path(wd, 'output/model/model21bis', 'basesamples_model21bis_HGSP_PIPO_60stands_withinit.rds'))
 fit4 <-  readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_PIPO_60stands_withinit.rds'))
+fit4$metadata()$step_size_adaptation
 
 
 sub <- util$filter_expectands(base_samples4, names(base_samples4)[which(!grepl('delta', names(base_samples4)))])
