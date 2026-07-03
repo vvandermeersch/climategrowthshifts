@@ -115,120 +115,122 @@ functions {
                               real sigma_idio,
                               vector sigma_conc,
                               vector sigma_idio_conc){
-
-    real lp = 0;
     
-    for (i in 1:(end-start+1)) {
+    real lp = 0;
+    profile("lkhd_in") {
+      
+      for (i in 1:(end-start+1)) {
+    
+        int st = stand_ids_slice[i];
+        
+        array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
+          1+(st-1)*N_all_years, st*N_all_years);
+        
+        vector[N_stand_years[st]] lpd_nonconc = rep_vector(0, N_stand_years[st]);
+        vector[N_stand_years[st]] lpd_conc = rep_vector(0, N_stand_years[st]);
+        
+        for (t in stand_tree_idxs[stand_trees_start_idxs[st]:stand_trees_end_idxs[st]]) {
+          
+          int sp = species_idxs[t];
+          int stsp = stand_species_idxs[t];
+          
+          int tree_start = tree_start_idxs[t];
+          int tree_end = tree_end_idxs[t];
+          
+          array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
+          array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
   
-      int st = stand_ids_slice[i];
-      
-      array[N_all_years] int stand_clim_idxs = linspaced_int_array(N_all_years,
-        1+(st-1)*N_all_years, st*N_all_years);
-      
-      vector[N_stand_years[st]] lpd_nonconc = rep_vector(0, N_stand_years[st]);
-      vector[N_stand_years[st]] lpd_conc = rep_vector(0, N_stand_years[st]);
-      
-      for (t in stand_tree_idxs[stand_trees_start_idxs[st]:stand_trees_end_idxs[st]]) {
-        
-        int sp = species_idxs[t];
-        int stsp = stand_species_idxs[t];
-        
-        int tree_start = tree_start_idxs[t];
-        int tree_end = tree_end_idxs[t];
-        
-        array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
-        array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
-
-        vector[N_years[t]] f_ind = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_ind[sp] .* f_tilde_ind[, t]);
-        
-        vector[N_years[t]] mu = alpha[sp] + alpha_stand[st]
-          + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
-          + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
-          + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
-          // + kappa_sh[sp] * f_sh[st, all_years_idxs_tree]
-          + kappa_clim[sp] * delta_clim[st, all_years_idxs_tree];
-        
-        for (y in 1:N_years[t]) {
+          vector[N_years[t]] f_ind = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_ind[sp] .* f_tilde_ind[, t]);
           
-          int idx = tree_start + y - 1;
-          int ys = all_years_idxs_tree[y] - stand_start_years_idxs[st] + 1;
+          vector[N_years[t]] mu = alpha[sp] + alpha_stand[st]
+            + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
+            + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
+            + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
+            // + kappa_sh[sp] * f_sh[st, all_years_idxs_tree]
+            + kappa_clim[sp] * delta_clim[st, all_years_idxs_tree];
           
-          real mu_f = mu[y] + f_ind[y];
-          
-          if (rw_obs[idx] >= epsilon){
+          for (y in 1:N_years[t]) {
             
-            real log_rw = log(rw_obs[idx]);
+            int idx = tree_start + y - 1;
+            int ys = all_years_idxs_tree[y] - stand_start_years_idxs[st] + 1;
             
-            vector[4] lpds = [
-              normal_lpdf(log_rw | mu_f, sigma), // no concordant shock, no idio. shutdown
-              normal_lpdf(log_rw | mu_f, sigma_idio), // no concordant shock, idio. shock
+            real mu_f = mu[y] + f_ind[y];
+            
+            if (rw_obs[idx] >= epsilon){
               
-              normal_lpdf(log_rw | mu_f, sigma_conc[sp]), // concordant depressed growth, no idio. shutdown
-              normal_lpdf(log_rw | mu_f, sigma_idio_conc[sp]) // concordant depressed growth, idio. shock
-            ]';
-            
-            vector[4] lambdas = [
-              (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-              (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
+              real log_rw = log(rw_obs[idx]);
               
-              omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-              omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
-            ]'; // implicit:  shutdown cannot happen (log(0))
-            
-            lpd_nonconc[ys] += log_sum_exp(
-              log([thetas_idio[t][1], thetas_idio[t][2]]') +
-              [lpds[1], lpds[2]]'
-            );
-            
-            lpd_conc[ys] += log_sum_exp(log(lambdas) + lpds);
-
-          }else{
-            
-            vector[9] lpds = [
-              normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant shock, no idio. shutdown
-              normal_lcdf(log(epsilon) | mu_f, sigma_idio), // no concordant shock, idio. shock
-              log(1), // no concordant shock, idiosync. shutdown
+              vector[4] lpds = [
+                normal_lpdf(log_rw | mu_f, sigma), // no concordant shock, no idio. shutdown
+                normal_lpdf(log_rw | mu_f, sigma_idio), // no concordant shock, idio. shock
+                
+                normal_lpdf(log_rw | mu_f, sigma_conc[sp]), // concordant depressed growth, no idio. shutdown
+                normal_lpdf(log_rw | mu_f, sigma_idio_conc[sp]) // concordant depressed growth, idio. shock
+              ]';
               
-              normal_lcdf(log(epsilon)| mu_f, sigma_conc[sp]), // concordant depressed growth, no idio. shutdown
-              normal_lcdf(log(epsilon) | mu_f, sigma_idio_conc[sp]), // concordant depressed growth, idio. shock
-              log(1), // concordant depressed growth, idiosync. shutdown
+              vector[4] lambdas = [
+                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
+                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
+                
+                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
+              ]'; // implicit:  shutdown cannot happen (log(0))
               
-              log(1), // concordant shutdown, no idiosync. shock
-              log(1), // concordant shutdown, idio. shock
-              log(1) // concordant shutdown, idiosync. shutdown
-            ]';
-
-            vector[9] lambdas = [
-              (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-              (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-              (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
+              lpd_nonconc[ys] += log_sum_exp(
+                log([thetas_idio[t][1], thetas_idio[t][2]]') +
+                [lpds[1], lpds[2]]'
+              );
               
-              omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-              omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
-              omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+              lpd_conc[ys] += log_sum_exp(log(lambdas) + lpds);
+  
+            }else{
               
-              omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
-              omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
-              omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
-            ]';
-            
-            lpd_nonconc[ys] += log_sum_exp(
-              log([thetas_idio[t][1], thetas_idio[t][2], thetas_idio[t][3]]') +
-              [lpds[1], lpds[2], lpds[3]]'
-            );
-            
-            lpd_conc[ys] += log_sum_exp(log(lambdas) + lpds);
+              vector[9] lpds = [
+                normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant shock, no idio. shutdown
+                normal_lcdf(log(epsilon) | mu_f, sigma_idio), // no concordant shock, idio. shock
+                log(1), // no concordant shock, idiosync. shutdown
+                
+                normal_lcdf(log(epsilon)| mu_f, sigma_conc[sp]), // concordant depressed growth, no idio. shutdown
+                normal_lcdf(log(epsilon) | mu_f, sigma_idio_conc[sp]), // concordant depressed growth, idio. shock
+                log(1), // concordant depressed growth, idiosync. shutdown
+                
+                log(1), // concordant shutdown, no idiosync. shock
+                log(1), // concordant shutdown, idio. shock
+                log(1) // concordant shutdown, idiosync. shutdown
+              ]';
+  
+              vector[9] lambdas = [
+                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
+                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
+                (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
+                
+                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
+                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+                
+                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
+                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
+                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
+              ]';
+              
+              lpd_nonconc[ys] += log_sum_exp(
+                log([thetas_idio[t][1], thetas_idio[t][2], thetas_idio[t][3]]') +
+                [lpds[1], lpds[2], lpds[3]]'
+              );
+              
+              lpd_conc[ys] += log_sum_exp(log(lambdas) + lpds);
+            }
           }
         }
-      }
-      
-      for (y in 1:N_stand_years[st]) {
-        lp += log_mix(phi_sck[st], lpd_conc[y], lpd_nonconc[y]);
+        
+        for (y in 1:N_stand_years[st]) {
+          lp += log_mix(phi_sck[st], lpd_conc[y], lpd_nonconc[y]);
+        }
       }
     }
-
     return lp;
   }
+  
   
 }
 
@@ -300,12 +302,25 @@ transformed data {
 
 parameters {
   
-  vector[N_species] alpha; // log(ring width) baseline
+  real mu_alpha;
+  real<lower=0> sigma_alpha;
+  vector[N_species] alpha;
+  
+  // real mu_alpha_stand;
+  real<lower=0> sigma_alpha_stand;
   vector[N_stands] alpha_stand;
   
-  vector[N_species] beta_gdd; // GDD slope (1/kdegC)
-  vector[N_species] beta_pre; // Precipitation slope (1/dm)
-  vector[N_species] beta_vpd; // VPD slope (1/hPa)
+  real mu_beta_gdd;
+  real<lower=0> sigma_beta_gdd;
+  vector[N_species] beta_gdd;
+  
+  real mu_beta_pre;
+  real<lower=0> sigma_beta_pre;
+  vector[N_species] beta_pre;
+  
+  real mu_beta_vpd;
+  real<lower=0> sigma_beta_vpd;
+  vector[N_species] beta_vpd;
   
   array[N_stands] vector[N_all_years] delta_clim;
   real<lower=0> tau_clim;
@@ -317,21 +332,29 @@ parameters {
   // array[N_species-1] real<lower=0> kappa_sh_free;
   
   matrix[M, N_trees] f_tilde_ind; // tree-level func. behavior, short-term + long-term (HSGP)
+  real mu_log_rho;
+  real<lower=0> sigma_log_rho;
   vector<lower=1>[N_species] rho_merged; // length scale
-  vector<lower=0>[N_species] gamma_merged; // marginal variation
+  
+  real mu_log_gamma;
+  real<lower=0> sigma_log_gamma;
+  vector[N_species] log_gamma_merged; // marginal variation
   
   // The (original) shocks!
   // vector<lower=0>[N_stands] mu_conc; // log variation location
   vector<lower=0>[N_species] tau_conc; // log variation scale
   
-  // Probabilities of stand-level 'concordant state' (partially pooled by stands)
-  vector<lower=0, upper=1>[N_stands] phi_sck;
+  real mu_phi;
+  real<lower=0> sigma_phi;
+  vector[N_stands] logit_phi_sck;
   
-  // Probabilities of tree-level shock given stand in 'concordant state' (partially pooled by stands)
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck;
+  real mu_omega_conc;
+  real<lower=0> sigma_omega_conc;
+  vector[N_stand_species] logit_omega_conc_sck;
   
-  // Probabilities of tree-level shutdown given stand in 'concordant state' and tree in a 'shock state' (partially pooled by stands)
-  vector<lower=0, upper=1>[N_stand_species] omega_shutdown;
+  real mu_omega_shutdown;
+  real<lower=0> sigma_omega_shutdown;
+  vector[N_stand_species] logit_omega_shutdown;
   
   // Idiosyncratic shocks!
   array[N_trees] simplex[3] thetas_idio;
@@ -342,6 +365,12 @@ parameters {
 }
 
 transformed parameters {
+  
+  vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(logit_phi_sck);
+  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(logit_omega_conc_sck);
+  vector<lower=0, upper=1>[N_stand_species] omega_shutdown = inv_logit(logit_omega_shutdown);
+  
+  vector<lower=0>[N_species] gamma_merged = exp(log_gamma_merged);
   
   array[N_species] real kappa_clim = append_array({1}, kappa_clim_free);
   // array[N_species] real kappa_sh = append_array({1}, kappa_sh_free);
@@ -373,15 +402,34 @@ transformed parameters {
 
 model {
   
-  alpha ~ normal(0, log(10)/2.32); // 0.1 mm < exp(alpha) * 1 mm < 10 mm
-  alpha_stand ~ normal(0, log(10)/2.32); // 0.1 mm < exp(alpha) * 1 mm < 10 mm
+  mu_alpha ~ normal(0, log(10)/2.32);
+  sigma_alpha ~ normal(0, log(10)/2.32);
+  alpha ~ normal(mu_alpha, sigma_alpha);
   
-  beta_gdd ~ normal(0, log(1.3) / 2.57); // -log(1.3) < beta_gsl < log(1.3)
-  beta_pre ~ normal(0, log(1.3) / 2.57); // -log(1.3) < beta_pre < log(1.3)
-  beta_vpd ~ normal(0, log(1.3) / 2.57); // -log(1.3) < beta_vpd < log(1.3)
+  // mu_alpha_stand ~ normal(0, log(10)/2.32);
+  sigma_alpha_stand ~ normal(0, log(10)/2.32);
+  alpha_stand ~ normal(0, sigma_alpha_stand);
   
-  rho_merged ~ lognormal(log(15), 0.5); 
-  gamma_merged ~ normal(0, log(5) / 2.57); // (log(3) before)
+  mu_beta_gdd ~ normal(0, log(1.3) / 2.57);
+  sigma_beta_gdd ~ normal(0, log(1.3) / 2.57);
+  beta_gdd ~ normal(mu_beta_gdd, sigma_beta_gdd);
+  
+  mu_beta_pre ~ normal(0, log(1.3) / 2.57);
+  sigma_beta_pre ~ normal(0, log(1.3) / 2.57);
+  beta_pre ~ normal(mu_beta_pre, sigma_beta_pre);
+  
+  mu_beta_vpd ~ normal(0, log(1.3) / 2.57);
+  sigma_beta_vpd ~ normal(0, log(1.3) / 2.57);
+  beta_vpd ~ normal(mu_beta_vpd, sigma_beta_vpd);
+  
+  mu_log_rho ~ normal(log(15), 0.5);
+  sigma_log_rho ~ normal(0, 0.5);
+  rho_merged ~ lognormal(mu_log_rho, sigma_log_rho);
+  
+  // was gamma ~ normal(0, log(5)/2.57) before partial pooling
+  mu_log_gamma ~ normal(log(0.42), 0.58); 
+  sigma_log_gamma ~ normal(0, 0.5); 
+  log_gamma_merged ~ normal(mu_log_gamma, sigma_log_gamma); 
   
   to_vector(f_tilde_ind) ~ normal(0, 1);
   
@@ -398,11 +446,15 @@ model {
     delta_clim[s] ~ normal(0, tau_clim);
   kappa_clim_free ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
   
-  phi_sck ~ beta(2.3, 6.07); // 5% < phi_sck0 < 60% (60% is already a lot!)
-  
-  omega_conc_sck ~ beta(4.24,  2.80); // 25% < omega_conc_sck0 < 90%
-  
-  omega_shutdown ~ beta(1.66, 6.86); // 2% < omega_shutdown0 < 50%
+  mu_phi ~ normal(-1.1, 0.3);
+  mu_omega_conc ~ normal(0.47, 0.3);
+  mu_omega_shutdown ~ normal(-1.63, 0.3);
+  sigma_phi ~ normal(0.8, 0.3);
+  sigma_omega_conc ~ normal(0.82, 0.3);
+  sigma_omega_shutdown ~ normal(0.87, 0.3);
+  logit_phi_sck ~ normal(mu_phi, sigma_phi);
+  logit_omega_conc_sck ~ normal(mu_omega_conc, sigma_omega_conc);
+  logit_omega_shutdown ~ normal(mu_omega_shutdown, sigma_omega_shutdown);
   
   // Idiosyncratic shocks
   vector[3] thetas_baseline = [100, 20, 1]';
@@ -410,17 +462,15 @@ model {
   vector[3] ones = rep_vector(1, 3);
   vector[3] alphas = thetas_baseline / omega_thetas + ones;
   
-  profile("thetas_idio") {
-    for (t in 1:N_trees) {
-      thetas_idio[t] ~ dirichlet(alphas);
-    }
-  }
+  for (t in 1:N_trees) {
+    thetas_idio[t] ~ dirichlet(alphas);
+  } 
   
   tau_idio ~ normal(0, log(5) / 2.57); 
   
   sigma ~ normal(0, log(1.1) / 2.57); // we expected 10% max.
   
-  profile("likelihood") {
+  profile("lkhd_out") {
     target += reduce_sum(
       loglikelihood_partial_sum,
       stand_ids,
