@@ -105,13 +105,13 @@ functions {
                               vector sqrt_spd_ind,
                               real epsilon,
                               real sigma,
-                              // vector mu_conc,
-                              real tau_conc,
                               vector omega_conc_sck,
                               vector omega_shutdown,
                               vector phi_sck,
                               array[] vector thetas_idio,
-                              real tau_idio){
+                              real sigma_idio,
+                              real sigma_conc,
+                              real sigma_idio_conc){
 
     real lp = 0;
     
@@ -163,10 +163,10 @@ functions {
                 
                 vector[4] lpds = [
                   normal_lpdf(log_rw | mu_f, sigma), // no concordant shock, no idio. shutdown
-                  normal_lpdf(log_rw | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant shock, idio. shock
+                  normal_lpdf(log_rw | mu_f, sigma_idio), // no concordant shock, idio. shock
                   
-                  normal_lpdf(log_rw | mu_f, sqrt(tau_conc^2 + sigma^2)), // concordant depressed growth, no idio. shutdown
-                  normal_lpdf(log_rw | mu_f, sqrt(tau_idio^2 + tau_conc^2 + sigma^2)) // concordant depressed growth, idio. shock
+                  normal_lpdf(log_rw | mu_f, sigma_conc), // concordant depressed growth, no idio. shutdown
+                  normal_lpdf(log_rw | mu_f, sigma_idio_conc) // concordant depressed growth, idio. shock
                 ]';
               
                 vector[4] lambdas = [
@@ -190,11 +190,11 @@ functions {
               profile("redsum_subepsilon") {
                 vector[9] lpds = [
                   normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant shock, no idio. shutdown
-                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_idio^2 + sigma^2)), // no concordant shock, idio. shock
+                  normal_lcdf(log(epsilon) | mu_f, sigma_idio), // no concordant shock, idio. shock
                   log(1), // no concordant shock, idiosync. shutdown
                   
-                  normal_lcdf(log(epsilon)| mu_f, sqrt(tau_conc^2 + sigma^2)), // concordant depressed growth, no idio. shutdown
-                  normal_lcdf(log(epsilon) | mu_f, sqrt(tau_idio^2 + tau_conc^2 + sigma^2)), // concordant depressed growth, idio. shock
+                  normal_lcdf(log(epsilon)| mu_f, sigma_conc), // concordant depressed growth, no idio. shutdown
+                  normal_lcdf(log(epsilon) | mu_f, sigma_idio_conc), // concordant depressed growth, idio. shock
                   log(1), // concordant depressed growth, idiosync. shutdown
                   
                   log(1), // concordant shutdown, no idiosync. shock
@@ -308,11 +308,11 @@ parameters {
   real<lower=0> tau_clim;
   
   array[N_stands] vector[N_all_years] f_tilde_sh; // short-term proportional growth functional behavior
-  real<lower=1> rho_sh; // length scale
+  real<lower=1, upper = N_all_years> rho_sh; // length scale
   real<lower=0> gamma_sh; // marginal variation
   
   matrix[M, N_trees] f_tilde_ind; // tree-level func. behavior, short-term + long-term (HSGP)
-  real<lower=1> rho_merged; // length scale
+  real<lower=1, upper = N_all_years> rho_merged; // length scale
   real<lower=0> gamma_merged; // marginal variation
   
   // The (original) shocks!
@@ -351,10 +351,13 @@ transformed parameters {
     }
   }
   
-  
   // Tree-level GP (HSGP)
   vector[M] sqrt_spd_ind;
   sqrt_spd_ind = diagSPD_EQ(gamma_merged, rho_merged, L, M);
+  
+  real sigma_idio = sqrt(tau_idio^2 + sigma^2);
+  real sigma_conc = sqrt(tau_conc^2 + sigma^2);
+  real sigma_idio_conc = sqrt(tau_idio^2 + tau_conc^2 + sigma^2);
   
 }
 
@@ -367,7 +370,7 @@ model {
   beta_vpd ~ normal(0, log(1.8) / 2.57); // -log(1.8) < beta_vpd < log(1.8)
   
   rho_merged ~ lognormal(log(15), 0.5); 
-  gamma_merged ~ normal(0, log(3) / 2.57); 
+  gamma_merged ~ normal(0, log(5) / 2.57); // (log(3) before)
   
   profile("f_tilde_ind") {
     to_vector(f_tilde_ind) ~ normal(0, 1);
@@ -381,8 +384,9 @@ model {
       f_tilde_sh[s] ~ normal(0, 1);
   }
     
-  rho_sh ~ lognormal(3.0, 0.42); // 10 <~ rho_sh <~ 40
-  gamma_sh ~ normal(0, log(2) / 2.57); // 0 < gamma_sh < log(3)
+  // rho_sh ~ lognormal(3.62, 0.32); // 20 <~ rho_sh <~ 70
+  rho_sh ~ lognormal(3.2, 0.25); // 15 <~ rho_sh <~ 40
+  gamma_sh ~ normal(0, log(5) / 2.57); // 0 < gamma_sh < log(5) (log(3) before)
   
   tau_clim ~ normal(0, log(2)/2.57); 
   
@@ -398,8 +402,8 @@ model {
   omega_shutdown ~ beta(1.66, 6.86); // 2% < omega_shutdown0 < 50%
   
   // Idiosyncratic shocks
-  vector[3] thetas_baseline = [100, 5, 0.5]';
-  real omega_thetas = 4;
+  vector[3] thetas_baseline = [100, 20, 1]';
+  real omega_thetas = 8;
   vector[3] ones = rep_vector(1, 3);
   vector[3] alphas = thetas_baseline / omega_thetas + ones;
   
@@ -448,13 +452,13 @@ model {
       sqrt_spd_ind,
       epsilon,
       sigma,
-      // mu_conc,
-      tau_conc,
       omega_conc_sck,
       omega_shutdown,
       phi_sck,
       thetas_idio,
-      tau_idio);
+      sigma_idio,
+      sigma_conc,
+      sigma_idio_conc);
   }
   
 }
