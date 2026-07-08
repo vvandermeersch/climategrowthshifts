@@ -1,0 +1,67 @@
+data{
+    int<lower=0> Nf; // number of focal tree
+    array[Nf] int<lower=0> N; // number of species around each focal tree
+    int <lower=0> N_total; // total number of neighbouring species(sum N)
+    array[N_total] real<lower=0> b; // total basal area data of species
+    array[N_total] real<lower=0, upper=1> focal_corr; // focal tree's correlation with neighbors
+    array[Nf] int<lower=1,upper=N_total> start_idx; // start index of each focal tree
+    array[Nf] int<lower=1,upper=N_total> end_idx; // end index of each focal tree
+    array[Nf] real<lower=0> rf; // radius of the focal tree
+    array[Nf] real y; // tree growth (mm)
+}
+
+transformed data {
+   // baselines to have a meaningful interpretation of your parameters
+   real r0 = 40; // for a focal tree with a radius of 40 cm
+   real BA_compet0 = 16; // surrounded by 8 trees of basal area 2000cm2 each
+}
+
+parameters{
+    real<lower=0> sigma; //standard deviation of tree growth
+    real<lower=0,upper=1> kappa; // strength of the species in competition
+    real<lower=0> beta; // Impact of species competition
+    real<lower=-1,upper=1> gamma; // scaling factor of radius, original gamma was 2*gamma-1
+    real<lower=1e-10> y0; // baseline growth (mm)
+}
+
+transformed parameters{
+
+    array[Nf] real baphy; // phelogeny distance
+    array[Nf] real competition;
+    array[Nf] real avails;
+    array[Nf] real mu;
+
+    for (i in 1:Nf){
+        int len = end_idx[i]-start_idx[i]+1; // the length of bn and corrn for each focal tree 
+        vector[len] bn = segment(to_vector(b),start_idx[i],len); // the total BA of each neighboring species of each focal tree
+        vector[len] corrn = segment(to_vector(focal_corr),start_idx[i],len); // each focal tree's correlation with neighbours
+        baphy[i]=0;
+        for (t in 1:N[i]) {
+            baphy[i] += bn[t] * pow(fmax(corrn[t], 1e-10), kappa);
+        }
+        competition[i]=beta*(baphy[i]-BA_compet0);
+        avails[i]= gamma * (log(rf[i]) - log(r0));
+        mu[i]= log(y0) + avails[i] - competition[i];
+    }
+}
+
+model{
+    sigma ~ normal(0, 0.095 / 2.57);
+    //sigma ~ normal(0,1);
+    y0 ~ normal(0,5/2.57);
+    kappa ~ beta(2,2);
+    gamma ~ normal(0,0.7/2.57);
+    // regard 1000 cm^2 as 1 unit of BA
+    beta ~ normal(0,0.10/2.57); 
+    log(y) ~ normal(mu,sigma);
+}
+
+generated quantities{
+  
+  array[Nf] real log_ypred;
+  array[Nf] real ypred;
+  
+  log_ypred = normal_rng(mu,sigma);
+  ypred = exp(log_ypred);
+  
+}
