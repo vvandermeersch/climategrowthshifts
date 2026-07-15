@@ -30,8 +30,8 @@ tree_rw <- focal_df %>%
 
 focal_df <- focal_df %>%
   mutate(DBH = as.numeric(DBH)) %>%
-  mutate(ba_f = (pi*(DBH/2)^2)/1e3)%>% # X1000cm^2
-  select(ba_f,Species,Tag) %>%
+  mutate(radius = (DBH/2)/10)%>% # X10cm
+  select(radius,Species,Tag) %>%
   distinct() %>%   
   left_join(tree_rw,by="Tag")
 

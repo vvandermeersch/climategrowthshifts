@@ -14,7 +14,7 @@ Nf <- length(focal_tags)
 
 N <- integer(0)
 b <- numeric(0)
-bf <- numeric(0)
+ra <- numeric(0)
 start_idx <- integer(0)
 end_idx <- integer(0)
 focal_corr <- numeric(0)
@@ -27,7 +27,7 @@ for (i in 1:Nf) {
   N <- c(N,length(this_df$`Species(neighbor)`))
   
   b <- c(b,this_df$ba_sum)
-  bf<- c(bf,unique(this_df$ba_f))
+  ra <- c(ra,unique(this_df$radius))
   
   all_idx <- which(species_df$Tag==id)
   start_idx <- c(start_idx,all_idx[1])
@@ -90,7 +90,7 @@ stan_data <- list(
   focal_corr = focal_corr,
   start_idx = start_idx,
   end_idx = end_idx,
-  bf = bf,
+  ra = ra,
   y = y
 )
 
@@ -99,6 +99,7 @@ stan_data$start_idx <- as.integer(start_idx)
 stan_data$end_idx   <- as.integer(end_idx)
 
 fit <- stan(
+  #file = "deltamodel_multispecies.stan",
   file = "model.stan",
   data = stan_data,
   iter = 2000,

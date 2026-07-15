@@ -8,14 +8,14 @@ data{
     array[N_total] real<lower=0, upper=1> focal_corr; // focal tree's correlation with neighbors (phylo distance, should we use trait distance instead?)
     array[Nf] int<lower=1,upper=N_total> start_idx; // start index of each focal tree
     array[Nf] int<lower=1,upper=N_total> end_idx; // end index of each focal tree
-    array[Nf] real<lower=0> ra; // basal radius of the focal tree
+    array[Nf] real<lower=0> ra; // basal radius of the focal tree (*10 cm)
     array[Nf] real<lower=1e-10> y; // tree growth (mm)
 }
 
 transformed data {
    // baselines to have a meaningful interpretation of your parameters
-   real r0 = 0.8;
-   real bf0 = 2; // for a focal tree with a basal area of 2000cm2
+   real r0 = 2.5;
+   //real bf0 = 2; // for a focal tree with a basal area of 2000cm2
    real BA_compet0 = 16; // surrounded by 8 trees of basal area 2000cm2 each
 }
 
@@ -24,8 +24,13 @@ parameters{
     real<lower=0,upper=1> k; // *strength of the species in competition
     array[S] real<lower=0> beta; // Impact of inter-species competition
     array[S] real<lower=0,upper=1> r; // scaling factor of basel area
-    array[S] real<lower=1e-10> y0; // *baseline growth (mm)
-    // real y0_raw;
+   array[S] real<lower=1e-10> y0; // *baseline growth (mm)
+   //real<lower=0> y0_mu;
+   //real<lower=0> y0_tau;
+   //real<lower=0> beta_mu;
+  // real<lower=0> beta_tau;
+   //real<lower=0,upper=1> r_mu;
+   //real<lower=0> r_phi;
 }
 
 transformed parameters{
@@ -54,8 +59,22 @@ transformed parameters{
 
 model{
     sigma ~ normal(0, 0.095 / 2.57);
-    //sigma ~ normal(0,1);
     y0 ~ normal(0,10/2.57);
+    //y0_mu ~ normal(0,9/2.57);
+    //y0_tau ~ normal(0,2/2.57);
+
+    //beta_mu ~ normal(0,log(1.1)/2.57);
+    //beta_tau ~normal(0,log(1.1)/(25.7)); // ** these priors make sense? 
+
+    //r_mu ~ beta(8,4);
+    //r_phi ~ normal(13,2) T[0,];
+    
+    //for (i in 1:S) {
+        //y0[i]~normal(y0_mu,y0_tau) T[0,];
+        //beta[i]~normal(beta_mu,beta_tau) T[0,];
+        //r[i]~beta(r_mu*r_phi,(1-r_mu)*r_phi);
+    //}
+
     k ~ beta(2,2);
     r ~ beta(4,2);
     // regard 1000 cm^2 as 1 unit of BA
