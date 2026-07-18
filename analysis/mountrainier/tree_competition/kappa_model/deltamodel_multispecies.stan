@@ -22,18 +22,34 @@ transformed data {
 parameters{
     real<lower=0> sigma; //*standard deviation of tree growth
     real<lower=0,upper=1> k; // *strength of the species in competition
-    array[S] real<lower=0> beta; // Impact of inter-species competition
-    array[S] real<lower=0,upper=1> r; // scaling factor of basel area
-   array[S] real<lower=1e-10> y0; // *baseline growth (mm)
-   //real<lower=0> y0_mu;
-   //real<lower=0> y0_tau;
-   //real<lower=0> beta_mu;
-  // real<lower=0> beta_tau;
-   //real<lower=0,upper=1> r_mu;
-   //real<lower=0> r_phi;
+    //array[S] real<lower=0> beta; // Impact of inter-species competition
+   // array[S] real<lower=0,upper=1> r; // scaling factor of basel area
+   //array[S] real<lower=1e-10> y0; // *baseline growth (mm)
+
+   real log_y0_mu;
+   real<lower=0> log_y0_tau;
+   array[S] real y0_raw;
+
+   real log_beta_mu;
+   real<lower=0> log_beta_tau;
+   array[S] real beta_raw;
+
+   real logodds_r_mu;
+   real<lower=0> logodds_r_tau;
+   array[S] real logodds_r_raw;
 }
 
 transformed parameters{
+    array[S] real<lower=1e-10> y0;
+    array[S] real<lower=0> beta;
+    array[S] real<lower=0,upper=1> r;
+
+    for (i in 1:S) {
+        y0[i] = exp(log_y0_mu + y0_raw[i] * log_y0_tau);
+        beta[i] = exp(log_beta_mu + beta_raw[i] * log_beta_tau);
+        r[i] = inv_logit(logodds_r_mu + logodds_r_tau * logodds_r_raw[i]);
+    }
+
     // real<lower=1e-10> y0 = exp(y0_raw); // baseline growth (mm)
     array[Nf] real baphy; // phelogeny distance
     //array[Nf] real<lower=0> competition; // inter-species competition
@@ -59,26 +75,35 @@ transformed parameters{
 
 model{
     sigma ~ normal(0, 0.095 / 2.57);
-    y0 ~ normal(0,10/2.57);
-    //y0_mu ~ normal(0,9/2.57);
-    //y0_tau ~ normal(0,2/2.57);
+    //y0 ~ normal(0,10/2.57);
+    // y0_mu ~ normal(0,9/2.57);
+    // y0_tau ~ normal(0,2/2.57);
 
-    //beta_mu ~ normal(0,log(1.1)/2.57);
-    //beta_tau ~normal(0,log(1.1)/(25.7)); // ** these priors make sense? 
+    log_y0_mu ~ normal(0.9,0.4);
+    log_y0_tau ~ normal(0,0.4);
+    y0_raw ~ std_normal();
 
-    //r_mu ~ beta(8,4);
-    //r_phi ~ normal(13,2) T[0,];
+    log_beta_mu ~ normal(-3.8,log(1.8));
+    log_beta_tau ~normal(0,log(1.3)); 
+    beta_raw ~ std_normal();// ** these priors make sense? 
+
+    logodds_r_mu ~ normal(0.67,0.9);
+    logodds_r_tau ~ normal(0,0.1);
+    logodds_r_raw ~ std_normal();
+
+    // r_mu ~ beta(8,4);
+    // r_phi ~ normal(13,2) T[0,];
     
-    //for (i in 1:S) {
-        //y0[i]~normal(y0_mu,y0_tau) T[0,];
-        //beta[i]~normal(beta_mu,beta_tau) T[0,];
-        //r[i]~beta(r_mu*r_phi,(1-r_mu)*r_phi);
-    //}
+    //  for (i in 1:S) {
+    //      //y0[i]~normal(y0_mu,y0_tau) T[0,];
+    // //     beta[i]~normal(beta_mu,beta_tau) T[0,];
+    //      //r[i]~beta(r_mu*r_phi,(1-r_mu)*r_phi);
+    //  }
 
     k ~ beta(2,2);
-    r ~ beta(4,2);
+    //r ~ beta(4,2);
     // regard 1000 cm^2 as 1 unit of BA
-    beta ~ normal(0,log(1.1)/2.57);
+    //beta ~ normal(0,log(1.1)/2.57);
     for (i in 1:Nf) {
         log(y[i]) ~ normal(mu[i],sigma);
     }

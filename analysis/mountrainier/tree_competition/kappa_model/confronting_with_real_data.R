@@ -99,10 +99,15 @@ stan_data$start_idx <- as.integer(start_idx)
 stan_data$end_idx   <- as.integer(end_idx)
 
 fit <- stan(
-  #file = "deltamodel_multispecies.stan",
-  file = "model.stan",
+  file = "deltamodel_multispecies.stan",
+  #file = "model.stan",
   data = stan_data,
   iter = 2000,
+  #iter = 4000,
   chains = 4,
   seed = 123,
+  # control = list(
+  #   adapt_delta = 0.95,
+  #   max_treedepth = 12
+  # )
 )
