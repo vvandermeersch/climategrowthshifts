@@ -18,6 +18,7 @@ source('confronting_with_real_data.R')
 ```{r cars}
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
+```
 samples <- util$extract_expectand_vals(fit)
 util$check_all_expectand_diagnostics(samples)
 ```
