@@ -169,21 +169,18 @@ functions {
               
               real log_rw = log(rw_obs[idx]);
               
-              vector[4] lpds = [
-                normal_lpdf(log_rw | mu_f, sigma), // no concordant shock, no idio. shutdown
-                normal_lpdf(log_rw | mu_f, sigma_idio), // no concordant shock, idio. shock
-                
-                skew_normal_lpdf(log_rw | mu_f, sigma_conc[sp], shape_conc[sp]), // concordant depressed growth, no idio. shutdown
-                skew_normal_lpdf(log_rw | mu_f, sigma_idio_conc[sp], shape_idio_conc[sp]) // concordant depressed growth, idio. shock
-              ]';
+              vector[4] lpds;
+              lpds[1] = normal_lpdf(log_rw | mu_f, sigma); // no concordant shock, no idio. shutdown
+              lpds[2] = normal_lpdf(log_rw | mu_f, sigma_idio); // no concordant shock, idio. shock
+              lpds[3] = skew_normal_lpdf(log_rw | mu_f, sigma_conc[sp], shape_conc[sp]); // concordant depressed growth, no idio. shutdown
+              lpds[4] = skew_normal_lpdf(log_rw | mu_f, sigma_idio_conc[sp], shape_idio_conc[sp]); // concordant depressed growth, idio. shock
               
-              vector[4] lambdas = [
-                (1-omega_conc_sck)*thetas_idio[t][1], 
-                (1-omega_conc_sck)*thetas_idio[t][2], 
-                
-                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2]
-              ]'; // implicit:  shutdown cannot happen (log(0))
+              vector[4] lambdas;
+              lambdas[1] = (1-omega_conc_sck)*thetas_idio[t][1];
+              lambdas[2] = (1-omega_conc_sck)*thetas_idio[t][2];
+              lambdas[3] = omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1];
+              lambdas[4] = omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2];
+              // implicit: shutdown cannot happen (log(0))
               
               lpd_nonconc[ys] += log_sum_exp(
                 log([thetas_idio[t][1], thetas_idio[t][2]]') +
@@ -191,36 +188,30 @@ functions {
               );
               
               lpd_conc[ys] += log_sum_exp(log(lambdas) + lpds);
-  
+
             }else{
               
-              vector[9] lpds = [
-                normal_lcdf(log(epsilon) | mu_f, sigma), // no concordant shock, no idio. shutdown
-                normal_lcdf(log(epsilon) | mu_f, sigma_idio), // no concordant shock, idio. shock
-                log(1), // no concordant shock, idiosync. shutdown
-                
-                skew_normal_lcdf(log(epsilon) | mu_f, sigma_conc[sp], shape_conc[sp]), // concordant depressed growth, no idio. shutdown
-                skew_normal_lcdf(log(epsilon) | mu_f, sigma_idio_conc[sp], shape_idio_conc[sp]), // concordant depressed growth, idio. shock
-                log(1), // concordant depressed growth, idiosync. shutdown
-                
-                log(1), // concordant shutdown, no idiosync. shock
-                log(1), // concordant shutdown, idio. shock
-                log(1) // concordant shutdown, idiosync. shutdown
-              ]';
+              vector[9] lpds;
+              lpds[1] = normal_lcdf(log(epsilon) | mu_f, sigma); // no concordant shock, no idio. shutdown
+              lpds[2] = normal_lcdf(log(epsilon) | mu_f, sigma_idio); // no concordant shock, idio. shock
+              lpds[3] = log(1); // no concordant shock, idiosync. shutdown
+              lpds[4] = skew_normal_lcdf(log(epsilon) | mu_f, sigma_conc[sp], shape_conc[sp]); // concordant depressed growth, no idio. shutdown
+              lpds[5] = skew_normal_lcdf(log(epsilon) | mu_f, sigma_idio_conc[sp], shape_idio_conc[sp]); // concordant depressed growth, idio. shock
+              lpds[6] = log(1); // concordant depressed growth, idiosync. shutdown
+              lpds[7] = log(1); // concordant shutdown, no idiosync. shock
+              lpds[8] = log(1); // concordant shutdown, idio. shock
+              lpds[9] = log(1); // concordant shutdown, idiosync. shutdown
               
-              vector[9] lambdas = [
-                (1-omega_conc_sck)*thetas_idio[t][1], 
-                (1-omega_conc_sck)*thetas_idio[t][2], 
-                (1-omega_conc_sck)*thetas_idio[t][3], 
-                
-                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2],
-                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3],
-                
-                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1],
-                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2],
-                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3]
-              ]';
+              vector[9] lambdas;
+              lambdas[1] = (1-omega_conc_sck)*thetas_idio[t][1];
+              lambdas[2] = (1-omega_conc_sck)*thetas_idio[t][2];
+              lambdas[3] = (1-omega_conc_sck)*thetas_idio[t][3];
+              lambdas[4] = omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1];
+              lambdas[5] = omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2];
+              lambdas[6] = omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3];
+              lambdas[7] = omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1];
+              lambdas[8] = omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2];
+              lambdas[9] = omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3];
               
               lpd_nonconc[ys] += log_sum_exp(
                 log([thetas_idio[t][1], thetas_idio[t][2], thetas_idio[t][3]]') +
@@ -481,8 +472,8 @@ model {
   logit_phi_sck ~ normal(mu_phi, sigma_phi);
   
   mu_omega_conc ~ normal(-0.49, 0.46); // 0-60%
-  sigma_omega_species ~ normal(0, 1.5); // up to ~100%
-  alpha_omega_stand ~ normal(0, 1.5); // up to ~100%
+  sigma_omega_species ~ normal(0, 1); // up to ~100%
+  sigma_omega_stand ~ normal(0, 1); // up to ~100%
   alpha_omega_species ~ normal(0, sigma_omega_species);
   alpha_omega_stand ~ normal(0, sigma_omega_stand);
   
