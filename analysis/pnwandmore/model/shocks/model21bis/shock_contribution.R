@@ -7,6 +7,7 @@ for(i in 1:all_years){
   gq_samples[[paste0('mean_shock[',i,']')]] <- 0
 }
 
+n_sites_peryear <- rep(0, all_years)
 for(i in 1:all_years){
   n_sites <- 0
   for(s in sites_here){
@@ -18,6 +19,7 @@ for(i in 1:all_years){
       n_sites <- n_sites + 1
     }
   }
+  n_sites_peryear[i] <- n_sites
   gq_samples[[paste0('mean_shock[',i,']')]] <- gq_samples[[paste0('mean_shock[',i,']')]]/n_sites
 }
 
