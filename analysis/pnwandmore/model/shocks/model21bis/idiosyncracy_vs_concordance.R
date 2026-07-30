@@ -130,9 +130,9 @@ for(s in 1:data$N_stand_species){
          pch = 20, cex = 0.5, col = util$c_mid)
 }
 
-phylo <- c('ABCO', 'ABMA', 'ABLA', 'TSME', 'LALY', 'PCEN', 
-                 'PILO', 'PIAR', 'PIAL', 'PIFL', 'PISF', 'PICO', 'PIJE', 'PIAZ', 
-                 'SEGI', 'CADE', 'THPL', 'CANO', 'JUOC', 'JUOS', 'JUSC')
+phylo <- c('ABCO', 'ABMA', 'ABLA', 'TSME', 'LALY', 'PSME', 'PCEN',
+           'PILO', 'PIAR', 'PIED', 'PIAL', 'PIFL', 'PISF', 'PICO', 'PIJE', 'PIPO', 'PIAZ',
+           'SEGI', 'CADE', 'THPL', 'CANO', 'JUOC', 'JUOS', 'JUSC')
 phylo_order <- match(phylo, data$uniq_species_ids)
 
 par(mfrow = c(1,1), mar = c(4,5,1,1))
@@ -151,8 +151,8 @@ for(s in 1:data$N_species){
   }
   base_samples[[newname]] <- base_samples[[newname]]/length(stand_species)
 }
-util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('avg_omega_conc[',phylo_order,']'), display_ylim = c(-0.075,1),
-                                          xticklabs =  data$uniq_species_ids[phylo_order], 
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('avg_omega_conc[',1:data$N_species,']'), display_ylim = c(-0.075,1),
+                                          xticklabs =  data$uniq_species_ids, 
                                           ylab = "Average p(tree shock | stand concordance)", 
                                           xlab = '', ignore_sign = TRUE)
 for(s in data$uniq_species_ids[phylo_order]){

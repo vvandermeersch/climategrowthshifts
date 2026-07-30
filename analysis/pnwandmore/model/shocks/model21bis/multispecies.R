@@ -10,13 +10,17 @@ setwd(wd)
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 
-data <- readRDS(file.path(folder,'data_6july2026_21species_115stands_19502022.rds'))
+data <- readRDS(file.path(folder,'data_10july2026_24species_365stands_19502022.rds'))
 
 states <- sapply(1:data$N_stands, function(s){
   unique(substr(data$uniq_tree_ids[data$stand_idxs == s], 1, 2))
 })
 
-fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_21species_115stands_withinit_4threads_geommeanconstraint.rds'))
+states_stsp <- sapply(1:data$N_stand_species, function(s){
+  unique(substr(data$uniq_tree_ids[data$stand_species_idxs == s], 1, 2))
+})
+
+fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_24species_365stands_withinit_7threads_climateshocks.rds'))
 fit$time()
 fit$diagnostic_summary()
 
@@ -32,8 +36,8 @@ params <- c(
   "f_tilde_ind",
   "mu_log_rho", "sigma_log_rho", "rho_merged",
   "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged", 'gamma_merged',
-  "tau_conc",
-  "mu_phi", "sigma_phi", "logit_phi_sck", "phi_sck",
+  "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "phi_sck", "beta_phi_vpd", "beta_phi_pre",
   "mu_omega_conc", "sigma_omega_conc", "logit_omega_conc_sck", "omega_conc_sck",
   "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", "omega_shutdown",
   "thetas_idio", "tau_idio",
@@ -57,17 +61,14 @@ params <- c(
   "mu_beta_pre", "sigma_beta_pre", "beta_pre",
   "mu_beta_vpd", "sigma_beta_vpd", "beta_vpd",
   "tau_clim", # "kappa_clim_free", "kappa_clim",
-  'log_kappa_clim', 'kappa_clim',
+  'log_kappa_clim',
   "mu_log_rho", "sigma_log_rho", "rho_merged",
-  "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged", 'gamma_merged',
-  "tau_conc",
-  "mu_phi", "sigma_phi", "logit_phi_sck", 
+  "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged",
+  "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "beta_phi_vpd", "beta_phi_pre",
   "mu_omega_conc", "sigma_omega_conc", "logit_omega_conc_sck", 
   "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", 
   "thetas_idio", "tau_idio",
-  # 'thetas_baseline', 
-  # 'omega_thetas', 
-  'thetas_idio',
   "sigma"
 )
 
@@ -77,7 +78,7 @@ for(p in params){
   message(paste0('\n\n---------\nParameter(s):',p))
   rest <- util$filter_expectands(base_samples, p, 
                                  check_arrays = TRUE)
-  util$check_all_expectand_diagnostics(rest)
+  util$check_all_expectand_diagnostics(rest, min_ess_hat_per_chain=50)
 }
 
 util$plot_pairs_by_chain(base_samples[['mu_log_rho']], 'mu_log_rho',
@@ -96,8 +97,8 @@ util$plot_pairs_by_chain(base_samples[['mu_alpha']], 'mu_alpha',
                          log(base_samples[['sigma_alpha']]), 'log(sigma_alpha)')
 
 
-util$plot_pairs_by_chain(base_samples[['omega_conc_sck[6]']], 'omega_conc_sck[6]',
-                         base_samples[['phi_sck[6]']], 'phi_sck[6]')
+util$plot_pairs_by_chain(base_samples[['logit_omega_conc_sck[35]']], 'logit_omega_conc_sck[35]',
+                         base_samples[['logit_omega_shutdown[35]']], 'logit_omega_shutdown[35]')
 
 util$plot_pairs_by_chain(base_samples[['mu_phi']], 'mu_phi',
                          log(base_samples[['sigma_phi']]), 'log(sigma_phi)')
@@ -181,8 +182,8 @@ util$plot_expectand_pushforward(base_samples[['sigma_log_rho']], 50,
                                 flim = c(0,1))
 prior <- rnorm(1e6, 0, 0.5)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles(base_samples, paste0('rho_merged[',1:data$N_species,']'), display_ylim = c(1,20),
-                                     ylab = "rho_merged", xlab = 'Species')
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('rho_merged[',1:data$N_species,']'), display_ylim = c(1,20),
+                                     ylab = "rho_merged", xlab = 'Species', xticklabs = data$uniq_species_ids, ignore_sign = TRUE)
 
 # GDD slope
 layout(matrix(c(1,2,3,3), ncol = 2, byrow = T))
@@ -196,7 +197,7 @@ util$plot_expectand_pushforward(base_samples[['sigma_beta_gdd']], 50,
                                 flim = c(0,0.25))
 prior <- rnorm(1e6, 0, log(1.3) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_gdd[',1:data$N_species,']'), display_ylim = c(-0.15,0.15),
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_gdd[',1:data$N_species,']'), display_ylim = c(-0.20,0.20),
                                      ylab = "beta_gdd", xticklabs = data$uniq_species_ids)
 
 # VPD slope
@@ -211,7 +212,7 @@ util$plot_expectand_pushforward(base_samples[['sigma_beta_vpd']], 50,
                                 flim = c(0,0.25))
 prior <- rnorm(1e6, 0, log(1.3) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_vpd[',1:data$N_species,']'), display_ylim = c(-0.15,0.15),
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_vpd[',1:data$N_species,']'), display_ylim = c(-0.20,0.20),
                                      ylab = "beta_vpd", xticklabs = data$uniq_species_ids)
 
 # Winter precipitation slope
@@ -226,7 +227,7 @@ util$plot_expectand_pushforward(base_samples[['sigma_beta_pre']], 50,
                                 flim = c(0,0.25))
 prior <- rnorm(1e6, 0, log(1.3) / 2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_pre[',1:data$N_species,']'), display_ylim = c(-0.15,0.15),
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('beta_pre[',1:data$N_species,']'), display_ylim = c(-0.20,0.20),
                                      ylab = "beta_pre", xticklabs = data$uniq_species_ids)
 
 
@@ -238,8 +239,8 @@ util$plot_expectand_pushforward(base_samples[['tau_clim']], 50,
 prior <- rnorm(1e6, 0, log(2)/2.57)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 plot.new()
-util$plot_disc_pushforward_quantiles(base_samples, paste0('kappa_clim[',1:data$N_species,']'), display_ylim = c(0,2),
-                                     ylab = "kappa_clim")
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('kappa_clim[',1:data$N_species,']'), display_ylim = c(0,2),
+                                     ylab = "kappa_clim", xticklabs = data$uniq_species_ids, ignore_sign = TRUE)
 # kappa = 2: twice more sensitive than the average species (kappa = 1)
 
 # p(stand concordance)
@@ -252,10 +253,10 @@ prior <- rnorm(1e6, -2.17, 0.40)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_expectand_pushforward(base_samples[['sigma_phi']], 50,
                                 display_name = 'sigma_phi', 
-                                flim = c(0,2))
+                                flim = c(0,3))
 prior <- rnorm(1e6, 0, 1)
 lines(density(prior), col = util$c_mid_teal, lwd = 2, lty = 2)
-util$plot_disc_pushforward_quantiles(base_samples, paste0('phi_sck[',order(data$uniq_stand_lat),']'), display_ylim = c(0,1),
+util$plot_disc_pushforward_quantiles(base_samples, paste0('phi_sck[',1:data$N_stands,']'), display_ylim = c(0,1),
                                      ylab = "p(stand concordance)", xlab = 'Stands (order by latitude)')
 abline(v = 0.5, lty = 2, col = 'grey30')
 for(st in unique(states)){
@@ -276,7 +277,9 @@ prior <- rnorm(1e6, 0, 1.5)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_disc_pushforward_quantiles(base_samples, paste0('omega_conc_sck[',1:data$N_stand_species,']'), display_ylim = c(0,1),
                                      ylab = "p(tree shock | stand concordance)", xlab = 'Stands x species')
-
+for(st in unique(states_stsp)){
+  abline(v = max(which(states_stsp == st))+ 0.5, lty = 2, col = 'grey30') 
+}
 
 # p(growth shutdown | tree shock)
 layout(matrix(c(1,2,3,3), ncol = 2, byrow = T))
@@ -292,12 +295,25 @@ prior <- rnorm(1e6, 0, 0.95)
 lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
 util$plot_disc_pushforward_quantiles(base_samples, paste0('omega_shutdown[',1:data$N_stand_species,']'), display_ylim = c(0,1),
                                      ylab = "p(growth shutdown | tree shock)", xlab = 'Stands x species')
-
+for(st in unique(states_stsp)){
+  abline(v = max(which(states_stsp == st))+ 0.5, lty = 2, col = 'grey30') 
+}
 
 # p(tree shock | stand concordance)
-par(mfrow=c(1,1))
-util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('tau_conc[',phylo_order,']'), display_ylim = c(0,3),
-                                          xticklabs = data$uniq_species_ids[phylo_order],
+layout(matrix(c(1,2,3,3), ncol = 2, byrow = T))
+util$plot_expectand_pushforward(base_samples[['mu_log_tau_conc']], 50,
+                                display_name = 'mu_log_tau_conc',
+                                flim = c(-2.5,2.5))
+prior <- rnorm(1e6, log(0.8), 0.5)
+lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_expectand_pushforward(base_samples[['sigma_log_tau_conc']], 50,
+                                display_name = 'sigma_log_tau_conc', 
+                                flim = c(0,2))
+prior <- rnorm(1e6, 0, 0.5)
+lines(density(prior), col = util$c_light_teal, lwd = 2, lty = 2)
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('tau_conc[',1:data$N_species,']'), 
+                                          display_ylim = c(0,3.5),
+                                          xticklabs = data$uniq_species_ids,
                                           ylab = "Concordant shock amplitude", xlab = '', ignore_sign = T)
 
 
