@@ -18,9 +18,21 @@ source('confronting_with_real_data.R')
 ```{r cars}
 diagnostics <- util$extract_hmc_diagnostics(fit)
 util$check_all_hmc_diagnostics(diagnostics)
-```
 samples <- util$extract_expectand_vals(fit)
 util$check_all_expectand_diagnostics(samples)
+```
+
+```{r retro check}
+par(mfrow=c(1,1))
+util$plot_hist_quantiles(samples,'y_rep',baseline_values = stan_data$y)
+```
+
+```{r retro by species}
+pred_names <- sapply(1:stan_data$Nf,function(n) paste0('y_rep[',n,']'))
+util$plot_conditional_mean_quantiles(samples,pred_names,stan_data$tree_sp,1,7,1,stan_data$y,residual = FALSE,xlab="species",ylab="conditional mean of tree growth (mm)")
+```
+```{r retro by radius}
+util$plot_conditional_mean_quantiles(samples,pred_names,stan_data$ra,2,12,2,stan_data$y,residual=FALSE,xlab="focal radius (*10 cm)",ylab="conditional mean of tree growth (mm)")
 ```
 
 ```{r sigma visualization}
@@ -73,4 +85,49 @@ par(mfrow=c(2,3))
 for (i in 1:6) {
   util$plot_expectand_pushforward(samples[[paste0("beta[",i,"]")]],20,bquote(beta[.(i)]~"(Impact of Interspecies competition)"))
 }
+```
+
+```{r hyperparame visualization}
+par(mfrow=c(1,1))
+util$plot_expectand_pushforward(samples[["log_y0_mu"]],20,display_name = bquote(log_y0_mu),
+                                baseline_col = util$c_mid_teal)
+
+
+util$plot_expectand_pushforward(samples[["log_y0_tau"]],20,display_name = bquote(log_y0_tau),
+                                baseline_col = util$c_mid_teal)
+
+
+util$plot_expectand_pushforward(samples[["log_beta_mu"]],20,display_name = bquote(log_beta_mu),
+                                baseline_col = util$c_mid_teal)
+
+
+util$plot_expectand_pushforward(samples[["log_beta_tau"]],20,display_name = bquote(log_beta_tau),
+                                baseline_col = util$c_mid_teal)
+
+
+util$plot_expectand_pushforward(samples[["logodds_r_mu"]],20,display_name = bquote(logodds_mu),
+                                baseline_col = util$c_mid_teal)
+
+util$plot_expectand_pushforward(samples[["logodds_r_tau"]],20,display_name = bquote(logodds_tau),
+                                baseline_col = util$c_mid_teal)
+```
+
+```{r individual parameters visual}
+util$plot_disc_pushforward_quantiles(samples, paste0('y0[',1:6,']'),xlab="y0")
+util$plot_disc_pushforward_quantiles(samples, paste0('beta[',1:6,']'),xlab="beta")
+util$plot_disc_pushforward_quantiles(samples, paste0('r[',1:6,']'),xlab="r")
+util$plot_disc_pushforward_quantiles(samples,"k",xlab="kappa")
+util$plot_disc_pushforward_quantiles(samples,"sigma",xlab="sigma")
+```
+```{r individual parameters altegether}
+param_names <- c(
+  paste0("y0[", 1:6, "]"),
+  paste0("beta[", 1:6, "]"),
+  paste0("r[", 1:6, "]"),
+  "k",
+  "sigma"
+)
+
+util$plot_disc_pushforward_quantiles(samples, param_names,xlab="individual parameters")
+
 ```

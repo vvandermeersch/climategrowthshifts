@@ -7,7 +7,7 @@ options(mc.cores = parallel::detectCores())
 
 #parameter
 set.seed(300)
-S_nu <- 16
+S_nu <- 3
 sigma <- rnorm(1,0, 0.095 / 2.57) #0.05078215
 
 y0_mu <- rnorm(1,0.9,0.4)
@@ -15,7 +15,7 @@ y0_tau <- abs(rnorm(1,0,0.4))
 y0_raw <- rnorm(S_nu)
 
 beta_mu <- rnorm(1,-3.8,log(1.8))
-beta_tau <- rnorm(1,0,log(1.3))
+beta_tau <- abs(rnorm(1,0,log(1.3)))
 beta_raw <- rnorm(S_nu)
 
 logodds_mu <- rnorm(1,0.67,0.9)
@@ -182,7 +182,7 @@ util$plot_expectand_pushforward(samples[["k"]],25,display_name = bquote(kappa),
                                 baseline_col = util$c_mid_teal)
 abline(v=k)
 
-par(mfrow = c(2,3))
+par(mfrow = c(2,2))
 for (i in 1:S_nu){
   util$plot_expectand_pushforward(samples[[paste0("y0[",i,"]")]],25,
                                   display_name = paste0("y0[",i,"]"),
@@ -204,26 +204,26 @@ for(i in 1:S_nu){
   abline(v=r[i])
 }
 par(mfrow=c(1,1))
-util$plot_expectand_pushforward(samples[["y0_mu"]],25,display_name = bquote(y0_mu),
+util$plot_expectand_pushforward(samples[["log_y0_mu"]],25,display_name = bquote(log_y0_mu),
                                 baseline_col = util$c_mid_teal)
 abline(v=y0_mu)
 
-util$plot_expectand_pushforward(samples[["y0_tau"]],25,display_name = bquote(y0_tau),
+util$plot_expectand_pushforward(samples[["log_y0_tau"]],25,display_name = bquote(log_y0_tau),
                                 baseline_col = util$c_mid_teal)
 abline(v=y0_tau)
 
-util$plot_expectand_pushforward(samples[["beta_mu"]],25,display_name = bquote(beta_mu),
+util$plot_expectand_pushforward(samples[["log_beta_mu"]],25,display_name = bquote(log_beta_mu),
                                 baseline_col = util$c_mid_teal)
 abline(v=beta_mu)
 
-util$plot_expectand_pushforward(samples[["beta_tau"]],25,display_name = bquote(beta_tau),
+util$plot_expectand_pushforward(samples[["log_beta_tau"]],25,display_name = bquote(log_beta_tau),
                                 baseline_col = util$c_mid_teal)
 abline(v=beta_tau)
 
-util$plot_expectand_pushforward(samples[["r_mu"]],25,display_name = bquote(r_mu),
+util$plot_expectand_pushforward(samples[["logodds_r_mu"]],25,display_name = bquote(logodds_mu),
                                 baseline_col = util$c_mid_teal)
-abline(v=r_mu)
+abline(v=logodds_mu)
 
-util$plot_expectand_pushforward(samples[["r_phi"]],25,display_name = bquote(r_phi),
+util$plot_expectand_pushforward(samples[["logodds_r_tau"]],25,display_name = bquote(logodds_tau),
                                 baseline_col = util$c_mid_teal)
-abline(v=r_phi)
+abline(v=logodds_tau)
