@@ -68,8 +68,10 @@ N_total <- sum(N)
 # }
 # 
 # 
- focal_unique <- unique(species_df[,c("Tag","2008")])
+ focal_unique <- unique(species_df[,c("Tag","2008","avg_3","avg_5")])
  y <- focal_unique$`2008`
+ y3 <- focal_unique$avg_3
+ y5 <- focal_unique$avg_5
  
  S <- length(unique(species_df$Species))
  tree_sp <- species_df %>%
@@ -94,16 +96,70 @@ stan_data <- list(
   y = y
 )
 
+stan_data3 <- list(
+  Nf = as.integer(Nf),
+  S = S,
+  N = N,
+  tree_sp = tree_sp_numeric,
+  N_total = N_total,
+  b = b,
+  focal_corr = focal_corr,
+  start_idx = as.integer(start_idx),
+  end_idx = as.integer(end_idx),
+  ra = ra,
+  y = y3
+)
+
+stan_data5 <- list(
+  Nf = as.integer(Nf),
+  S = S,
+  N = N,
+  tree_sp = tree_sp_numeric,
+  N_total = N_total,
+  b = b,
+  focal_corr = focal_corr,
+  start_idx = as.integer(start_idx),
+  end_idx = as.integer(end_idx),
+  ra = ra,
+  y = y5
+)
+
+
 stan_data$Nf <- as.integer(Nf)
 stan_data$start_idx <- as.integer(start_idx)
 stan_data$end_idx   <- as.integer(end_idx)
+
+
 
 fit <- stan(
   file = "deltamodel_multispecies.stan",
   #file = "model.stan",
   data = stan_data,
   iter = 2000,
-  #iter = 4000,
+  chains = 4,
+  seed = 123,
+  control = list(
+    adapt_delta = 0.95
+  )
+)
+
+fit3 <- stan(
+  file = "deltamodel_multispecies.stan",
+  #file = "model.stan",
+  data = stan_data3,
+  iter = 2000,
+  chains = 4,
+  seed = 123,
+  control = list(
+    adapt_delta = 0.95
+  )
+)
+
+fit5 <- stan(
+  file = "deltamodel_multispecies.stan",
+  #file = "model.stan",
+  data = stan_data5,
+  iter = 2000,
   chains = 4,
   seed = 123,
   control = list(
