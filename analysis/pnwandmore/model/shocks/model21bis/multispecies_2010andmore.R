@@ -1,0 +1,123 @@
+rm(list = ls());gc()
+wd <- "~/projects/climategrowthshifts/analysis/pnwandmore"
+library(cmdstanr)
+setwd(file.path(wd, 'model'))
+util <- new.env()
+source('mcmc_analysis_tools_rstan.R', local=util)
+source('mcmc_visualization_tools.R', local=util)
+source('mcmc_custom_functions.R', local = util)
+setwd(wd)
+
+folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
+
+data <- readRDS(file.path(folder,'data_07august2026_23species_153stands_2010andmore_19502024.rds'))
+
+states <- sapply(1:data$N_stands, function(s){
+  unique(substr(data$uniq_tree_ids[data$stand_idxs == s], 1, 2))
+})
+
+fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_23species_153stands_2010andmore.rds'))
+fit$time()
+fit$diagnostic_summary()
+
+params <- c(
+  "mu_alpha", 
+  "sigma_alpha_stand", "alpha_stand",
+  "mu_beta_gdd", "sigma_beta_gdd", "beta_gdd",
+  "mu_beta_pre", "sigma_beta_pre", "beta_pre",
+  "mu_beta_vpd", "sigma_beta_vpd", "beta_vpd",
+  "delta_clim",
+  "tau_clim", # "kappa_clim_free", "kappa_clim",
+  'log_kappa_clim', 'kappa_clim',
+  "f_tilde_ind",
+  "mu_log_rho", "sigma_log_rho", "rho_merged",
+  "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged", 'gamma_merged',
+  "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "phi_sck", "beta_phi_vpd", "beta_phi_pre", "beta_phi_gdd",
+  "mu_omega_conc", "sigma_omega_species", "sigma_omega_stand", "alpha_omega_species", "alpha_omega_stand",
+  "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", "omega_shutdown",
+  "thetas_idio", "tau_idio",
+  # 'thetas_baseline', 'omega_thetas', 'thetas_idio',
+  "sigma"
+)
+
+
+base_samples <- fit$draws(params)
+names <- dimnames(base_samples)$variable
+base_samples <- lapply(1:dim(base_samples)[3],
+                       function(k){t(matrix(base_samples[1:dim(base_samples)[1],1:dim(base_samples)[2],k],
+                                            nrow = dim(base_samples)[1], ncol = dim(base_samples)[2]))})
+names(base_samples) <- names
+
+params <- c(
+  "mu_alpha", 
+  "sigma_alpha_stand", "alpha_stand",
+  "mu_beta_gdd", "sigma_beta_gdd", "beta_gdd",
+  "mu_beta_pre", "sigma_beta_pre", "beta_pre",
+  "mu_beta_vpd", "sigma_beta_vpd", "beta_vpd",
+  "tau_clim", # "kappa_clim_free", "kappa_clim",
+  'log_kappa_clim',
+  "mu_log_rho", "sigma_log_rho", "rho_merged",
+  "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged",
+  "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "beta_phi_vpd", "beta_phi_pre", "beta_phi_gdd",
+  "mu_omega_conc", "sigma_omega_species", "sigma_omega_stand", "alpha_omega_species", "alpha_omega_stand", 
+  "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", 
+  "thetas_idio", "tau_idio",
+  "sigma"
+)
+
+for(p in params){
+  message(paste0('\n\n---------\nParameter(s):',p))
+  rest <- util$filter_expectands(base_samples, p, 
+                                 check_arrays = TRUE)
+  util$check_all_expectand_diagnostics(rest, min_ess_hat_per_chain=50)
+}
+
+
+
+pre0 <- 5
+vpd0 <- 23
+gdd0 <- 10
+for(i in 1:data$N_all_years){
+  base_samples[[paste0('mean_phi[',i,']')]] <- 0
+}
+for(s in 1:data$N_stands){
+  
+  years <- seq(1+data$N_all_years*(s-1), data$N_all_years*s, 1)
+  for(i in 1:length(years)){
+    
+    logit_phi <- base_samples[[paste0('logit_phi_sck[', s, ']')]]+
+      (data$vpd_obs[years[i]]-vpd0)*base_samples[['beta_phi_vpd']]+
+      (data$pre_obs[years[i]]-pre0)*base_samples[['beta_phi_pre']]+
+      (data$gdd_obs[years[i]]-gdd0)*base_samples[['beta_phi_gdd']]
+    phi <- boot::inv.logit(logit_phi)
+    
+    base_samples[[paste0('mean_phi[',i,']')]] <- base_samples[[paste0('mean_phi[',i,']')]] + phi/data$N_stands
+    
+  }
+}
+
+par(mfrow = c(1,1), mar = c(2,4,1,1))
+names <- paste0('mean_phi[',1:data$N_all_years,']')
+util$plot_conn_pushforward_quantiles(base_samples, names, data$all_years,
+                                     ylab = 'Avg. p(concordant event)')
+
+before2000 <- mean(sapply(which(data$all_years < 2000), 
+                          function(y) util$ensemble_mcmc_quantile_est(base_samples[[paste0('mean_phi[',y,']')]], c(0.5))))
+after2000 <- mean(sapply(which(data$all_years >= 2000), 
+                         function(y) util$ensemble_mcmc_quantile_est(base_samples[[paste0('mean_phi[',y,']')]], c(0.5))))
+segments(x0 = 1950, x1 = 1999, y0 = before2000, lty = 2, col = util$c_dark)
+segments(x0 = 2000, x1 = 2024, y0 = after2000, lty = 2, col = util$c_dark)
+
+
+par(mfrow = c(1,3), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['beta_phi_vpd']], 50,
+                                display_name = bquote(beta[VPD]^phi),
+                                flim = c(-0.5,0.5))
+util$plot_expectand_pushforward(base_samples[['beta_phi_pre']], 50,
+                                display_name = bquote(beta[pre]^phi),
+                                flim = c(-0.5,0.5))
+util$plot_expectand_pushforward(base_samples[['beta_phi_gdd']], 50,
+                                display_name = bquote(beta[GDD]^phi),
+                                flim = c(-0.5,0.5))

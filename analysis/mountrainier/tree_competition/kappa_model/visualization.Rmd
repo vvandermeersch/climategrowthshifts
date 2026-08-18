@@ -33,6 +33,7 @@ util$plot_hist_quantiles(samples,'y_rep',baseline_values = stan_data$y)
 pred_names <- sapply(1:stan_data$Nf,function(n) paste0('y_rep[',n,']'))
 util$plot_conditional_mean_quantiles(samples,pred_names,stan_data$tree_sp,1,7,1,stan_data$y,residual = FALSE,xlab="species",ylab="conditional mean of tree growth (mm)")
 ```
+
 ```{r retro by radius}
 util$plot_conditional_mean_quantiles(samples,pred_names,stan_data$ra,2,12,2,stan_data$y,residual=FALSE,xlab="focal radius (*10 cm)",ylab="conditional mean of tree growth (mm)")
 ```
