@@ -7,7 +7,7 @@ options(mc.cores = parallel::detectCores())
 
 #parameter
 set.seed(300)
-S_nu <- 3
+S_nu <- 16
 sigma <- rnorm(1,0, 0.095 / 2.57) #0.05078215
 
 y0_mu <- rnorm(1,0.9,0.4)
@@ -171,39 +171,13 @@ samples <- util$extract_expectand_vals(fit)
 util$check_all_expectand_diagnostics(samples)
 
 # visualization
-par(mfrow = c(1,1))
-util$plot_expectand_pushforward(samples[["sigma"]], 25,
-                                display_name=bquote(sigma~"(standard deviation of tree growth)"),
-                                #baseline=sigma,
-                                baseline_col=util$c_mid_teal) 
-abline(v=sigma)
+#par(mfrow = c(1,1))
+setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures")
+pdf("deltamodeldatasimulation_plots.pdf",width = 16,height=12)
 
-util$plot_expectand_pushforward(samples[["k"]],25,display_name = bquote(kappa),
-                                baseline_col = util$c_mid_teal)
-abline(v=k)
-
-par(mfrow = c(2,2))
-for (i in 1:S_nu){
-  util$plot_expectand_pushforward(samples[[paste0("y0[",i,"]")]],25,
-                                  display_name = paste0("y0[",i,"]"),
-                                  baseline_col=util$c_mid_teal)
-  abline(v=y0[i])
-}
-
-for(i in 1:S_nu){
-  util$plot_expectand_pushforward(samples[[paste0("beta[",i,"]")]],25,
-                                  display_name = bquote(beta[.(i)]),
-                                  baseline_col = util$c_mid_teal)
-  abline(v=beta[i])
-}
-
-for(i in 1:S_nu){
-  util$plot_expectand_pushforward(samples[[paste0("r[",i,"]")]],25,
-                                  display_name = paste0("r[",i,"]"),
-                                  baseline_col = util$c_mid_teal)
-  abline(v=r[i])
-}
-par(mfrow=c(1,1))
+# page 1
+par(mfrow=c(2,3),
+    oma = c(0, 0, 3, 0))
 util$plot_expectand_pushforward(samples[["log_y0_mu"]],25,display_name = bquote(log_y0_mu),
                                 baseline_col = util$c_mid_teal)
 abline(v=y0_mu)
@@ -227,3 +201,89 @@ abline(v=logodds_mu)
 util$plot_expectand_pushforward(samples[["logodds_r_tau"]],25,display_name = bquote(logodds_tau),
                                 baseline_col = util$c_mid_teal)
 abline(v=logodds_tau)
+
+mtext(
+  "Hyperparameters",
+  outer = TRUE,
+  side = 3,
+  line = 1,
+  cex = 1.5,
+  font = 2
+)
+
+# page 2
+par(mfrow=c(1,2),
+    oma = c(0, 0, 3, 0))
+util$plot_expectand_pushforward(samples[["sigma"]], 25,
+                                display_name=bquote(sigma~"(standard deviation of tree growth)"),
+                                #baseline=sigma,
+                                baseline_col=util$c_mid_teal) 
+abline(v=sigma)
+
+util$plot_expectand_pushforward(samples[["k"]],25,display_name = bquote(kappa),
+                                baseline_col = util$c_mid_teal)
+abline(v=k)
+
+mtext(
+  "Sigma and kappa",
+  outer = TRUE,
+  side = 3,
+  line = 1,
+  cex = 1.5,
+  font = 2
+)
+
+# page 3
+
+par(mfrow = c(4,4),
+    oma = c(0, 0, 3, 0))
+
+for (i in 1:S_nu){
+  util$plot_expectand_pushforward(samples[[paste0("y0[",i,"]")]],25,
+                                  display_name = paste0("y0[",i,"]"),
+                                  baseline_col=util$c_mid_teal)
+  abline(v=y0[i])
+}
+
+mtext(
+  "y0(the baseline growth of tree)",
+  outer = TRUE,
+  side = 3,
+  line = 1,
+  cex = 1.5,
+  font = 2
+)
+
+
+for(i in 1:S_nu){
+  util$plot_expectand_pushforward(samples[[paste0("beta[",i,"]")]],25,
+                                  display_name = bquote(beta[.(i)]),
+                                  baseline_col = util$c_mid_teal)
+  abline(v=beta[i])
+}
+mtext(
+  bquote(beta~"(strength of neighboring competition to reduce the resources of this focal species)"),
+  outer = TRUE,
+  side = 3,
+  line = 1,
+  cex = 1.5,
+  font = 2
+)
+
+
+for(i in 1:S_nu){
+  util$plot_expectand_pushforward(samples[[paste0("r[",i,"]")]],25,
+                                  display_name = bquote(gamma[.(i)]),
+                                  baseline_col = util$c_mid_teal)
+  abline(v=r[i])
+}
+mtext(
+  bquote(gamma~"(scaling factor of the basel area)"),
+  outer = TRUE,
+  side = 3,
+  line = 1,
+  cex = 1.5,
+  font = 2
+)
+
+dev.off()

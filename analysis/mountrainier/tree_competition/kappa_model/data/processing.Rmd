@@ -26,7 +26,11 @@ colnames(focal_df)
 tree_rw <- focal_df %>%
   group_by(Tag) %>%
   summarise(`2009` = mean(`2009`,na.rm =TRUE),
-            `2008`=mean(`2008`,na.rm =TRUE))
+            `2008`=mean(`2008`,na.rm =TRUE),
+            `2007` = mean(`2007`,na.rm=TRUE),
+            `2006` = mean(`2006`,na.rm=TRUE),
+            `2005` = mean(`2005`,na.rm=TRUE),
+            `2004` = mean(`2004`,na.rm=TRUE))
 
 focal_df <- focal_df %>%
   mutate(DBH = as.numeric(DBH)) %>%
@@ -52,16 +56,18 @@ ft_2008 <- unique(neighbour_df_2008$Treeid)
 ```
 
 ```{r focal trees}
-focal_df_2009 <- focal_df %>%
-  filter(Tag %in% ft_2009)%>%
-  select(-`2008`)
-
+# focal_df_2009 <- focal_df %>%
+#   filter(Tag %in% ft_2009)%>%
+#   select(-`2008`)
+# 
 focal_df_2008 <- focal_df %>%
   filter(Tag %in% ft_2008)%>%
-  select(-`2009`)
-
-write.csv(focal_df_2009,"processed data/focal_2009.csv",row.names = FALSE)
-
+  mutate(avg_3 = rowMeans(pick(`2008`,`2007`,`2006`),na.rm=TRUE),
+         avg_5 = rowMeans(pick(`2008`,`2007`,`2006`,`2005`,`2004`),na.rm=TRUE))%>%
+  select(-`2009`,-`2007`,-`2006`,-`2005`,-`2004`)
+# 
+# write.csv(focal_df_2009,"processed data/focal_2009.csv",row.names = FALSE)
+# 
 write.csv(focal_df_2008,"processed data/focal_2008.csv",row.names = FALSE)
 write.csv(neighbour_df_2009,"processed data/neighbour_2009.csv",row.names = FALSE)
 
