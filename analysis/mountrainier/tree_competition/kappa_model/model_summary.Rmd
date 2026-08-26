@@ -1,8 +1,7 @@
 ---
 title: "Delta Model Summary"
 output:
-  html_document: default
-  word_document: default
+  html_document: github_document
 date: "2026-08-24"
 ---
 # $\delta$ Model
