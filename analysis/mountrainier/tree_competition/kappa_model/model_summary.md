@@ -109,9 +109,9 @@ $$ $$
 $$
 
 $$
-\operatorname{logit}(\gamma_i)
+\text{logit}(\gamma_i)
 \sim
-\mathrm{Normal}(\mu_{\gamma},\tau_{\gamma}).
+\text{Normal}(\mu_{\gamma},\tau_{\gamma}).
 $$
 
 #### Hyperparameters
