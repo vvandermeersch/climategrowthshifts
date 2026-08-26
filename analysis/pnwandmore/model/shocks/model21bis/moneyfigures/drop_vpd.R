@@ -41,8 +41,9 @@ pre0 = 5
 vpd0 = 23
 g <- mean(data$gdd_obs)
 p <- mean(data$pre_obs)
-vpds <- seq(1, 50, 1)
-ntrees <- 1e5
+quantile(data$vpd_obs, c(0.01, 0.99))
+vpds <- seq(8, 36, 1)
+ntrees <- 1e4
 
 plan(multisession, workers = 20)
 registerDoFuture()
@@ -110,120 +111,144 @@ logrws <- sapply(output, function(l){l[["logrw"]]})
 mus <- sapply(output, function(l){l[["mu"]]})
 expmus <- sapply(output, function(l){l[["expmu"]]})
 
-par(mfrow = c(1,2), mar = c(4,4,1,1))
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
-     xlim = c(10, 50), ylim =  c(0,1.5))
-
-polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(expmus['95%',])),
-        col = '#dae2e2', border = NA)
-polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['95%',])),
-        col = "#eedede", border = NA)
-
-
-lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = rws['50%',], col = util$c_mid)
-
-lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal)
-
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'p(stand extreme event)', bty = 'n',
-     xlim = c(1, 50), ylim =  c(0,1))
-
-polygon(c(vpds, rev(vpds)), c(phis['5%',], rev(phis['95%',])),
-        col = "#eedede", border = NA)
-lines(x = vpds, y = phis['95%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = phis['5%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = phis['50%',], col = util$c_mid)
-
-
-par(mfrow = c(1,2), mar = c(4,4,1,1))
-
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
-     xlim = c(10, 50), ylim =  c(0,1.25))
-
-polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(expmus['95%',])),
-        col = '#dae2e2', border = NA)
-polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['95%',])),
-        col = "#eedede", border = NA)
-
-lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal)
-
-lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = rws['50%',], col = util$c_mid)
-
-
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'log(ring width)', bty = 'n',
-     xlim = c(10, 50), ylim =  c(-2,0.5))
-
-polygon(c(vpds, rev(vpds)), c(mus['5%', ], rev(mus['95%',])),
-        col = '#dae2e2', border = NA)
-polygon(c(vpds, rev(vpds)), c(logrws['5%', ], rev(logrws['95%',])),
-        col = "#eedede", border = NA)
-
-lines(x = vpds, y = mus['95%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = mus['5%',], col = util$c_mid_teal, lty = 2)
-lines(x = vpds, y = mus['50%',], col = util$c_mid_teal)
-
-lines(x = vpds, y = logrws['95%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = logrws['5%',], col = util$c_mid, lty = 2)
-lines(x = vpds, y = logrws['50%',], col = util$c_mid)
-
-par(mfrow = c(1,1), mar = c(4,4,1,1))
-
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
-     xlim = c(0, 50), ylim =  c(0,1.5))
-
+# par(mfrow = c(1,2), mar = c(4,4,1,1))
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
+#      xlim = c(10, 50), ylim =  c(0,1.5))
+# 
 # polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(expmus['95%',])),
 #         col = '#dae2e2', border = NA)
-polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(expmus['5%',])),
-        col = "#eedede", border = NA)
-polygon(c(vpds, rev(vpds)), c(rws['5%', ]-0.1, rev(expmus['5%',]+0.1)),
-        col = "white", border = NA, 
-        density = 5, angle = 45, lwd = 10)
+# polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['95%',])),
+#         col = "#eedede", border = NA)
+# 
+# 
+# lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = rws['50%',], col = util$c_mid)
+# 
+# lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal)
+# 
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'p(stand extreme event)', bty = 'n',
+#      xlim = c(1, 50), ylim =  c(0,1))
+# 
+# polygon(c(vpds, rev(vpds)), c(phis['5%',], rev(phis['95%',])),
+#         col = "#eedede", border = NA)
+# lines(x = vpds, y = phis['95%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = phis['5%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = phis['50%',], col = util$c_mid)
+# 
+# 
+# par(mfrow = c(1,2), mar = c(4,4,1,1))
+# 
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
+#      xlim = c(10, 50), ylim =  c(0,1.25))
+# 
+# polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(expmus['95%',])),
+#         col = '#dae2e2', border = NA)
+# polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['95%',])),
+#         col = "#eedede", border = NA)
+# 
+# lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal)
+# 
+# lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = rws['50%',], col = util$c_mid)
+# 
+# 
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'log(ring width)', bty = 'n',
+#      xlim = c(10, 50), ylim =  c(-2,0.5))
+# 
+# polygon(c(vpds, rev(vpds)), c(mus['5%', ], rev(mus['95%',])),
+#         col = '#dae2e2', border = NA)
+# polygon(c(vpds, rev(vpds)), c(logrws['5%', ], rev(logrws['95%',])),
+#         col = "#eedede", border = NA)
+# 
+# lines(x = vpds, y = mus['95%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = mus['5%',], col = util$c_mid_teal, lty = 2)
+# lines(x = vpds, y = mus['50%',], col = util$c_mid_teal)
+# 
+# lines(x = vpds, y = logrws['95%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = logrws['5%',], col = util$c_mid, lty = 2)
+# lines(x = vpds, y = logrws['50%',], col = util$c_mid)
+# 
+# par(mfrow = c(1,1), mar = c(4,4,1,1))
+# 
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
+#      xlim = c(0, 50), ylim =  c(0,1.5))
+# 
+# # polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(expmus['95%',])),
+# #         col = '#dae2e2', border = NA)
+# polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(expmus['5%',])),
+#         col = "#eedede", border = NA)
+# polygon(c(vpds, rev(vpds)), c(rws['5%', ]-0.1, rev(expmus['5%',]+0.1)),
+#         col = "white", border = NA, 
+#         density = 5, angle = 45, lwd = 10)
+# 
+# lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2, lwd = 1.5)
+# lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2, lwd = 1.5)
+# lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal, lwd = 1.5)
+# 
+# lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2, lwd = 1.5)
+# lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2, lwd = 1.5)
+# lines(x = vpds, y = rws['50%',], col = util$c_mid, lwd = 1.5)
+# 
+# 
+# plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
+#      xlim = c(1, 50), ylim =  c(0,1.5))
+# 
+# 
+# polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['95%',])),
+#         col = "#f4ded7", border = NA)
+# 
+# polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['95%',])),
+#         col = "#d5e5e2", border = NA, 
+#         density = 4, angle = 45, lwd = 10)
+# 
+# polygon(c(vpds, rev(vpds)), c(rws['95%', ], rev(rws['95%',]+0.1)),
+#         col = "white", border = NA)
+# polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['5%',]-0.1)),
+#         col = "white", border = NA)
+# rect(xleft = 0, xright = 1, ybottom = 0.5, ytop = 2, col = 'white', border = NA)
+# rect(xleft = 50, xright = 51, ybottom = 0, ytop = 2, col = 'white', border = NA)
+# 
+# polygon(c(vpds, rev(vpds)), c(rws['95%', ], rev(expmus['95%',])),
+#         col = "#d5e5e2", border = NA)
+# polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['5%',])),
+#         col = "#f4ded7", border = NA)
+# 
+# lines(x = vpds, y = expmus['95%',], col = "#2F7D6D", lty = 2, lwd = 1.5)
+# lines(x = vpds, y = expmus['5%',], col = "#2F7D6D", lty = 2, lwd = 1.5)
+# lines(x = vpds, y = expmus['50%',], col = "#2F7D6D", lwd = 2)
+# 
+# lines(x = vpds, y = rws['95%',], col = "#C75B39", lty = 2, lwd = 1.5)
+# lines(x = vpds, y = rws['5%',], col = "#C75B39", lty = 2, lwd = 1.5)
+# lines(x = vpds, y = rws['50%',], col = "#C75B39", lwd = 2)
 
-lines(x = vpds, y = expmus['95%',], col = util$c_mid_teal, lty = 2, lwd = 1.5)
-lines(x = vpds, y = expmus['5%',], col = util$c_mid_teal, lty = 2, lwd = 1.5)
-lines(x = vpds, y = expmus['50%',], col = util$c_mid_teal, lwd = 1.5)
 
-lines(x = vpds, y = rws['95%',], col = util$c_mid, lty = 2, lwd = 1.5)
-lines(x = vpds, y = rws['5%',], col = util$c_mid, lty = 2, lwd = 1.5)
-lines(x = vpds, y = rws['50%',], col = util$c_mid, lwd = 1.5)
+par(mfrow=c(1,1))
+plot(y = NULL, x = NULL,
+     xlab = "Summer VPD (hPa)", ylab = "Ring width (mm)",
+     bty = "n",
+     xlim = c(8, 36), ylim = c(0, 1.5))
 
+polygon(c(vpds, rev(vpds)),
+        c(expmus["5%", ], rev(expmus["95%", ])),
+        col = "#2F7D6D33", border = NA)
 
-plot(y = NULL, x = NULL, xlab = 'VPD (hPa)', ylab = 'ring width (mm)', bty = 'n',
-     xlim = c(1, 50), ylim =  c(0,1.5))
-
-
-polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['95%',])),
-        col = "#f4ded7", border = NA)
-
-polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['95%',])),
-        col = "#d5e5e2", border = NA, 
-        density = 4, angle = 45, lwd = 10)
-
-polygon(c(vpds, rev(vpds)), c(rws['95%', ], rev(rws['95%',]+0.1)),
-        col = "white", border = NA)
-polygon(c(vpds, rev(vpds)), c(rws['5%', ], rev(rws['5%',]-0.1)),
-        col = "white", border = NA)
-rect(xleft = 0, xright = 1, ybottom = 0.5, ytop = 2, col = 'white', border = NA)
-rect(xleft = 50, xright = 51, ybottom = 0, ytop = 2, col = 'white', border = NA)
-
-polygon(c(vpds, rev(vpds)), c(rws['95%', ], rev(expmus['95%',])),
-        col = "#d5e5e2", border = NA)
-polygon(c(vpds, rev(vpds)), c(expmus['5%', ], rev(rws['5%',])),
-        col = "#f4ded7", border = NA)
-
-lines(x = vpds, y = expmus['95%',], col = "#2F7D6D", lty = 2, lwd = 1.5)
-lines(x = vpds, y = expmus['5%',], col = "#2F7D6D", lty = 2, lwd = 1.5)
-lines(x = vpds, y = expmus['50%',], col = "#2F7D6D", lwd = 2)
-
-lines(x = vpds, y = rws['95%',], col = "#C75B39", lty = 2, lwd = 1.5)
-lines(x = vpds, y = rws['5%',], col = "#C75B39", lty = 2, lwd = 1.5)
-lines(x = vpds, y = rws['50%',], col = "#C75B39", lwd = 2)
+polygon(c(vpds, rev(vpds)),
+        c(rws["5%", ], rev(rws["95%", ])),
+        col = "#C75B3933", border = NA)
 
 
+# Expected growth
+lines(vpds, expmus["95%", ], col = "#2F7D6D", lty = 2, lwd = 1.2)
+lines(vpds, expmus["5%",  ], col = "#2F7D6D", lty = 2, lwd = 1.2)
+lines(vpds, expmus["50%", ], col = "#2F7D6D", lwd = 2.5)
+
+# Ring width
+lines(vpds, rws["95%", ], col = "#C75B39", lty = 2, lwd = 1.2)
+lines(vpds, rws["5%",  ], col = "#C75B39", lty = 2, lwd = 1.2)
+lines(vpds, rws["50%", ], col = "#C75B39", lwd = 2.5)
