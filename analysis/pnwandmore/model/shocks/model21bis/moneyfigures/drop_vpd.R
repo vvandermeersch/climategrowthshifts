@@ -228,11 +228,11 @@ expmus <- sapply(output, function(l){l[["expmu"]]})
 # lines(x = vpds, y = rws['50%',], col = "#C75B39", lwd = 2)
 
 
-par(mfrow=c(1,1))
+par(mfrow=c(1,2))
 plot(y = NULL, x = NULL,
      xlab = "Summer VPD (hPa)", ylab = "Ring width (mm)",
      bty = "n",
-     xlim = c(8, 36), ylim = c(0, 1.5))
+     xlim = c(8, 36), ylim = c(0, 2))
 
 polygon(c(vpds, rev(vpds)),
         c(expmus["5%", ], rev(expmus["95%", ])),
@@ -252,3 +252,28 @@ lines(vpds, expmus["50%", ], col = "#2F7D6D", lwd = 2.5)
 lines(vpds, rws["95%", ], col = "#C75B39", lty = 2, lwd = 1.2)
 lines(vpds, rws["5%",  ], col = "#C75B39", lty = 2, lwd = 1.2)
 lines(vpds, rws["50%", ], col = "#C75B39", lwd = 2.5)
+
+plot(y = NULL, x = NULL,
+     xlab = "Summer VPD (hPa)", ylab = "p(stand extreme event)",
+     bty = "n",
+     xlim = c(8, 36), ylim = c(0, 1))
+
+polygon(c(vpds, rev(vpds)),
+        c(phis["5%", ], rev(phis["95%", ])),
+        col = "#C75B3933", border = NA)
+
+# Ring width
+lines(vpds, phis["95%", ], col = "#C75B39", lty = 2, lwd = 1.2)
+lines(vpds, phis["5%",  ], col = "#C75B39", lty = 2, lwd = 1.2)
+lines(vpds, phis["50%", ], col = "#C75B39", lwd = 2.5)
+
+
+
+hist(data$pre_obs*100, breaks = 100, 
+     main = '', xlab = 'Winter precipitation (mm)',
+     col = "#C75B39", border = 'white', lwd = 0.5)
+hist(data$vpd_obs, breaks = 100,
+     main = '', xlab = 'Summer VPD (hPa)',
+     col = "#C75B39", border = 'white', lwd = 0.5)
+
+

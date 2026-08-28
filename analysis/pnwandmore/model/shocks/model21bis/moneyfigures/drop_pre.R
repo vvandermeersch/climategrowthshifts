@@ -117,7 +117,7 @@ par(mfrow=c(1,2))
 plot(y = NULL, x = NULL,
      xlab = "Winter precipitation (mm)", ylab = "Ring width (mm)",
      bty = "n",
-     xlim = c(0, 2500), ylim = c(0, 1.5))
+     xlim = c(0, 2500), ylim = c(0, 2))
 
 polygon(c(pres, rev(pres)),
         c(expmus["5%", ], rev(expmus["95%", ])),
@@ -142,7 +142,7 @@ lines(pres, rws["50%", ], col = "#C75B39", lwd = 2.5)
 plot(y = NULL, x = NULL,
      xlab = "Winter precipitation (mm)", ylab = "p(stand extreme event)",
      bty = "n",
-     xlim = c(0, 2500), ylim = c(0, 1.5))
+     xlim = c(0, 2500), ylim = c(0, 1))
 
 
 polygon(c(pres, rev(pres)),
