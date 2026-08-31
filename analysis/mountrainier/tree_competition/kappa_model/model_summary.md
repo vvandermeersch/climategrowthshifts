@@ -11,7 +11,8 @@ on focal tree growth and how this effect varies across species and focal
 tree sizes. The model decomposes the effect of the neighborhood into a
 component that is explained by shared evolutionary history (measured as
 a phylogenetic correlation matrix) and the remaining component that is
-unexplained by evolutionary history.
+unexplained by evolutionary history. Note that the model use to be named
+the $\kappa$ model but then swithched to the $\delta$ model.
 
 ## Previous Model
 
