@@ -13,6 +13,11 @@ component that is explained by shared evolutionary history (measured as
 a phylogenetic correlation matrix) and the remaining component that is
 unexplained by evolutionary history.
 
+## Previous Model
+
+The full stan implementation is available in
+“analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan”
+
 ## Current Model Specification
 
 ### Parameters
@@ -137,6 +142,18 @@ $$
 The full stan implementation is available in
 “analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan”
 
+## Data Simulation Result
+
+``` r
+knitr::include_graphics(c("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_1.png",
+                          "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_2.png",
+                          "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_3.png",
+                          "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_4.png",
+                          "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_5.png"))
+```
+
+<img src="../../figures/deltamodeldatasimulation_1.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_2.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_3.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_4.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_5.png" alt="" width="3200" />
+
 ## Result
 
 ### Model fitted on 2008 data vs Model fitted on the average of the last five years (2004-2008) vs Model fitted on the average of the last three years (2006-2008)
@@ -243,6 +260,7 @@ below.
 
 | File | Description |
 |----|----|
+| `analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan` | Stan implementation of the single species $\delta$ model. |
 | `analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan` | Stan implementation of the current $\delta$ model. |
 | `analysis/mountrainier/tree_competition/kappa_model/data/processedprocessed data/species_2008.csv` | Processed tree ring and neighborhood data |
 | `analysis/mountrainier/tree_competition/kappa_model/data_sim.R` | fake data simulation |

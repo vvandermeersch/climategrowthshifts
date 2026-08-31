@@ -2,6 +2,7 @@
 library(rstan)
 library(dplyr)
 library(readr)
+library(pdftools)
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
@@ -287,3 +288,17 @@ mtext(
 )
 
 dev.off()
+
+pdf_convert(
+  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_plots.pdf",
+  format = "png",
+  dpi = 200,
+  filenames = c(
+    "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_1.png",
+    "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_2.png",
+    "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_3.png",
+    "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_4.png",
+    "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodeldatasimulation_5.png"
+    
+  )
+)
