@@ -96,7 +96,7 @@ functions {
                               real gdd0,
                               real pre0,
                               real vpd0,
-                              vector alpha,
+                              // vector alpha,
                               vector alpha_stand,
                               vector beta_gdd,
                               vector beta_pre,
@@ -108,9 +108,12 @@ functions {
                               array[] vector sqrt_spd_ind,
                               real epsilon,
                               real sigma,
-                              vector omega_conc_sck,
+                              real mu_omega_conc,
+                              vector alpha_omega_species,
+                              vector alpha_omega_stand,
                               vector omega_shutdown,
                               vector logit_phi_sck,
+                              real beta_phi_gdd,
                               real beta_phi_vpd,
                               real beta_phi_pre,
                               array[] vector thetas_idio,
@@ -144,12 +147,14 @@ functions {
   
           vector[N_years[t]] f_ind = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_ind[sp] .* f_tilde_ind[, t]);
           
-          vector[N_years[t]] mu = alpha[sp] + alpha_stand[st]
+          vector[N_years[t]] mu = alpha_stand[st]
             + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
             + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
             + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
             // + kappa_sh[sp] * f_sh[st, all_years_idxs_tree]
             + kappa_clim[sp] * delta_clim[st, all_years_idxs_tree];
+            
+          real omega_conc_sck = inv_logit(mu_omega_conc + alpha_omega_species[sp] + alpha_omega_stand[st]);
           
           for (y in 1:N_years[t]) {
             
@@ -171,11 +176,11 @@ functions {
               ]';
               
               vector[4] lambdas = [
-                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
+                (1-omega_conc_sck)*thetas_idio[t][1], 
+                (1-omega_conc_sck)*thetas_idio[t][2], 
                 
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2]
               ]'; // implicit:  shutdown cannot happen (log(0))
               
               lpd_nonconc[ys] += log_sum_exp(
@@ -202,17 +207,17 @@ functions {
               ]';
   
               vector[9] lambdas = [
-                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
+                (1-omega_conc_sck)*thetas_idio[t][1], 
+                (1-omega_conc_sck)*thetas_idio[t][2], 
+                (1-omega_conc_sck)*thetas_idio[t][3], 
                 
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3],
                 
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1],
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2],
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3]
               ]';
               
               lpd_nonconc[ys] += log_sum_exp(
@@ -230,6 +235,7 @@ functions {
           int ys = (st - 1) * N_all_years + stand_start_years_idxs[st] + y - 1;
           
           real phi_sck_y =  inv_logit(logit_phi_sck[st]
+          + beta_phi_gdd * (gdd_obs[ys] - gdd0)
           + beta_phi_vpd * (vpd_obs[ys] - vpd0)
           + beta_phi_pre * (pre_obs[ys] - pre0));
           lp += log_mix(phi_sck_y, lpd_conc[y], lpd_nonconc[y]);
@@ -311,8 +317,8 @@ transformed data {
 parameters {
   
   real mu_alpha;
-  real<lower=0> sigma_alpha;
-  vector[N_species] alpha;
+  // real<lower=0> sigma_alpha;
+  // vector[N_species] alpha;
   
   // real mu_alpha_stand;
   real<lower=0> sigma_alpha_stand;
@@ -333,7 +339,7 @@ parameters {
   array[N_stands] vector[N_all_years] delta_clim;
   real<lower=0> tau_clim;
   // array[N_species-1] real<lower=0> kappa_clim_free;
-  vector[N_species] log_kappa_clim; // new constraint! // was sum_to_zero_vector, modified for standalone GQ
+  vector[N_species] log_kappa_clim; // new constraint! (sum to zero)
   
   // array[N_stands] vector[N_all_years] f_tilde_sh; // short-term proportional growth functional behavior
   // real<lower=1> rho_sh; // length scale
@@ -358,19 +364,22 @@ parameters {
   real mu_phi;
   real<lower=0> sigma_phi;
   vector[N_stands] logit_phi_sck; // baselines!
-  real beta_phi_vpd; // effect of summer VPD anomaly on shock-year log-odds
-  real beta_phi_pre; // effect of winter precip anomaly on shock-year log-odds
+  real beta_phi_gdd; // effect of GDD on phi
+  real beta_phi_vpd; // effect of summer VPD on phi
+  real beta_phi_pre; // effect of winter pre on phi
   
   real mu_omega_conc;
-  real<lower=0> sigma_omega_conc;
-  vector[N_stand_species] logit_omega_conc_sck;
+  real<lower=0> sigma_omega_species;
+  real<lower=0> sigma_omega_stand;
+  vector[N_species] alpha_omega_species;
+  vector[N_stands] alpha_omega_stand;
   
   real mu_omega_shutdown;
   real<lower=0> sigma_omega_shutdown;
   vector[N_stand_species] logit_omega_shutdown;
   
   // Idiosyncratic shocks!
-  array[N_trees] vector[3] thetas_idio; // was simplex, modified for standalone GQ
+  array[N_trees] vector[3] thetas_idio; // not simplex for GQ
   real<lower=0> tau_idio; // log variation scale
   
   real<lower=0> sigma; // proportional measurement error
@@ -380,7 +389,7 @@ parameters {
 transformed parameters {
   
   vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(logit_phi_sck);
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(logit_omega_conc_sck);
+  // vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(logit_omega_conc_sck);
   vector<lower=0, upper=1>[N_stand_species] omega_shutdown = inv_logit(logit_omega_shutdown);
   
   vector<lower=0>[N_species] gamma_merged = exp(log_gamma_merged);
@@ -417,12 +426,12 @@ transformed parameters {
 model {
   
   mu_alpha ~ normal(0, log(10)/2.32);
-  sigma_alpha ~ normal(0, log(10)/2.32);
-  alpha ~ normal(mu_alpha, sigma_alpha);
+  // sigma_alpha ~ normal(0, log(10)/2.32);
+  // alpha ~ normal(mu_alpha, sigma_alpha);
   
   // mu_alpha_stand ~ normal(0, log(10)/2.32);
   sigma_alpha_stand ~ normal(0, log(10)/2.32);
-  alpha_stand ~ normal(0, sigma_alpha_stand);
+  alpha_stand ~ normal(mu_alpha, sigma_alpha_stand);
   
   mu_beta_gdd ~ normal(0, log(1.3) / 2.57);
   sigma_beta_gdd ~ normal(0, log(1.3) / 2.57);
@@ -464,17 +473,22 @@ model {
   log_kappa_clim ~ normal(0, 0.41 / 2.32);
   
   mu_phi ~ normal(-2.17, 0.40); // 5-20%
-  mu_omega_conc ~ normal(-0.49, 0.46); // 0-60%
-  mu_omega_shutdown ~ normal(-3.40, 0.61); // 1-10%
   sigma_phi ~ normal(0, 1.0); // up to 70% (already a lot)
-  sigma_omega_conc ~ normal(0, 1.5); // up to ~100%
-  sigma_omega_shutdown ~ normal(0, 0.95); // up to 70% (already a lot)
-  
   logit_phi_sck ~ normal(mu_phi, sigma_phi);
-  logit_omega_conc_sck ~ normal(mu_omega_conc, sigma_omega_conc);
+  
+  mu_omega_conc ~ normal(-0.49, 0.46); // 0-60%
+  sigma_omega_species ~ normal(0, 1); // up to ~100%
+  sigma_omega_stand ~ normal(0, 1); // up to ~100%
+  alpha_omega_species ~ normal(0, sigma_omega_species);
+  alpha_omega_stand ~ normal(0, sigma_omega_stand);
+  
+  mu_omega_shutdown ~ normal(-3.40, 0.61); // 1-10%
+  sigma_omega_shutdown ~ normal(0, 0.95); // up to 70% (already a lot)
   logit_omega_shutdown ~ normal(mu_omega_shutdown, sigma_omega_shutdown);
   
-  beta_phi_vpd ~ normal(0, 0.3); // not well thought
+  // not well thought
+  beta_phi_gdd ~ normal(0, 0.3); // 
+  beta_phi_vpd ~ normal(0, 0.3); // 
   beta_phi_pre ~ normal(0, 0.3); // 
   
   // Idiosyncratic shocks
@@ -517,7 +531,7 @@ model {
       gdd0,
       pre0,
       vpd0,
-      alpha,
+      // alpha,
       alpha_stand,
       beta_gdd,
       beta_pre,
@@ -529,9 +543,12 @@ model {
       sqrt_spd_ind,
       epsilon,
       sigma,
-      omega_conc_sck,
+      mu_omega_conc,
+      alpha_omega_species,
+      alpha_omega_stand,
       omega_shutdown,
       logit_phi_sck,
+      beta_phi_gdd,
       beta_phi_vpd,
       beta_phi_pre,
       thetas_idio,
@@ -542,7 +559,6 @@ model {
 
 }
 
-
 generated quantities {
 
   array[N_stands, N_all_years] int sck_year = rep_array(-1, N_stands, N_all_years); // latent concordant states, -1 are unobserved years
@@ -550,7 +566,8 @@ generated quantities {
   array[N] real log_rw_pred;
   vector[N] f_ind;
   vector[N] mu_f; 
-  vector[N] delta_sck = rep_vector(0,N); // latent amplitude of shock
+  vector[N] delta_idio_sck = rep_vector(0,N); // latent amplitude of idiosyncratic shock
+  vector[N] delta_conc_sck = rep_vector(0,N); // latent amplitude of concordant shock
   vector[N] shutdown = rep_vector(0,N);  // shutdown state
   
   vector[N] tree_conc_state = rep_vector(0,N); 
@@ -573,12 +590,14 @@ generated quantities {
       int tree_start = tree_start_idxs[t];
       int tree_end = tree_end_idxs[t];
       
+      real omega_conc_sck = inv_logit(mu_omega_conc + alpha_omega_species[sp] + alpha_omega_stand[st]);
+      
       array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
       array[N_years[t]] int tree_clim_idxs = stand_clim_idxs[all_years_idxs_tree];
       
       f_ind[tree_start:tree_end] = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_ind[sp] .* f_tilde_ind[, t]);
       
-      mu_f[tree_start:tree_end] = alpha[sp] + alpha_stand[st]
+      mu_f[tree_start:tree_end] = alpha_stand[st]
         + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
         + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
         + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
@@ -602,10 +621,10 @@ generated quantities {
           ]';
           
           vector[4] lambdas = [
-            (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-            (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
+            (1-omega_conc_sck)*thetas_idio[t][1], 
+            (1-omega_conc_sck)*thetas_idio[t][2], 
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2]
           ]';
           
           lpd_nonconc[ys] += log_sum_exp(
@@ -630,15 +649,15 @@ generated quantities {
           ]';
           
           vector[9] lambdas = [
-            (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-            (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-            (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
+            (1-omega_conc_sck)*thetas_idio[t][1], 
+            (1-omega_conc_sck)*thetas_idio[t][2], 
+            (1-omega_conc_sck)*thetas_idio[t][3], 
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2],
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1],
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2],
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3]
           ]';
           
           lpd_nonconc[ys] += log_sum_exp(
@@ -677,6 +696,8 @@ generated quantities {
     int tree_end = tree_end_idxs[t];
     
     array[N_years[t]] int all_years_idxs_tree = all_years_idxs[tree_start:tree_end];
+    
+    real omega_conc_sck = inv_logit(mu_omega_conc + alpha_omega_species[sp] + alpha_omega_stand[st]);
     
     for (y in 1:N_years[t]) {
       
@@ -756,10 +777,10 @@ generated quantities {
           real conjugate_mean = (tau_idio^2 / (tau_idio^2 + sigma^2)) * residual;
           real conjugate_sd   = sqrt((tau_idio^2 * sigma^2) / (tau_idio^2 + sigma^2));
           
-          delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+          delta_idio_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
           tree_idio_state[idx] = 1;
           
-          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_sck[idx], sigma);
+          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_idio_sck[idx], sigma);
           
         } else { // sck_cat == 3, idiosync. shutdown
           
@@ -784,10 +805,10 @@ generated quantities {
           ]';
           
           vector[4] lambdas = [
-            (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-            (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
+            (1-omega_conc_sck)*thetas_idio[t][1], 
+            (1-omega_conc_sck)*thetas_idio[t][2], 
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2]
           ]';
           
           vector[4] jlps = log(lambdas) + lpds;
@@ -814,17 +835,17 @@ generated quantities {
           ]';
           
           vector[9] lambdas = [
-            (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-            (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
+            (1-omega_conc_sck)*thetas_idio[t][1], 
+            (1-omega_conc_sck)*thetas_idio[t][2], 
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2],
             
-            (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
-            omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+            (1-omega_conc_sck)*thetas_idio[t][3], 
+            omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3],
             
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
-            omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1],
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2],
+            omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3]
           ]';
           
           vector[9] jlps = log(lambdas) + lpds;
@@ -866,10 +887,10 @@ generated quantities {
           real conjugate_mean = (tau_idio^2 / (tau_idio^2 + sigma^2)) * residual;
           real conjugate_sd   = sqrt((tau_idio^2 * sigma^2) / (tau_idio^2 + sigma^2));
           
-          delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+          delta_idio_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
           tree_idio_state[idx] = 1;
           
-          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_sck[idx], sigma);
+          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_idio_sck[idx], sigma);
           
         } else if (sck_cat == 3) { // concordant depressed growth, no idiosync. shock
           
@@ -891,10 +912,10 @@ generated quantities {
           real conjugate_mean = (tau_conc[sp]^2 / (tau_conc[sp]^2 + sigma^2)) * residual;
           real conjugate_sd   = sqrt((tau_conc[sp]^2 * sigma^2) / (tau_conc[sp]^2 + sigma^2));
           
-          delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+          delta_conc_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
           tree_conc_state[idx] = 1;
           
-          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_sck[idx], sigma);
+          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_conc_sck[idx], sigma);
           
         } else if (sck_cat == 4) { // concordant depressed growth, idiosync. depressed growth
           
@@ -913,14 +934,27 @@ generated quantities {
             
           }
           
-          real conjugate_mean = ((tau_idio^2 + tau_conc[sp]^2) / (tau_idio^2 + tau_conc[sp]^2 + sigma^2)) * residual;
-          real conjugate_sd   = sqrt(((tau_idio^2 + tau_conc[sp]^2) * sigma^2) / (tau_idio^2 + tau_conc[sp]^2 + sigma^2));
+          // real conjugate_mean = ((tau_idio^2 + tau_conc[sp]^2) / (tau_idio^2 + tau_conc[sp]^2 + sigma^2)) * residual;
+          // real conjugate_sd   = sqrt(((tau_idio^2 + tau_conc[sp]^2) * sigma^2) / (tau_idio^2 + tau_conc[sp]^2 + sigma^2));
           
-          delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
+          // concordant part
+          real cm_conc  = tau_conc[sp]^2 / (tau_idio^2 + tau_conc[sp]^2 + sigma^2);
+          real sd_conc = sqrt(tau_conc[sp]^2 * (tau_idio^2 + sigma^2)
+                           / (tau_idio^2 + tau_conc[sp]^2 + sigma^2));
+          
+          delta_conc_sck[idx] = normal_rng(cm_conc * residual, sd_conc);
+          
+          // idiosyncratic part, on residual - delta_conc_sck[idx] (I should double check this is alright)
+          real cm_idio  = tau_idio^2 / (tau_idio^2 + sigma^2);
+          real sd_idio = sqrt((tau_idio^2 * sigma^2) / (tau_idio^2 + sigma^2));
+          
+          delta_idio_sck[idx] = normal_rng(cm_idio * (residual - delta_conc_sck[idx]), sd_idio);
+          
+          // delta_sck[idx] = normal_rng(conjugate_mean, conjugate_sd);
           tree_conc_state[idx] = 1;
           tree_idio_state[idx] = 1;
           
-          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_sck[idx], sigma);
+          log_rw_pred[idx] = normal_rng(mu_f[idx] + delta_conc_sck[idx] + delta_idio_sck[idx], sigma);
           
         } else if (sck_cat == 5) { // idiosync. shutdown (without any hidden concordant signal)
           
@@ -953,36 +987,130 @@ generated quantities {
     }
   }
   
-  // below: what fraction of each stand's total growth was lost due to shocks
-    vector[N_stands] ratio_shock; 
-    vector[N_stands] shock_decrease_perc; 
-    vector[N_stands] growth_obs = rep_vector(0, N_stands); // as realized
-    vector[N_stands] growth_cf = rep_vector(0, N_stands); // no concordant shocks
-
-    for (t in 1:N_trees) {
-      int st = stand_idxs[t];
-
-      for (idx in tree_start_idxs[t]:tree_end_idxs[t]) {
-
-        real base = exp(mu_f[idx]); // growth with no shock (counterfactual)
-        growth_cf[st] += base;
-
-        if (tree_conc_state[idx] == 1) {
-
-          if (shutdown[idx] == 1) {
-            growth_obs[st] += 0;
-          } else {
-            growth_obs[st] += exp(mu_f[idx] + delta_sck[idx]);
-          }
-        } else {
-          growth_obs[st] += base; // idiosyncratic effects ignored
+  // // average growth decrease, in percent, for one stand in one year (averaged across the trees sampled that year)
+  // matrix[N_stands, N_all_years] shock_perc = rep_matrix(999, N_stands, N_all_years);
+  // matrix[N_stands, N_all_years] sum_perc = rep_matrix(0, N_stands, N_all_years);
+  // array[N_stands, N_all_years] int n_trees = rep_array(0, N_stands, N_all_years);
+  // 
+  // for (t in 1:N_trees) {
+  //   int st = stand_idxs[t];
+  //   for (idx in tree_start_idxs[t]:tree_end_idxs[t]) {
+  //     int ay = all_years_idxs[idx];
+  //     real perc;
+  //     
+  //     if (tree_conc_state[idx] == 1) {
+  //       if (shutdown[idx] == 1) {
+  //         perc = -100;
+  //       }else {
+  //         perc = 100*(exp(delta_sck[idx]) - 1);
+  //       }
+  //     }else {
+  //       perc = 0;
+  //     }
+  //     
+  //     sum_perc[st, ay] += perc;
+  //     n_trees[st, ay] += 1;
+  //   }
+  // }
+  // 
+  // for (st in 1:N_stands){
+  //   for (ay in 1:N_all_years){
+  //     if (n_trees[st, ay] > 0){
+  //       shock_perc[st, ay] = sum_perc[st, ay] / n_trees[st, ay];
+  //     }
+  //   }
+  // }
+  
+  
+  // matrix[N_stands, N_all_years] shock_contrib = rep_matrix(not_a_number(), N_stands, N_all_years);
+  // matrix[N_stands, N_all_years] shutdown_perc =rep_matrix(not_a_number(), N_stands, N_all_years);
+  // 
+  // matrix[N_stands, N_all_years] sum_log = rep_matrix(0, N_stands, N_all_years);
+  // array[N_stands, N_all_years] int n_noshutdown = rep_array(0, N_stands, N_all_years);
+  // array[N_stands, N_all_years] int n_shutdown = rep_array(0, N_stands, N_all_years);
+  // array[N_stands, N_all_years] int n_all  = rep_array(0, N_stands, N_all_years);
+  // 
+  // for(t in 1:N_trees){
+  //     int st = stand_idxs[t];
+  // 
+  //     for(idx in tree_start_idxs[t]:tree_end_idxs[t]){
+  // 
+  //       int ay = all_years_idxs[idx];
+  //       n_all[st, ay] += 1;
+  // 
+  //       if(tree_conc_state[idx] == 1 && shutdown[idx] == 1){
+  // 
+  //         n_shutdown[st, ay] += 1;  
+  // 
+  //       }else{
+  // 
+  //         if(tree_conc_state[idx] == 1){
+  //           sum_log[st, ay] += delta_sck[idx];
+  //         }
+  //         n_noshutdown[st, ay] += 1;
+  //       }
+  //     }
+  // }
+  // 
+  // for(st in 1:N_stands) {
+  //   for(ay in 1:N_all_years){
+  // 
+  //     if (n_noshutdown[st, ay] > 0) {
+  //       shock_contrib[st, ay] = 100 * (exp(sum_log[st, ay] / n_noshutdown[st, ay]) - 1);
+  //     }
+  //     if (n_all[st, ay] > 0) {
+  //       shutdown_perc[st, ay] = 100.0 * n_shutdown[st, ay] / n_all[st, ay];
+  //     }
+  //   }
+  // }
+  
+  
+  matrix[N_stands, N_all_years] shock_growth_change = rep_matrix(not_a_number(), N_stands, N_all_years);
+  matrix[N_stands, N_all_years] shock_change_noshutdown = rep_matrix(not_a_number(), N_stands, N_all_years);
+  matrix[N_stands, N_all_years] shutdown_perc = rep_matrix(not_a_number(), N_stands, N_all_years);
+  matrix[N_stands, N_all_years] sum_log = rep_matrix(0, N_stands, N_all_years);
+  
+  array[N_stands, N_all_years] int n_noshutdown = rep_array(0, N_stands, N_all_years);
+  array[N_stands, N_all_years] int n_shutdown = rep_array(0, N_stands, N_all_years);
+  array[N_stands, N_all_years] int n_all  = rep_array(0, N_stands, N_all_years);
+  
+  for(t in 1:N_trees){
+    int st = stand_idxs[t];
+    for(idx in tree_start_idxs[t]:tree_end_idxs[t]){
+      int ay = all_years_idxs[idx];
+      n_all[st, ay] += 1;
+      if(tree_conc_state[idx] == 1 && shutdown[idx] == 1){
+        n_shutdown[st, ay] += 1;  
+      }else{
+        if(tree_conc_state[idx] == 1){
+          sum_log[st, ay] += delta_conc_sck[idx];
         }
+        n_noshutdown[st, ay] += 1;
       }
     }
-
-    for (st in 1:N_stands) {
-      ratio_shock[st] = growth_obs[st] / growth_cf[st];
-      shock_decrease_perc[st] = 100 * (1 - ratio_shock[st]);
+  }
+  
+  for(st in 1:N_stands) {
+    for(ay in 1:N_all_years){
+      if (n_noshutdown[st, ay] > 0) {
+        
+        real ratio_noshutdown = exp(sum_log[st, ay] / n_noshutdown[st, ay]); 
+        real contrib_shutdown = n_shutdown[st, ay] * 0;  
+        real contrib_noshutdown = n_noshutdown[st, ay] * ratio_noshutdown;
+        real ratio = (contrib_shutdown + contrib_noshutdown) / n_all[st, ay];
+        shock_change_noshutdown[st, ay] = 100 * (ratio_noshutdown - 1);
+        shock_growth_change[st, ay] = 100 * (ratio - 1);
+        
+      }else {
+        if (n_all[st, ay] > 0) {
+          shock_growth_change[st, ay] = -100; // all shutdown
+          shutdown_perc[st, ay] = 100.0 * n_shutdown[st, ay] / n_all[st, ay];
+        }
+      }
+      
+      
     }
-    
+  }
 }
+
+

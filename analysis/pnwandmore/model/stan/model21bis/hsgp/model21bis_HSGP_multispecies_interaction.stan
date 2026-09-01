@@ -96,11 +96,14 @@ functions {
                               real gdd0,
                               real pre0,
                               real vpd0,
-                              vector alpha,
+                              // vector alpha,
                               vector alpha_stand,
                               vector beta_gdd,
                               vector beta_pre,
                               vector beta_vpd,
+                              vector beta_pre2,
+                              vector beta_vpd2,
+                              vector beta_prexvpd,
                               array[] vector delta_clim,
                               vector kappa_clim,
                               matrix f_tilde_ind,
@@ -108,9 +111,13 @@ functions {
                               array[] vector sqrt_spd_ind,
                               real epsilon,
                               real sigma,
-                              vector omega_conc_sck,
+                              real mu_omega_conc,
+                              vector alpha_omega_species,
+                              vector alpha_omega_stand,
                               vector omega_shutdown,
-                              vector phi_sck,
+                              vector logit_phi_sck,
+                              real beta_phi_vpd,
+                              real beta_phi_pre,
                               array[] vector thetas_idio,
                               real sigma_idio,
                               vector sigma_conc,
@@ -142,12 +149,17 @@ functions {
   
           vector[N_years[t]] f_ind = PHI_sp[all_years_idxs_tree, ] * (sqrt_spd_ind[sp] .* f_tilde_ind[, t]);
           
-          vector[N_years[t]] mu = alpha[sp] + alpha_stand[st]
+          vector[N_years[t]] mu = alpha_stand[st]
             + beta_gdd[sp] * (gdd_obs[tree_clim_idxs] - gdd0)
             + beta_pre[sp] * (pre_obs[tree_clim_idxs] - pre0)
             + beta_vpd[sp] * (vpd_obs[tree_clim_idxs] - vpd0)
+            + beta_pre2[sp] * square(pre_obs[tree_clim_idxs] - pre0)
+            + beta_vpd2[sp] * square(vpd_obs[tree_clim_idxs] - vpd0)
+            + 2.0 * beta_prexvpd[sp] * (pre_obs[tree_clim_idxs] - pre0) .* (vpd_obs[tree_clim_idxs] - vpd0)
             // + kappa_sh[sp] * f_sh[st, all_years_idxs_tree]
             + kappa_clim[sp] * delta_clim[st, all_years_idxs_tree];
+            
+          real omega_conc_sck = inv_logit(mu_omega_conc + alpha_omega_species[sp] + alpha_omega_stand[st]);
           
           for (y in 1:N_years[t]) {
             
@@ -169,11 +181,11 @@ functions {
               ]';
               
               vector[4] lambdas = [
-                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
+                (1-omega_conc_sck)*thetas_idio[t][1], 
+                (1-omega_conc_sck)*thetas_idio[t][2], 
                 
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2]
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2]
               ]'; // implicit:  shutdown cannot happen (log(0))
               
               lpd_nonconc[ys] += log_sum_exp(
@@ -200,17 +212,17 @@ functions {
               ]';
   
               vector[9] lambdas = [
-                (1-omega_conc_sck[stsp])*thetas_idio[t][1], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][2], 
-                (1-omega_conc_sck[stsp])*thetas_idio[t][3], 
+                (1-omega_conc_sck)*thetas_idio[t][1], 
+                (1-omega_conc_sck)*thetas_idio[t][2], 
+                (1-omega_conc_sck)*thetas_idio[t][3], 
                 
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][1],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][2],
-                omega_conc_sck[stsp]*(1-omega_shutdown[stsp])*thetas_idio[t][3],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][1],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][2],
+                omega_conc_sck*(1-omega_shutdown[stsp])*thetas_idio[t][3],
                 
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][1],
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][2],
-                omega_conc_sck[stsp]*omega_shutdown[stsp]*thetas_idio[t][3]
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][1],
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][2],
+                omega_conc_sck*omega_shutdown[stsp]*thetas_idio[t][3]
               ]';
               
               lpd_nonconc[ys] += log_sum_exp(
@@ -224,7 +236,13 @@ functions {
         }
         
         for (y in 1:N_stand_years[st]) {
-          lp += log_mix(phi_sck[st], lpd_conc[y], lpd_nonconc[y]);
+          
+          int ys = (st - 1) * N_all_years + stand_start_years_idxs[st] + y - 1;
+          
+          real phi_sck_y =  inv_logit(logit_phi_sck[st]
+          + beta_phi_vpd * (vpd_obs[ys] - vpd0) * 10
+          + beta_phi_pre * (pre_obs[ys] - pre0) * 10);
+          lp += log_mix(phi_sck_y, lpd_conc[y], lpd_nonconc[y]);
         }
       }
     }
@@ -261,9 +279,9 @@ data {
   vector[N] rw_obs; // the observations! ring widths in mm
   
   // climate covariates, at the stand-level
-  vector[N_stands*N_all_years] gdd_obs; // GDD during entire year (x100 degC, kdegC?!)
-  vector[N_stands*N_all_years] pre_obs; // Winter precipitation, NDJFMA (dm)
-  vector[N_stands*N_all_years] vpd_obs; // VPD, JJA (hPa)
+  vector[N_stands*N_all_years] gdd_obs; // GDD during entire year (x1000 degC, kdegC?!)
+  vector[N_stands*N_all_years] pre_obs; // Winter precipitation, NDJFMA (m)
+  vector[N_stands*N_all_years] vpd_obs; // VPD, JJA (kPa)
   
   int<lower=1> grainsize; // to tweak reduce_sum efficiency
   
@@ -280,9 +298,9 @@ data {
 transformed data {
   
   // baselines
-  real gdd0 = 10;
-  real pre0 = 5;
-  real vpd0 = 23;
+  real gdd0 = 1;
+  real pre0 = 0.5;
+  real vpd0 = 2.3;
   
   real epsilon = 1e-3; // measurement precision threshold (could be estimated...)
   
@@ -303,8 +321,8 @@ transformed data {
 parameters {
   
   real mu_alpha;
-  real<lower=0> sigma_alpha;
-  vector[N_species] alpha;
+  // real<lower=0> sigma_alpha;
+  // vector[N_species] alpha;
   
   // real mu_alpha_stand;
   real<lower=0> sigma_alpha_stand;
@@ -321,6 +339,18 @@ parameters {
   real mu_beta_vpd;
   real<lower=0> sigma_beta_vpd;
   vector[N_species] beta_vpd;
+  
+  real mu_beta_pre2;
+  real<lower=0> sigma_beta_pre2;
+  vector[N_species] beta_pre2;
+  
+  real mu_beta_vpd2;
+  real<lower=0> sigma_beta_vpd2;
+  vector[N_species] beta_vpd2;
+  
+  real mu_beta_prexvpd;
+  real<lower=0> sigma_beta_prexvpd;
+  vector[N_species] beta_prexvpd;
   
   array[N_stands] vector[N_all_years] delta_clim;
   real<lower=0> tau_clim;
@@ -343,15 +373,21 @@ parameters {
   
   // The (original) shocks!
   // vector<lower=0>[N_stands] mu_conc; // log variation location
+  real mu_log_tau_conc;
+  real<lower=0> sigma_log_tau_conc; 
   vector<lower=0>[N_species] tau_conc; // log variation scale
   
   real mu_phi;
   real<lower=0> sigma_phi;
-  vector[N_stands] logit_phi_sck;
+  vector[N_stands] logit_phi_sck; // baselines!
+  real beta_phi_vpd; // effect of summer VPD on phi
+  real beta_phi_pre; // effect of winter pre on phi
   
   real mu_omega_conc;
-  real<lower=0> sigma_omega_conc;
-  vector[N_stand_species] logit_omega_conc_sck;
+  real<lower=0> sigma_omega_species;
+  real<lower=0> sigma_omega_stand;
+  vector[N_species] alpha_omega_species;
+  vector[N_stands] alpha_omega_stand;
   
   real mu_omega_shutdown;
   real<lower=0> sigma_omega_shutdown;
@@ -368,10 +404,15 @@ parameters {
 transformed parameters {
   
   vector<lower=0, upper=1>[N_stands] phi_sck = inv_logit(logit_phi_sck);
-  vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(logit_omega_conc_sck);
+  // vector<lower=0, upper=1>[N_stand_species] omega_conc_sck = inv_logit(logit_omega_conc_sck);
   vector<lower=0, upper=1>[N_stand_species] omega_shutdown = inv_logit(logit_omega_shutdown);
   
   vector<lower=0>[N_species] gamma_merged = exp(log_gamma_merged);
+  
+  // vector[N_species] beta_gdd2 = mu_beta_gdd2 + sigma_beta_gdd2 * beta_gdd2_tilde;
+  // vector[N_species] beta_pre2 = mu_beta_pre2 + sigma_beta_pre2 * beta_pre2_tilde;
+  // vector[N_species] beta_vpd2 = mu_beta_vpd2 + sigma_beta_vpd2 * beta_vpd2_tilde;
+  // vector[N_species] beta_prexvpd = mu_beta_prexvpd + sigma_beta_prexvpd * beta_prexvpd_tilde;
   
   vector[N_species] kappa_clim = exp(log_kappa_clim);
   // array[N_species] real kappa_clim = append_array({1}, kappa_clim_free);
@@ -404,26 +445,38 @@ transformed parameters {
 
 model {
   
-  mu_alpha ~ normal(0, log(10)/2.32);
-  sigma_alpha ~ normal(0, log(10)/2.32);
-  alpha ~ normal(mu_alpha, sigma_alpha);
+  mu_alpha ~ normal(0, log(10)/2.57);
+  // sigma_alpha ~ normal(0, log(10)/2.32);
+  // alpha ~ normal(mu_alpha, sigma_alpha);
   
   // mu_alpha_stand ~ normal(0, log(10)/2.32);
-  sigma_alpha_stand ~ normal(0, log(10)/2.32);
-  alpha_stand ~ normal(0, sigma_alpha_stand);
+  sigma_alpha_stand ~ normal(0, log(10)/2.57);
+  alpha_stand ~ normal(mu_alpha, sigma_alpha_stand);
   
-  mu_beta_gdd ~ normal(0, log(1.3) / 2.57);
-  sigma_beta_gdd ~ normal(0, log(1.3) / 2.57);
+  mu_beta_gdd ~ normal(0, log(1.75) / 2.57);
+  sigma_beta_gdd ~ normal(0, log(1.75) / 2.57);
   beta_gdd ~ normal(mu_beta_gdd, sigma_beta_gdd);
   
-  mu_beta_pre ~ normal(0, log(1.3) / 2.57);
-  sigma_beta_pre ~ normal(0, log(1.3) / 2.57);
+  mu_beta_pre ~ normal(0, log(1.75) / 2.57);
+  sigma_beta_pre ~ normal(0, log(1.75) / 2.57);
   beta_pre ~ normal(mu_beta_pre, sigma_beta_pre);
   
-  mu_beta_vpd ~ normal(0, log(1.3) / 2.57);
-  sigma_beta_vpd ~ normal(0, log(1.3) / 2.57);
+  mu_beta_vpd ~ normal(0, log(1.75) / 2.57);
+  sigma_beta_vpd ~ normal(0, log(1.75) / 2.57);
   beta_vpd ~ normal(mu_beta_vpd, sigma_beta_vpd);
   
+  mu_beta_pre2 ~ normal(0, log(1.5) / 2.57);
+  sigma_beta_pre2 ~ normal(0, log(1.5) / 2.57);
+  beta_pre2 ~ normal(mu_beta_pre2, sigma_beta_pre2);
+  
+  mu_beta_vpd2 ~ normal(0, log(1.5) / 2.57); 
+  sigma_beta_vpd2 ~ normal(0, log(1.5) / 2.57);
+  beta_vpd2 ~ normal(mu_beta_vpd2, sigma_beta_vpd2);
+  
+  mu_beta_prexvpd ~ normal(0, log(1.5) / 2.57);
+  sigma_beta_prexvpd ~ normal(0, log(1.5) / 2.57);
+  beta_prexvpd ~ normal(mu_beta_prexvpd, sigma_beta_prexvpd);
+
   mu_log_rho ~ normal(log(15), 0.5);
   sigma_log_rho ~ normal(0, 0.5);
   rho_merged ~ lognormal(mu_log_rho, sigma_log_rho);
@@ -435,7 +488,9 @@ model {
   
   to_vector(f_tilde_ind) ~ normal(0, 1);
   
-  tau_conc ~ normal(0, 3 / 2.57); // 
+  mu_log_tau_conc ~ normal(log(0.8), 0.5);
+  sigma_log_tau_conc ~ normal(0, 0.5);
+  tau_conc ~ lognormal(mu_log_tau_conc, sigma_log_tau_conc);
 
   // for (s in 1:N_stands)
   //   f_tilde_sh[s] ~ normal(0, 1);
@@ -447,18 +502,26 @@ model {
   for (s in 1:N_stands)
     delta_clim[s] ~ normal(0, tau_clim);
   // kappa_clim_free ~ lognormal(0, 0.41 / 2.32); // 2/3 <~ kappa_sh <~ 3/2
-  real s = 0.41 / 2.32;
-  log_kappa_clim ~ normal(0, s * sqrt(N_species * 1.0 / (N_species - 1)));
+  log_kappa_clim ~ normal(0, 0.41 / 2.32);
   
-  mu_phi ~ normal(-1.1, 0.3);
-  mu_omega_conc ~ normal(0.47, 0.3);
-  mu_omega_shutdown ~ normal(-1.63, 0.3);
-  sigma_phi ~ normal(0.8, 0.3);
-  sigma_omega_conc ~ normal(0.82, 0.3);
-  sigma_omega_shutdown ~ normal(0.87, 0.3);
+  mu_phi ~ normal(-2.17, 0.40); // 5-20%
+  sigma_phi ~ normal(0, 1.0); // up to 70% (already a lot)
   logit_phi_sck ~ normal(mu_phi, sigma_phi);
-  logit_omega_conc_sck ~ normal(mu_omega_conc, sigma_omega_conc);
+  
+  // mu_omega_conc ~ normal(-0.49, 0.46); // 0-60%
+  mu_omega_conc ~ normal(0, 0.71); // 20-80%
+  sigma_omega_species ~ normal(0, 1); // allows up to ~100%
+  sigma_omega_stand ~ normal(0, 1); // allows up to ~100%
+  alpha_omega_species ~ normal(0, sigma_omega_species);
+  alpha_omega_stand ~ normal(0, sigma_omega_stand);
+  
+  mu_omega_shutdown ~ normal(-4.93, 1); // 0-5%
+  sigma_omega_shutdown ~ normal(0, 1.85); // up to 70% (already a lot...)
   logit_omega_shutdown ~ normal(mu_omega_shutdown, sigma_omega_shutdown);
+  
+  // not well thought
+  beta_phi_vpd ~ normal(0, 0.3); // 
+  beta_phi_pre ~ normal(0, 0.3); // 
   
   // Idiosyncratic shocks
   vector[3] thetas_baseline = [100, 20, 1]';
@@ -500,11 +563,14 @@ model {
       gdd0,
       pre0,
       vpd0,
-      alpha,
+      // alpha,
       alpha_stand,
       beta_gdd,
       beta_pre,
       beta_vpd,
+      beta_pre2,
+      beta_vpd2,
+      beta_prexvpd,
       delta_clim,
       kappa_clim,
       f_tilde_ind,
@@ -512,9 +578,13 @@ model {
       sqrt_spd_ind,
       epsilon,
       sigma,
-      omega_conc_sck,
+      mu_omega_conc,
+      alpha_omega_species,
+      alpha_omega_stand,
       omega_shutdown,
-      phi_sck,
+      logit_phi_sck,
+      beta_phi_vpd,
+      beta_phi_pre,
       thetas_idio,
       sigma_idio,
       sigma_conc,
