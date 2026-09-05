@@ -37,7 +37,7 @@ params <- c(
   "mu_log_rho", "sigma_log_rho", "rho_merged",
   "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged", 'gamma_merged',
   "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
-  "mu_phi", "sigma_phi", "logit_phi_sck", "phi_sck", "beta_phi_vpd", "beta_phi_pre",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "phi_sck", "beta_phi_vpd", "beta_phi_pre", "beta_phi_gdd",
   "mu_omega_conc", "sigma_omega_species", "sigma_omega_stand", "alpha_omega_species", "alpha_omega_stand",
   "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", "omega_shutdown",
   "thetas_idio", "tau_idio",
@@ -66,7 +66,7 @@ params <- c(
   "mu_log_rho", "sigma_log_rho", "rho_merged",
   "mu_log_gamma", "sigma_log_gamma", "log_gamma_merged",
   "mu_log_tau_conc", "sigma_log_tau_conc", "tau_conc",
-  "mu_phi", "sigma_phi", "logit_phi_sck", "beta_phi_vpd", "beta_phi_pre",
+  "mu_phi", "sigma_phi", "logit_phi_sck", "beta_phi_vpd", "beta_phi_pre", "beta_phi_gdd",
   "mu_omega_conc", "sigma_omega_species", "sigma_omega_stand", "alpha_omega_species", "alpha_omega_stand", 
   "mu_omega_shutdown", "sigma_omega_shutdown", "logit_omega_shutdown", 
   "thetas_idio", "tau_idio",
@@ -79,3 +79,24 @@ for(p in params){
                                  check_arrays = TRUE)
   util$check_all_expectand_diagnostics(rest, min_ess_hat_per_chain=50)
 }
+
+par(mfrow = c(1,3), mar = c(4,4,1,1))
+util$plot_expectand_pushforward(base_samples[['beta_phi_vpd']], 50,
+                                display_name = bquote(beta[VPD]^phi),
+                                flim = c(-0.5,0.5))
+util$plot_expectand_pushforward(base_samples[['beta_phi_pre']], 50,
+                                display_name = bquote(beta[pre]^phi),
+                                flim = c(-0.5,0.5))
+util$plot_expectand_pushforward(base_samples[['beta_phi_gdd']], 50,
+                                display_name = bquote(beta[GDD]^phi),
+                                flim = c(-0.5,0.5))
+
+par(mfrow = c(1,1), mar = c(4,4,1,1))
+for(s in data$species_idxs){
+  base_samples[[paste0('omega_species[',s,']')]] <- 
+    boot::inv.logit(base_samples[['mu_omega_conc']] + base_samples[[paste0('alpha_omega_species[',s,']')]] )
+}
+util$plot_disc_pushforward_quantiles_sign(base_samples, paste0('omega_species[',1:data$N_species,']'), display_ylim = c(0,1),
+                                          ylab = "omega_species", xlab = 'Species', xticklabs = data$uniq_species_ids, ignore_sign = TRUE)
+
+

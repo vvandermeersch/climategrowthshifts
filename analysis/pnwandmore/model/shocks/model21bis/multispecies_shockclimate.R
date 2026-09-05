@@ -177,7 +177,7 @@ for(s in 1:data$N_stands){
   }
 }
 
-par(mar = c(2,4,1,1))
+par(mfrow = c(1,1), mar = c(2,4,1,1))
 names <- paste0('mean_phi[',1:data$N_all_years,']')
 util$plot_conn_pushforward_quantiles(base_samples, names, data$all_years,
                                      ylab = 'Avg. p(concordant event)')

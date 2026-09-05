@@ -8,7 +8,7 @@ source('mcmc_visualization_tools.R', local=util)
 source('mcmc_custom_functions.R', local = util)
 setwd(wd)
 
-mod_gq <- cmdstan_model(file.path(wd, 'model/stan/model21bis/hgsp/old', 'model21bis_HSGP_multispecies_nofind_pooled_climateshocks_withGQ.stan'))
+mod_gq <- cmdstan_model(file.path(wd, 'model/stan/model21bis/hsgp/old', 'model21bis_HSGP_multispecies_nofind_pooled_climateshocks_withGQ.stan'))
 
 folder <- '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model'
 data <- readRDS(file.path(folder,'data_10july2026_24species_365stands_19502022.rds'))
@@ -20,10 +20,13 @@ data$N_clades <- 1
 data$uniq_stand_lat <- NULL
 data$uniq_stand_lon <- NULL
 
-fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_24species_365stands_withinit_7threads_climateshocks.rds'))
+fit <- readRDS(file.path(wd, 'output/model/model21bis', 'fit_model21bis_HGSP_24species_365stands_withinit_4threads_climateshocks.rds'))
 gc()
 fit_gq <- mod_gq$generate_quantities(fit, data = data, seed = 1234567, parallel_chains = 4,
-                                     output_dir = '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model/model21bis/tmp')
+                                     output_dir = '/home/victor/projects/climategrowthshifts/analysis/pnwandmore/output/model/model21bis/tmp',
+                                     output_basename = '24species_365stands')
+gc()
+
 
 gq_samples <- fit_gq$draws(variables = c('shock_change_noshutdown', 'shock_growth_change', 'shutdown_perc'))
 names <- dimnames(gq_samples)$variable
@@ -90,4 +93,48 @@ abline(v = data$all_years[47], lty = 2)
 
 
 
+
+
+gq_samples <- fit_gq$draws(variables = c('tree_conc_state', 'tree_idio_state', 'delta_conc_sck', 'delta_idio_sck', 'shock_change_noshutdown'))
+names <- dimnames(gq_samples)$variable
+gq_samples <- lapply(1:dim(gq_samples)[3],
+                     function(k){t(matrix(gq_samples[1:dim(gq_samples)[1],1:dim(gq_samples)[2],k],
+                                          nrow = dim(gq_samples)[1], ncol = dim(gq_samples)[2]))})
+names(gq_samples) <- names
+gc()
+
+
+t <- sample(1:data$N_trees, 1)
+
+t <- 901
+idxs <- data$tree_start_idxs[t]:data$tree_end_idxs[t]
+
+par(mfrow = c(5,1), mar = c(4,4,1,1))
+
+st <- data$stand_idxs[t]
+util$plot_conn_pushforward_quantiles_missingrings(gq_samples, paste0('shock_change_noshutdown[', st,',',1:data$N_stand_years[st],']'), 
+                                                  plot_xs = data$all_years[1:data$N_stand_years[st]],
+                                                  display_ylim = c(-70,40), 
+                                                  display_xlim = range(data$years[idxs]),
+                                                  ylab = "Shock contribution")
+
+util$plot_conn_pushforward_quantiles(gq_samples, paste0('delta_conc_sck[', idxs,']'), 
+                                     plot_xs = data$years[idxs], ylab = 'Concordant shock amplitude')
+
+util$plot_conn_pushforward_quantiles(gq_samples, paste0('tree_conc_state[', idxs,']'), 
+                                     plot_xs = data$years[idxs], ylab = 'Concordant state')
+util$plot_conn_pushforward_quantiles(gq_samples, paste0('delta_idio_sck[', idxs,']'), 
+                                     plot_xs = data$years[idxs], ylab = 'Idiosyncratic shock amplitude')
+util$plot_conn_pushforward_quantiles(gq_samples, paste0('tree_idio_state[', idxs,']'), 
+                                     plot_xs = data$years[idxs], ylab = 'Idiosyncratic state')
+
+
+
+stand_samples <- fit_gq$draws(variables = c('shock_change_noshutdown'))
+names <- dimnames(stand_samples)$variable
+stand_samples <- lapply(1:dim(stand_samples)[3],
+                     function(k){t(matrix(stand_samples[1:dim(stand_samples)[1],1:dim(stand_samples)[2],k],
+                                          nrow = dim(stand_samples)[1], ncol = dim(stand_samples)[2]))})
+names(stand_samples) <- names
+gc()
 
