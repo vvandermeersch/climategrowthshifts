@@ -113,7 +113,6 @@ functions {
                               vector omega_shutdown,
                               real mu_phi,
                               vector logit_phi_sck,
-                              real beta_phi_gdd,
                               real beta_phi_vpd,
                               real beta_phi_pre,
                               array[] vector thetas_idio,
@@ -230,7 +229,6 @@ functions {
           real phi_sck_y =  inv_logit(
             mu_phi
           + logit_phi_sck[st]
-          + beta_phi_gdd * (gdd_obs[ys] - gdd0)
           + beta_phi_vpd * (vpd_obs[ys] - vpd0)
           + beta_phi_pre * (pre_obs[ys] - pre0));
           lp += log_mix(phi_sck_y, lpd_conc[y], lpd_nonconc[y]);
@@ -367,7 +365,6 @@ parameters {
   real mu_phi;
   // real<lower=0> sigma_phi;
   sum_to_zero_vector[N_stands] logit_phi_sck; // baselines!
-  real beta_phi_gdd; // effect of GDD on phi
   real beta_phi_vpd; // effect of summer VPD on phi
   real beta_phi_pre; // effect of winter pre on phi
   
@@ -502,7 +499,7 @@ model {
   
   mu_phi ~ normal(-2.17, 0.40); // 5-20%
   // sigma_phi ~ normal(0, 1.0); // up to 70% (already a lot)
-  // logit_phi_sck ~ normal(mu_phi, sigma_phi);
+  logit_phi_sck ~ normal(0, 5/2.57);
   
   mu_omega_conc ~ normal(-0.49, 0.46); // 0-60%
   sigma_omega_species ~ normal(0, 1); // up to ~100%
@@ -561,7 +558,6 @@ model {
       vpd0,
       // alpha,
       alpha_stand,
-      beta_gdd,
       beta_pre,
       beta_vpd,
       delta_clim,
