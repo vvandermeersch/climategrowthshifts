@@ -4,6 +4,9 @@ library(readr)
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
+#run the model on different real world data by changing species df to:
+#species_2008.csv,AE10abam_2008.csv,AG05abam_2008.csv,AM16abam_2008.csv,AR07abam_2008.csv
+#AV06abam_2008.csv,TB13abam_2008.csv,TO04abam_2008,csv they are of the same format
 species_df <- read_csv("data/processed data/species_2008.csv")
 phy_correlation_matrix <- readRDS("phy_correlation_matrix.rds")
 

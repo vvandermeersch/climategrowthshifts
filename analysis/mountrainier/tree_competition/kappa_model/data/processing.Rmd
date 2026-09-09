@@ -34,8 +34,8 @@ tree_rw <- focal_df %>%
 
 focal_df <- focal_df %>%
   mutate(DBH = as.numeric(DBH)) %>%
-  mutate(radius = (DBH/2)/10)%>% # X10cm
-  select(radius,Species,Tag) %>%
+  mutate(radius = (DBH/2)/10) %>% # X10cm
+  select(Stand,radius,Species,Tag) %>%
   distinct() %>%   
   left_join(tree_rw,by="Tag")
 
@@ -91,6 +91,12 @@ species_2008 <- neighbour_df_2008 %>%
 species_2008 <- na.omit(species_2008)
 
 write.csv(species_2008,"processed data/species_2008.csv",row.names = FALSE)
+df_list <- split(species_2008,species_2008$Stand)
+for (i in names(df_list)) {
+  abam <- df_list[[i]] %>%
+    filter(Species=="Abam")
+  write.csv(abam,file = file.path("processed data",paste0(i,"abam_2008.csv")))
+}
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

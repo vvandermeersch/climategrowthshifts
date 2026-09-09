@@ -47,7 +47,22 @@ png(
   res = 200
 )
 pred_names <- sapply(1:stan_data$Nf,function(n) paste0('y_rep[',n,']'))
+species_name <- levels(factor(tree_sp))
 util$plot_conditional_mean_quantiles(samples,pred_names,stan_data$tree_sp,1,7,1,stan_data$y,residual = FALSE,xlab="species",ylab="conditional mean of tree growth (mm)")
+rect(
+  par("usr")[1],
+  par("usr")[3] - 0.12 * diff(par("usr")[3:4]),
+  par("usr")[2],
+  par("usr")[3],
+  col = "white",
+  border = NA,
+  xpd = TRUE
+)
+axis(
+  side = 1,
+  at = 1:6,
+  labels = species_name
+)
 dev.off()
 ```
 
@@ -77,9 +92,7 @@ png(
   res = 200
 )
 par(mfrow=c(1,1))
-# util$plot_line_hists(samples[["sigma"]],samples3[["sigma"]],0.45,0.65, 0.01,xlab=bquote(sigma~"(standard deviation of tree growth)"))
-# text(0.45,1000,1.25,label="2008",pos=4,col="black")
-# text(0.52,1000,1,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
+
 plot(0,type="n",xlim=c(0.45,0.65),ylim=c(0,1300),
      xlab=bquote(sigma~"(standard deviation of tree growth)"),
      ylab="counts")
@@ -90,10 +103,6 @@ text(0.45,1000,1.25,label="2008",pos=4,col="black")
 text(0.52,1000,1,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
 text(0.52,700,1,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
 dev.off()
-#08 vs avg5
-# util$plot_line_hists(samples[["sigma"]],samples5[["sigma"]],0.45,0.65, 0.01,xlab=bquote(sigma~"(standard deviation of tree growth)"))
-# text(0.45,1000,1.25,label="2008",pos=4,col="black")
-# text(0.52,1000,1,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark_teal)
 ```
 
 ```{r y0 visualization}
@@ -105,7 +114,7 @@ on.exit(dev.off())
 par(mfrow=c(2,3))
 for(i in 1:6){
   util$plot_expectand_pushforward(samples[[paste0('y0[',i,']')]], 20, paste0('y0[',i,'](baseline growth mm)'))
-  abline(v = mu[i])
+  #abline(v = mu[i])
 }
 ```
 
@@ -243,3 +252,55 @@ param_names <- c(
 util$plot_disc_pushforward_quantiles(samples, param_names,xlab="individual parameters")
 
 ```
+
+```{r test elevation abam}
+sigmaxmin <- floor(min(min(samples[['sigma']]),
+                 min(samples3[['sigma']]),
+                 min(samples5[['sigma']]))*100)/100
+sigmaxmax <- ceiling(max(max(samples[['sigma']]),
+                 max(samples3[['sigma']]),
+                 max(samples5[['sigma']]))*100)/100
+
+betaxmin <- floor(min(min(samples[['beta[1]']]),
+                 min(samples3[['beta[1]']]),
+                 min(samples5[['beta[1]']]))*1000)/1000
+
+betaxmax <- ceiling(max(max(samples[['beta[1]']]),
+                 max(samples3[['beta[1]']]),
+                 max(samples5[['beta[1]']]))*1000)/1000
+
+# kappa for all stands
+par(mfrow=c(1,1))
+# plot(0,type="n",
+#      xlim = c(0,1),xlab=bquote(kappa~"(strength of the species in competition)"),
+#      ylim = c(0,400),ylab="Counts")
+# util$plot_line_hist(samples[["k"]],0,1,0.05,col="black",add=TRUE)
+# util$plot_line_hist(samples3[["k"]],0,1,0.05,col=util$c_mid_teal,add=TRUE)
+# util$plot_line_hist(samples5[["k"]],0,1,0.05,col=util$c_dark,add=TRUE)
+# text(0.2,300,0.5,label="2008",pos=4,col="black")
+# text(0,200,0.5,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
+# text(0.5,100,0.5,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
+# 
+# # sigma for AG05
+# plot(0,type="n",xlim=c(sigmaxmin,sigmaxmax),ylim=c(0,1300),
+#      xlab=bquote(sigma~"(standard deviation of tree growth)"),
+#      ylab="counts")
+# util$plot_line_hist(samples[["sigma"]],sigmaxmin,sigmaxmax,0.01,col="black",add=TRUE)
+# util$plot_line_hist(samples3[["sigma"]],sigmaxmin,sigmaxmax,0.01,col=util$c_mid_teal,add=TRUE)
+# util$plot_line_hist(samples5[["sigma"]],sigmaxmin,sigmaxmax,0.01,col=util$c_dark,add=TRUE)
+# text(sigmaxmin+0.03,1000,1.25,label="2008",pos=4,col="black")
+# text(sigmaxmax-0.05,1000,1,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
+# text(sigmaxmax-0.05,700,1,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
+
+# beta[1]
+plot(0,type="n",xlim=c(betaxmin,betaxmax),ylim=c(0,300),
+     xlab=bquote(beta~"(Impact of inter-species competition)"),
+     ylab="counts")
+util$plot_line_hist(samples[["beta[1]"]],betaxmin,betaxmax,0.001,col="black",add=TRUE)
+util$plot_line_hist(samples3[["beta[1]"]],betaxmin,betaxmax,0.001,col=util$c_mid_teal,add=TRUE)
+util$plot_line_hist(samples5[["beta[1]"]],betaxmin,betaxmax,0.001,col=util$c_dark,add=TRUE)
+text(betaxmin+0.003,200,1.25,label="2008",pos=4,col="black")
+text(betaxmax-0.1,200,1,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
+text(betaxmax-0.1,250,1,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
+```
+
