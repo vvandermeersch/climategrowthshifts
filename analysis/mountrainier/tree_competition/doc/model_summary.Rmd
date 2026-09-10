@@ -190,6 +190,13 @@ knitr::include_graphics("D:/ubc_study/udergrad_research/temporal ecology lab/cli
 
 ### Interpretation
 
+#### Posterior Distribution of $\beta$ and $\gamma$
+
+Comparing the posterior distributions of $\beta$ across species, CANO and ABAM appear to be more sensitive to interspecific competition than the other focal species, as their posterior distributions are centered at higher values of $\beta$.
+
+The posterior distributions of $\gamma$ are broadly similar across all focal species, suggesting little species-level variation in their efficiency of utilizing available resources. 
+
+#### Comparison
 Overall the estimates seem quite consistent. 
 
 I have the model run on the tree growth data in 2008, the average tree growth from the last three years, and the average tree growth from the last five years and the above visualizations compare the estimates of the parameter. Roughly speaking, for parameters $\kappa$, $\sigma$, and $\gamma$, the estimates from tree growth data in 2008, average tree growth from the last three years, and average of the last five years are quite close because their posterior distributions mostly overlap. This consistency suggests that the inference for these parameters is not strongly affected by short-term variation in tree growth around 2008.

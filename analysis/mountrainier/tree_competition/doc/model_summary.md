@@ -242,6 +242,19 @@ knitr::include_graphics("D:/ubc_study/udergrad_research/temporal ecology lab/cli
 
 ### Interpretation
 
+#### Posterior Distribution of $\beta$ and $\gamma$
+
+Comparing the posterior distributions of $\beta$ across species, CANO
+and ABAM appear to be more sensitive to interspecific competition than
+the other focal species, as their posterior distributions are centered
+at higher values of $\beta$.
+
+The posterior distributions of $\gamma$ are broadly similar across all
+focal species, suggesting little species-level variation in their
+efficiency of utilizing available resources.
+
+#### Comparison
+
 Overall the estimates seem quite consistent.
 
 I have the model run on the tree growth data in 2008, the average tree
