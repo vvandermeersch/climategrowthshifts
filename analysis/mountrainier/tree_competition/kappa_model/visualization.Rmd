@@ -271,16 +271,16 @@ betaxmax <- ceiling(max(max(samples[['beta[1]']]),
 
 # kappa for all stands
 par(mfrow=c(1,1))
-# plot(0,type="n",
-#      xlim = c(0,1),xlab=bquote(kappa~"(strength of the species in competition)"),
-#      ylim = c(0,400),ylab="Counts")
-# util$plot_line_hist(samples[["k"]],0,1,0.05,col="black",add=TRUE)
-# util$plot_line_hist(samples3[["k"]],0,1,0.05,col=util$c_mid_teal,add=TRUE)
-# util$plot_line_hist(samples5[["k"]],0,1,0.05,col=util$c_dark,add=TRUE)
-# text(0.2,300,0.5,label="2008",pos=4,col="black")
-# text(0,200,0.5,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
-# text(0.5,100,0.5,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
-# 
+plot(0,type="n",
+     xlim = c(0,1),xlab=bquote(kappa~"(strength of the species in competition)"),
+     ylim = c(0,400),ylab="Counts")
+util$plot_line_hist(samples[["k"]],0,1,0.05,col="black",add=TRUE)
+util$plot_line_hist(samples3[["k"]],0,1,0.05,col=util$c_mid_teal,add=TRUE)
+util$plot_line_hist(samples5[["k"]],0,1,0.05,col=util$c_dark,add=TRUE)
+text(0.2,300,0.5,label="2008",pos=4,col="black")
+text(0,200,0.5,label="avg(06,07,08)",pos=4,col=util$c_mid_teal)
+text(0.5,100,0.5,label="avg(04,05,06,07,08)",pos=4,col=util$c_dark)
+
 # # sigma for AG05
 # plot(0,type="n",xlim=c(sigmaxmin,sigmaxmax),ylim=c(0,1300),
 #      xlab=bquote(sigma~"(standard deviation of tree growth)"),

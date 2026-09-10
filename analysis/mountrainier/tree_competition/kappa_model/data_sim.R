@@ -156,7 +156,7 @@ stan_data$end_idx   <- as.integer(end_idx)
 
 #data simulation
 fit <- stan(
-  file = 'deltamodel_multispecies.stan',
+  file = 'stan/deltamodel_multispecies.stan',
   data = stan_data,
   iter = 2000,
   chains = 4,
