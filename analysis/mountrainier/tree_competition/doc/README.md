@@ -1,0 +1,1 @@
+This is a folder containing a summary document of the $\delta$ model development process. The content includes results and interpretations of intermediate analysis (data simulation, posterior predictive check, etc), and the previous and current version of the $\delta$ model. 
