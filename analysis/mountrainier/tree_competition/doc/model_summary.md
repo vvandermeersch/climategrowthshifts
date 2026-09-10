@@ -14,6 +14,16 @@ a phylogenetic correlation matrix) and the remaining component that is
 unexplained by evolutionary history. Note that the model use to be named
 the $\kappa$ model but then swithched to the $\delta$ model.
 
+## Ecological Assumptions
+
+- We assume that the strength of competition from neighboring trees
+  depends on their phylogenetic relatedness to the focal tree. This is
+  because phylogenetically close species have same traits and compete
+  for the same resources.
+- We assume that focal species differ in their responses to neighboring
+  competition, while these species-specific responses share an
+  underlying common distribution.
+
 ## Previous Model
 
 The full stan implementation is available in
@@ -155,6 +165,47 @@ knitr::include_graphics(c("D:/ubc_study/udergrad_research/temporal ecology lab/c
 
 <img src="../../figures/deltamodeldatasimulation_1.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_2.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_3.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_4.png" alt="" width="3200" /><img src="../../figures/deltamodeldatasimulation_5.png" alt="" width="3200" />
 
+### Explanation
+
+The vertical black lines indicate the “true” parameter values used to
+generate the simulated data. Parameter recovery is generally good, as
+the posterior distributions for most parameters are concentrated around
+the corresponding true values.
+
+## Retrodictive Check (on 2008 data only)
+
+``` r
+knitr::include_graphics(
+  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_treegrowth.png"
+)
+```
+
+<img src="../../figures/deltamodelretrocheck_treegrowth.png" alt="" width="2000" />
+
+``` r
+knitr::include_graphics(
+  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_species.png"
+)
+```
+
+<img src="../../figures/deltamodelretrocheck_species.png" alt="" width="2000" />
+
+``` r
+knitr::include_graphics(
+  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_treesize.png"
+)
+```
+
+<img src="../../figures/deltamodelretrocheck_treesize.png" alt="" width="2000" />
+
+The model’s estimated mean growth for focal trees in the 80–100 cm size
+range is far from the observed mean growth for this group. However, most
+focal trees in the input data fall within the 20–80 cm range, with fewer
+than 5 trees greater than 80 cm. Therefore, the observed mean growth for
+the 80–100 cm group is based on a very small sample and may not be
+representative to the population. We don’t consider this discrepancy a
+major concern for our model assessment.
+
 ## Result
 
 ### Model fitted on 2008 data vs Model fitted on the average of the last five years (2004-2008) vs Model fitted on the average of the last three years (2006-2008)
@@ -211,40 +262,6 @@ changed (the index represents the focal species). The center of the
 posterior distributions of $\beta_1$ changed with the tree growth data
 used, and so did the variances of $\beta_1$ and $\beta_2$. The centers
 and variances of $\beta$ for the other species stayed roughly constant.
-
-## Retrodictive Check
-
-``` r
-knitr::include_graphics(
-  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_treegrowth.png"
-)
-```
-
-<img src="../../figures/deltamodelretrocheck_treegrowth.png" alt="" width="2000" />
-
-``` r
-knitr::include_graphics(
-  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_species.png"
-)
-```
-
-<img src="../../figures/deltamodelretrocheck_species.png" alt="" width="2000" />
-
-``` r
-knitr::include_graphics(
-  "D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures/deltamodelretrocheck_treesize.png"
-)
-```
-
-<img src="../../figures/deltamodelretrocheck_treesize.png" alt="" width="2000" />
-
-The model’s estimated mean growth for focal trees in the 80–100 cm size
-range is far from the observed mean growth for this group. However, most
-focal trees in the input data fall within the 20–80 cm range, with fewer
-than 5 trees greater than 80 cm. Therefore, the observed mean growth for
-the 80–100 cm group is based on a very small sample and may not be
-representative to the population. We don’t consider this discrepancy a
-major concern for our model assessment.
 
 ## Current Limitation and Next Step
 
