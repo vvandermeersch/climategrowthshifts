@@ -17,7 +17,7 @@ the $\kappa$ model but then swithched to the $\delta$ model.
 ## Previous Model
 
 The full stan implementation is available in
-“analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan”
+“analysis/mountrainier/tree_competition/kappa_model/stan/singleSpModel.stan”
 
 ## Current Model Specification
 
@@ -141,7 +141,7 @@ $$
 ### Implementation
 
 The full stan implementation is available in
-“analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan”
+“analysis/mountrainier/tree_competition/kappa_model/stan/deltamodel_multispecies.stan”
 
 ## Data Simulation Result
 
@@ -261,8 +261,8 @@ below.
 
 | File | Description |
 |----|----|
-| `analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan` | Stan implementation of the single species $\delta$ model. |
-| `analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan` | Stan implementation of the current $\delta$ model. |
+| `analysis/mountrainier/tree_competition/kappa_model/stan/singleSpModel.stan` | Stan implementation of the single species $\delta$ model. |
+| `analysis/mountrainier/tree_competition/kappa_model/stan/deltamodel_multispecies.stan` | Stan implementation of the current $\delta$ model. |
 | `analysis/mountrainier/tree_competition/kappa_model/data/processedprocessed data/species_2008.csv` | Processed tree ring and neighborhood data |
 | `analysis/mountrainier/tree_competition/kappa_model/data_sim.R` | fake data simulation |
 | `analysis/mountrainier/tree_competition/kappa_model/confronting_with_real_data.R` | fits the model on existing tree growth data from mountrainier |

@@ -135,7 +135,7 @@ stan_data$end_idx   <- as.integer(end_idx)
 
 
 fit <- stan(
-  file = "deltamodel_multispecies.stan",
+  file = "stan/deltamodel_multispecies.stan",
   #file = "model.stan",
   data = stan_data,
   iter = 2000,
@@ -147,7 +147,7 @@ fit <- stan(
 )
 
 fit3 <- stan(
-  file = "deltamodel_multispecies.stan",
+  file = "stan/deltamodel_multispecies.stan",
   #file = "model.stan",
   data = stan_data3,
   iter = 2000,
@@ -159,7 +159,7 @@ fit3 <- stan(
 )
 
 fit5 <- stan(
-  file = "deltamodel_multispecies.stan",
+  file = "stan/deltamodel_multispecies.stan",
   #file = "model.stan",
   data = stan_data5,
   iter = 2000,

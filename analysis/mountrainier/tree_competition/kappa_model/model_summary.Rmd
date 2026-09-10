@@ -11,7 +11,7 @@ This Bayesian hierachical model studies neighboring competition's effect on foca
 
 ## Previous Model
 
-The full stan implementation is available in "analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan"
+The full stan implementation is available in "analysis/mountrainier/tree_competition/kappa_model/stan/singleSpModel.stan"
 
 ## Current Model Specification
 
@@ -139,7 +139,7 @@ $$
 
 ### Implementation
 
-The full stan implementation is available in "analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan"
+The full stan implementation is available in "analysis/mountrainier/tree_competition/kappa_model/stan/deltamodel_multispecies.stan"
 
 ## Data Simulation Result
 
@@ -198,8 +198,8 @@ The main files used for model fitting and visualization are listed below.
 
 | File | Description |
 |---|---|
-| `analysis/mountrainier/tree_competition/kappa_model/singleSpModel.stan` | Stan implementation of the single species $\delta$ model. | 
-| `analysis/mountrainier/tree_competition/kappa_model/deltamodel_multispecies.stan` | Stan implementation of the current $\delta$ model. | `analysis/mountrainier/tree_competition/kappa_model/data/processing.Rmd` | R script to process the raw tree ring data |
+| `analysis/mountrainier/tree_competition/kappa_model/stan/singleSpModel.stan` | Stan implementation of the single species $\delta$ model. | 
+| `analysis/mountrainier/tree_competition/kappa_model/stan/deltamodel_multispecies.stan` | Stan implementation of the current $\delta$ model. | `analysis/mountrainier/tree_competition/kappa_model/data/processing.Rmd` | R script to process the raw tree ring data |
 | `analysis/mountrainier/tree_competition/kappa_model/data/processedprocessed data/species_2008.csv` | Processed tree ring and neighborhood data |
 | `analysis/mountrainier/tree_competition/kappa_model/data_sim.R` | fake data simulation |
 | `analysis/mountrainier/tree_competition/kappa_model/confronting_with_real_data.R` | fits the model on existing tree growth data from mountrainier |
