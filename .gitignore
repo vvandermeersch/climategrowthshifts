@@ -46,8 +46,9 @@ analysis/pnwandmore/model/genouest
 analysis/pnwandmore/model/shocks/output
 analysis/pnwandmore/model/shocks/figures
 
+analysis/pnwandmore/model/improve_computation/output/model
+
 docs/reports/examples/
 /notposting
-
 
 .Rproj.user
