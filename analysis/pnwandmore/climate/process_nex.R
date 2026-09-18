@@ -8,8 +8,13 @@ datasets <- unique(datasets[,c("grouped_stand", "east_lon", "north_lat")])
 plots <- vect(datasets, geom=c("east_lon", "north_lat"))
 plotsID <- data.frame(ID = 1:dim(plots)[1], grouped_stand = datasets$grouped_stand)
 
-gcms <- c('IPSL-CM6A-LR')
-variants <- c('r1i1p1f1')
+gcms <- c('IPSL-CM6A-LR', 'CNRM-ESM2-1', 'GFDL-ESM4')
+variants <- c('r1i1p1f1', 'r1i1p1f2', 'r1i1p1f1')
+grids <- c('gr', 'gr', 'gr1')
+
+gcms <- c('CNRM-ESM2-1')
+variants <- c('r1i1p1f2')
+grids <- c('gr')
 
 tmean_df <- data.frame()
 gdd_df <- data.frame()
@@ -21,10 +26,11 @@ for(m in gcms){
   
   fdm <- file.path(wd, fd, m)
   v <- variants[which(gcms == m)]
+  g <- grids[which(gcms == m)]
   
   # historical
   s <- 'historical'
-  years <- 1951:2014
+  years <- 1997:2014
   hist_fdm <- file.path(fdm, s, v)
   
   for(y in years){
@@ -33,11 +39,11 @@ for(m in gcms){
     #----
     # tmean, all month
     var <- 'tasmin'
-    file <- paste0(paste(var, 'mon', m, s, v, 'gr', y, sep = '_'), '.nc')
+    file <- paste0(paste(var, 'mon', m, s, v, g, y, sep = '_'), '.nc')
     rmin <- rast(file.path(hist_fdm, var, file))
     
     var <- 'tasmax'
-    file <- paste0(paste(var, 'mon', m, s, v, 'gr', y, sep = '_'), '.nc')
+    file <- paste0(paste(var, 'mon', m, s, v, g, y, sep = '_'), '.nc')
     rmax <- rast(file.path(hist_fdm, var, file))
     
     datmin <- terra::extract(rmin, plots)
@@ -75,10 +81,10 @@ for(m in gcms){
     # pr in NDJFMA
     var <- 'pr'
   
-    file <- paste0(paste(var, 'mon', m, s, v, 'gr', y-1, sep = '_'), '.nc')
+    file <- paste0(paste(var, 'mon', m, s, v, g, y-1, sep = '_'), '.nc')
     rp <- rast(file.path(hist_fdm, var, file)) # previous yeqr
     
-    file <- paste0(paste(var, 'mon', m, s, v, 'gr', y, sep = '_'), '.nc')
+    file <- paste0(paste(var, 'mon', m, s, v, g, y, sep = '_'), '.nc')
     r <- rast(file.path(hist_fdm, var, file))
     
     cr <- c(subset(rp, 11:12), subset(r, 1:4))
@@ -93,7 +99,7 @@ for(m in gcms){
     # I do: saturation vapor pressure at the monthly max. temperature minus actual vapor pressure
     # this is close to what PRISM does for long-term data
     var <- 'vpr'
-    file <- paste0(paste(var, 'mon', m, s, v, 'gr', y, sep = '_'), '.nc')
+    file <- paste0(paste(var, 'mon', m, s, v, g, y, sep = '_'), '.nc')
     r <- rast(file.path(hist_fdm, var, file))
     
     datvpr <- terra::extract(r, plots)
