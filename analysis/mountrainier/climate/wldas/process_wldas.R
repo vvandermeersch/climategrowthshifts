@@ -9,9 +9,13 @@ kippenberger <- c("#8B174DFF", "#AE2565FF", "#C1447EFF", "#D06C9BFF", "#DA9FB8FF
 wd <- "/home/victor/projects/climategrowthshifts/analysis/mountrainier/data"
 
 plots <- read.csv(file.path(wd, "treerings_ailene", "tree_plot_climate_temp.csv"))
+plots <- plots[,c("Longitude", "Latitude", "Plot", "Elevation")]
+plots <- rbind(plots,
+               data.frame(Longitude = -121.654919, Latitude = 46.928111, Plot = 'SUNR', 'Elevation' = 1823))
+
 plots <- vect(unique(plots[,c("Longitude", "Latitude", "Plot", "Elevation")]), geom=c("Longitude", "Latitude"))
 
-plotsID <- data.frame(ID = 1:16, plotname = plots$Plot, alt = plots$Elevation)
+plotsID <- data.frame(ID = 1:17, plotname = plots$Plot, alt = plots$Elevation)
 
 years <- seq(1980,2023,1)
 vars <- list("tair" = "Tair_f_tavg", 
@@ -57,6 +61,9 @@ for(year in years){
   datdf <- rbind(datdf, daty)
   
 }
+
+datdf <- merge(datdf, plotsID)
+saveRDS(datdf, file = "/home/victor/projects/climategrowthshifts/analysis/mountrainier/input/climate/wldas_dailyclim.rds")
 
 # reshape(datdf, direction = "wide", timevar = "date", idvar = "ID")
 
