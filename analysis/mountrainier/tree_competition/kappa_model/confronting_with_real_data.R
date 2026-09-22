@@ -12,6 +12,7 @@ stand_file_list <- list("data/processed data/AE10abam_2008.csv","data/processed 
                         "data/processed data/AV06abam_2008.csv","data/processed data/TB13abam_2008.csv")
 phy_correlation_matrix <- readRDS("phy_correlation_matrix.rds")
 samplefit <- list()
+samplefit3 <- list()
 
 for (i in stand_file_list) {
   species_df <- read_csv(i)
@@ -178,100 +179,110 @@ for (i in stand_file_list) {
   )
   
   samplefit <- append(samplefit, fit)
+  samplefit3 <- append(samplefit3,fit3)
 }
 
-# species_df <- read_csv("data/processed data/TB13abam_2008.csv")
-# phy_correlation_matrix <- readRDS("phy_correlation_matrix.rds")
-# 
-# # data input
-# set.seed(1000)
-# focal_tags <- unique(species_df$Tag)
-# Nf <- length(focal_tags)
-# 
-# N <- integer(0)
-# b <- numeric(0)
-# ra <- numeric(0)
-# start_idx <- integer(0)
-# end_idx <- integer(0)
-# focal_corr <- numeric(0)
-# 
+# ---------------------------------------------------------------------------------------------------
+
+setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/tree_competition/kappa_model")
+species_df <- read_csv("data/harvardForest1/processed/species_2014.csv")
+species_df$Tag <- paste(species_df$tree.id,species_df$stem.id,sep="_")
+species_df <- species_df %>%
+  select(Tag,neighbor_latin,ba_sum,radius_2014,latin,growth) %>%
+  dplyr::rename(`Species(neighbor)`= neighbor_latin,
+                radius= radius_2014,
+                Species=latin) %>%
+  filter(Tag %in% unique(Tag)[1:1000])
+
+phy_correlation_matrix <- readRDS("hfphy_corr_matrix.rds")
+
+# data input
+set.seed(1000)
+focal_tags <- unique(species_df$Tag)
+Nf <- length(focal_tags)
+
+N <- integer(0)
+b <- numeric(0)
+ra <- numeric(0)
+start_idx <- integer(0)
+end_idx <- integer(0)
+focal_corr <- numeric(0)
+
+for (i in 1:Nf) {
+  id = focal_tags[i]
+  this_df <- species_df %>%
+    filter(Tag==id)
+  
+  N <- c(N,length(this_df$`Species(neighbor)`))
+  
+  b <- c(b,this_df$ba_sum)
+  ra <- c(ra,unique(this_df$radius))
+  
+  all_idx <- which(species_df$Tag==id)
+  start_idx <- c(start_idx,all_idx[1])
+  end_idx <- c(end_idx, all_idx[length(all_idx)])
+  
+  neighbours <- this_df$`Species(neighbor)`
+  focal_spe <- this_df$Species[1]
+  for (i in 1:length(neighbours)) {
+    neighbour_spe <- neighbours[i]
+    if (nchar(focal_spe)==4){
+      focal_spe <- toupper(focal_spe)
+    }
+    if (nchar(neighbour_spe)==4) {
+      neighbour_spe <- toupper(neighbour_spe)
+    }
+    focal_corr <- c(focal_corr,phy_correlation_matrix[focal_spe,neighbour_spe])
+  }
+}
+
+N_total <- sum(N)
+
+
+# # transformed parameter
+# BA_compet0 <- 16
+# bf0 <- 2
+# competition <- numeric(Nf)
+# baphy <- numeric(Nf)
+# avails <- numeric(Nf)
+# mu <- numeric(Nf)
+#
 # for (i in 1:Nf) {
-#   id = focal_tags[i]
-#   this_df <- species_df %>%
-#     filter(Tag==id)
-#   
-#   N <- c(N,length(this_df$`Species(neighbor)`))
-#   
-#   b <- c(b,this_df$ba_sum)
-#   ra <- c(ra,unique(this_df$radius))
-#   
-#   all_idx <- which(species_df$Tag==id)
-#   start_idx <- c(start_idx,all_idx[1])
-#   end_idx <- c(end_idx, all_idx[length(all_idx)])
-#   
-#   neighbours <- this_df$`Species(neighbor)`
-#   focal_spe <- this_df$Species[1]
-#   for (i in 1:length(neighbours)) {
-#     neighbour_spe <- neighbours[i]
-#     if (nchar(focal_spe)==4){
-#       focal_spe <- toupper(focal_spe)
-#     }
-#     if (nchar(neighbour_spe)==4) {
-#       neighbour_spe <- toupper(neighbour_spe)
-#     }
-#     focal_corr <- c(focal_corr,phy_correlation_matrix[focal_spe,neighbour_spe])
-#   }
+#   bn <- b[start_idx[i]:end_idx[i]]
+#   corrn <- focal_corr[start_idx[i]:end_idx[i]]
+#   baphy[i] = sum(bn*(corrn^k))
+#   competition[i]=beta*(baphy[i]-BA_compet0)
+#   avails[i] = (bf[i]-bf0)*r
+#   mu[i]=log(y0) + avails[i] - competition[i]
 # }
-# 
-# N_total <- sum(N)
-# 
-# 
-# # # transformed parameter
-# # BA_compet0 <- 16
-# # bf0 <- 2
-# # competition <- numeric(Nf)
-# # baphy <- numeric(Nf)
-# # avails <- numeric(Nf)
-# # mu <- numeric(Nf)
-# # 
-# # for (i in 1:Nf) {
-# #   bn <- b[start_idx[i]:end_idx[i]]
-# #   corrn <- focal_corr[start_idx[i]:end_idx[i]]
-# #   baphy[i] = sum(bn*(corrn^k))
-# #   competition[i]=beta*(baphy[i]-BA_compet0)
-# #   avails[i] = (bf[i]-bf0)*r
-# #   mu[i]=log(y0) + avails[i] - competition[i]
-# # }
-# # 
-# # 
-#  focal_unique <- unique(species_df[,c("Tag","2008","avg_3","avg_5")])
-#  y <- focal_unique$`2008`
-#  y3 <- focal_unique$avg_3
-#  y5 <- focal_unique$avg_5
-#  
-#  S <- length(unique(species_df$Species))
-#  tree_sp <- species_df %>%
-#    select(Tag,Species)%>%
-#    unique()%>%
-#    pull(Species)
-#  
-#  tree_sp_numeric <- as.numeric(factor(tree_sp))
-#  # levels(factor(tree_sp))
-# # stan data
-# stan_data <- list(
-#   Nf = Nf,
-#   S = S,
-#   N = N,
-#   tree_sp = tree_sp_numeric,
-#   N_total = N_total,
-#   b = b,
-#   focal_corr = focal_corr,
-#   start_idx = start_idx,
-#   end_idx = end_idx,
-#   ra = ra,
-#   y = y
-# )
-# 
+#
+#
+focal_unique <- unique(species_df[,c("Tag","growth")])
+y <- focal_unique$growth
+
+S <- length(unique(species_df$Species))
+tree_sp <- species_df %>%
+  select(Tag,Species)%>%
+  unique()%>%
+  pull(Species)
+
+tree_sp_numeric <- as.numeric(factor(tree_sp))
+# levels(factor(tree_sp))
+# stan data
+stan_data <- list(
+  Nf = Nf,
+  S = S,
+  N = N,
+  tree_sp = tree_sp_numeric,
+  N_total = N_total,
+  b = b,
+  focal_corr = focal_corr,
+  start_idx = start_idx,
+  end_idx = end_idx,
+  ra = ra,
+  y = y
+)
+
 # stan_data3 <- list(
 #   Nf = as.integer(Nf),
 #   S = S,
@@ -299,26 +310,24 @@ for (i in stand_file_list) {
 #   ra = ra,
 #   y = y5
 # )
-# 
-# 
-# stan_data$Nf <- as.integer(Nf)
-# stan_data$start_idx <- as.integer(start_idx)
-# stan_data$end_idx   <- as.integer(end_idx)
-# 
-# 
-# 
-# fit <- stan(
-#   file = "stan/deltamodel_multispecies.stan",
-#   #file = "model.stan",
-#   data = stan_data,
-#   iter = 2000,
-#   chains = 4,
-#   seed = 123,
-#   control = list(
-#     adapt_delta = 0.95
-#   )
-# )
-# 
+
+
+stan_data$Nf <- as.integer(Nf)
+stan_data$start_idx <- as.integer(start_idx)
+stan_data$end_idx   <- as.integer(end_idx)
+
+fit <- stan(
+  file = "stan/deltamodel_multispecies.stan",
+  #file = "model.stan",
+  data = stan_data,
+  iter = 2000,
+  chains = 4,
+  seed = 123,
+  control = list(
+    adapt_delta = 0.95
+  )
+)
+
 # fit3 <- stan(
 #   file = "stan/deltamodel_multispecies.stan",
 #   #file = "model.stan",
@@ -330,7 +339,7 @@ for (i in stand_file_list) {
 #     adapt_delta = 0.95
 #   )
 # )
-# 
+
 # fit5 <- stan(
 #   file = "stan/deltamodel_multispecies.stan",
 #   #file = "model.stan",
@@ -341,4 +350,4 @@ for (i in stand_file_list) {
 #   control = list(
 #     adapt_delta = 0.95
 #   )
-# )
+#)

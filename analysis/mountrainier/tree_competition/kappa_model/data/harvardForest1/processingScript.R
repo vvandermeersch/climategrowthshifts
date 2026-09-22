@@ -10,7 +10,7 @@ setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/a
 
 # processing species code, clean up individuals with unknown genus
 # unify the unknown species to "spp."
-species_code <- read_csv("hf253-02-species-codes.csv")%>%
+species_code <- read_csv("hf253-02-species-codes.csv") %>%
   filter(genus!="Unidentified") %>%
   mutate(species = ifelse(species %in% c("unknown","unk_hardwood","unk_conifer","species"),
                           "spp.",species)) %>%
@@ -33,15 +33,15 @@ growthchange <- stem_list[[1]]%>%
              by = c("tree.id","stem.id"),
              suffix = c("_2014","_2019"))%>%
   filter(sp_2014==sp_2019) %>%
-  mutate(growth = (dbh_2019-dbh_2014)/2,
+  mutate(growth = 10*(dbh_2019-dbh_2014)/2, # tree growth (mm)
          locationchange = sqrt((gx_2014-gx_2019)^2+(gy_2014-gy_2019)^2))%>%
   filter(locationchange==0)%>%
-  select(tree.id,stem.id,sp_2014,gx_2014,gy_2014,growth)%>%
+  select(tree.id,stem.id,sp_2014,gx_2014,gy_2014,growth,dbh_2019,dbh_2014)%>%
   rename(sp=sp_2014,gx=gx_2014,gy=gy_2014)%>%
   inner_join(species_code,by="sp")
 
 # calculate the neighborhood in 2014 and 2019
-neighborhood_list <- map(stem_list,function(d) {
+neighborhood_list <- purrr::map(stem_list,function(d) {
   dat <- d %>% filter(!is.na(gx),!is.na(gy))
   coords <- as.matrix(dat[,c("gx","gy")])
   neighbors <- frNN(coords,eps=10,sort=TRUE)
@@ -88,3 +88,34 @@ neighbor_2019 <- neighborhood_list[[2]] %>%
 write.csv(neighbor_2014,"processed/neighborhood_2014.csv")
 write.csv(neighbor_2019,"processed/neighborhood_2019.csv")
 write.csv(growthchange,"processed/tree_growth.csv")
+
+species_2014 <- growthchange %>%
+  left_join(neighbor_2014,by= c("tree.id"="focal_treeid",
+                                "stem.id"="focal_stemid"))%>%
+  mutate(ba = pi*(neighbor_dbh/2)^2) %>%
+  group_by(tree.id,stem.id,neighbor_latin) %>%
+  summarize(ba_sum = sum(ba)/1e3) %>% # basal area (*1000cm^2)
+  left_join(growthchange) %>%
+  mutate(radius_2014 = dbh_2014/20,
+         radius_2019 = dbh_2019/20) %>% #radius unit (*10 cm)
+  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2014,latin,genus,species,growth) %>%
+  filter(growth > 0)%>%
+  rename("speciesName"=species,
+         "genusName"=genus)
+
+species_2019 <- growthchange %>%
+  left_join(neighbor_2019,by= c("tree.id"="focal_treeid",
+                                "stem.id"="focal_stemid"))%>%
+  mutate(ba = pi*(neighbor_dbh/2)^2) %>%
+  group_by(tree.id,stem.id,neighbor_latin) %>%
+  summarize(ba_sum = sum(ba)/1e3) %>% # basal area (*1000cm^2)
+  left_join(growthchange) %>%
+  mutate(radius_2014 = dbh_2014/20,
+         radius_2019 = dbh_2019/20) %>% #radius unit (*10 cm)
+  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2019,latin,genus,species,growth) %>%
+  filter(growth > 0)%>%
+  rename("speciesName"=species,
+         "genusName"=genus)
+
+write.csv(species_2014,"processed/species_2014.csv")
+write.csv(species_2019,"processed/species_2019.csv")
