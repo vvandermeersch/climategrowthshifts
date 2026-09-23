@@ -93,9 +93,9 @@ species_2008 <- na.omit(species_2008)
 write.csv(species_2008,"processed data/species_2008.csv",row.names = FALSE)
 df_list <- split(species_2008,species_2008$Stand)
 for (i in names(df_list)) {
-  abam <- df_list[[i]] %>%
-    filter(Species=="Psme")
-  write.csv(abam,file = file.path("processed data",paste0(i,"psme_2008.csv")))
+  thpl <- df_list[[i]] %>%
+    filter(Species=="Tshe")
+  write.csv(thpl,file = file.path("processed data",paste0(i,"tshe_2008.csv")))
 }
 ```
 

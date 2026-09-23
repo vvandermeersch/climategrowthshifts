@@ -4,13 +4,13 @@ library(readr)
 rstan_options(auto_write = TRUE)
 options(mc.cores = parallel::detectCores())
 
+setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/tree_competition/kappa_model")
 #run the model on different real world data by changing species df to:
 #species_2008.csv,AE10abam_2008.csv,AG05abam_2008.csv,AM16abam_2008.csv,AR07abam_2008.csv
 #AV06abam_2008.csv,TB13abam_2008.csv,TO04abam_2008,csv they are of the same format
-stand_file_list <- list("data/processed data/AE10abam_2008.csv","data/processed data/AG05abam_2008.csv",
-                        "data/processed data/AM16abam_2008.csv","data/processed data/AR07abam_2008.csv",
-                        "data/processed data/AV06abam_2008.csv","data/processed data/TB13abam_2008.csv")
-phy_correlation_matrix <- readRDS("phy_correlation_matrix.rds")
+stand_file_list <- list("data/processed data/AG05tshe_2008.csv","data/processed data/AX15tshe_2008.csv",
+                        "data/processed data/TO04tshe_2008.csv","data/processed data/AV06tshe_2008.csv","data/processed data/TB13tshe_2008.csv")
+phy_correlation_matrix1 <- readRDS("phy_correlation_matrix.rds")
 samplefit <- list()
 samplefit3 <- list()
 
@@ -54,7 +54,7 @@ for (i in stand_file_list) {
       if (nchar(neighbour_spe)==4) {
         neighbour_spe <- toupper(neighbour_spe)
       }
-      focal_corr <- c(focal_corr,phy_correlation_matrix[focal_spe,neighbour_spe])
+      focal_corr <- c(focal_corr,phy_correlation_matrix1[focal_spe,neighbour_spe])
     }
   }
   
@@ -142,7 +142,7 @@ for (i in stand_file_list) {
   
   
   
-  fit <- stan(
+  fit1 <- stan(
     file = "stan/deltamodel_multispecies.stan",
     #file = "model.stan",
     data = stan_data,
@@ -150,7 +150,7 @@ for (i in stand_file_list) {
     chains = 4,
     seed = 123,
     control = list(
-      adapt_delta = 0.95
+      adapt_delta = 0.99
     )
   )
   
@@ -162,23 +162,23 @@ for (i in stand_file_list) {
     chains = 4,
     seed = 123,
     control = list(
-      adapt_delta = 0.95
+      adapt_delta = 0.99
     )
   )
   
-  fit5 <- stan(
-    file = "stan/deltamodel_multispecies.stan",
-    #file = "model.stan",
-    data = stan_data5,
-    iter = 2000,
-    chains = 4,
-    seed = 123,
-    control = list(
-      adapt_delta = 0.95
-    )
-  )
+  # fit5 <- stan(
+  #   file = "stan/deltamodel_multispecies.stan",
+  #   #file = "model.stan",
+  #   data = stan_data5,
+  #   iter = 2000,
+  #   chains = 4,
+  #   seed = 123,
+  #   control = list(
+  #     adapt_delta = 0.95
+  #   )
+  # )
   
-  samplefit <- append(samplefit, fit)
+  samplefit <- append(samplefit, fit1)
   samplefit3 <- append(samplefit3,fit3)
 }
 

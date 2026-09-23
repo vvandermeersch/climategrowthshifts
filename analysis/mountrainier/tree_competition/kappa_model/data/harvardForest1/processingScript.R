@@ -98,7 +98,7 @@ species_2014 <- growthchange %>%
   left_join(growthchange) %>%
   mutate(radius_2014 = dbh_2014/20,
          radius_2019 = dbh_2019/20) %>% #radius unit (*10 cm)
-  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2014,latin,genus,species,growth) %>%
+  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2014,latin,genus,species,growth,dbh_2019,dbh_2014) %>%
   filter(growth > 0)%>%
   rename("speciesName"=species,
          "genusName"=genus)
@@ -112,7 +112,7 @@ species_2019 <- growthchange %>%
   left_join(growthchange) %>%
   mutate(radius_2014 = dbh_2014/20,
          radius_2019 = dbh_2019/20) %>% #radius unit (*10 cm)
-  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2019,latin,genus,species,growth) %>%
+  select(tree.id,stem.id,ba_sum,neighbor_latin,radius_2019,latin,genus,species,growth,dbh_2019,dbh_2014) %>%
   filter(growth > 0)%>%
   rename("speciesName"=species,
          "genusName"=genus)
