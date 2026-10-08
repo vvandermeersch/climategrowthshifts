@@ -217,9 +217,9 @@ functions {
           
           int ys = (st - 1) * N_all_years + stand_start_years_idxs[st] + y - 1;
           
+          // October 8: corrected a mistake here...
           real phi_sck_y =  inv_logit(
-            mu_phi
-          + logit_phi_sck[st]
+          logit_phi_sck[st]
           + beta_phi_vpd * (vpd_obs[ys] - vpd0)
           + beta_phi_pre * (pre_obs[ys] - pre0));
           lp += log_mix(phi_sck_y, lpd_conc[y], lpd_nonconc[y]);
@@ -338,9 +338,9 @@ parameters {
   // vector<lower=0>[N_species] rho_short; // length scale
   real<lower=0> rho_short;
   
-  real mu_log_gamma_short;
-  real<lower=0> sigma_log_gamma_short;
-  vector[N_species] log_gamma_short; // marginal variation
+  // real mu_log_gamma_short;
+  // real<lower=0> sigma_log_gamma_short;
+  real log_gamma_short; // marginal variation
   
   real mu_log_delta_rho;
   real<lower=0> sigma_log_delta_rho;
@@ -388,7 +388,7 @@ transformed parameters {
   
   vector<lower=0>[N_species] rho_long = rho_short + exp(log_delta_rho);
   
-  vector<lower=0>[N_species] gamma_short = exp(log_gamma_short);
+  real<lower=0> gamma_short = exp(log_gamma_short);
   vector<lower=0>[N_species] gamma_long = exp(log_gamma_long);
   
   vector[N_species] kappa_clim = exp(log_kappa_clim);
@@ -418,7 +418,7 @@ transformed parameters {
   {
     for(sp in 1:N_species){
       matrix[N_all_years, N_all_years] cov_ind
-      = gp_exp_quad_cov(all_years, gamma_short[sp], rho_short)
+      = gp_exp_quad_cov(all_years, gamma_short, rho_short)
       + gp_exp_quad_cov(all_years, gamma_long[sp], rho_long[sp])
       + diag_matrix(rep_vector(1e-8, N_all_years));
       
@@ -474,9 +474,10 @@ model {
   rho_short ~ lognormal(log(2.5), 0.3);
   
   // was gamma ~ normal(0, log(5)/2.57) before partial pooling
-  mu_log_gamma_short ~ normal(log(0.22), 0.58); 
-  sigma_log_gamma_short ~ normal(0, 0.5); 
-  log_gamma_short ~ normal(mu_log_gamma_short, sigma_log_gamma_short); 
+  // mu_log_gamma_short ~ normal(log(0.22), 0.58); 
+  // sigma_log_gamma_short ~ normal(0, 0.5); 
+  // log_gamma_short ~ normal(mu_log_gamma_short, sigma_log_gamma_short); 
+  log_gamma_short ~ normal(log(0.22), 0.58);
   
   mu_log_delta_rho ~ normal(log(30), 0.5); 
   sigma_log_delta_rho ~ normal(0, 0.5);
@@ -525,10 +526,10 @@ model {
   beta_phi_pre ~ normal(0, 0.3); // 
   
   // Idiosyncratic shocks
-  vector[3] thetas_baseline = [10, 1, 0]';
-  real omega_thetas = 7;
-  vector[3] almost_ones =  [1, 1, 0.2]';
-  vector[3] alphas = thetas_baseline / omega_thetas + almost_ones;
+  vector[3] thetas_baseline = [100, 20, 1]';
+  real omega_thetas = 10;
+  vector[3] ones =  [1, 1, 1]';
+  vector[3] alphas = thetas_baseline / omega_thetas + ones;
   
   for (t in 1:N_trees) {
     thetas_idio[t] ~ dirichlet(alphas);
