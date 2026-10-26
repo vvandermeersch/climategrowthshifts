@@ -5,6 +5,7 @@ library(purrr)
 library(stringr)
 library(tidyverse)
 library(dbscan)
+library(ggplot2)
 
 setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/tree_competition/kappa_model/data/harvardForest1")
 
@@ -119,3 +120,23 @@ species_2019 <- growthchange %>%
 
 write.csv(species_2014,"processed/species_2014.csv")
 write.csv(species_2019,"processed/species_2019.csv")
+
+#plotting the dbh histogram
+library(ggplot2)
+b <- 5
+xlim1 <- c(0,100)
+p2014 <- ggplot(species_2014,aes(x=dbh_2014)) + geom_histogram(binwidth=b)+coord_cartesian(xlim = xlim1) +
+  labs(title = "2014", x = "DBH(cm)")
+p2019 <- ggplot(species_2014,aes(x=dbh_2019)) + geom_histogram(binwidth=b)+coord_cartesian(xlim = xlim1) + 
+  labs(title = "2019", x = "DBH(cm)")
+p2014+p2019
+
+# plotting the dbh by species 
+df <- read.csv("processed/species_2014.csv")
+setwd("D:/ubc_study/udergrad_research/temporal ecology lab/climategrowthshifts/analysis/mountrainier/figures")
+
+plot <- ggplot(df, aes(dbh_2014)) + geom_histogram(bins=20) + facet_wrap(latin~.,scales="free_y")
+ggsave("dbh_by_species.pdf",
+       plot = plot,
+       width = 16,
+       height = 8)
